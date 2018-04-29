@@ -17,6 +17,9 @@ public class GameController : MonoBehaviour {
         GameEngine engine = handler.GameEngine;
 
         //DrawPlayerHand(engine);
+        DrawEnviroment();
+        DrawAnimals(engine.AnimalsDeck);
+        DrawGoods(engine.GoodsDeck);
         DrawDices();
         DrawAvailableProjectCards(engine.AvailableProjectCards);
 
@@ -24,6 +27,30 @@ public class GameController : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
+    }
+
+    static void DrawAnimals(Deck animalsDeck) {
+        if (animalsDeck.Cards.Count > 0) {
+            UICard.DrawCard(animalsDeck.Cards[0], D.PositionAnimalToTakeCard1);
+        }
+        if (animalsDeck.Cards.Count > 1) {
+            UICard.DrawCard(animalsDeck.Cards[1], D.PositionAnimalToTakeCard2);
+        }
+    }
+
+    static void DrawGoods(Deck goodsDeck) {
+        if (goodsDeck.Cards.Count > 0) {
+            UICard.DrawCard(goodsDeck.Cards[0], D.PositionGoodsToTakeCard1);
+        }
+        if (goodsDeck.Cards.Count > 1) {
+            UICard.DrawCard(goodsDeck.Cards[1], D.PositionGoodsToTakeCard2);
+        }
+    }
+
+    static void DrawEnviroment() {
+        UICard.DrawCard(Card.DummyAllEstates, D.PositionAllEstatesCard, true);
+        UICard.DrawCard(Card.DummyAllProjects, D.PositionAllProjectsCard, true);
+        UICard.DrawCard(Card.DummyAllStorages, D.PositionAllStoragesCard, true);
     }
 
     static void DrawDices() {

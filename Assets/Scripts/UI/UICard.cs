@@ -22,21 +22,22 @@ public class UICard : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
 
     }
 
-    public static GameObject DrawCard(Card c, Vector2 coords) {
-        return DrawCard(c, coords.x, coords.y);
+    public static GameObject DrawCard(Card c, Vector2 coords, bool horizontal = false) {
+        return DrawCard(c, coords.x, coords.y, horizontal);
     }
 
     public static void DrawDot(Vector2 coords) {
         DrawDot(coords.x, coords.y);
     }
 
-    public static GameObject DrawCard(Card c, float x, float y) {
+    public static GameObject DrawCard(Card c, float x, float y, bool horizontal = false) {
         GameObject canvas = GameObject.Find("Canvas");
         GameObject newCard = new GameObject();
         newCard.AddComponent<CanvasRenderer>();
 
         RectTransform rectTransform = newCard.AddComponent<RectTransform>();
         rectTransform.localScale = new Vector3(1f, 1f, 1f);
+        if (horizontal) rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
         rectTransform.sizeDelta = new Vector2(D.CardWidth, D.CardHeight);
 
         Image image = newCard.AddComponent<Image>();
@@ -69,8 +70,30 @@ public class UICard : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
     private static Sprite GetSpriteForCard(Card card) {
         var fileUri = "Cards/";
 
+
         switch (card.Class) {
-            case CardClass.None:
+            case CardClass.Worker:
+                fileUri += "worker";
+                break;
+            case CardClass.Silver:
+                fileUri += "silver";
+                break;
+            case CardClass.AllEstates:
+                fileUri += "estate";
+                break;
+            case CardClass.AllBonuses:
+                fileUri += "bonus";
+                break;
+            case CardClass.AllAnimals:
+                fileUri += "all_animals";
+                break;
+            case CardClass.AllStorages:
+                fileUri += "store";
+                break;
+            case CardClass.AllProjects:
+                fileUri += "project";
+                break;
+            case CardClass.Dice:
                 switch (card.Dice) {
                     case CardDice.I:
                         fileUri += "dice1";
@@ -117,8 +140,6 @@ public class UICard : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
                         fileUri += "goods5-6";
                         break;
                 }
-                break;
-            case CardClass.Dice:
                 break;
             case CardClass.BonusA:
                 fileUri += "bonusA";

@@ -4,21 +4,18 @@ using System.Collections.Generic;
 
 namespace Models {
 
-    public enum CardType {
-        Animal, Actions, Worker, Silver, Goods,
-        EndTurn, None // its not exactly a Card, but it's convenient
-    }
-
     public enum CardClass {
         // Worker, Silver
         None,
+        EndTurn,
 
         // Animals
         Chicken, Cow, Sheep, Pig,
         Goods,
 
         // Enviroment
-        Dice,
+        Dice, Worker, Silver,
+        AllProjects, AllEstates, AllAnimals, AllBonuses, AllStorages,
 
         // Bonuses
         BonusA, BonusB, BonusC, BonusD, BonusE,
@@ -51,38 +48,42 @@ namespace Models {
     }
 
     public class Card {
-        public Card(CardType cardType, CardClass cardClass = CardClass.None, CardDice cardDice = CardDice.O) {
-            Type = cardType;
+        public Card(CardClass cardClass = CardClass.None, CardDice cardDice = CardDice.O) {
             Dice = cardDice;
             Class = cardClass;
         }
 
-        public readonly CardType Type;
         public readonly CardClass Class;
         public readonly CardDice Dice;
 
         public override string ToString() {
-            return "Card[ " + Type + " - " + Class + " - " + Dice + " ]";
+            return "Card[ " + Class + " - " + Dice + " ]";
         }
 
         public bool CompareTo(Card card) {
-            return card.Type == Type
-                       && card.Class == Class
-                       && card.Dice == Dice;
+            return card.Class == Class && card.Dice == Dice;
         }
 
         public static Card EndTurnCard() {
-            return new Card(CardType.EndTurn, CardClass.None, CardDice.O);
+            return new Card(CardClass.EndTurn, CardDice.O);
         }
 
-        public static Card Dummy = new Card(CardType.None, CardClass.None, CardDice.O);
+        public static Card Dummy = new Card(CardClass.None, CardDice.O);
 
-        public static Card DummyDiceI = new Card(CardType.None, CardClass.None, CardDice.I);
-        public static Card DummyDiceII = new Card(CardType.None, CardClass.None, CardDice.II);
-        public static Card DummyDiceIII = new Card(CardType.None, CardClass.None, CardDice.III);
-        public static Card DummyDiceIV = new Card(CardType.None, CardClass.None, CardDice.IV);
-        public static Card DummyDiceV = new Card(CardType.None, CardClass.None, CardDice.V);
-        public static Card DummyDiceVI = new Card(CardType.None, CardClass.None, CardDice.VI);
+        public static Card DummyDiceI = new Card(CardClass.Dice, CardDice.I);
+        public static Card DummyDiceII = new Card(CardClass.Dice, CardDice.II);
+        public static Card DummyDiceIII = new Card(CardClass.Dice, CardDice.III);
+        public static Card DummyDiceIV = new Card(CardClass.Dice, CardDice.IV);
+        public static Card DummyDiceV = new Card(CardClass.Dice, CardDice.V);
+        public static Card DummyDiceVI = new Card(CardClass.Dice, CardDice.VI);
+
+        public static Card DummyAllProjects = new Card(CardClass.AllProjects, CardDice.O);
+        public static Card DummyAllStorages = new Card(CardClass.AllStorages, CardDice.O);
+        public static Card DummyAllEstates = new Card(CardClass.AllEstates, CardDice.O);
+        public static Card DummyAllAnimals = new Card(CardClass.AllAnimals, CardDice.O);
+        public static Card DummyAllBonuses = new Card(CardClass.AllBonuses, CardDice.O);
+        public static Card DummySilver = new Card(CardClass.Silver, CardDice.O);
+        public static Card DummyWorker = new Card(CardClass.Worker, CardDice.O);
 
     }
 

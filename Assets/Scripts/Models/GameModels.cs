@@ -53,7 +53,6 @@ namespace Models {
         public List<Card> cards = new List<Card>();
 
 
-        public CardType Type { get; private set; }
 
     }
 

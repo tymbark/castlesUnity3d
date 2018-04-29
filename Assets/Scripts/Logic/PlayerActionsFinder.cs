@@ -95,7 +95,7 @@ public static class PlayerActionsFinder {
     public static List<Action> ReadyToBuyWorkersActions(this Player p) {
         var actionsBuyWorkers = new List<Action>();
 
-        var workerCard = new Card(CardType.Worker, CardClass.None, CardDice.O);
+        var workerCard = new Card(CardClass.Worker, CardDice.O);
         actionsBuyWorkers.Add(new Action(ActionType.BuyWorkers, p.Cards[0], workerCard));
         actionsBuyWorkers.Add(new Action(ActionType.BuyWorkers, p.Cards[1], workerCard));
 
@@ -110,7 +110,7 @@ public static class PlayerActionsFinder {
     public static List<Action> ReadyToBuySilverActions(this Player p) {
         var actionsBuySilver = new List<Action>();
 
-        var silverCard = new Card(CardType.Silver, CardClass.None, CardDice.O);
+        var silverCard = new Card(CardClass.Silver, CardDice.O);
         actionsBuySilver.Add(new Action(ActionType.BuySilver, p.Cards[0], silverCard));
         actionsBuySilver.Add(new Action(ActionType.BuySilver, p.Cards[1], silverCard));
 
