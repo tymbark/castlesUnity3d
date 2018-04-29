@@ -51,6 +51,13 @@ public class GameController : MonoBehaviour {
         UICard.DrawCard(Card.DummyAllEstates, D.PositionAllEstatesCard, true);
         UICard.DrawCard(Card.DummyAllProjects, D.PositionAllProjectsCard, true);
         UICard.DrawCard(Card.DummyAllStorages, D.PositionAllStoragesCard, true);
+        UICard.DrawCard(Card.DummyAllAnimals, D.PositionAllAnimalsCard);
+        UICard.DrawCard(Card.DummyAllBonuses, D.PositionAllBonusesCard);
+        UICard.DrawCard(Card.DummyWorker, D.PositionSilverCard);
+        UICard.DrawCard(Card.DummySilver, D.PositionWorkerCard);
+        UICard.DrawButton(Card.DummyOptions, D.PositionOptionsButton);
+        UICard.DrawButton(Card.DummyEndTurn, D.PositionEndTurnButton);
+        UICard.DrawButton(Card.DummyExit, D.PositionExitButton);
     }
 
     static void DrawDices() {

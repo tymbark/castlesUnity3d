@@ -4,17 +4,15 @@ using System.Collections.Generic;
 
 namespace Models {
 
-    public enum CardClass {
-        // Worker, Silver
+    public enum CardClass {        
         None,
-        EndTurn,
 
         // Animals
         Chicken, Cow, Sheep, Pig,
         Goods,
 
         // Enviroment
-        Dice, Worker, Silver,
+        Dice, Worker, Silver, EndTurn, Options, Exit,
         AllProjects, AllEstates, AllAnimals, AllBonuses, AllStorages,
 
         // Bonuses
@@ -84,6 +82,9 @@ namespace Models {
         public static Card DummyAllBonuses = new Card(CardClass.AllBonuses, CardDice.O);
         public static Card DummySilver = new Card(CardClass.Silver, CardDice.O);
         public static Card DummyWorker = new Card(CardClass.Worker, CardDice.O);
+        public static Card DummyOptions = new Card(CardClass.Options, CardDice.O);
+        public static Card DummyExit = new Card(CardClass.Exit, CardDice.O);
+        public static Card DummyEndTurn = new Card(CardClass.EndTurn, CardDice.O);
 
     }
 

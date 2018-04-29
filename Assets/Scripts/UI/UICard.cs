@@ -22,15 +22,19 @@ public class UICard : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
 
     }
 
+    public static GameObject DrawButton(Card c, Vector2 coords) {
+        return DrawCard(c, coords.x, coords.y, false, D.CardWidth, D.CardWidth);
+    }
+
     public static GameObject DrawCard(Card c, Vector2 coords, bool horizontal = false) {
-        return DrawCard(c, coords.x, coords.y, horizontal);
+        return DrawCard(c, coords.x, coords.y, horizontal, D.CardWidth, D.CardHeight);
     }
 
     public static void DrawDot(Vector2 coords) {
         DrawDot(coords.x, coords.y);
     }
 
-    public static GameObject DrawCard(Card c, float x, float y, bool horizontal = false) {
+    private static GameObject DrawCard(Card c, float x, float y, bool horizontal, float width, float height) {
         GameObject canvas = GameObject.Find("Canvas");
         GameObject newCard = new GameObject();
         newCard.AddComponent<CanvasRenderer>();
@@ -38,7 +42,7 @@ public class UICard : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
         RectTransform rectTransform = newCard.AddComponent<RectTransform>();
         rectTransform.localScale = new Vector3(1f, 1f, 1f);
         if (horizontal) rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
-        rectTransform.sizeDelta = new Vector2(D.CardWidth, D.CardHeight);
+        rectTransform.sizeDelta = new Vector2(width, height);
 
         Image image = newCard.AddComponent<Image>();
         newCard.AddComponent<Draggable>();
@@ -73,7 +77,7 @@ public class UICard : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
 
         switch (card.Class) {
             case CardClass.Worker:
-                fileUri += "worker";
+                fileUri += "workerGS";
                 break;
             case CardClass.Silver:
                 fileUri += "silver";
@@ -92,6 +96,15 @@ public class UICard : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
                 break;
             case CardClass.AllProjects:
                 fileUri += "project";
+                break;
+            case CardClass.Exit:
+                fileUri += "exit";
+                break;
+            case CardClass.EndTurn:
+                fileUri += "finish";
+                break;
+            case CardClass.Options:
+                fileUri += "options";
                 break;
             case CardClass.Dice:
                 switch (card.Dice) {
