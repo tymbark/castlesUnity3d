@@ -16,8 +16,10 @@ public class GameController : MonoBehaviour {
 
         GameEngine engine = handler.GameEngine;
 
-        //DrawPlayerHand(engine);
+        DrawPlayerHand(engine.GameState.CurrentPlayer.Cards);
         DrawEnviroment();
+        //DrawPlayerProjectCards();
+        DrawPlayerProjectCards(engine.ActionsDeck.Cards); //todo remove
         DrawAnimals(engine.AnimalsDeck);
         DrawGoods(engine.GoodsDeck);
         DrawDices();
@@ -26,6 +28,32 @@ public class GameController : MonoBehaviour {
     }
     // Update is called once per frame
     void Update() {
+
+    }
+
+    static void DrawPlayerProjectCards(List<Card> cards) {
+
+        if (cards.Count > 0) {
+            UICard.DrawCard(cards[0], D.PositionProjectCard1);
+        }
+        if (cards.Count > 1) {
+            UICard.DrawCard(cards[1], D.PositionProjectCard2);
+        }
+        if (cards.Count > 2) {
+            UICard.DrawCard(cards[1], D.PositionProjectCard3);
+        }
+
+    }
+
+    static void DrawPlayerHand(List<Card> cards) {
+
+        if (cards.Count > 0) {
+            UICard.DrawHandCard(cards[0], D.PositionHandCard1);
+        }
+
+        if (cards.Count > 1) {
+            UICard.DrawHandCard(cards[1], D.PositionHandCard2);
+        }
 
     }
 
@@ -55,9 +83,12 @@ public class GameController : MonoBehaviour {
         UICard.DrawCard(Card.DummyAllBonuses, D.PositionAllBonusesCard);
         UICard.DrawCard(Card.DummyWorker, D.PositionSilverCard);
         UICard.DrawCard(Card.DummySilver, D.PositionWorkerCard);
+
         UICard.DrawButton(Card.DummyOptions, D.PositionOptionsButton);
         UICard.DrawButton(Card.DummyEndTurn, D.PositionEndTurnButton);
         UICard.DrawButton(Card.DummyExit, D.PositionExitButton);
+
+        UICard.DrawBigCard(Card.DummyAllProjects, D.PositionCardProjectsBigCard);
     }
 
     static void DrawDices() {
@@ -114,20 +145,6 @@ public class GameController : MonoBehaviour {
                 default:
                     throw new System.InvalidProgramException("Project card with invalid Dice: " + pc.TakeProjectDice);
             }
-        }
-
-    }
-
-    static void DrawPlayerHand(GameEngine engine) {
-
-        Player p = engine.GameState.CurrentPlayer;
-
-        if (p.Cards.Count > 0) {
-            UICard.DrawCard(p.Cards[0], D.PositionHandCard1);
-        }
-
-        if (p.Cards.Count > 1) {
-            UICard.DrawCard(p.Cards[1], D.PositionHandCard2);
         }
 
     }

@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using D = GameDimensions;
 
-public class UICard : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler {
+public class UICard : MonoBehaviour{
 
 
 
@@ -23,18 +23,50 @@ public class UICard : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
     }
 
     public static GameObject DrawButton(Card c, Vector2 coords) {
-        return DrawCard(c, coords.x, coords.y, false, D.CardWidth, D.CardWidth);
+        return DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardWidth, false, false, false);
     }
 
     public static GameObject DrawCard(Card c, Vector2 coords, bool horizontal = false) {
-        return DrawCard(c, coords.x, coords.y, horizontal, D.CardWidth, D.CardHeight);
+        return DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardHeight, horizontal, false, false);
+    }
+
+    public static GameObject DrawHandCard(Card c, Vector2 coords) {
+        return DrawHandCard(c, coords.x, coords.y, D.CardWidth * 1.3f, D.CardHeight * 1.3f);
+    }
+
+    public static GameObject DrawBigCard(Card c, Vector2 coords) {
+        return DrawCard(c, coords.x, coords.y, D.CardWidth * 2, D.CardHeight * 2, true, true, false);
     }
 
     public static void DrawDot(Vector2 coords) {
         DrawDot(coords.x, coords.y);
     }
 
-    private static GameObject DrawCard(Card c, float x, float y, bool horizontal, float width, float height) {
+    private static GameObject DrawHandCard(Card c, float x, float y, float width, float height) {
+        GameObject parentCanvas = GameObject.Find("Canvas");
+        GameObject newCard = new GameObject();
+
+        RectTransform rectTransform = newCard.AddComponent<RectTransform>();
+        rectTransform.localScale = new Vector3(1f, 1f, 1f);
+        rectTransform.sizeDelta = new Vector2(width, height);
+
+        newCard.AddComponent<CanvasRenderer>();
+        newCard.AddComponent<Draggable>();
+
+        Image image = newCard.AddComponent<Image>();
+        image.overrideSprite = GetSpriteForCard(c);
+
+        newCard.transform.SetParent(parentCanvas.transform);
+        newCard.transform.position = new Vector3(x, y, 0);
+
+        Canvas canvas = newCard.AddComponent<Canvas>();
+        canvas.overrideSorting = true;
+        GraphicRaycaster graphicRaycaster = newCard.AddComponent<GraphicRaycaster>();
+
+        return newCard;
+    }
+
+    private static GameObject DrawCard(Card c, float x, float y, float width, float height, bool horizontal, bool transparent, bool draggable) {
         GameObject canvas = GameObject.Find("Canvas");
         GameObject newCard = new GameObject();
         newCard.AddComponent<CanvasRenderer>();
@@ -45,8 +77,9 @@ public class UICard : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
         rectTransform.sizeDelta = new Vector2(width, height);
 
         Image image = newCard.AddComponent<Image>();
-        newCard.AddComponent<Draggable>();
+        if (draggable) newCard.AddComponent<Draggable>();
         image.overrideSprite = GetSpriteForCard(c);
+        if (transparent) image.color = new Color(255, 255, 255, (float)0.8);
 
         newCard.transform.position = new Vector3(x, y, 0);
         newCard.transform.SetParent(canvas.transform);
@@ -430,16 +463,5 @@ public class UICard : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHa
         return Resources.Load<Sprite>(fileUri);
     }
 
-
-
-    public void OnBeginDrag(PointerEventData eventData) {
-    }
-
-    public void OnDrag(PointerEventData eventData) {
-        if (Draggable) transform.position += (Vector3)eventData.delta;
-    }
-
-    public void OnEndDrag(PointerEventData eventData) {
-    }
 
 }

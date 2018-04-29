@@ -25,11 +25,6 @@ public static class GameDimensions {
     public static readonly Vector2 ScreenBottomLeft = new Vector2(-960f, -540f);
     public static readonly Vector2 ScreenBottomCenter = new Vector2(0, -540f);
 
-    public static readonly Vector2 PositionHandCard2 =
-        ScreenBottomRight + new Vector2(-CardWidth, CardWidth);
-    public static readonly Vector2 PositionHandCard1 =
-        ScreenBottomRight + new Vector2(-2 * CardWidth, CardWidth);
-
     public static readonly Vector2 CardsSpace = new Vector2((ScreenResolution.x - (4 * marginBig)) / 3, CardHeight);
     public static readonly Vector2 PositionProjectDiceI = ScreenTopLeft + new Vector2(marginBig + CardWidth / 2, -(marginBig + CardHeight / 2));
     public static readonly Vector2 PositionProjectDiceII = PositionProjectDiceI + new Vector2(0, -(CardHeight + marginBig));
@@ -73,6 +68,14 @@ public static class GameDimensions {
     public static readonly Vector2 PositionEndTurnButton = ScreenBottomRight + new Vector2(-(marginBig + CardWidth / 2), marginBig + CardWidth / 2);
     public static readonly Vector2 PositionOptionsButton = PositionEndTurnButton + new Vector2(0, marginBig + CardWidth);
     public static readonly Vector2 PositionExitButton = PositionOptionsButton + new Vector2(0, marginBig + CardWidth);
+
+    public static readonly Vector2 PositionCardProjectsBigCard = new Vector2((PositionOptionsButton.x + PositionWorkerCard.x) / 2, ScreenBottomCenter.y + marginBig + CardWidth);
+    public static readonly Vector2 PositionHandCard1 = PositionCardProjectsBigCard + new Vector2(-CardHeight / 2, CardWidth * 1.2f);
+    public static readonly Vector2 PositionHandCard2 = PositionCardProjectsBigCard + new Vector2(CardHeight / 2, CardWidth * 1.2f);
+
+    public static readonly Vector2 PositionProjectCard1 = PositionCardProjectsBigCard + new Vector2(-PositionCardProjectsBigCard.x * 1.8f / 6, 0);
+    public static readonly Vector2 PositionProjectCard2 = PositionCardProjectsBigCard;
+    public static readonly Vector2 PositionProjectCard3 = PositionCardProjectsBigCard + new Vector2(PositionCardProjectsBigCard.x * 1.8f / 6, 0);
 
 }
 
