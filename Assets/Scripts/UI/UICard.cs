@@ -56,6 +56,12 @@ public class UICard : MonoBehaviour{
         Image image = newCard.AddComponent<Image>();
         image.overrideSprite = GetSpriteForCard(c);
 
+        BoxCollider2D boxCollider = newCard.AddComponent<BoxCollider2D>();
+        boxCollider.isTrigger = true;
+        boxCollider.size = new Vector2(width, height);
+        Rigidbody2D ridigBody = newCard.AddComponent<Rigidbody2D>();
+        ridigBody.bodyType = RigidbodyType2D.Kinematic;
+
         newCard.transform.SetParent(parentCanvas.transform);
         newCard.transform.position = new Vector3(x, y, 0);
 
@@ -70,6 +76,10 @@ public class UICard : MonoBehaviour{
         GameObject canvas = GameObject.Find("Canvas");
         GameObject newCard = new GameObject();
         newCard.AddComponent<CanvasRenderer>();
+
+        BoxCollider2D boxCollider = newCard.AddComponent<BoxCollider2D>();
+        boxCollider.isTrigger = true;
+        boxCollider.size = new Vector2(width, height);
 
         RectTransform rectTransform = newCard.AddComponent<RectTransform>();
         rectTransform.localScale = new Vector3(1f, 1f, 1f);
