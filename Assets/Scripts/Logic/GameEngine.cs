@@ -38,7 +38,7 @@ public class GameEngine {
             int startingWorkers;
             switch (i) {
                 case 0:
-                    startingWorkers = 3;
+                    startingWorkers = 0;
                     break;
                 case 3:
                     startingWorkers = 2;
@@ -51,14 +51,14 @@ public class GameEngine {
             Players.Add(new Player("ewa" + i, AnimalsDeck.DrawCard(), GoodsDeck.DrawCard(), startingWorkers));
         }
 
-        Players[0].Estate.AddProjectToEstate(ActionsDeck.DrawCard());
-        Players[0].Estate.AddProjectToEstate(ActionsDeck.DrawCard());
-        Players[0].Estate.AddProjectToEstate(ActionsDeck.DrawCard());
-        Players[0].Estate.AddProjectToEstate(ActionsDeck.DrawCard());
+        //Players[0].Estate.AddProjectToEstate(ActionsDeck.DrawCard());
+        //Players[0].Estate.AddProjectToEstate(ActionsDeck.DrawCard());
+        //Players[0].Estate.AddProjectToEstate(ActionsDeck.DrawCard());
+        //Players[0].Estate.AddProjectToEstate(ActionsDeck.DrawCard());
         Players[0].ProjectArea.Add(ActionsDeck.DrawCard());
-        Players[0].ProjectArea.Add(ActionsDeck.DrawCard());
-        Players[0].ProjectArea.Add(ActionsDeck.DrawCard());
-        Players[0].ProjectArea.Add(ActionsDeck.DrawCard());
+        //Players[0].ProjectArea.Add(ActionsDeck.DrawCard());
+        //Players[0].ProjectArea.Add(ActionsDeck.DrawCard());
+        //Players[0].ProjectArea.Add(ActionsDeck.DrawCard());
     }
 
     void PrepareProjectCards() {

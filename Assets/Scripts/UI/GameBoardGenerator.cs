@@ -11,8 +11,7 @@ public class GameBoardGenerator : MonoBehaviour {
     public static void DrawGameBoard(GameEngine engine) {
         DrawPlayerHand(engine.GameState.CurrentPlayer.Cards);
         DrawEnviroment();
-        //DrawPlayerProjectCards();
-        DrawPlayerProjectCards(engine.ActionsDeck.Cards); //todo remove
+        DrawPlayerProjectCards(engine.GameState.CurrentPlayer.ProjectArea);
         DrawAnimals(engine.AnimalsDeck);
         DrawGoods(engine.GoodsDeck);
         DrawDices();

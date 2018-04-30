@@ -36,7 +36,7 @@ public class GameController : MonoBehaviour {
         print(actions.Describe());
 
         switch (targetCard.Class) {
-            
+
             case CardClass.Worker:
                 if (actions.HasBuyWorkersAction()) {
                     targetCardObject.SetBlueColor();
@@ -61,7 +61,19 @@ public class GameController : MonoBehaviour {
                     targetCardObject.SetRedColor();
                 }
                 break;
+
+            default:
+                List<Action> takeProjectActions = actions.GetTakeProjectActions();
+                print("take project actions:" + takeProjectActions.Count);
+                if (takeProjectActions.FindAll((obj) => obj.TargetCard.CompareTo(targetCard)).Count > 0) {
+                    targetCardObject.SetBlueColor();
+                } else {
+                    targetCardObject.SetRedColor();
+                }
+                break;
+
         }
+
 
     }
 

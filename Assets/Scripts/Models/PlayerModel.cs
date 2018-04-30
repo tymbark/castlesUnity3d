@@ -34,7 +34,7 @@ namespace Models {
             Estate = new Estate();
             Name = name;
             WorkersCount = startingWorkers;
-            SilverCount = 3; // default starting value
+            SilverCount = 1; // default starting value
 
             Goods.Add(startingGood);
             Animals.Add(startingAnimal);

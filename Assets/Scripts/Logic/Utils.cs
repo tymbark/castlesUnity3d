@@ -288,6 +288,14 @@ public static class Utils {
         return result;
     }
 
+    public static bool HasTakeProjectAction(this List<Action> actions) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.TakeProject).Count > 0;
+    }
+
+    public static List<Action> GetTakeProjectActions(this List<Action> actions) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.TakeProject);
+    }
+
     public static bool HasBuySilverAction(this List<Action> actions) {
         return actions.FindAll((Action obj) => obj.Type == ActionType.BuySilver).Count > 0;
     }
