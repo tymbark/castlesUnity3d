@@ -1239,7 +1239,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a61c423715046598b19667bbbbdceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Draggable: 0
 --- !u!114 &331050899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1320,7 +1319,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a61c423715046598b19667bbbbdceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Draggable: 0
 --- !u!114 &339549361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1401,7 +1399,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a61c423715046598b19667bbbbdceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Draggable: 0
 --- !u!114 &399546249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2728,7 +2725,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a61c423715046598b19667bbbbdceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Draggable: 0
 --- !u!114 &703256306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3680,7 +3676,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -38.999756, y: 162.00024}
+  m_AnchoredPosition: {x: -39, y: 150}
   m_SizeDelta: {x: 150, y: 225}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &981767251
@@ -3995,7 +3991,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a61c423715046598b19667bbbbdceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Draggable: 0
 --- !u!114 &1081639325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5079,7 +5074,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a61c423715046598b19667bbbbdceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Draggable: 0
 --- !u!114 &1392984286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7104,7 +7098,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a61c423715046598b19667bbbbdceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Draggable: 0
 --- !u!114 &2061126917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7193,7 +7186,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8a61c423715046598b19667bbbbdceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Draggable: 0
 --- !u!114 &2126372245
 MonoBehaviour:
   m_ObjectHideFlags: 0

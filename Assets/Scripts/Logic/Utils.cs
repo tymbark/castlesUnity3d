@@ -288,5 +288,29 @@ public static class Utils {
         return result;
     }
 
+    public static bool HasBuySilverAction(this List<Action> actions) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.BuySilver).Count > 0;
+    }
+
+    public static bool HasBuyWorkersAction(this List<Action> actions) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.BuyWorkers).Count > 0;
+    }
+
+    public static bool HasEndTurnAction(this List<Action> actions) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.EndTurn).Count > 0;
+    }
+
+    public static bool HasSellSilverOrWorkersAction(this List<Action> actions) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.SellSilverAndWorkers).Count > 0;
+    }
+
+    public static bool HasShipGoodsAction(this List<Action> actions) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.ShipGoods).Count > 0;
+    }
+
+    public static bool HasUseSilverAction(this List<Action> actions) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.UseSilver).Count > 0;
+    }
+
 }
 

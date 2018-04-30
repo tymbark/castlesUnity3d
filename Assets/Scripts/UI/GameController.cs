@@ -21,35 +21,52 @@ public class GameController : MonoBehaviour {
 
     }
 
-    public void HandleCardDroppedAction(GameObject playerCard, GameObject targetCard) {
-        print("HandleCardDroppedAction");
-        StaticCardsController controller = targetCard.GetComponent<StaticCardsController>();
-
-        ResetColor(targetCard);
+    public void HandleCardDroppedAction(GameObject playerCardObject, GameObject targetCardObject) {
+        targetCardObject.ResetColor();
+        StaticCardsController controller = targetCardObject.GetStaticController();
+        Card targetCard = controller.Card;
+        List<Action> actions = GameEngine.ActionHandler.GetAvailableActions();
     }
 
-    public void HandleCardHoverAction(GameObject playerCard, GameObject targetCard) {
-        print("HandleCardHoverAction");
-        StaticCardsController controller = targetCard.GetComponent<StaticCardsController>();
+    public void HandleCardHoverAction(GameObject playerCardObject, GameObject targetCardObject) {
+        StaticCardsController controller = targetCardObject.GetStaticController();
+        Card targetCard = controller.Card;
+        List<Action> actions = GameEngine.ActionHandler.GetAvailableActions();
 
-        SetBlueColor(targetCard);
+        print(actions.Describe());
+
+        switch (targetCard.Class) {
+            
+            case CardClass.Worker:
+                if (actions.HasBuyWorkersAction()) {
+                    targetCardObject.SetBlueColor();
+                } else {
+                    targetCardObject.SetRedColor();
+                }
+
+                break;
+
+            case CardClass.Silver:
+                if (actions.HasBuySilverAction()) {
+                    targetCardObject.SetBlueColor();
+                } else {
+                    targetCardObject.SetRedColor();
+                }
+                break;
+
+            case CardClass.AllStorages:
+                if (actions.HasShipGoodsAction()) {
+                    targetCardObject.SetBlueColor();
+                } else {
+                    targetCardObject.SetRedColor();
+                }
+                break;
+        }
+
     }
 
-    public void HandleCardLeaveAction(GameObject playerCard, GameObject targetCard) {
-        print("HandleCardLeaveAction");
-        StaticCardsController controller = targetCard.GetComponent<StaticCardsController>();
-
-        ResetColor(targetCard);
+    public void HandleCardLeaveAction(GameObject playerCardObject, GameObject targetCardObject) {
+        targetCardObject.ResetColor();
+        StaticCardsController controller = targetCardObject.GetStaticController();
     }
-
-    private void ResetColor(GameObject obj) {
-        Image image = obj.GetComponent<Image>();
-        image.color = new Color(1, 1, 1, 1);
-    }
-
-    private void SetBlueColor(GameObject obj) {
-        Image image = obj.GetComponent<Image>();
-        image.color = new Color(0.5f, 0.5f, 1, 1);
-    }
-
 }

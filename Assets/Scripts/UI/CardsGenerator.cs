@@ -106,7 +106,6 @@ public class CardsGenerator {
         rectTransform.sizeDelta = new Vector2(10, 10);
 
         Image image = dot.AddComponent<Image>();
-        dot.AddComponent<CardController>();
         image.color = new Color(255, 0, 255);
 
         dot.transform.position = new Vector3(coords.x, coords.y, 0);

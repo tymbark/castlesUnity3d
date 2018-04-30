@@ -19,6 +19,7 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
     public readonly bool draggable = true;
     public Card Card;
 
+
     private void Start() {
         canvas = GetComponent<Canvas>();
         canvas.sortingOrder = -1;
@@ -61,8 +62,6 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
     }
 
     private void OnTriggerExit2D(Collider2D collision) {
-        print("OnTriggerExit2D");
-
         if (collision.gameObject == closestObject) {
             GameController.HandleCardLeaveAction(gameObject, closestObject);
             closestObject = null;
@@ -75,11 +74,17 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
 
     private void OnTriggerStay2D(Collider2D collision) {
         if (!dragging) return;
-        print("OnTriggerStay2D");
-        float smallestDistance = 999999;
+
+        float smallestDistance = 9999999;
+        bool closestHasChanged = false;
+
+        if (closestObject != null) {
+            smallestDistance = Vector2.Distance(transform.position, closestObject.transform.position);
+        }
+
 
         foreach (GameObject obj in Colliders) {
-            var distance = Vector2.Distance(transform.position, obj.transform.position);
+            float distance = Vector2.Distance(transform.position, obj.transform.position);
             if (distance < smallestDistance) {
 
                 if (closestObject != null && closestObject != obj) {
@@ -88,10 +93,11 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
 
                 smallestDistance = distance;
                 closestObject = obj;
+                closestHasChanged = true;
             }
         }
 
-        if (closestObject != null) {
+        if (closestObject != null && closestHasChanged) {
             GameController.HandleCardHoverAction(gameObject, closestObject);
         }
     }
