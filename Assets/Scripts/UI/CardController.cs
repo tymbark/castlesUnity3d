@@ -9,7 +9,7 @@ using Models;
 public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler {
 
     private Vector3 StartingPosition;
-    private List<GameObject> Colliders;
+    private List<GameObject> Colliders = new List<GameObject>();
     private GameObject closestObject = null;
     private Canvas canvas;
     private GameController GameController;
@@ -18,10 +18,6 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
     public readonly bool clickable = false;
     public readonly bool draggable = true;
     public Card Card;
-
-    private void Awake() {
-        Colliders = new List<GameObject>();
-    }
 
     private void Start() {
         canvas = GetComponent<Canvas>();
@@ -57,7 +53,10 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (dragging) {
-            Colliders.Add(collision.gameObject);
+            StaticCardsController controller = collision.gameObject.GetComponent<StaticCardsController>();
+            if (controller != null && controller.executable) {
+                Colliders.Add(collision.gameObject);
+            }
         }
     }
 
@@ -66,6 +65,7 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
 
         if (collision.gameObject == closestObject) {
             GameController.HandleCardLeaveAction(gameObject, closestObject);
+            closestObject = null;
         }
 
         if (Colliders.Contains(collision.gameObject)) {
@@ -74,6 +74,7 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
     }
 
     private void OnTriggerStay2D(Collider2D collision) {
+        if (!dragging) return;
         print("OnTriggerStay2D");
         float smallestDistance = 999999;
 
