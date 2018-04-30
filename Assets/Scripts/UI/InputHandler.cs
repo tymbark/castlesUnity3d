@@ -10,6 +10,13 @@ public class InputHandler : MonoBehaviour {
         GameEngine = new GameEngine();
     }
 
+    private void Start() {
+        GameObject gameObj = GameObject.Find("GameObjectController");
+        GameController gameController = gameObj.GetComponent<GameController>();
+
+        GameEngine engine = gameController.GameEngine;
+    }
+
     private void Update() {
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) {

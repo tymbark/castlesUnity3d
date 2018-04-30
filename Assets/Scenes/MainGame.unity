@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 622663488}
   - component: {fileID: 622663489}
   m_Layer: 0
-  m_Name: Game Controller
+  m_Name: GameObjectController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -406,7 +406,7 @@ GameObject:
   - component: {fileID: 1349323646}
   - component: {fileID: 1349323645}
   m_Layer: 0
-  m_Name: Input Handler
+  m_Name: GameObjectInputHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

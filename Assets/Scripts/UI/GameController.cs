@@ -3,150 +3,65 @@ using System.Collections.Generic;
 using UnityEngine;
 using Models;
 using UnityEngine.UI;
-using D = GameDimensions;
 
 public class GameController : MonoBehaviour {
 
-    // Use this for initialization
-    void Start() {
-        print(D.PositionHandCard1);
-        print(D.PositionHandCard2);
-        GameObject go = GameObject.Find("Input Handler");
-        InputHandler handler = go.GetComponent<InputHandler>();
+    public GameEngine GameEngine { get; private set; }
 
-        GameEngine engine = handler.GameEngine;
-
-        DrawPlayerHand(engine.GameState.CurrentPlayer.Cards);
-        DrawEnviroment();
-        //DrawPlayerProjectCards();
-        DrawPlayerProjectCards(engine.ActionsDeck.Cards); //todo remove
-        DrawAnimals(engine.AnimalsDeck);
-        DrawGoods(engine.GoodsDeck);
-        DrawDices();
-        DrawAvailableProjectCards(engine.AvailableProjectCards);
-
+    private void Awake() {
+        GameEngine = new GameEngine();
     }
+
+    void Start() {
+        GameBoardGenerator.DrawGameBoard(GameEngine);
+    }
+
     // Update is called once per frame
     void Update() {
 
     }
 
-    static void DrawPlayerProjectCards(List<Card> cards) {
-
-        if (cards.Count > 0) {
-            UICard.DrawCard(cards[0], D.PositionProjectCard1);
+    public void HandleCardDroppedAction(GameObject playerCard, GameObject targetCard) {
+        print("HandleCardDroppedAction");
+        StaticCardsController controller = targetCard.GetComponent<StaticCardsController>();
+        if (controller == null) {
+            return; // 2x PlayerHandCard 
         }
-        if (cards.Count > 1) {
-            UICard.DrawCard(cards[1], D.PositionProjectCard2);
-        }
-        if (cards.Count > 2) {
-            UICard.DrawCard(cards[1], D.PositionProjectCard3);
-        }
-
-    }
-
-    static void DrawPlayerHand(List<Card> cards) {
-
-        if (cards.Count > 0) {
-            UICard.DrawHandCard(cards[0], D.PositionHandCard1);
-        }
-
-        if (cards.Count > 1) {
-            UICard.DrawHandCard(cards[1], D.PositionHandCard2);
-        }
-
-    }
-
-    static void DrawAnimals(Deck animalsDeck) {
-        if (animalsDeck.Cards.Count > 0) {
-            UICard.DrawCard(animalsDeck.Cards[0], D.PositionAnimalToTakeCard1);
-        }
-        if (animalsDeck.Cards.Count > 1) {
-            UICard.DrawCard(animalsDeck.Cards[1], D.PositionAnimalToTakeCard2);
+        if (controller.executable) {
+            ResetColor(targetCard);
         }
     }
 
-    static void DrawGoods(Deck goodsDeck) {
-        if (goodsDeck.Cards.Count > 0) {
-            UICard.DrawCard(goodsDeck.Cards[0], D.PositionGoodsToTakeCard1);
+    public void HandleCardHoverAction(GameObject playerCard, GameObject targetCard) {
+        print("HandleCardHoverAction");
+        StaticCardsController controller = targetCard.GetComponent<StaticCardsController>();
+        if (controller == null) {
+            return; // 2x PlayerHandCard 
         }
-        if (goodsDeck.Cards.Count > 1) {
-            UICard.DrawCard(goodsDeck.Cards[1], D.PositionGoodsToTakeCard2);
+        if (controller.executable) {
+            SetBlueColor(targetCard);
         }
     }
 
-    static void DrawEnviroment() {
-        UICard.DrawCard(Card.DummyAllEstates, D.PositionAllEstatesCard, true);
-        UICard.DrawCard(Card.DummyAllProjects, D.PositionAllProjectsCard, true);
-        UICard.DrawCard(Card.DummyAllStorages, D.PositionAllStoragesCard, true);
-        UICard.DrawCard(Card.DummyAllAnimals, D.PositionAllAnimalsCard);
-        UICard.DrawCard(Card.DummyAllBonuses, D.PositionAllBonusesCard);
-        UICard.DrawCard(Card.DummyWorker, D.PositionSilverCard);
-        UICard.DrawCard(Card.DummySilver, D.PositionWorkerCard);
-
-        UICard.DrawButton(Card.DummyOptions, D.PositionOptionsButton);
-        UICard.DrawButton(Card.DummyEndTurn, D.PositionEndTurnButton);
-        UICard.DrawButton(Card.DummyExit, D.PositionExitButton);
-
-        UICard.DrawBigCard(Card.DummyAllProjects, D.PositionCardProjectsBigCard);
-    }
-
-    static void DrawDices() {
-        UICard.DrawCard(Card.DummyDiceI, D.PositionProjectDiceI);
-        UICard.DrawCard(Card.DummyDiceII, D.PositionProjectDiceII);
-        UICard.DrawCard(Card.DummyDiceIII, D.PositionProjectDiceIII);
-        UICard.DrawCard(Card.DummyDiceIV, D.PositionProjectDiceIV);
-        UICard.DrawCard(Card.DummyDiceV, D.PositionProjectDiceV);
-        UICard.DrawCard(Card.DummyDiceVI, D.PositionProjectDiceVI);
-    }
-
-    static void DrawAvailableProjectCards(List<ProjectCard> cards) {
-
-        int howManyI = cards.FindAll((obj) => obj.TakeProjectDice == CardDice.I).Count;
-        int howManyII = cards.FindAll((obj) => obj.TakeProjectDice == CardDice.II).Count;
-        int howManyIII = cards.FindAll((obj) => obj.TakeProjectDice == CardDice.III).Count;
-        int howManyIV = cards.FindAll((obj) => obj.TakeProjectDice == CardDice.IV).Count;
-        int howManyV = cards.FindAll((obj) => obj.TakeProjectDice == CardDice.V).Count;
-        int howManyVI = cards.FindAll((obj) => obj.TakeProjectDice == CardDice.VI).Count;
-
-        int countI = 0;
-        int countII = 0;
-        int countIII = 0;
-        int countIV = 0;
-        int countV = 0;
-        int countVI = 0;
-
-        foreach (ProjectCard pc in cards) {
-            switch (pc.TakeProjectDice) {
-                case CardDice.I:
-                    UICard.DrawCard(pc.Card, D.PositionForActionCard(D.PositionProjectDiceI, countI, howManyI));
-                    countI++;
-                    break;
-                case CardDice.II:
-                    UICard.DrawCard(pc.Card, D.PositionForActionCard(D.PositionProjectDiceII, countII, howManyII));
-                    countII++;
-                    break;
-                case CardDice.III:
-                    UICard.DrawCard(pc.Card, D.PositionForActionCard(D.PositionProjectDiceIII, countIII, howManyIII));
-                    countIII++;
-                    break;
-                case CardDice.IV:
-                    UICard.DrawCard(pc.Card, D.PositionForActionCard(D.PositionProjectDiceIV, countIV, howManyIV));
-                    countIV++;
-                    break;
-                case CardDice.V:
-                    UICard.DrawCard(pc.Card, D.PositionForActionCard(D.PositionProjectDiceV, countV, howManyV));
-                    countV++;
-                    break;
-                case CardDice.VI:
-                    UICard.DrawCard(pc.Card, D.PositionForActionCard(D.PositionProjectDiceVI, countVI, howManyVI));
-                    countVI++;
-                    break;
-                default:
-                    throw new System.InvalidProgramException("Project card with invalid Dice: " + pc.TakeProjectDice);
-            }
+    public void HandleCardLeaveAction(GameObject playerCard, GameObject targetCard) {
+        print("HandleCardLeaveAction");
+        StaticCardsController controller = targetCard.GetComponent<StaticCardsController>();
+        if (controller == null){
+            return; // 2x PlayerHandCard 
         }
+        if (controller.executable) {
+            ResetColor(targetCard);
+        }
+    }
 
+    private void ResetColor(GameObject obj) {
+        Image image = obj.GetComponent<Image>();
+        image.color = new Color(1, 1, 1, 1);
+    }
+
+    private void SetBlueColor(GameObject obj) {
+        Image image = obj.GetComponent<Image>();
+        image.color = new Color(0.5f, 0.5f, 1, 1);
     }
 
 }

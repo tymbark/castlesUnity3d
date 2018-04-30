@@ -6,64 +6,59 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using D = GameDimensions;
 
-public class UICard : MonoBehaviour{
+public class CardsGenerator {
 
-
-
-    [SerializeField] public bool Draggable = false;
-
-    // Use this for initialization
-    void Start() {
-
+    public static GameObject DrawClickableButtonCard(Card c, Vector2 coords) {
+        return DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardWidth, false, false, false, true);
     }
 
-    // Update is called once per frame
-    void Update() {
-
+    public static GameObject DrawExecutableCard(Card c, Vector2 coords) {
+        return DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardHeight, false, false, true, false);
     }
 
-    public static GameObject DrawButton(Card c, Vector2 coords) {
-        return DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardWidth, false, false, false);
+    public static GameObject DrawStaticCard(Card c, Vector2 coords) {
+        return DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardHeight, false, false, false, false);
     }
 
-    public static GameObject DrawCard(Card c, Vector2 coords, bool horizontal = false) {
-        return DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardHeight, horizontal, false, false);
+    public static GameObject DrawClickableHorizontalCard(Card c, Vector2 coords) {
+        return DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardHeight, true, false, false, false);
     }
 
-    public static GameObject DrawHandCard(Card c, Vector2 coords) {
-        return DrawHandCard(c, coords.x, coords.y, D.CardWidth * 1.3f, D.CardHeight * 1.3f);
+    public static GameObject DrawClickableAndExecutableCard(Card c, Vector2 coords) {
+        return DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardHeight, false, false, true, false);
     }
 
-    public static GameObject DrawBigCard(Card c, Vector2 coords) {
-        return DrawCard(c, coords.x, coords.y, D.CardWidth * 2, D.CardHeight * 2, true, true, false);
+    public static GameObject DrawClickableCard(Card c, Vector2 coords) {
+        return DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardHeight, false, false, false, true);
     }
 
-    public static void DrawDot(Vector2 coords) {
-        DrawDot(coords.x, coords.y);
+    public static GameObject DrawBigBackgroundCard(Card c, Vector2 coords) {
+        return DrawCard(c, coords.x, coords.y, D.CardWidth * 2, D.CardHeight * 2, true, true, false, false);
     }
 
-    private static GameObject DrawHandCard(Card c, float x, float y, float width, float height) {
+    public static GameObject DrawHandCard(Card card, Vector2 coords) {
         GameObject parentCanvas = GameObject.Find("Canvas");
         GameObject newCard = new GameObject();
 
         RectTransform rectTransform = newCard.AddComponent<RectTransform>();
         rectTransform.localScale = new Vector3(1f, 1f, 1f);
-        rectTransform.sizeDelta = new Vector2(width, height);
+        rectTransform.sizeDelta = new Vector2(D.CardWidth, D.CardHeight);
 
         newCard.AddComponent<CanvasRenderer>();
-        newCard.AddComponent<Draggable>();
+        CardController controller = newCard.AddComponent<CardController>();
+        controller.Card = card;
 
         Image image = newCard.AddComponent<Image>();
-        image.overrideSprite = GetSpriteForCard(c);
+        image.overrideSprite = GetSpriteForCard(card);
 
         BoxCollider2D boxCollider = newCard.AddComponent<BoxCollider2D>();
         boxCollider.isTrigger = true;
-        boxCollider.size = new Vector2(width, height);
+        boxCollider.size = new Vector2(D.CardWidth, D.CardHeight);
         Rigidbody2D ridigBody = newCard.AddComponent<Rigidbody2D>();
         ridigBody.bodyType = RigidbodyType2D.Kinematic;
 
         newCard.transform.SetParent(parentCanvas.transform);
-        newCard.transform.position = new Vector3(x, y, 0);
+        newCard.transform.position = new Vector3(coords.x, coords.y, 0);
 
         Canvas canvas = newCard.AddComponent<Canvas>();
         canvas.overrideSorting = true;
@@ -72,7 +67,7 @@ public class UICard : MonoBehaviour{
         return newCard;
     }
 
-    private static GameObject DrawCard(Card c, float x, float y, float width, float height, bool horizontal, bool transparent, bool draggable) {
+    private static GameObject DrawCard(Card c, float x, float y, float width, float height, bool horizontal, bool transparent, bool executable, bool clickable) {
         GameObject canvas = GameObject.Find("Canvas");
         GameObject newCard = new GameObject();
         newCard.AddComponent<CanvasRenderer>();
@@ -87,17 +82,21 @@ public class UICard : MonoBehaviour{
         rectTransform.sizeDelta = new Vector2(width, height);
 
         Image image = newCard.AddComponent<Image>();
-        if (draggable) newCard.AddComponent<Draggable>();
         image.overrideSprite = GetSpriteForCard(c);
         if (transparent) image.color = new Color(255, 255, 255, (float)0.8);
 
         newCard.transform.position = new Vector3(x, y, 0);
         newCard.transform.SetParent(canvas.transform);
 
+        StaticCardsController controller = newCard.AddComponent<StaticCardsController>();
+        controller.Card = c;
+        controller.clickable = clickable;
+        controller.executable = executable;
+
         return newCard;
     }
 
-    public static void DrawDot(float x, float y) {
+    public static void DrawDot(Vector2 coords) {
         GameObject canvas = GameObject.Find("Canvas");
         GameObject dot = new GameObject();
         dot.AddComponent<CanvasRenderer>();
@@ -107,10 +106,10 @@ public class UICard : MonoBehaviour{
         rectTransform.sizeDelta = new Vector2(10, 10);
 
         Image image = dot.AddComponent<Image>();
-        dot.AddComponent<Draggable>();
+        dot.AddComponent<CardController>();
         image.color = new Color(255, 0, 255);
 
-        dot.transform.position = new Vector3(x, y, 0);
+        dot.transform.position = new Vector3(coords.x, coords.y, 0);
         dot.transform.SetParent(canvas.transform);
     }
 
@@ -470,6 +469,7 @@ public class UICard : MonoBehaviour{
                 break;
         }
 
+        UnityEngine.Debug.Log(fileUri);
         return Resources.Load<Sprite>(fileUri);
     }
 
