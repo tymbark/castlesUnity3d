@@ -6,12 +6,12 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
-    public bool ClicksEnabled { get; private set; }
+    public bool ClicksEnabled = true;
     public GameEngine GameEngine { get; private set; }
-    private List<GameObject> Trash = new List<GameObject>();
     private List<GameObject> DynamicCardsGO = new List<GameObject>();
     private ActionHandler ActionHandler;
     private GameBoardGenerator GameBoardGenerator = new GameBoardGenerator();
+    private PopupsController PopupsController;
 
     private void Awake() {
         GameEngine = new GameEngine();
@@ -19,41 +19,19 @@ public class GameController : MonoBehaviour {
     }
 
     void Start() {
+        PopupsController = GetComponent<PopupsController>();
         RefreshTable();
-        ClicksEnabled = true;
     }
 
-    // Update is called once per frame
     void Update() {
 
     }
 
-    void RefreshTable() {
+    public void RefreshTable() {
         foreach (GameObject gmo in DynamicCardsGO) {
             Destroy(gmo);
         }
         DynamicCardsGO = GameBoardGenerator.DrawGameBoard(GameEngine);
-    }
-
-    private void ShowMessageCannotFinishTurn() {
-        ClicksEnabled = false;
-        Object prefab = Resources.Load("Prefabs/TextUseACard");
-        print("prefab" + prefab);
-        GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
-        messageGameObject.transform.position = Vector3.one;
-
-        GameObject canvas = GameObject.Find("Canvas");
-        messageGameObject.transform.SetParent(canvas.transform);
-        Trash.Add(messageGameObject);
-        Invoke("DestroyUnwantedObjects", 3f);
-    }
-
-    public void DestroyUnwantedObjects() {
-        foreach (GameObject obj in Trash) {
-            Destroy(obj);
-        }
-        Trash.Clear();
-        ClicksEnabled = true;
     }
 
     public void HandleClickAction(Card targetCard) {
@@ -62,8 +40,10 @@ public class GameController : MonoBehaviour {
         switch (targetCard.Class) {
             case CardClass.EndTurn:
                 if (actions.HasEndTurnAction()) {
+                    ActionHandler.ProcessAction(actions.GetEndTurnAction());
+                    PopupsController.ShowMessageNextTurn();
                 } else {
-                    ShowMessageCannotFinishTurn();
+                    PopupsController.ShowMessageCannotFinishTurn();
                 }
                 break;
             case CardClass.Options:
