@@ -23,7 +23,7 @@ public class ActionHandler {
             case ActionType.TakeProject:
 
                 CurrentPlayer().ExecuteTakeProjectAction(action);
-                RemoveCardFromProjects(action.ActionCard);
+                RemoveCardFromProjects(action.TargetCard);
 
                 break;
             case ActionType.BuildProject:

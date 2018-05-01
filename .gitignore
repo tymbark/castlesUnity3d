@@ -35,4 +35,5 @@ sysinfo.txt
 *.unitypackage
 .DS_Store
 
-Assets/Resources/*
+Assets/Resources/Cards/*
+Assets/TextMesh*

@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using D = GameDimensions;
 
-public class CardsGenerator {
+public static class CardsGenerator {
 
     public static GameObject DrawClickableButtonCard(Card c, Vector2 coords) {
         return DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardWidth, false, false, false, true);
@@ -368,7 +368,7 @@ public class CardsGenerator {
                         fileUri += "car1";
                         break;
                     case CardDice.II:
-                        fileUri += "car";
+                        fileUri += "car2";
                         break;
                     case CardDice.III:
                         fileUri += "car3";
@@ -468,7 +468,6 @@ public class CardsGenerator {
                 break;
         }
 
-        UnityEngine.Debug.Log(fileUri);
         return Resources.Load<Sprite>(fileUri);
     }
 

@@ -288,36 +288,134 @@ public static class Utils {
         return result;
     }
 
-    public static bool HasTakeProjectAction(this List<Action> actions) {
-        return actions.FindAll((Action obj) => obj.Type == ActionType.TakeProject).Count > 0;
+    public static bool IsMoveAvailable(this List<Action> actions, Card targetCard, Card actionCard) {
+        switch (targetCard.Class) {
+
+            case CardClass.Worker:
+                return actions.HasBuyWorkersAction(actionCard);
+
+            case CardClass.Silver:
+                return actions.HasBuySilverAction(actionCard);
+
+            case CardClass.AllStorages:
+                return actions.HasShipGoodsAction(actionCard);
+
+            default:
+
+                if (actions.HasBuildThisProjectAction(targetCard, actionCard)) {
+                    return true;
+                } else if (actions.HasTakeThisProjectAction(targetCard, actionCard)) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+        }
     }
 
-    public static List<Action> GetTakeProjectActions(this List<Action> actions) {
-        return actions.FindAll((Action obj) => obj.Type == ActionType.TakeProject);
+    public static Action GetAvailableMove(this List<Action> actions, Card targetCard, Card actionCard) {
+        switch (targetCard.Class) {
+
+            case CardClass.Worker:
+                return actions.GetBuyWorkersAction(actionCard);
+
+            case CardClass.Silver:
+                return actions.GetBuySilverAction(actionCard);
+
+            case CardClass.AllStorages:
+                return actions.GetShipGoodsAction(actionCard);
+
+            default:
+                if (actions.HasBuildThisProjectAction(targetCard, actionCard)) {
+                    return actions.GetBuildThisProjectAction(targetCard, actionCard);
+                } else if (actions.HasTakeThisProjectAction(targetCard, actionCard)) {
+                    return actions.GetTakeThisProjectAction(targetCard, actionCard);
+                } else {
+                    throw new System.InvalidProgramException("Cannot get available move for " + targetCard.Describe());
+                }
+
+        }
     }
 
-    public static bool HasBuySilverAction(this List<Action> actions) {
-        return actions.FindAll((Action obj) => obj.Type == ActionType.BuySilver).Count > 0;
+    public static Action GetBuildThisProjectAction(this List<Action> actions, Card targetCard, Card actionCard) {
+        return actions.FindAll(
+            (Action obj) => obj.Type == ActionType.BuildProject
+            && obj.TargetCard.CompareTo(targetCard)
+            && obj.ActionCard.CompareTo(actionCard))[0];
     }
 
-    public static bool HasBuyWorkersAction(this List<Action> actions) {
-        return actions.FindAll((Action obj) => obj.Type == ActionType.BuyWorkers).Count > 0;
+    public static bool HasBuildThisProjectAction(this List<Action> actions, Card targetCard, Card actionCard) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.BuildProject
+            && obj.TargetCard.CompareTo(targetCard)
+            && obj.ActionCard.CompareTo(actionCard)).Count == 1;
+    }
+
+    public static Action GetTakeThisProjectAction(this List<Action> actions, Card targetCard, Card actionCard) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.TakeProject
+            && obj.TargetCard.CompareTo(targetCard)
+            && obj.ActionCard.CompareTo(actionCard))[0];
+    }
+
+    public static bool HasTakeThisProjectAction(this List<Action> actions, Card targetCard, Card actionCard) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.TakeProject
+            && obj.TargetCard.CompareTo(targetCard)
+            && obj.ActionCard.CompareTo(actionCard)).Count == 1;
+    }
+
+    public static Action GetBuySilverAction(this List<Action> actions, Card actionCard) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.BuySilver
+            && obj.ActionCard.CompareTo(actionCard))[0];
+    }
+
+    public static bool HasBuySilverAction(this List<Action> actions, Card actionCard) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.BuySilver
+            && obj.ActionCard.CompareTo(actionCard)).Count == 1;
+    }
+
+    public static Action GetBuyWorkersAction(this List<Action> actions, Card actionCard) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.BuyWorkers
+            && obj.ActionCard.CompareTo(actionCard))[0];
+    }
+
+    public static bool HasBuyWorkersAction(this List<Action> actions, Card actionCard) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.BuyWorkers
+            && obj.ActionCard.CompareTo(actionCard)).Count == 1;
+    }
+
+    public static Action GetEndTurnAction(this List<Action> actions) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.EndTurn)[0];
     }
 
     public static bool HasEndTurnAction(this List<Action> actions) {
-        return actions.FindAll((Action obj) => obj.Type == ActionType.EndTurn).Count > 0;
+        return actions.FindAll((Action obj) => obj.Type == ActionType.EndTurn).Count == 1;
     }
 
-    public static bool HasSellSilverOrWorkersAction(this List<Action> actions) {
-        return actions.FindAll((Action obj) => obj.Type == ActionType.SellSilverAndWorkers).Count > 0;
+    public static Action GetSellSilverOrWorkersAction(this List<Action> actions, Card actionCard) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.SellSilverAndWorkers
+            && obj.ActionCard.CompareTo(actionCard))[0];
     }
 
-    public static bool HasShipGoodsAction(this List<Action> actions) {
-        return actions.FindAll((Action obj) => obj.Type == ActionType.ShipGoods).Count > 0;
+    public static bool HasSellSilverOrWorkersAction(this List<Action> actions, Card actionCard) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.SellSilverAndWorkers
+            && obj.ActionCard.CompareTo(actionCard)).Count == 1;
+    }
+
+    public static Action GetShipGoodsAction(this List<Action> actions, Card actionCard) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.ShipGoods
+            && obj.ActionCard.CompareTo(actionCard))[0];
+    }
+
+    public static bool HasShipGoodsAction(this List<Action> actions, Card actionCard) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.ShipGoods
+            && obj.ActionCard.CompareTo(actionCard)).Count == 1;
+    }
+
+    public static Action GetUseSilverAction(this List<Action> actions) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.UseSilver)[0];
     }
 
     public static bool HasUseSilverAction(this List<Action> actions) {
-        return actions.FindAll((Action obj) => obj.Type == ActionType.UseSilver).Count > 0;
+        return actions.FindAll((Action obj) => obj.Type == ActionType.UseSilver).Count == 1;
     }
 
 }

@@ -28,11 +28,16 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
         GameController = gameObj.GetComponent<GameController>();
     }
 
+    private void OnDestroy() {
+        Colliders.Clear();
+    }
+
     void Update() {
 
     }
 
     public void OnBeginDrag(PointerEventData eventData) {
+        if (!GameController.ClicksEnabled) return;
         dragging = true;
         StartingPosition = transform.position;
         canvas.sortingOrder = 1;

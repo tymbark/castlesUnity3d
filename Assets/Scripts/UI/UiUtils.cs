@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 public static class UiUtils {
 
+    public enum ClickAction {
+        Options, Exit, NextTurn,
+        AllProjects, AllEstates, AllAnimals, AllStorages, AllBonuses,
+        UseSilver, SellSilverAndWorkers
+    }
+
     public static void ResetColor(this GameObject obj) {
         Image image = obj.GetComponent<Image>();
         image.color = new Color(1, 1, 1, 1);
@@ -22,6 +28,11 @@ public static class UiUtils {
 
     public static StaticCardsController GetStaticController(this GameObject obj) {
         StaticCardsController controller = obj.GetComponent<StaticCardsController>();
+        return controller;
+    }
+
+    public static CardController GetCardController(this GameObject obj) {
+        CardController controller = obj.GetComponent<CardController>();
         return controller;
     }
 

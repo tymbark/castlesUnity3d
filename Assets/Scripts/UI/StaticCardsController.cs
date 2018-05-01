@@ -1,20 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class StaticCardsController : MonoBehaviour {
+public class StaticCardsController : MonoBehaviour, IPointerClickHandler {
 
     public Models.Card Card;
     public bool executable = false;
     public bool clickable = false;
+    private GameController GameController;
 
-	// Use this for initialization
-	void Start () {
-		
+    void Start () {
+        GameObject gameObj = GameObject.Find("GameObjectController");
+        GameController = gameObj.GetComponent<GameController>();
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		
 	}
+
+    public void OnPointerClick(PointerEventData eventData) {
+        if (GameController.ClicksEnabled) {
+            print("clicked");
+            if (clickable) {
+                GameController.HandleClickAction(Card);
+            }    
+        }
+    }
+
+
 }
