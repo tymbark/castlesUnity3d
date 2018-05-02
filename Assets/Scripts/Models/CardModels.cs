@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Models {
 
-    public enum CardClass {        
+    public enum CardClass {
         None,
 
         // Animals
@@ -13,7 +13,8 @@ namespace Models {
 
         // Enviroment
         Dice, Worker, Silver, EndTurn, Options, Exit,
-        AllProjects, AllEstates, AllAnimals, AllBonuses, AllStorages,
+        AllProjects, AllEstates, AllAnimals, AllStorages,
+        SellSilverAndWorkers, ShipGoods,
 
         // Bonuses
         BonusA, BonusB, BonusC, BonusD, BonusE,
@@ -79,7 +80,8 @@ namespace Models {
         public static Card DummyAllStorages = new Card(CardClass.AllStorages, CardDice.O);
         public static Card DummyAllEstates = new Card(CardClass.AllEstates, CardDice.O);
         public static Card DummyAllAnimals = new Card(CardClass.AllAnimals, CardDice.O);
-        public static Card DummyAllBonuses = new Card(CardClass.AllBonuses, CardDice.O);
+        public static Card DummySellSilverAndWorkers = new Card(CardClass.SellSilverAndWorkers, CardDice.O);
+        public static Card DummyShipGoods = new Card(CardClass.ShipGoods, CardDice.O);
         public static Card DummySilver = new Card(CardClass.Silver, CardDice.O);
         public static Card DummyWorker = new Card(CardClass.Worker, CardDice.O);
         public static Card DummyOptions = new Card(CardClass.Options, CardDice.O);

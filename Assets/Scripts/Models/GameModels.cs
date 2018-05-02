@@ -7,6 +7,7 @@ namespace Models {
     public class GameState {
 
         readonly List<Player> Players;
+        public Round CurrentRound = Round.A;
         public readonly Deck ActionsDeck;
 
         public Player CurrentPlayer { get; private set; }
@@ -47,13 +48,8 @@ namespace Models {
 
     }
 
-    public class GameTable {
-        public GameTable() {
-        }
-        public List<Card> cards = new List<Card>();
-
-
-
+    public enum Round {
+        A, B, C, D, E
     }
 
 }

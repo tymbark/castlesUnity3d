@@ -56,8 +56,6 @@ public class GameController : MonoBehaviour {
                 break;
             case CardClass.AllAnimals:
                 break;
-            case CardClass.AllBonuses:
-                break;
             case CardClass.AllStorages:
                 break;
         }

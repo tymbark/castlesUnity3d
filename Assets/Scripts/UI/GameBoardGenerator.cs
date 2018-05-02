@@ -11,7 +11,7 @@ public class GameBoardGenerator {
 
     public List<GameObject> DrawGameBoard(GameEngine engine) {
         DrawPlayerHand(engine.GameState.CurrentPlayer.Cards);
-        DrawEnviroment();
+        DrawEnviroment(engine.GameState.CurrentRound);
         DrawPlayerProjectCards(engine.GameState.CurrentPlayer.ProjectArea);
         DrawAnimals(engine.AnimalsDeck);
         DrawGoods(engine.GoodsDeck);
@@ -65,12 +65,13 @@ public class GameBoardGenerator {
         }
     }
 
-    private void DrawEnviroment() {
+    private void DrawEnviroment(Round currentRound) {
         gameObjects.Add(CardsGenerator.DrawClickableHorizontalCard(Card.DummyAllEstates, D.PositionAllEstatesCard));
         gameObjects.Add(CardsGenerator.DrawClickableHorizontalCard(Card.DummyAllProjects, D.PositionAllProjectsCard));
         gameObjects.Add(CardsGenerator.DrawClickableHorizontalCard(Card.DummyAllStorages, D.PositionAllStoragesCard));
         gameObjects.Add(CardsGenerator.DrawClickableCard(Card.DummyAllAnimals, D.PositionAllAnimalsCard));
-        gameObjects.Add(CardsGenerator.DrawClickableCard(Card.DummyAllBonuses, D.PositionAllBonusesCard));
+        gameObjects.Add(CardsGenerator.DrawClickableCard(Card.DummySellSilverAndWorkers, D.PositionSellSilverAndWorkersCard));
+        gameObjects.Add(CardsGenerator.DrawClickableCard(Card.DummyShipGoods, D.PositionShipGoodsCard));
         gameObjects.Add(CardsGenerator.DrawClickableAndExecutableCard(Card.DummyWorker, D.PositionSilverCard));
         gameObjects.Add(CardsGenerator.DrawClickableAndExecutableCard(Card.DummySilver, D.PositionWorkerCard));
 
@@ -79,6 +80,25 @@ public class GameBoardGenerator {
         gameObjects.Add(CardsGenerator.DrawClickableButtonCard(Card.DummyExit, D.PositionExitButton));
 
         gameObjects.Add(CardsGenerator.DrawBigBackgroundCard(Card.DummyAllProjects, D.PositionCardProjectsBigCard));
+
+        switch (currentRound) {
+            case Round.A:
+                gameObjects.Add(CardsGenerator.DrawClickableCard(new Card(CardClass.BonusA, CardDice.O), D.PositionCurrentBonusCard));
+                break;
+            case Round.B:
+                gameObjects.Add(CardsGenerator.DrawClickableCard(new Card(CardClass.BonusB, CardDice.O), D.PositionCurrentBonusCard));
+                break;
+            case Round.C:
+                gameObjects.Add(CardsGenerator.DrawClickableCard(new Card(CardClass.BonusC, CardDice.O), D.PositionCurrentBonusCard));
+                break;
+            case Round.D:
+                gameObjects.Add(CardsGenerator.DrawClickableCard(new Card(CardClass.BonusD, CardDice.O), D.PositionCurrentBonusCard));
+                break;
+            case Round.E:
+                gameObjects.Add(CardsGenerator.DrawClickableCard(new Card(CardClass.BonusE, CardDice.O), D.PositionCurrentBonusCard));
+                break;
+        }
+
     }
 
     private void DrawDices() {

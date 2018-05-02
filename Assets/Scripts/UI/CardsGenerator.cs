@@ -126,9 +126,6 @@ public static class CardsGenerator {
             case CardClass.AllEstates:
                 fileUri += "estate";
                 break;
-            case CardClass.AllBonuses:
-                fileUri += "bonus";
-                break;
             case CardClass.AllAnimals:
                 fileUri += "all_animals";
                 break;
@@ -465,6 +462,12 @@ public static class CardsGenerator {
                         fileUri += "cityh6";
                         break;
                 }
+                break;
+            case CardClass.SellSilverAndWorkers:
+                fileUri += "sell_silver";
+                break;
+            case CardClass.ShipGoods:
+                fileUri += "sell_goods";
                 break;
         }
 

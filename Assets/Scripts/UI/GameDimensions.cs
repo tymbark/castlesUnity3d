@@ -59,11 +59,12 @@ public static class GameDimensions {
     public static readonly Vector2 PositionAllProjectsCard = PositionAllEstatesCard + new Vector2(0, CardWidth + marginSmall);
     public static readonly Vector2 PositionAllStoragesCard = PositionAllProjectsCard + new Vector2(0, CardWidth + marginSmall);
 
-    public static readonly Vector2 PositionAllBonusesCard = new Vector2(PositionAllEstatesCard.x + CardHeight / 2 + CardWidth / 2 + marginBig, ScreenBottomLeft.y + marginBig + CardHeight / 2);
-    public static readonly Vector2 PositionCurrentBonusCard = PositionAllBonusesCard + new Vector2(marginSmall + CardWidth, 0);
-    public static readonly Vector2 PositionAllAnimalsCard = PositionAllBonusesCard + new Vector2(0, marginSmall + CardHeight);
+    public static readonly Vector2 PositionCurrentBonusCard = new Vector2(PositionAllEstatesCard.x + CardHeight / 2 + CardWidth / 2 + marginBig, ScreenBottomLeft.y + marginBig + CardHeight / 2);
+    public static readonly Vector2 PositionAllAnimalsCard = PositionCurrentBonusCard + new Vector2(0, marginSmall + CardHeight);
     public static readonly Vector2 PositionSilverCard = PositionAllAnimalsCard + new Vector2(marginSmall + CardWidth, 0);
     public static readonly Vector2 PositionWorkerCard = PositionSilverCard + new Vector2(marginSmall + CardWidth, 0);
+    public static readonly Vector2 PositionShipGoodsCard = PositionSilverCard + new Vector2(0, -(marginSmall + CardHeight));
+    public static readonly Vector2 PositionSellSilverAndWorkersCard = PositionWorkerCard + new Vector2(0, -(marginSmall + CardHeight));
 
     public static readonly Vector2 PositionEndTurnButton = ScreenBottomRight + new Vector2(-(marginBig + CardWidth / 2), marginBig + CardWidth / 2);
     public static readonly Vector2 PositionOptionsButton = PositionEndTurnButton + new Vector2(0, marginBig + CardWidth);
