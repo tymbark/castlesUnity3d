@@ -1,49 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using Models;
 
 namespace Models {
 
     public class GameState {
 
-        readonly List<Player> Players;
-        public Round CurrentRound = Round.A;
-        public readonly Deck ActionsDeck;
+        public List<Player> Players;
+        public int howManyPlayers;
+        public Round CurrentRound;
+        public Player CurrentPlayer;
 
-        public Player CurrentPlayer { get; private set; }
+        public Deck MainDeck;
+        public Deck AnimalsDeck;
+        public Deck GoodsDeck;
+        public List<ProjectCard> AvailableProjectCards;
 
-        public GameState(List<Player> players, Deck actionsDeck) {
-            this.ActionsDeck = actionsDeck;
-            if (players.Count < 2) {
-                throw new System.InvalidOperationException("Players size cannot be smaller than 2!");
-            }
+        public GameState(List<Player> players,
+                         Deck mainDeck,
+                         Deck animalsDeck,
+                         Deck goodsDeck,
+                         List<ProjectCard> availableProjectCards) {
+            this.Players = players;
+            this.howManyPlayers = Players.Count;
+            //this.CurrentPlayer = currentPlayer;
+            //this.CurrentRound = currentRound;
+            this.MainDeck = mainDeck;
+            this.AnimalsDeck = animalsDeck;
+            this.GoodsDeck = goodsDeck;
+            this.AvailableProjectCards = availableProjectCards;
 
-            Players = players;
-        }
-
-        public void StartTurn() {
-            CurrentPlayer = Players[0];
-            DrawCards();
-        }
-
-
-        public void NextTurn() {
-
-            if (Players.IndexOf(CurrentPlayer) == Players.Count - 1) {
-                CurrentPlayer = Players[0];
-            } else {
-                CurrentPlayer = Players[Players.IndexOf(CurrentPlayer) + 1];
-            }
-
-            if (CurrentPlayer.Cards.Count == 1) {
-                DrawCards();
-            }
-        }
-
-        private void DrawCards() {
-            foreach (Player p in Players) {
-                p.DrawCards(ActionsDeck);
-            }
         }
 
     }
@@ -51,5 +38,6 @@ namespace Models {
     public enum Round {
         A, B, C, D, E
     }
+
 
 }

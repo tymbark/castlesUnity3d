@@ -5,35 +5,41 @@ using Models;
 
 public class GameEngine {
 
-    int howManyPlayers = 2;
+    private readonly int howManyPlayers = 2; //to change this
 
     public GameState GameState { get; private set; }
     public ActionHandler ActionHandler { get; private set; }
 
-    public Deck ActionsDeck { get; private set; }
-    public Deck AnimalsDeck { get; private set; }
-    public Deck GoodsDeck { get; private set; }
-    public List<ProjectCard> AvailableProjectCards { get; private set; }
-    public List<Player> Players = new List<Player>();
-
     public GameEngine() {
-        PrepareDecks();
-        PreparePlayers();
-        PrepareProjectCards();
+        if (GameState == null) {
+            if (false && PlayerPrefs.HasKey("game_state_cob")) {
+                Debug.Log("loading game state...");
+                string gameStateJson = PlayerPrefs.GetString("game_state_cob");
+                GameState = JsonUtility.FromJson<GameState>(gameStateJson);
+            } else {
+                Debug.Log("create new game state");
+                GameState = GenerateGameState();
+                string gameStateJson = JsonUtility.ToJson(GameState);
+                PlayerPrefs.SetString("game_state_cob", gameStateJson);
+                StartTurn();
+            }
+        }
 
-        GameState = new GameState(Players, ActionsDeck);
-        GameState.StartTurn();
-
-        ActionHandler = new ActionHandler(GameState, AvailableProjectCards);
+        ActionHandler = new ActionHandler(this, GameState.AvailableProjectCards);
     }
 
-    void PrepareDecks() {
-        ActionsDeck = DeckGenerator.GenerateActionsDeck();
-        AnimalsDeck = DeckGenerator.GenerateAnimalsDeck();
-        GoodsDeck = DeckGenerator.GenerateGoodsDeck();
+    private GameState GenerateGameState() {
+        var mainDeck = DeckGenerator.GenerateActionsDeck();
+        var animalsDeck = DeckGenerator.GenerateAnimalsDeck();
+        var goodsDeck = DeckGenerator.GenerateGoodsDeck();
+        var projectCards = PrepareProjectCards(mainDeck, howManyPlayers);
+        var players = PreparePlayers(animalsDeck, goodsDeck);
+
+        return new GameState(players, mainDeck, animalsDeck, goodsDeck, projectCards);
     }
 
-    void PreparePlayers() {
+    private List<Player> PreparePlayers(Deck animalsDeck, Deck goodsDeck) {
+        List<Player> Players = new List<Player>();
         for (int i = 0; i < howManyPlayers; i++) {
             int startingWorkers;
             switch (i) {
@@ -48,25 +54,47 @@ public class GameEngine {
                     break;
             }
 
-            Players.Add(new Player("ewa" + i, AnimalsDeck.DrawCard(), GoodsDeck.DrawCard(), startingWorkers));
+            Players.Add(new Player("ewa" + i, animalsDeck.DrawCard(), goodsDeck.DrawCard(), startingWorkers));
         }
 
         //Players[0].Estate.AddProjectToEstate(ActionsDeck.DrawCard());
-        //Players[0].Estate.AddProjectToEstate(ActionsDeck.DrawCard());
-        //Players[0].Estate.AddProjectToEstate(ActionsDeck.DrawCard());
-        //Players[0].Estate.AddProjectToEstate(ActionsDeck.DrawCard());
-        Players[0].ProjectArea.Add(ActionsDeck.DrawCard());
         //Players[0].ProjectArea.Add(ActionsDeck.DrawCard());
-        //Players[0].ProjectArea.Add(ActionsDeck.DrawCard());
-        //Players[0].ProjectArea.Add(ActionsDeck.DrawCard());
+
+        return Players;
     }
 
-    void PrepareProjectCards() {
-        AvailableProjectCards = new List<ProjectCard>();
+
+    public void StartTurn() {
+        GameState.CurrentPlayer = GameState.Players[0];
+        DrawCards();
+    }
+
+
+    public void NextTurn() {
+
+        if (GameState.Players.IndexOf(GameState.CurrentPlayer) == GameState.Players.Count - 1) {
+            GameState.CurrentPlayer = GameState.Players[0];
+        } else {
+            GameState.CurrentPlayer = GameState.Players[GameState.Players.IndexOf(GameState.CurrentPlayer) + 1];
+        }
+
+        if (GameState.CurrentPlayer.Cards.Count == 1) {
+            DrawCards();
+        }
+    }
+
+    private void DrawCards() {
+        foreach (Player p in GameState.Players) {
+            p.DrawCards(GameState.MainDeck);
+        }
+    }
+
+    private static List<ProjectCard> PrepareProjectCards(Deck mainDeck, int playersCount) {
+        var AvailableProjectCards = new List<ProjectCard>();
 
         int howManyProjectCardsPerTurn = 0;
 
-        switch (Players.Count) {
+        switch (playersCount) {
             case 2:
                 howManyProjectCardsPerTurn = 7;
                 break;
@@ -80,7 +108,7 @@ public class GameEngine {
 
         for (int i = 0; i < howManyProjectCardsPerTurn; i++) {
 
-            Card topCardFromDeck = ActionsDeck.DrawCard();
+            Card topCardFromDeck = mainDeck.DrawCard();
             CardDice cardDice;
 
             switch (i) {
@@ -110,6 +138,8 @@ public class GameEngine {
 
             AvailableProjectCards.Add(new ProjectCard(topCardFromDeck, cardDice));
         }
+
+        return AvailableProjectCards;
     }
 
 }

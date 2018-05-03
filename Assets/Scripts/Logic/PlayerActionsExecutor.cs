@@ -62,7 +62,7 @@ public static class PlayerActinosExecutor {
         } else {
             throw new System.InvalidOperationException(
                 "Cannot use a card that player don't have! Tried to use "
-                + card.Describe() + " but player only has " + p.Cards.Describe());
+                + Utils.Describe(card) + " but player only has " + p.Cards.Describe());
         }
     }
 

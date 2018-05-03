@@ -6,10 +6,6 @@ public class InputHandler : MonoBehaviour {
 
     public GameEngine GameEngine;
 
-    private void Awake() {        
-        GameEngine = new GameEngine();
-    }
-
     private void Start() {
         GameObject gameObj = GameObject.Find("GameObjectController");
         GameController gameController = gameObj.GetComponent<GameController>();

@@ -21,6 +21,44 @@ public class GameController : MonoBehaviour {
     void Start() {
         PopupsController = GetComponent<PopupsController>();
         RefreshTable();
+
+        //print("Start!");
+        //string json = JsonUtility.ToJson(GameEngine.GameState);
+        //var state = JsonUtility.FromJson<GameState>(json);
+        //print(json);
+
+        //print("before" + GameEngine.GameState.MainDeck.Cards.Count);
+        //print("before" + GameEngine.GameState.AvailableProjectCards.Describe());
+
+
+        //print("after " + state.MainDeck.Cards.Count);
+        //print("after " + state.AvailableProjectCards.Describe());
+
+        //var d = GameEngine.GameState.AnimalsDeck;
+
+        //print("size before :" + d.Cards.Count);
+
+        //print("before: " + d.Stringify());
+
+        //string s = d.Stringify();
+
+        //var d2 = s.ParseToDeck();
+
+        //print("size after :" + d2.Cards.Count);
+
+        //print("before: " + d2.Stringify());
+
+        var x = GameEngine.GameState.AvailableProjectCards;
+        print("before:" + x.Describe());
+
+        print(x.Stringify());
+
+        var x2 = x.Stringify().ParseToProjectCardList();
+
+        print(x2);
+
+        print("after:" + x2.Describe());
+
     }
 
     void Update() {

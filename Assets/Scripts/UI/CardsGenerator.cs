@@ -96,22 +96,46 @@ public static class CardsGenerator {
         return newCard;
     }
 
-    public static GameObject DrawClickablePointsButton(Card c, Vector2 position, int points) {
-        Object prefab = Resources.Load("Prefabs/PointsButton");
-        GameObject pointsButton = Object.Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+    public static GameObject DrawPointsButton(int points) {
+        return DrawPrefabCardWithText(Card.DummyPoints, D.PositionPointsButton, "ButtonPoints", points + "");
+    }
+
+    public static GameObject DrawWorkersCard(int howMany) {
+        return DrawPrefabCardWithText(Card.DummyWorker, D.PositionWorkerCard, "CardWorker", howMany + "");
+    }
+
+    public static GameObject DrawSilverCard(int howMany) {
+        return DrawPrefabCardWithText(Card.DummySilver, D.PositionSilverCard, "CardSilver", howMany + "");
+    }
+
+    public static GameObject DrawAnimalsCard(int howMany) {
+        return DrawPrefabCardWithText(Card.DummyAllAnimals, D.PositionAllAnimalsCard, "CardAnimals", howMany + "");
+    }
+
+    public static GameObject DrawStorageCard(int howMany) {
+        return DrawPrefabCardWithText(Card.DummyAllStorages, D.PositionAllStoragesCard, "CardStorage", howMany + "");
+    }
+
+    public static GameObject DrawEstateCard(int howMany) {
+        return DrawPrefabCardWithText(Card.DummyAllEstates, D.PositionAllEstatesCard, "CardEstate", howMany + "");
+    }
+
+    private static GameObject DrawPrefabCardWithText(Card c, Vector2 position, string prefabRes, string text) {
+        Object obj = Resources.Load("Prefabs/" + prefabRes);
+        GameObject prefab = Object.Instantiate(obj) as GameObject;
 
         GameObject canvas = GameObject.Find("Canvas");
-        pointsButton.transform.SetParent(canvas.transform);
+        prefab.transform.SetParent(canvas.transform);
 
-        pointsButton.transform.position = new Vector3(position.x, position.y, 0);
+        prefab.transform.position = new Vector3(position.x, position.y, 0);
 
-        StaticCardsController controller = pointsButton.GetComponent<StaticCardsController>();
+        StaticCardsController controller = prefab.GetComponent<StaticCardsController>();
         controller.Card = c;
 
-        TMPro.TextMeshProUGUI text = pointsButton.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        text.text = "" + points;
+        TMPro.TextMeshProUGUI textObj = prefab.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+        textObj.text = "" + text;
 
-        return pointsButton;
+        return prefab;
     }
 
     public static void DrawDot(Vector2 coords) {

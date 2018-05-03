@@ -10,13 +10,17 @@ public class GameBoardGenerator {
     private List<GameObject> gameObjects = new List<GameObject>();
 
     public List<GameObject> DrawGameBoard(GameEngine engine) {
+        Debug.Log(engine);
+        Debug.Log(engine.GameState);
+        Debug.Log(engine.GameState.CurrentPlayer);
+        Debug.Log(engine.GameState.CurrentPlayer.Cards);
         DrawPlayerHand(engine.GameState.CurrentPlayer.Cards);
         DrawEnviroment(engine.GameState);
         DrawPlayerProjectCards(engine.GameState.CurrentPlayer.ProjectArea);
-        DrawAnimals(engine.AnimalsDeck);
-        DrawGoods(engine.GoodsDeck);
+        DrawAnimals(engine.GameState.AnimalsDeck);
+        DrawGoods(engine.GameState.GoodsDeck);
         DrawDices();
-        DrawAvailableProjectCards(engine.AvailableProjectCards);
+        DrawAvailableProjectCards(engine.GameState.AvailableProjectCards);
 
         return gameObjects;
     }
@@ -66,17 +70,19 @@ public class GameBoardGenerator {
     }
 
     private void DrawEnviroment(GameState gameState) {
-        gameObjects.Add(CardsGenerator.DrawClickableHorizontalCard(Card.DummyAllEstates, D.PositionAllEstatesCard));
+        Player currentPlayer = gameState.CurrentPlayer;
+
+        gameObjects.Add(CardsGenerator.DrawEstateCard(currentPlayer.Estate.All().Count));
         gameObjects.Add(CardsGenerator.DrawClickableHorizontalCard(Card.DummyAllProjects, D.PositionAllProjectsCard));
-        gameObjects.Add(CardsGenerator.DrawClickableHorizontalCard(Card.DummyAllStorages, D.PositionAllStoragesCard));
-        gameObjects.Add(CardsGenerator.DrawClickableCard(Card.DummyAllAnimals, D.PositionAllAnimalsCard));
+        gameObjects.Add(CardsGenerator.DrawStorageCard(currentPlayer.Goods.Count));
+        gameObjects.Add(CardsGenerator.DrawAnimalsCard(currentPlayer.Animals.Count));
 
         gameObjects.Add(CardsGenerator.DrawClickableAndExecutableCard(Card.DummySellSilverAndWorkers, D.PositionSellSilverAndWorkersCard));
         gameObjects.Add(CardsGenerator.DrawClickableAndExecutableCard(Card.DummyShipGoods, D.PositionShipGoodsCard));
-        gameObjects.Add(CardsGenerator.DrawClickableAndExecutableCard(Card.DummyWorker, D.PositionSilverCard));
-        gameObjects.Add(CardsGenerator.DrawClickableAndExecutableCard(Card.DummySilver, D.PositionWorkerCard));
+        gameObjects.Add(CardsGenerator.DrawSilverCard(currentPlayer.SilverCount));
+        gameObjects.Add(CardsGenerator.DrawWorkersCard(currentPlayer.WorkersCount));
 
-        gameObjects.Add(CardsGenerator.DrawClickablePointsButton(Card.DummyPoints, D.PositionPointsButton, gameState.CurrentPlayer.Score));
+        gameObjects.Add(CardsGenerator.DrawPointsButton(currentPlayer.Score));
         gameObjects.Add(CardsGenerator.DrawClickableButtonCard(Card.DummyEndTurn, D.PositionEndTurnButton));
         gameObjects.Add(CardsGenerator.DrawClickableButtonCard(Card.DummyExit, D.PositionExitButton));
 

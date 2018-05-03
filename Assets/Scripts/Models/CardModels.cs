@@ -55,16 +55,12 @@ namespace Models {
         public readonly CardClass Class;
         public readonly CardDice Dice;
 
-        public override string ToString() {
+        public string Describe() {
             return "Card[ " + Class + " - " + Dice + " ]";
         }
 
         public bool CompareTo(Card card) {
             return card.Class == Class && card.Dice == Dice;
-        }
-
-        public static Card EndTurnCard() {
-            return new Card(CardClass.EndTurn, CardDice.O);
         }
 
         public static Card Dummy = new Card(CardClass.None, CardDice.O);
@@ -103,14 +99,19 @@ namespace Models {
 
     public class Deck {
 
-        public Deck(List<Card> cards) {
+        public Deck(List<Card> cards, bool shuffle = true) {
             Cards = cards;
-            Cards.Shuffle();
+            if (shuffle) {
+                Cards.Shuffle();
+            }
         }
 
         public readonly List<Card> Cards;
 
         public Card DrawCard() {
+            if (Cards.Count == 0) {
+                throw new System.InvalidProgramException("Deck is empty!");
+            }
             Card card = Cards[Cards.Count - 1];
             Cards.Remove(card);
             return card;

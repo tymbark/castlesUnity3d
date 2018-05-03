@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 public class ActionHandler {
 
-    private readonly GameState GameState;
+    private readonly GameEngine GameEngine;
     private readonly List<ProjectCard> AvailableProjectCards;
 
-    public ActionHandler(GameState gameState, List<ProjectCard> availableProjectCards) {
+    public ActionHandler(GameEngine gameEngine, List<ProjectCard> availableProjectCards) {
         AvailableProjectCards = availableProjectCards;
-        GameState = gameState;
+        GameEngine = gameEngine;
     }
 
     public void ProcessAction(Action action) {
@@ -52,8 +52,8 @@ public class ActionHandler {
                 break;
 
             case ActionType.UseSilver:
-                
-                CurrentPlayer().ExecuteUseSilverAction(action, GameState.ActionsDeck);
+
+                CurrentPlayer().ExecuteUseSilverAction(action, GameEngine.GameState.MainDeck);
                 break;
 
             case ActionType.TakeSilverProject:
@@ -62,9 +62,9 @@ public class ActionHandler {
                 break;
 
             case ActionType.EndTurn:
-                
+
                 CurrentPlayer().ExecuteEndTurnAction();
-                GameState.NextTurn();
+                GameEngine.NextTurn();
                 break;
 
             default:
@@ -115,13 +115,13 @@ public class ActionHandler {
         }
 
         if (CurrentPlayer().EndTurnActionAvailable()) {
-            availableActions.Add(new Action(ActionType.EndTurn, Card.EndTurnCard(), Card.EndTurnCard()));
+            availableActions.Add(new Action(ActionType.EndTurn, Card.DummyEndTurn, Card.DummyEndTurn));
         }
 
 
         return availableActions;
     }
     private Player CurrentPlayer() {
-        return GameState.CurrentPlayer;
+        return GameEngine.GameState.CurrentPlayer;
     }
 }

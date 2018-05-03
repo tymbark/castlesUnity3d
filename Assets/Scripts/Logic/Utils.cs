@@ -71,14 +71,14 @@ public static class Utils {
 
         for (int i = 0; i < list.Count; i++) {
             Action a = list[i];
-            output += "    Key '" + KeyForAction(i) + "': " + a.Type + " " + a.TargetCard.Describe();
+            output += "    Key '" + KeyForAction(i) + "': " + a.Type + " " + Describe(a.TargetCard);
 
             if (a.Type == ActionType.UseSilver) {
                 output += " (pay 3 s)";
             } else if (a.Type == ActionType.TakeSilverProject) {
                 output += " (free)";
             } else {
-                output += " using " + a.ActionCard.Describe();
+                output += " using " + Describe(a.ActionCard);
             }
 
             if (a.WorkersNeeded > 0) {
@@ -102,12 +102,12 @@ public static class Utils {
     public static string Describe(this Action action) {
         string output = "";
 
-        output += action.Type + " " + action.TargetCard.Describe();
+        output += action.Type + " " + Describe(action.TargetCard);
 
         if (action.Type != ActionType.EndTurn
             && action.Type != ActionType.TakeSilverProject
             && action.Type != ActionType.UseSilver) {
-            output += " using " + action.ActionCard.Describe();
+            output += " using " + Describe(action.ActionCard);
         }
 
         if (action.Type == ActionType.SellSilverAndWorkers) {
@@ -177,12 +177,12 @@ public static class Utils {
     public static string GameStatusString(GameEngine gameEngine) {
         var statusText = "refresh game status:\n\n";
 
-        statusText += "Actions Cards in Deck: \n" + gameEngine.ActionsDeck.Cards.Describe() + "\n\n";
+        statusText += "Actions Cards in Deck: \n" + gameEngine.GameState.MainDeck.Cards.Describe() + "\n\n";
 
         statusText += "Current player: " + gameEngine.GameState.CurrentPlayer.Name + "\n\n";
 
-        for (int i = 0; i < gameEngine.Players.Count; i++) {
-            Player p = gameEngine.Players[i];
+        for (int i = 0; i < gameEngine.GameState.Players.Count; i++) {
+            Player p = gameEngine.GameState.Players[i];
 
             statusText += p.Name + "\n    ";
             statusText += "Cards: " + p.Cards.Describe();
@@ -213,7 +213,7 @@ public static class Utils {
         }
 
         statusText += "Available Projects\n    ";
-        statusText += gameEngine.AvailableProjectCards.Describe();
+        statusText += gameEngine.GameState.AvailableProjectCards.Describe();
 
         statusText += "\n\n";
         statusText += "Available Actions:\n";
@@ -343,7 +343,7 @@ public static class Utils {
                 } else if (actions.HasTakeThisProjectAction(targetCard, actionCard)) {
                     return actions.GetTakeThisProjectAction(targetCard, actionCard);
                 } else {
-                    throw new System.InvalidProgramException("Cannot get available move for " + targetCard.Describe());
+                    throw new System.InvalidProgramException("Cannot get available move for " + Describe(targetCard));
                 }
 
         }
