@@ -96,6 +96,24 @@ public static class CardsGenerator {
         return newCard;
     }
 
+    public static GameObject DrawClickablePointsButton(Card c, Vector2 position, int points) {
+        Object prefab = Resources.Load("Prefabs/PointsButton");
+        GameObject pointsButton = Object.Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+
+        GameObject canvas = GameObject.Find("Canvas");
+        pointsButton.transform.SetParent(canvas.transform);
+
+        pointsButton.transform.position = new Vector3(position.x, position.y, 0);
+
+        StaticCardsController controller = pointsButton.GetComponent<StaticCardsController>();
+        controller.Card = c;
+
+        TMPro.TextMeshProUGUI text = pointsButton.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+        text.text = "" + points;
+
+        return pointsButton;
+    }
+
     public static void DrawDot(Vector2 coords) {
         GameObject canvas = GameObject.Find("Canvas");
         GameObject dot = new GameObject();
@@ -140,9 +158,6 @@ public static class CardsGenerator {
                 break;
             case CardClass.EndTurn:
                 fileUri += "finish";
-                break;
-            case CardClass.Options:
-                fileUri += "options";
                 break;
             case CardClass.Dice:
                 switch (card.Dice) {

@@ -46,8 +46,6 @@ public class GameController : MonoBehaviour {
                     PopupsController.ShowMessageCannotFinishTurn();
                 }
                 break;
-            case CardClass.Options:
-                break;
             case CardClass.Exit:
                 break;
             case CardClass.AllProjects:

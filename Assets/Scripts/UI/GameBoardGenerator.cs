@@ -11,7 +11,7 @@ public class GameBoardGenerator {
 
     public List<GameObject> DrawGameBoard(GameEngine engine) {
         DrawPlayerHand(engine.GameState.CurrentPlayer.Cards);
-        DrawEnviroment(engine.GameState.CurrentRound);
+        DrawEnviroment(engine.GameState);
         DrawPlayerProjectCards(engine.GameState.CurrentPlayer.ProjectArea);
         DrawAnimals(engine.AnimalsDeck);
         DrawGoods(engine.GoodsDeck);
@@ -65,7 +65,7 @@ public class GameBoardGenerator {
         }
     }
 
-    private void DrawEnviroment(Round currentRound) {
+    private void DrawEnviroment(GameState gameState) {
         gameObjects.Add(CardsGenerator.DrawClickableHorizontalCard(Card.DummyAllEstates, D.PositionAllEstatesCard));
         gameObjects.Add(CardsGenerator.DrawClickableHorizontalCard(Card.DummyAllProjects, D.PositionAllProjectsCard));
         gameObjects.Add(CardsGenerator.DrawClickableHorizontalCard(Card.DummyAllStorages, D.PositionAllStoragesCard));
@@ -75,13 +75,13 @@ public class GameBoardGenerator {
         gameObjects.Add(CardsGenerator.DrawClickableAndExecutableCard(Card.DummyWorker, D.PositionSilverCard));
         gameObjects.Add(CardsGenerator.DrawClickableAndExecutableCard(Card.DummySilver, D.PositionWorkerCard));
 
-        gameObjects.Add(CardsGenerator.DrawClickableButtonCard(Card.DummyOptions, D.PositionOptionsButton));
+        gameObjects.Add(CardsGenerator.DrawClickablePointsButton(Card.DummyPoints, D.PositionPointsButton, gameState.CurrentPlayer.Score));
         gameObjects.Add(CardsGenerator.DrawClickableButtonCard(Card.DummyEndTurn, D.PositionEndTurnButton));
         gameObjects.Add(CardsGenerator.DrawClickableButtonCard(Card.DummyExit, D.PositionExitButton));
 
         gameObjects.Add(CardsGenerator.DrawBigBackgroundCard(Card.DummyAllProjects, D.PositionCardProjectsBigCard));
 
-        switch (currentRound) {
+        switch (gameState.CurrentRound) {
             case Round.A:
                 gameObjects.Add(CardsGenerator.DrawClickableCard(new Card(CardClass.BonusA, CardDice.O), D.PositionCurrentBonusCard));
                 break;

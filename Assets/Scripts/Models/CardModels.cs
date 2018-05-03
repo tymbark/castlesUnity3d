@@ -12,7 +12,7 @@ namespace Models {
         Goods,
 
         // Enviroment
-        Dice, Worker, Silver, EndTurn, Options, Exit,
+        Dice, Worker, Silver, EndTurn, Exit, Points,
         AllProjects, AllEstates, AllAnimals, AllStorages,
         SellSilverAndWorkers, ShipGoods,
 
@@ -84,9 +84,9 @@ namespace Models {
         public static Card DummyShipGoods = new Card(CardClass.ShipGoods, CardDice.O);
         public static Card DummySilver = new Card(CardClass.Silver, CardDice.O);
         public static Card DummyWorker = new Card(CardClass.Worker, CardDice.O);
-        public static Card DummyOptions = new Card(CardClass.Options, CardDice.O);
         public static Card DummyExit = new Card(CardClass.Exit, CardDice.O);
         public static Card DummyEndTurn = new Card(CardClass.EndTurn, CardDice.O);
+        public static Card DummyPoints = new Card(CardClass.Points, CardDice.O);
 
     }
 

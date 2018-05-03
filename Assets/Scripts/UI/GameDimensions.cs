@@ -67,10 +67,10 @@ public static class GameDimensions {
     public static readonly Vector2 PositionSellSilverAndWorkersCard = PositionWorkerCard + new Vector2(0, -(marginSmall + CardHeight));
 
     public static readonly Vector2 PositionEndTurnButton = ScreenBottomRight + new Vector2(-(marginBig + CardWidth / 2), marginBig + CardWidth / 2);
-    public static readonly Vector2 PositionOptionsButton = PositionEndTurnButton + new Vector2(0, marginBig + CardWidth);
-    public static readonly Vector2 PositionExitButton = PositionOptionsButton + new Vector2(0, marginBig + CardWidth);
+    public static readonly Vector2 PositionPointsButton = PositionEndTurnButton + new Vector2(0, marginBig + CardWidth);
+    public static readonly Vector2 PositionExitButton = PositionPointsButton + new Vector2(0, marginBig + CardWidth);
 
-    public static readonly Vector2 PositionCardProjectsBigCard = new Vector2((PositionOptionsButton.x + PositionWorkerCard.x) / 2, ScreenBottomCenter.y + marginBig + CardWidth);
+    public static readonly Vector2 PositionCardProjectsBigCard = new Vector2((PositionPointsButton.x + PositionWorkerCard.x) / 2, ScreenBottomCenter.y + marginBig + CardWidth);
     public static readonly Vector2 PositionHandCard1 = PositionCardProjectsBigCard + new Vector2(-CardHeight / 2, CardWidth * 1.3f);
     public static readonly Vector2 PositionHandCard2 = PositionCardProjectsBigCard + new Vector2(CardHeight / 2, CardWidth * 1.3f);
 
