@@ -70,8 +70,9 @@ public class GameBoardGenerator {
         gameObjects.Add(CardsGenerator.DrawClickableHorizontalCard(Card.DummyAllProjects, D.PositionAllProjectsCard));
         gameObjects.Add(CardsGenerator.DrawClickableHorizontalCard(Card.DummyAllStorages, D.PositionAllStoragesCard));
         gameObjects.Add(CardsGenerator.DrawClickableCard(Card.DummyAllAnimals, D.PositionAllAnimalsCard));
-        gameObjects.Add(CardsGenerator.DrawClickableCard(Card.DummySellSilverAndWorkers, D.PositionSellSilverAndWorkersCard));
-        gameObjects.Add(CardsGenerator.DrawClickableCard(Card.DummyShipGoods, D.PositionShipGoodsCard));
+
+        gameObjects.Add(CardsGenerator.DrawClickableAndExecutableCard(Card.DummySellSilverAndWorkers, D.PositionSellSilverAndWorkersCard));
+        gameObjects.Add(CardsGenerator.DrawClickableAndExecutableCard(Card.DummyShipGoods, D.PositionShipGoodsCard));
         gameObjects.Add(CardsGenerator.DrawClickableAndExecutableCard(Card.DummyWorker, D.PositionSilverCard));
         gameObjects.Add(CardsGenerator.DrawClickableAndExecutableCard(Card.DummySilver, D.PositionWorkerCard));
 

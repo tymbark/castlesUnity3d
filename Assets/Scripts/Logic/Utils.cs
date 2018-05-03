@@ -300,6 +300,12 @@ public static class Utils {
             case CardClass.AllStorages:
                 return actions.HasShipGoodsAction(actionCard);
 
+            case CardClass.SellSilverAndWorkers:
+                return actions.HasSellSilverOrWorkersAction(actionCard);
+
+            case CardClass.ShipGoods:
+                return actions.HasShipGoodsAction(actionCard);
+
             default:
 
                 if (actions.HasBuildThisProjectAction(targetCard, actionCard)) {
@@ -323,6 +329,12 @@ public static class Utils {
                 return actions.GetBuySilverAction(actionCard);
 
             case CardClass.AllStorages:
+                return actions.GetShipGoodsAction(actionCard);
+
+            case CardClass.SellSilverAndWorkers:
+                return actions.GetSellSilverOrWorkersAction(actionCard);
+
+            case CardClass.ShipGoods:
                 return actions.GetShipGoodsAction(actionCard);
 
             default:
