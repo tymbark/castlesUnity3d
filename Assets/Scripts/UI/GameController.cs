@@ -49,6 +49,8 @@ public class GameController : MonoBehaviour {
                 break;
             case CardClass.Exit:
                 break;
+            case CardClass.Worker:
+            case CardClass.Silver:
             case CardClass.AllProjects:
                 SceneManager.LoadScene("Projects");
                 break;
@@ -56,6 +58,7 @@ public class GameController : MonoBehaviour {
                 SceneManager.LoadScene("Estates");
                 break;
             case CardClass.AllAnimals:
+                SceneManager.LoadScene("Animals");
                 break;
             case CardClass.AllStorages:
                 break;

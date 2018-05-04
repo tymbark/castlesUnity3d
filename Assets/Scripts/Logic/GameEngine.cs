@@ -29,6 +29,7 @@ public class GameEngine {
         GameState.Players[0].ProjectArea.Add(GameState.MainDeck.DrawCard());
         GameState.Players[0].ProjectArea.Add(GameState.MainDeck.DrawCard());
         GameState.Players[1].ProjectArea.Add(GameState.MainDeck.DrawCard());
+        GameState.Players[1].Animals.Add(GameState.AnimalsDeck.DrawCard());
     }
 
     private GameState GenerateGameState() {
