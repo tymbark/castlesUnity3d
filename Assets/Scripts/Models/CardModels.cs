@@ -59,10 +59,6 @@ namespace Models {
             return "Card[ " + Class + " - " + Dice + " ]";
         }
 
-        public bool IsEqualTo(Card card) {
-            return card.Class == Class && card.Dice == Dice;
-        }
-
         public static Card Dummy = new Card(CardClass.None, CardDice.O);
 
         public static Card DummyDiceI = new Card(CardClass.Dice, CardDice.I);

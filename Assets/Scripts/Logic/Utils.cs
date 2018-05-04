@@ -298,25 +298,6 @@ public static class Utils {
         }
     }
 
-    public static bool IsEqualTo(this List<Card> cards1, List<Card> cards2) {
-        if (cards1.Count != cards2.Count) {
-            return false;
-        }
-
-        if (cards1 == null || cards2 == null) {
-            throw new System.InvalidProgramException("Cannot compare nulls!");
-        }
-
-        for (int i = 0; i < cards1.Count; i++) {
-            Card c1 = cards1[i];
-            Card c2 = cards2[i];
-            if (!c1.IsEqualTo(c2)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public static Action GetAvailableMove(this List<Action> actions, Card targetCard, Card actionCard) {
         switch (targetCard.Class) {
 

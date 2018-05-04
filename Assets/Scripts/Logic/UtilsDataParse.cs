@@ -202,26 +202,20 @@ public static class UtilsDataParse {
         List<Player> players = new List<Player>();
 
         if (sgs.Player1 != "") {
-            UnityEngine.Debug.Log("player1 :  " + sgs.Player1);
             players.Add(sgs.Player1.ParseToPlayer());
         }
 
         if (sgs.Player2 != "") {
-            UnityEngine.Debug.Log("player2 :  " + sgs.Player2);
             players.Add(sgs.Player2.ParseToPlayer());
         }
 
         if (sgs.Player3 != "") {
-            UnityEngine.Debug.Log("player3 :  " + sgs.Player3);
             players.Add(sgs.Player3.ParseToPlayer());
         }
 
         if (sgs.Player4 != "") {
-            UnityEngine.Debug.Log("player4 :  " + sgs.Player4);
             players.Add(sgs.Player4.ParseToPlayer());
         }
-
-        UnityEngine.Debug.Log("current player :  " + sgs.CurrentPlayer);
 
         Player currentPlayer = sgs.CurrentPlayer.ParseToPlayer();
         Deck mainDeck = sgs.MainDeck.ParseToDeck();

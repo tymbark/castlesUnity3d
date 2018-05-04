@@ -12,16 +12,12 @@ public class GameEngine {
 
     public GameEngine() {
         if (GameState == null) {
-            if (false && PlayerPrefs.HasKey("game_state_cob")) {
-                Debug.Log("loading game state...");
-                string gameStateJson = PlayerPrefs.GetString("game_state_cob");
-                GameState = JsonUtility.FromJson<GameState>(gameStateJson);
+            if (DataPersistance.GameStateExists()) {
+                GameState = DataPersistance.LoadGameState();
             } else {
-                Debug.Log("create new game state");
                 GameState = GenerateGameState();
-                string gameStateJson = JsonUtility.ToJson(GameState);
-                PlayerPrefs.SetString("game_state_cob", gameStateJson);
                 StartTurn();
+                GameState.Save();
             }
         }
 
@@ -35,7 +31,7 @@ public class GameEngine {
         var projectCards = PrepareProjectCards(mainDeck, howManyPlayers);
         var players = PreparePlayers(animalsDeck, goodsDeck);
 
-        return new GameState(players, mainDeck, animalsDeck, goodsDeck, 
+        return new GameState(players, mainDeck, animalsDeck, goodsDeck,
                              projectCards, Round.A, players[0], players.Count);
     }
 
