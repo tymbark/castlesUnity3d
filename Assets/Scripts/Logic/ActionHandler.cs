@@ -7,8 +7,8 @@ public class ActionHandler {
     private readonly GameEngine GameEngine;
     private readonly List<ProjectCard> AvailableProjectCards;
 
-    public ActionHandler(GameEngine gameEngine, List<ProjectCard> availableProjectCards) {
-        AvailableProjectCards = availableProjectCards;
+    public ActionHandler(GameEngine gameEngine) {
+        AvailableProjectCards = gameEngine.GameState.AvailableProjectCards;
         GameEngine = gameEngine;
     }
 

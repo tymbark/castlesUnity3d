@@ -5,12 +5,13 @@ using Models;
 
 public class GameEngine {
 
-    private readonly int howManyPlayers = 2; //to change this
+    private readonly int howManyPlayers = 2; //todo change this
 
     public GameState GameState { get; private set; }
     public ActionHandler ActionHandler { get; private set; }
 
     public GameEngine() {
+
         if (GameState == null) {
             if (DataPersistance.GameStateExists()) {
                 GameState = DataPersistance.LoadGameState();
@@ -21,7 +22,9 @@ public class GameEngine {
             }
         }
 
-        ActionHandler = new ActionHandler(this, GameState.AvailableProjectCards);
+        ActionHandler = new ActionHandler(this);
+
+        GameState.Players[0].CompletedProjects.Add(GameState.MainDeck.DrawCard());
     }
 
     private GameState GenerateGameState() {
@@ -53,10 +56,6 @@ public class GameEngine {
 
             Players.Add(new Player("ewa" + i, animalsDeck.DrawCard(), goodsDeck.DrawCard(), startingWorkers));
         }
-
-        //Players[0].Estate.AddProjectToEstate(ActionsDeck.DrawCard());
-        //Players[0].ProjectArea.Add(ActionsDeck.DrawCard());
-
         return Players;
     }
 

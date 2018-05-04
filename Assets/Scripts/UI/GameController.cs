@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Models;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
@@ -51,6 +52,7 @@ public class GameController : MonoBehaviour {
             case CardClass.AllProjects:
                 break;
             case CardClass.AllEstates:
+                SceneManager.LoadScene("PlayersEstates");
                 break;
             case CardClass.AllAnimals:
                 break;

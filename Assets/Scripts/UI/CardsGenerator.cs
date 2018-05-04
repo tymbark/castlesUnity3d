@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Models;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using D = GameDimensions;
 
@@ -154,7 +153,7 @@ public static class CardsGenerator {
         dot.transform.SetParent(canvas.transform);
     }
 
-    private static Sprite GetSpriteForCard(Card card) {
+    public static Sprite GetSpriteForCard(Card card) {
         var fileUri = "Cards/";
 
 

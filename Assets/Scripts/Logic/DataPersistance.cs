@@ -23,3 +23,9 @@ public static class DataPersistance {
     }
 
 }
+
+
+//System.Diagnostics.Stopwatch st = new System.Diagnostics.Stopwatch();
+//st.Start();
+//st.Stop();
+//Debug.Log(string.Format("MyMethod took {0} ms to complete", st.ElapsedMilliseconds));
