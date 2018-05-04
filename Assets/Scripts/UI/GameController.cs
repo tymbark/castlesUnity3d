@@ -61,6 +61,7 @@ public class GameController : MonoBehaviour {
                 SceneManager.LoadScene("Animals");
                 break;
             case CardClass.AllStorages:
+                SceneManager.LoadScene("Goods");
                 break;
         }
     }

@@ -14,3 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Projects.unity
     guid: 1f62ed923055e4a3eb3dc838d88aded1
+  - enabled: 1
+    path: Assets/Scenes/Animals.unity
+    guid: 6e13bc3ef21ef4247a8bf86daebc2fd3
+  - enabled: 1
+    path: Assets/Scenes/Goods.unity
+    guid: 74119016eea3343b2bd96328eb6bd812

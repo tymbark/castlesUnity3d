@@ -363,7 +363,7 @@ Prefab:
     - target: {fileID: 114468656046835468, guid: 5e8520efba13544d09b27c06d5731099,
         type: 2}
       propertyPath: m_text
-      value: animals
+      value: goods
       objectReference: {fileID: 0}
     - target: {fileID: 114468656046835468, guid: 5e8520efba13544d09b27c06d5731099,
         type: 2}
@@ -378,11 +378,11 @@ Prefab:
     - target: {fileID: 114468656046835468, guid: 5e8520efba13544d09b27c06d5731099,
         type: 2}
       propertyPath: m_textInfo.characterCount
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1366114070483164, guid: 5e8520efba13544d09b27c06d5731099, type: 2}
       propertyPath: m_Name
-      value: AnimalsText
+      value: GoodsText
       objectReference: {fileID: 0}
     - target: {fileID: 114468656046835468, guid: 5e8520efba13544d09b27c06d5731099,
         type: 2}
@@ -412,7 +412,7 @@ GameObject:
   - component: {fileID: 622663488}
   - component: {fileID: 622663489}
   m_Layer: 0
-  m_Name: AnimalsObjectController
+  m_Name: GoodsObjectController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -439,7 +439,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 622663487}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e20507240f434874a324e322af4cc95, type: 3}
+  m_Script: {fileID: 11500000, guid: 865f1ba47de7547cab04a5a6a954f662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &1141923801 stripped
@@ -459,7 +459,7 @@ GameObject:
   - component: {fileID: 1217772669}
   - component: {fileID: 1217772668}
   m_Layer: 5
-  m_Name: AnimalsCanvas
+  m_Name: GoodsCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
