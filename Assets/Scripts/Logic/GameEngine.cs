@@ -25,6 +25,10 @@ public class GameEngine {
         ActionHandler = new ActionHandler(this);
 
         GameState.Players[0].CompletedProjects.Add(GameState.MainDeck.DrawCard());
+        GameState.Players[0].ProjectArea.Add(GameState.MainDeck.DrawCard());
+        GameState.Players[0].ProjectArea.Add(GameState.MainDeck.DrawCard());
+        GameState.Players[0].ProjectArea.Add(GameState.MainDeck.DrawCard());
+        GameState.Players[1].ProjectArea.Add(GameState.MainDeck.DrawCard());
     }
 
     private GameState GenerateGameState() {

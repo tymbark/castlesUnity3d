@@ -69,7 +69,7 @@ public class GameBoardGenerator {
         Player currentPlayer = gameState.CurrentPlayer;
 
         gameObjects.Add(CardsGenerator.DrawEstateCard(currentPlayer.CompletedProjects.Count));
-        gameObjects.Add(CardsGenerator.DrawClickableHorizontalCard(Card.DummyAllProjects, D.PositionAllProjectsCard));
+        gameObjects.Add(CardsGenerator.DrawProjectsCard(currentPlayer.ProjectArea.Count));
         gameObjects.Add(CardsGenerator.DrawStorageCard(currentPlayer.Goods.Count));
         gameObjects.Add(CardsGenerator.DrawAnimalsCard(currentPlayer.Animals.Count));
 

@@ -50,9 +50,10 @@ public class GameController : MonoBehaviour {
             case CardClass.Exit:
                 break;
             case CardClass.AllProjects:
+                SceneManager.LoadScene("Projects");
                 break;
             case CardClass.AllEstates:
-                SceneManager.LoadScene("PlayersEstates");
+                SceneManager.LoadScene("Estates");
                 break;
             case CardClass.AllAnimals:
                 break;
