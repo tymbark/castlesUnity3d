@@ -80,10 +80,9 @@ public static class PlayerActinosExecutor {
     }
 
     public static void CompleteProject(this Player p, Action action) {
-        Debug.Log("dupa" + action.TripleCardsID);
         if (p.ProjectArea.Contains(action.TargetCard)) {
             p.ProjectArea.Remove(action.TargetCard);
-            p.Estate.AddProjectToEstate(action.TargetCard, action.TripleCardsID);
+            p.CompletedProjects.Add(action.TargetCard);
         } else {
             throw new System.InvalidProgramException("Cannot build a project that is not in projects area!");
         }

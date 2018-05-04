@@ -47,7 +47,7 @@ namespace Models {
     }
 
     public class Card {
-        public Card(CardClass cardClass = CardClass.None, CardDice cardDice = CardDice.O) {
+        public Card(CardClass cardClass, CardDice cardDice = CardDice.O) {
             Dice = cardDice;
             Class = cardClass;
         }

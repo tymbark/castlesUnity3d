@@ -14,24 +14,8 @@ public static class PlayerActionsFinder {
                 int workersNeeded = LogicHelper.HowManyWorkersNeeded(card.Dice, project.Dice);
 
                 if (workersNeeded <= p.WorkersCount) {
-
-                    List<TripleCards> notFinishedTriples = p.Estate.NotFinishedTripes();
-
-                    if (notFinishedTriples.Count == 0) {
-                        actionProjectsCanBuild.Add(new Action(ActionType.BuildProject, card, project, workersNeeded, 0, 0));
-                    } else {
-
-                        foreach (TripleCards tc in notFinishedTriples) {
-                            if (tc.Class() == project.Class) {
-                                actionProjectsCanBuild.Add(new Action(ActionType.BuildProject, card, project, workersNeeded, 0, 0, tc.ID));
-                            }
-
-                            // todo use cloister as a wildcard
-                            //else if (tc.Class() == CardClass.ActionCloister) {
-                                //actionProjectsCanBuild.Add(new Action(ActionType.BuildProject, card, project, workersNeeded, 0, 0, tc.ID));
-                            //}
-                        }
-                    }
+                    Action item = new Action(ActionType.BuildProject, card, project, workersNeeded, 0, 0);
+                    actionProjectsCanBuild.Add(item);
                 }
             }
         }

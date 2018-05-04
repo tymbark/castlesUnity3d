@@ -7,30 +7,33 @@ namespace Models {
 
     public class GameState {
 
-        public List<Player> Players;
-        public int howManyPlayers;
+        public readonly List<Player> Players;
+        public readonly int HowManyPlayers;
         public Round CurrentRound;
         public Player CurrentPlayer;
 
-        public Deck MainDeck;
-        public Deck AnimalsDeck;
-        public Deck GoodsDeck;
-        public List<ProjectCard> AvailableProjectCards;
+        public readonly Deck MainDeck;
+        public readonly Deck AnimalsDeck;
+        public readonly Deck GoodsDeck;
+        public readonly List<ProjectCard> AvailableProjectCards;
 
         public GameState(List<Player> players,
                          Deck mainDeck,
                          Deck animalsDeck,
                          Deck goodsDeck,
-                         List<ProjectCard> availableProjectCards) {
+                         List<ProjectCard> availableProjectCards,
+                         Round currentRound,
+                         Player currentPlayer,
+                         int howManyPlayers) {
             this.Players = players;
-            this.howManyPlayers = Players.Count;
-            //this.CurrentPlayer = currentPlayer;
-            //this.CurrentRound = currentRound;
+            this.HowManyPlayers = Players.Count;
             this.MainDeck = mainDeck;
             this.AnimalsDeck = animalsDeck;
             this.GoodsDeck = goodsDeck;
             this.AvailableProjectCards = availableProjectCards;
-
+            this.HowManyPlayers = howManyPlayers;
+            this.CurrentRound = currentRound;
+            this.CurrentPlayer = currentPlayer;
         }
 
     }
@@ -38,6 +41,5 @@ namespace Models {
     public enum Round {
         A, B, C, D, E
     }
-
 
 }

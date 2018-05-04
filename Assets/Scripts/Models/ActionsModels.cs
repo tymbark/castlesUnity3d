@@ -11,22 +11,19 @@ namespace Models {
         public int WorkersNeeded { get; private set; }
         public int WorkersSell { get; private set; }
         public int SilverSell { get; private set; }
-        public int TripleCardsID { get; private set; }
 
         public Action(ActionType actionType,
                       Card actionCard,
                       Card targetCard,
                       int workersNeeded = 0,
                       int silverSell = 0,
-                      int workersSell = 0,
-                      int tripleCardsID = 0) {
+                      int workersSell = 0) {
             Type = actionType;
             ActionCard = actionCard;
             TargetCard = targetCard;
             WorkersNeeded = workersNeeded;
             WorkersSell = workersSell;
             SilverSell = silverSell;
-            TripleCardsID = tripleCardsID;
         }
 
         public bool CompareTo(Action action) {

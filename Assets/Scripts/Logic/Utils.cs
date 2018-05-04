@@ -198,7 +198,7 @@ public static class Utils {
                 statusText += "\n    ";
             }
 
-            statusText += "Finished Buildings: " + p.Estate.Describe();
+            statusText += "Finished Buildings: " + p.CompletedProjects.Describe();
             statusText += "\n    ";
             statusText += "Animals: " + p.Animals.Describe();
             statusText += "\n    ";
@@ -221,27 +221,6 @@ public static class Utils {
 
         statusText += "\n";
         return statusText;
-    }
-
-    public static string Describe(this Estate estate) {
-        string text = "";
-
-        if (estate.Buildings.Count > 0) {
-            text += "\n";
-        } else {
-            text += "{ }";
-        }
-
-        for (int i = 0; i < estate.Buildings.Count; i++) {
-            TripleCards tc = estate.Buildings[i];
-            text += "          ";
-            text += tc.All().Describe();
-            if (i + 1 != estate.Buildings.Count) {
-                text += "\n";
-            }
-        }
-
-        return text;
     }
 
     public static bool Has(this List<Action> actions, Action action) {

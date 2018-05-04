@@ -35,7 +35,8 @@ public class GameEngine {
         var projectCards = PrepareProjectCards(mainDeck, howManyPlayers);
         var players = PreparePlayers(animalsDeck, goodsDeck);
 
-        return new GameState(players, mainDeck, animalsDeck, goodsDeck, projectCards);
+        return new GameState(players, mainDeck, animalsDeck, goodsDeck, 
+                             projectCards, Round.A, players[0], players.Count);
     }
 
     private List<Player> PreparePlayers(Deck animalsDeck, Deck goodsDeck) {
