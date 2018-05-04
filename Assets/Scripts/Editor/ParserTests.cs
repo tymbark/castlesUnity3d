@@ -369,7 +369,7 @@ public class ParserTests {
             new Deck(RandomList(20)),
             pc,
             Round.C,
-            players[0],
+            0,
             2
         );
 
@@ -392,7 +392,7 @@ public class ParserTests {
             new Deck(RandomList(20)),
             pc,
             Round.A,
-            players[0],
+            0,
             2
         );
 
@@ -413,10 +413,9 @@ public class ParserTests {
             new Deck(RandomList(20)),
             pc,
             Round.B,
-            RandomPlayer(20, 20),
+            0,
             2
         );
-
         GameState gs2 = gs1.Stringify().ParseToGameState();
 
         Assert.IsTrue(gs1.IsEqualTo(gs2));
@@ -434,7 +433,7 @@ public class ParserTests {
             new Deck(RandomList(0)),
             pc,
             Round.C,
-            RandomPlayer(20, 20),
+            0,
             2
         );
 
@@ -461,7 +460,7 @@ public class ParserTests {
             new Deck(RandomList(20)),
             pc,
             Round.C,
-            players[0],
+            0,
             2
         );
 
@@ -489,12 +488,12 @@ public class ParserTests {
             new Deck(RandomList(20)),
             pc,
             Round.C,
-            players[0],
+            0,
             2
         );
 
         GameState gs2 = gs1.Stringify().ParseToGameState();
-        gs2.CurrentPlayer = players[1];
+        gs2.CurrentPlayerIndex = 1;
 
         Assert.IsFalse(gs1.IsEqualTo(gs2));
     }
@@ -517,7 +516,7 @@ public class ParserTests {
             new Deck(RandomList(20)),
             pc,
             Round.C,
-            players[0],
+            0,
             2
         );
 
@@ -545,7 +544,7 @@ public class ParserTests {
             new Deck(RandomList(20)),
             pc,
             Round.C,
-            players[0],
+            0,
             2
         );
 

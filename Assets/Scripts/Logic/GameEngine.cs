@@ -35,7 +35,7 @@ public class GameEngine {
         var players = PreparePlayers(animalsDeck, goodsDeck);
 
         return new GameState(players, mainDeck, animalsDeck, goodsDeck,
-                             projectCards, Round.A, players[0], players.Count);
+                             projectCards, Round.A, 0, players.Count);
     }
 
     private List<Player> PreparePlayers(Deck animalsDeck, Deck goodsDeck) {
@@ -61,7 +61,7 @@ public class GameEngine {
 
 
     public void StartTurn() {
-        GameState.CurrentPlayer = GameState.Players[0];
+        GameState.CurrentPlayerIndex = 0;
         DrawCards();
     }
 
@@ -69,9 +69,9 @@ public class GameEngine {
     public void NextTurn() {
 
         if (GameState.Players.IndexOf(GameState.CurrentPlayer) == GameState.Players.Count - 1) {
-            GameState.CurrentPlayer = GameState.Players[0];
+            GameState.CurrentPlayerIndex = 0;
         } else {
-            GameState.CurrentPlayer = GameState.Players[GameState.Players.IndexOf(GameState.CurrentPlayer) + 1];
+            GameState.CurrentPlayerIndex = GameState.CurrentPlayerIndex + 1;
         }
 
         if (GameState.CurrentPlayer.Cards.Count == 1) {

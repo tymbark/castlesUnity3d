@@ -10,7 +10,7 @@ namespace Models {
         public readonly List<Player> Players;
         public readonly int HowManyPlayers;
         public Round CurrentRound;
-        public Player CurrentPlayer;
+        public int CurrentPlayerIndex;
 
         public readonly Deck MainDeck;
         public readonly Deck AnimalsDeck;
@@ -23,7 +23,7 @@ namespace Models {
                          Deck goodsDeck,
                          List<ProjectCard> availableProjectCards,
                          Round currentRound,
-                         Player currentPlayer,
+                         int currentPlayerIndex,
                          int howManyPlayers) {
             this.Players = players;
             this.HowManyPlayers = Players.Count;
@@ -33,8 +33,10 @@ namespace Models {
             this.AvailableProjectCards = availableProjectCards;
             this.HowManyPlayers = howManyPlayers;
             this.CurrentRound = currentRound;
-            this.CurrentPlayer = currentPlayer;
+            this.CurrentPlayerIndex = currentPlayerIndex;
         }
+
+        public Player CurrentPlayer { get { return Players[CurrentPlayerIndex]; } }
 
     }
 

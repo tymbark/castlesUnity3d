@@ -90,7 +90,7 @@ public static class UtilsEquality {
 
     public static bool IsEqualTo(this GameState gs1, GameState gs2) {
         bool playersEqual = gs1.Players.IsEqualTo(gs2.Players);
-        bool currentPlayerEqual = gs1.CurrentPlayer.IsEqualTo(gs2.CurrentPlayer);
+        bool currentPlayerEqual = gs1.CurrentPlayerIndex == gs2.CurrentPlayerIndex;
         bool mainDeckEqual = gs1.MainDeck.Cards.IsEqualTo(gs2.MainDeck.Cards);
         bool animalsDeckEqual = gs1.AnimalsDeck.Cards.IsEqualTo(gs2.AnimalsDeck.Cards);
         bool goodsDeckEqual = gs1.GoodsDeck.Cards.IsEqualTo(gs2.GoodsDeck.Cards);

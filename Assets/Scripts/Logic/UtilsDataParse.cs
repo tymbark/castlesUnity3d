@@ -183,7 +183,6 @@ public static class UtilsDataParse {
             player4 = gameState.Players[3].Stringify();
         }
 
-        string currentPlayer = gameState.CurrentPlayer.Stringify();
         string mainDeck = gameState.MainDeck.Stringify();
         string animals = gameState.AnimalsDeck.Stringify();
         string goods = gameState.GoodsDeck.Stringify();
@@ -191,7 +190,7 @@ public static class UtilsDataParse {
 
         var serializedGameState = new SerializedGameState(
             player1, player2, player3, player4, mainDeck, animals, goods, projects,
-            gameState.CurrentRound, currentPlayer, gameState.HowManyPlayers);
+            gameState.CurrentRound, gameState.CurrentPlayerIndex, gameState.HowManyPlayers);
 
         return JsonUtility.ToJson(serializedGameState);
     }
@@ -217,7 +216,6 @@ public static class UtilsDataParse {
             players.Add(sgs.Player4.ParseToPlayer());
         }
 
-        Player currentPlayer = sgs.CurrentPlayer.ParseToPlayer();
         Deck mainDeck = sgs.MainDeck.ParseToDeck();
         Deck animalsDeck = sgs.AnimalsDeck.ParseToDeck();
         Deck goodsDeck = sgs.GoodsDeck.ParseToDeck();
@@ -225,7 +223,7 @@ public static class UtilsDataParse {
 
         return new GameState(players, mainDeck, animalsDeck, goodsDeck,
                              availableProjectCards, sgs.CurrentRound,
-                             currentPlayer, sgs.HowManyPlayers);
+                             sgs.CurrentPlayerIndex, sgs.HowManyPlayers);
     }
 
     private class SerializedGameState {
@@ -236,7 +234,7 @@ public static class UtilsDataParse {
         public string Player4;
         public int HowManyPlayers;
         public Round CurrentRound;
-        public string CurrentPlayer;
+        public int CurrentPlayerIndex;
 
         public string MainDeck;
         public string AnimalsDeck;
@@ -246,7 +244,7 @@ public static class UtilsDataParse {
         public SerializedGameState(string player1, string player2, string player3,
                                    string player4, string mainDeck, string animalsDeck,
                                    string goodsDeck, string availableProjectCards,
-                                   Round currentRound, string currentPlayer, int howManyPlayers) {
+                                   Round currentRound, int currentPlayerIndex, int howManyPlayers) {
             this.Player1 = player1;
             this.Player2 = player2;
             this.Player3 = player3;
@@ -257,7 +255,7 @@ public static class UtilsDataParse {
             this.AvailableProjectCards = availableProjectCards;
             this.HowManyPlayers = howManyPlayers;
             this.CurrentRound = currentRound;
-            this.CurrentPlayer = currentPlayer;
+            this.CurrentPlayerIndex = currentPlayerIndex;
         }
 
     }
