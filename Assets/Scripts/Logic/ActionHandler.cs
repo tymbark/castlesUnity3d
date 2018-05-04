@@ -73,7 +73,7 @@ public class ActionHandler {
     }
 
     public void RemoveCardFromProjects(Card card) {
-        var projectToRemove = AvailableProjectCards.Find((ProjectCard obj) => obj.Card.CompareTo(card));
+        var projectToRemove = AvailableProjectCards.Find((ProjectCard obj) => obj.Card.IsEqualTo(card));
         AvailableProjectCards.Remove(projectToRemove);
 
     }

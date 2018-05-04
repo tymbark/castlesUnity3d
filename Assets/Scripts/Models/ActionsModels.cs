@@ -28,8 +28,8 @@ namespace Models {
 
         public bool CompareTo(Action action) {
             return action.Type == Type
-                             && action.ActionCard.CompareTo(ActionCard)
-                             && action.TargetCard.CompareTo(TargetCard);
+                             && action.ActionCard.IsEqualTo(ActionCard)
+                             && action.TargetCard.IsEqualTo(TargetCard);
         }
 
     }

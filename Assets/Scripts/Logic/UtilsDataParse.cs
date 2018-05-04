@@ -5,11 +5,10 @@ using Models;
 
 public static class UtilsDataParse {
 
-    private static readonly char CardSeparator = '|';
-    private static readonly char ListSeparator = ';';
+    private static readonly char CardSeparator = ';';
 
     public static string Stringify(this Card c) {
-        return (int)c.Class + "|" + (int)c.Dice;
+        return "" + (int)c.Class + CardSeparator + (int)c.Dice;
     }
 
     public static Card ParseToCard(this string card) {
@@ -39,7 +38,7 @@ public static class UtilsDataParse {
         CardsWrapper cardsWrapper = JsonUtility.FromJson<CardsWrapper>(input);
         List<Card> output = new List<Card>();
 
-        foreach(string card in cardsWrapper.cards) {
+        foreach (string card in cardsWrapper.cards) {
             output.Add(card.ParseToCard());
         }
 
@@ -54,25 +53,15 @@ public static class UtilsDataParse {
     }
 
     public static string Stringify(this List<ProjectCard> cards) {
-        string output = "";
-
-        for (int i = 0; i < cards.Count; i++) {
-            ProjectCard c = cards[i];
-            output += c.Stringify();
-            if (i + 1 != cards.Count) {
-                output += ListSeparator;
-            }
-        }
-
-        return output;
+        return JsonUtility.ToJson(new ProjectCardsWrapper(cards));
     }
 
     public static List<ProjectCard> ParseToProjectCardList(this string input) {
+        ProjectCardsWrapper wrapper = JsonUtility.FromJson<ProjectCardsWrapper>(input);
         List<ProjectCard> output = new List<ProjectCard>();
 
-        foreach (string item in input.Split(ListSeparator)) {
-            if (item.Length > 0)
-                output.Add(item.ParseToProjectCard());
+        foreach (string card in wrapper.cards) {
+            output.Add(card.ParseToProjectCard());
         }
 
         return output;
@@ -86,27 +75,11 @@ public static class UtilsDataParse {
     }
 
     public static string Stringify(this Deck deck) {
-        string output = "";
-
-        for (int i = 0; i < deck.Cards.Count; i++) {
-            Card c = deck.Cards[i];
-            output += c.Stringify();
-            if (i + 1 != deck.Cards.Count) {
-                output += ListSeparator;
-            }
-        }
-
-        return output;
+        return deck.Cards.Stringify();
     }
 
     public static Deck ParseToDeck(this string input) {
-        List<Card> output = new List<Card>();
-
-        foreach (string item in input.Split(ListSeparator)) {
-            if (item.Length > 0)
-                output.Add(item.ParseToCard());
-        }
-
+        List<Card> output = input.ParseToCardsList();
         return new Deck(output, false);
     }
 
@@ -123,7 +96,7 @@ public static class UtilsDataParse {
                                       projectArea, silverActionCards, completedProjects,
                                       player.Name, player.Score, player.WorkersCount,
                                       player.SilverCount, player.SilverActionDoneThisTurn);
-        
+
         return JsonUtility.ToJson(sp);
     }
 

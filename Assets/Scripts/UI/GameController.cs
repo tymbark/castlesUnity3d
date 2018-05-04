@@ -22,13 +22,6 @@ public class GameController : MonoBehaviour {
         PopupsController = GetComponent<PopupsController>();
         RefreshTable();
 
-
-
-        print("Start!");
-        string json = JsonUtility.ToJson(GameEngine.GameState.CurrentPlayer);
-        var state = JsonUtility.FromJson<GameState>(json);
-        print(json);
-
         //print("before" + GameEngine.GameState.MainDeck.Cards.Count);
         //print("before" + GameEngine.GameState.AvailableProjectCards.Describe());
 

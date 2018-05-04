@@ -10,10 +10,6 @@ public class GameBoardGenerator {
     private List<GameObject> gameObjects = new List<GameObject>();
 
     public List<GameObject> DrawGameBoard(GameEngine engine) {
-        Debug.Log(engine);
-        Debug.Log(engine.GameState);
-        Debug.Log(engine.GameState.CurrentPlayer);
-        Debug.Log(engine.GameState.CurrentPlayer.Cards);
         DrawPlayerHand(engine.GameState.CurrentPlayer.Cards);
         DrawEnviroment(engine.GameState);
         DrawPlayerProjectCards(engine.GameState.CurrentPlayer.ProjectArea);

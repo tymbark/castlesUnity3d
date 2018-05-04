@@ -59,7 +59,7 @@ namespace Models {
             return "Card[ " + Class + " - " + Dice + " ]";
         }
 
-        public bool CompareTo(Card card) {
+        public bool IsEqualTo(Card card) {
             return card.Class == Class && card.Dice == Dice;
         }
 
