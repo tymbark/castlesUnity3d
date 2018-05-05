@@ -14,7 +14,7 @@ namespace Models {
         public readonly List<Card> Animals;
         public readonly List<Card> Goods;
         public readonly List<Card> ProjectArea;
-        public readonly List<Card> SilverActionCards;
+        public readonly List<Card> BonusActionCards;
         public readonly List<Card> CompletedProjects;
 
         public int Score;
@@ -28,7 +28,7 @@ namespace Models {
             Animals = new List<Card>();
             Goods = new List<Card>();
             ProjectArea = new List<Card>();
-            SilverActionCards = new List<Card>();
+            BonusActionCards = new List<Card>();
             CompletedProjects = new List<Card>();
 
             Name = name;
@@ -57,7 +57,7 @@ namespace Models {
             Animals = animals;
             Goods = goods;
             ProjectArea = projectArea;
-            SilverActionCards = silverActionCards;
+            BonusActionCards = silverActionCards;
             CompletedProjects = completedProjects;
             Score = score;
             WorkersCount = workersCount;

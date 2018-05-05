@@ -76,7 +76,7 @@ public static class UtilsEquality {
         bool animalsEqual = p1.Animals.IsEqualTo(p2.Animals);
         bool goodsEqual = p1.Goods.IsEqualTo(p2.Goods);
         bool projectAreaEqual = p1.ProjectArea.IsEqualTo(p2.ProjectArea);
-        bool silverActionCardsEqual = p1.SilverActionCards.IsEqualTo(p2.SilverActionCards);
+        bool bonusActionCardsEqual = p1.BonusActionCards.IsEqualTo(p2.BonusActionCards);
         bool completedProjectsEqual = p1.CompletedProjects.IsEqualTo(p2.CompletedProjects);
         bool namesEqual = p1.Name == p2.Name;
         bool scoreEqual = p1.Score == p2.Score;
@@ -85,7 +85,7 @@ public static class UtilsEquality {
         bool silverDoneEqual = p1.SilverActionDoneThisTurn == p2.SilverActionDoneThisTurn;
 
         return cardsEqual && futureCardsEqual && animalsEqual && goodsEqual && projectAreaEqual
-            && silverActionCardsEqual && completedProjectsEqual;
+            && bonusActionCardsEqual && completedProjectsEqual;
     }
 
     public static bool IsEqualTo(this GameState gs1, GameState gs2) {

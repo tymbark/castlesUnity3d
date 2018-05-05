@@ -18,8 +18,16 @@ namespace Models {
 
         // Bonuses
         BonusA, BonusB, BonusC, BonusD, BonusE,
-        BonusCastle, BonusMine, BonusCloister, BonusKnowledge, BonusShip, BonusPasture,
+        BonusCastleCompleted, BonusMine, BonusCloister, BonusKnowledge, BonusShip, BonusPasture,
         BonusAllSeven1, BonusAllSeven2, BonusAllSeven3, BonusAllSeven4,
+
+        BonusCastle,
+        BonusCarperter,
+        BonusChurch,
+        BonusMarket,
+        BonusCityHall,
+        BonusBoardinghouse,
+        BonusWarehouse,
 
         // Standard Actions 12x - (2x6)
         ActionCastle, ActionMine, ActionCloister,
@@ -43,7 +51,8 @@ namespace Models {
     public enum CardDice {
         O, // for cards that dont use dices (Worker, Silver)
         I, II, III, IV, V, VI,
-        I_II, III_IV, V_VI // for goods
+        I_II, III_IV, V_VI, // for goods
+        All // for bonus cards
     }
 
     public class Card {

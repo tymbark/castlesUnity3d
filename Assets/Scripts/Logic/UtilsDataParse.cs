@@ -89,7 +89,7 @@ public static class UtilsDataParse {
         string animals = player.Animals.Stringify();
         string goods = player.Goods.Stringify();
         string projectArea = player.ProjectArea.Stringify();
-        string silverActionCards = player.SilverActionCards.Stringify();
+        string silverActionCards = player.BonusActionCards.Stringify();
         string completedProjects = player.CompletedProjects.Stringify();
 
         var sp = new SerializedPlayer(cards, futureCards, animals, goods,
@@ -108,7 +108,7 @@ public static class UtilsDataParse {
         List<Card> animals = sp.Animals.ParseToCardsList();
         List<Card> goods = sp.Goods.ParseToCardsList();
         List<Card> projectArea = sp.ProjectArea.ParseToCardsList();
-        List<Card> silverActionCards = sp.SilverCards.ParseToCardsList();
+        List<Card> silverActionCards = sp.BonusCards.ParseToCardsList();
         List<Card> completedProjects = sp.Completed.ParseToCardsList();
 
         return new Player(cards, futureCards, animals, goods, projectArea,
@@ -125,7 +125,7 @@ public static class UtilsDataParse {
         public string Animals;
         public string Goods;
         public string ProjectArea;
-        public string SilverCards;
+        public string BonusCards;
         public string Completed;
 
         public int Score;
@@ -138,7 +138,7 @@ public static class UtilsDataParse {
                                 string animals,
                                 string goods,
                                 string projectArea,
-                                string silverActionCards,
+                                string bonusCards,
                                 string completedProjects,
                                 string name,
                                 int score,
@@ -151,7 +151,7 @@ public static class UtilsDataParse {
             Animals = animals;
             Goods = goods;
             ProjectArea = projectArea;
-            SilverCards = silverActionCards;
+            BonusCards = bonusCards;
             Completed = completedProjects;
             Score = score;
             WorkersCount = workersCount;

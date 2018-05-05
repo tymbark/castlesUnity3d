@@ -43,8 +43,15 @@ namespace Models {
         BuySilver,
         UseSilver,
         SellSilverAndWorkers,
-        EndTurn
+        EndTurn,
 
-        // todo bonus Actions from Castle
+        BonusCastle,
+        BonusCarperter,
+        BonusChurch,
+        BonusMarket,
+        BonusCityHall,
+        BonusBoardinghouse,
+        BonusWarehouse
+
     }
 }

@@ -4,8 +4,13 @@ using Models;
 
 public static class LogicHelper {
 
-    public static int HowManyWorkersNeeded(CardDice dice1, CardDice dice2) {
-        switch (Mathf.Abs(dice1.ToInt() - dice2.ToInt())) {
+    public static int HowManyWorkersNeeded(CardDice actionDice, CardDice targetDice) {
+
+        if (actionDice == CardDice.All) {
+            return 0;
+        }
+
+        switch (Mathf.Abs(actionDice.ToInt() - targetDice.ToInt())) {
             case 0:
                 return 0;
             case 1:
@@ -22,6 +27,10 @@ public static class LogicHelper {
     }
 
     public static int HowManyWorkersNeededToShip(CardDice dice, CardDice ship) {
+        
+        if (dice == CardDice.All) {
+            return 0;
+        }
 
         switch (ship) {
             case CardDice.I_II:

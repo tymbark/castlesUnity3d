@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Models;
 
-public static class PlayerActionsFinder {
+public static class ActionsFinder {
 
     public static List<Action> ReadyToBuildProjectActions(this Player p) {
         var actionProjectsCanBuild = new List<Action>();
 
-        foreach (Card card in p.Cards.JoinWith(p.SilverActionCards)) {
+        foreach (Card card in p.Cards.JoinWith(p.BonusActionCards.OnlySilverAndCastleBonuses())) {
             foreach (Card project in p.ProjectArea) {
 
                 int workersNeeded = LogicHelper.HowManyWorkersNeeded(card.Dice, project.Dice);
@@ -26,7 +26,7 @@ public static class PlayerActionsFinder {
     public static List<Action> ReadyToTakeProjectActions(this Player p, List<ProjectCard> availableProjects) {
         var actionProjectsCanTake = new List<Action>();
 
-        foreach (Card card in p.Cards.JoinWith(p.SilverActionCards)) {
+        foreach (Card card in p.Cards.JoinWith(p.BonusActionCards.OnlySilverAndCastleBonuses())) {
             foreach (ProjectCard project in availableProjects) {
 
                 int workersNeeded = LogicHelper.HowManyWorkersNeeded(card.Dice, project.TakeProjectDice);
@@ -46,7 +46,7 @@ public static class PlayerActionsFinder {
     public static List<Action> ReadyToShipGoodsActions(this Player p) {
         var actionShipmentsReady = new List<Action>();
 
-        foreach (Card card in p.Cards.JoinWith(p.SilverActionCards)) {
+        foreach (Card card in p.Cards.JoinWith(p.BonusActionCards.OnlyShippableBonuses())) {
             foreach (Card goods in p.Goods) {
 
                 int workersNeeded = LogicHelper.HowManyWorkersNeededToShip(card.Dice, goods.Dice);
@@ -66,7 +66,7 @@ public static class PlayerActionsFinder {
     public static List<Action> ReadyToTakeFreeSilverProjectActions(this Player p) {
         var silverFreeProjects = new List<Action>();
 
-        foreach (Card card in p.SilverActionCards) {
+        foreach (Card card in p.BonusActionCards.OnlySilverBonuses()) {
 
             var action = new Action(ActionType.TakeSilverProject, Card.Dummy, card);
             silverFreeProjects.Add(action);
@@ -78,14 +78,10 @@ public static class PlayerActionsFinder {
 
     public static List<Action> ReadyToBuyWorkersActions(this Player p) {
         var actionsBuyWorkers = new List<Action>();
-
         var workerCard = new Card(CardClass.Worker, CardDice.O);
-        actionsBuyWorkers.Add(new Action(ActionType.BuyWorkers, p.Cards[0], workerCard));
-        actionsBuyWorkers.Add(new Action(ActionType.BuyWorkers, p.Cards[1], workerCard));
 
-        if (p.SilverActionCards.Count > 0) {
-            // todo consider for final version add all three silver cards maybe
-            actionsBuyWorkers.Add(new Action(ActionType.BuyWorkers, p.SilverActionCards[0], workerCard));
+        foreach (Card card in p.Cards.JoinWith(p.BonusActionCards.OnlySilverAndCastleBonuses())) {
+            actionsBuyWorkers.Add(new Action(ActionType.BuyWorkers, card, workerCard));    
         }
 
         return actionsBuyWorkers;
@@ -93,14 +89,10 @@ public static class PlayerActionsFinder {
 
     public static List<Action> ReadyToBuySilverActions(this Player p) {
         var actionsBuySilver = new List<Action>();
-
         var silverCard = new Card(CardClass.Silver, CardDice.O);
-        actionsBuySilver.Add(new Action(ActionType.BuySilver, p.Cards[0], silverCard));
-        actionsBuySilver.Add(new Action(ActionType.BuySilver, p.Cards[1], silverCard));
 
-        if (p.SilverActionCards.Count > 0) {
-            // todo consider for final version add all three silver cards maybe
-            actionsBuySilver.Add(new Action(ActionType.BuySilver, p.SilverActionCards[0], silverCard));
+        foreach (Card card in p.Cards.JoinWith(p.BonusActionCards.OnlySilverAndCastleBonuses())) {
+            actionsBuySilver.Add(new Action(ActionType.BuySilver, card, silverCard));
         }
 
         return actionsBuySilver;
@@ -109,12 +101,8 @@ public static class PlayerActionsFinder {
     public static List<Action> ReadyToSellSilverAndWorkersActions(this Player p) {
         var actionsSellSilverAndWorkers = new List<Action>();
 
-        actionsSellSilverAndWorkers.AddRange(LogicHelper.SellStuffAllCombinations(p.Cards[0], p.SilverCount, p.WorkersCount));
-        actionsSellSilverAndWorkers.AddRange(LogicHelper.SellStuffAllCombinations(p.Cards[1], p.SilverCount, p.WorkersCount));
-
-        if (p.SilverActionCards.Count > 0) {
-            // todo consider for final version add all three silver cards maybe
-            actionsSellSilverAndWorkers.AddRange(LogicHelper.SellStuffAllCombinations(p.SilverActionCards[0], p.SilverCount, p.WorkersCount));
+        foreach (Card card in p.Cards.JoinWith(p.BonusActionCards.OnlySilverAndCastleBonuses())) {
+            actionsSellSilverAndWorkers.AddRange(LogicHelper.SellStuffAllCombinations(card, p.SilverCount, p.WorkersCount));
         }
 
         return actionsSellSilverAndWorkers;

@@ -16,13 +16,14 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
     private bool dragging = false;
     public readonly bool executable = false;
     public readonly bool clickable = false;
-    public readonly bool draggable = true;
+    public bool draggable = true;
     public Card Card;
+    public int InitialLayerOrder = -1;
 
 
     private void Start() {
         canvas = GetComponent<Canvas>();
-        canvas.sortingOrder = -1;
+        canvas.sortingOrder = InitialLayerOrder;
 
         GameObject gameObj = GameObject.Find("GameObjectController");
         GameController = gameObj.GetComponent<GameController>();
@@ -50,7 +51,7 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
     public void OnEndDrag(PointerEventData eventData) {
         dragging = false;
         transform.position = StartingPosition;
-        canvas.sortingOrder = -1;
+        canvas.sortingOrder = InitialLayerOrder;
         if (closestObject != null) {
             GameController.HandleCardDroppedAction(gameObject, closestObject);
             closestObject = null;

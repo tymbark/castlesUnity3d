@@ -10,7 +10,7 @@ public class GameBoardGenerator {
     private List<GameObject> gameObjects = new List<GameObject>();
 
     public List<GameObject> DrawGameBoard(GameEngine engine) {
-        DrawPlayerHand(engine.GameState.CurrentPlayer.Cards);
+        DrawPlayerHand(engine.GameState.CurrentPlayer);
         DrawEnviroment(engine.GameState);
         DrawPlayerProjectCards(engine.GameState.CurrentPlayer.ProjectArea);
         DrawAnimals(engine.GameState.AnimalsDeck);
@@ -30,19 +30,79 @@ public class GameBoardGenerator {
             gameObjects.Add(CardsGenerator.DrawExecutableCard(cards[1], D.PositionProjectCard2));
         }
         if (cards.Count > 2) {
-            gameObjects.Add(CardsGenerator.DrawExecutableCard(cards[1], D.PositionProjectCard3));
+            gameObjects.Add(CardsGenerator.DrawExecutableCard(cards[2], D.PositionProjectCard3));
         }
 
     }
 
-    private void DrawPlayerHand(List<Card> cards) {
+    private void DrawPlayerHand(Player player) {
+
+        float axisY = D.PositionCardProjectsBigCard.y + D.CardHeight * 1.2f;
+        float startAxisX = D.PositionCardProjectsBigCard.x - D.CardHeight;
+
+        var cards = player.Cards;
+        var bonusCards = player.BonusActionCards;
+
+        Vector2 positionHandCard1 = new Vector2(startAxisX + D.CardHeight / 2, axisY);
+        Vector2 positionHandCard2 = positionHandCard1 + new Vector2(D.CardHeight, 0);
+        Vector2 positionBonusCard1;
+        Vector2 positionBonusCard2;
+        Vector2 positionBonusCard3;
+        Vector2 positionBonusCard4;
+
+        switch (bonusCards.Count) {
+            case 1:
+                positionHandCard1 = new Vector2(startAxisX + D.CardWidth / 2, axisY);
+                positionHandCard2 = positionHandCard1 + new Vector2(D.CardWidth + D.MarginSmall, 0);
+
+                positionBonusCard1 = positionHandCard2 + new Vector2(D.CardWidth + D.MarginSmall, 0);
+
+                gameObjects.Add(CardsGenerator.DrawHandCard(bonusCards[0], positionBonusCard1, -5));
+                break;
+            case 2:
+                positionHandCard1 = new Vector2(startAxisX + D.CardWidth / 2.4f, axisY);
+                positionHandCard2 = positionHandCard1 + new Vector2(D.CardWidth * 0.6f, 0);
+
+                positionBonusCard1 = positionHandCard2 + new Vector2(D.CardWidth + D.MarginSmall, 0);
+                positionBonusCard2 = positionBonusCard1 + new Vector2(D.CardWidth * 0.6f, 0);
+
+                gameObjects.Add(CardsGenerator.DrawHandCard(bonusCards[0], positionBonusCard1, -6));
+                gameObjects.Add(CardsGenerator.DrawHandCard(bonusCards[1], positionBonusCard2, -5));
+                break;
+            case 3:
+                positionHandCard1 = new Vector2(startAxisX, axisY);
+                positionHandCard2 = positionHandCard1 + new Vector2(D.CardWidth * 0.6f, 0);
+
+                positionBonusCard1 = positionHandCard2 + new Vector2(D.CardWidth + D.MarginSmall, 0);
+                positionBonusCard2 = positionBonusCard1 + new Vector2(D.CardWidth * 0.6f, 0);
+                positionBonusCard3 = positionBonusCard2 + new Vector2(D.CardWidth * 0.6f, 0);
+
+                gameObjects.Add(CardsGenerator.DrawHandCard(bonusCards[0], positionBonusCard1, -7));
+                gameObjects.Add(CardsGenerator.DrawHandCard(bonusCards[1], positionBonusCard2, -6));
+                gameObjects.Add(CardsGenerator.DrawHandCard(bonusCards[2], positionBonusCard3, -5));
+                break;
+            case 4:
+                positionHandCard1 = new Vector2(startAxisX, axisY);
+                positionHandCard2 = positionHandCard1 + new Vector2(D.CardWidth * 0.6f, 0);
+
+                positionBonusCard1 = positionHandCard2 + new Vector2(D.CardWidth + D.MarginSmall, 0);
+                positionBonusCard2 = positionBonusCard1 + new Vector2(D.CardWidth * 0.6f, 0);
+                positionBonusCard3 = positionBonusCard2 + new Vector2(D.CardWidth * 0.6f, 0);
+                positionBonusCard4 = positionBonusCard3 + new Vector2(D.CardWidth * 0.6f, 0);
+
+                gameObjects.Add(CardsGenerator.DrawHandCard(bonusCards[0], positionBonusCard1, -8));
+                gameObjects.Add(CardsGenerator.DrawHandCard(bonusCards[1], positionBonusCard2, -7));
+                gameObjects.Add(CardsGenerator.DrawHandCard(bonusCards[2], positionBonusCard3, -6));
+                gameObjects.Add(CardsGenerator.DrawHandCard(bonusCards[3], positionBonusCard4, -5));
+                break;
+        }
 
         if (cards.Count > 0) {
-            gameObjects.Add(CardsGenerator.DrawHandCard(cards[0], D.PositionHandCard1));
+            gameObjects.Add(CardsGenerator.DrawHandCard(cards[0], positionHandCard1, -4));
         }
 
         if (cards.Count > 1) {
-            gameObjects.Add(CardsGenerator.DrawHandCard(cards[1], D.PositionHandCard2));
+            gameObjects.Add(CardsGenerator.DrawHandCard(cards[1], positionHandCard2, -3));
         }
 
     }

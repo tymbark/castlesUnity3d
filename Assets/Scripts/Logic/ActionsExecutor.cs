@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Models;
 
-public static class PlayerActinosExecutor {
+public static class ActinosExecutor {
 
     public static void ExecuteTakeProjectAction(this Player p, Action action) {
         p.WithdrawUsedCard(action.ActionCard);
@@ -25,12 +25,12 @@ public static class PlayerActinosExecutor {
 
     public static void ExecuteBuySilverAction(this Player p, Action action) {
         p.WithdrawUsedCard(action.ActionCard);
-        p.WorkersCount = 2;
+        p.SilverCount += 1;
     }
 
     public static void ExecuteBuyWorkersAction(this Player p, Action action) {
         p.WithdrawUsedCard(action.ActionCard);
-        p.SilverCount += 3;
+        p.WorkersCount = 2;
     }
 
     public static void ExecuteSellSilverAndWorkersAction(this Player p, Action action) {
@@ -42,11 +42,11 @@ public static class PlayerActinosExecutor {
 
     public static void ExecuteUseSilverAction(this Player p, Action action, Deck actionsDeck) {
         p.SilverCount -= 3;
-        Utils.Repeat(3, () => { p.SilverActionCards.Add(actionsDeck.DrawCard()); });
+        Utils.Repeat(3, () => { p.BonusActionCards.Add(actionsDeck.DrawCard()); });
     }
 
     public static void ExecuteTakeSilverProjectAction(this Player p, Action action) {
-        p.SilverActionUsed();
+        p.BonusActionUsed(action.ActionCard);
         p.ProjectArea.Add(action.TargetCard);
     }
 
@@ -55,20 +55,30 @@ public static class PlayerActinosExecutor {
     }
 
     private static void WithdrawUsedCard(this Player p, Card card) {
-        if (p.SilverActionCards.Contains(card)) {
-            p.SilverActionUsed();
+        if (p.BonusActionCards.Contains(card)) {
+            p.BonusActionUsed(card);
         } else if (p.Cards.Contains(card)) {
             p.Cards.Remove(card);
         } else {
             throw new System.InvalidOperationException(
                 "Cannot use a card that player don't have! Tried to use "
-                + Utils.Describe(card) + " but player only has " + p.Cards.Describe());
+                + card.Describe() + " but player only has " + p.Cards.Describe());
         }
     }
 
-    private static void SilverActionUsed(this Player p) {
-        p.SilverActionCards.Clear();
-        p.SilverActionDoneThisTurn = true;
+    private static void BonusActionUsed(this Player p, Card card) {
+        if (!p.BonusActionCards.Contains(card)) {
+            throw new System.InvalidOperationException(
+                "Cannot use a bonus card that player don't have! Tried to use "
+                + card.Describe() + " but player only has " + p.BonusActionCards.Describe());
+        }
+
+        if (card.IsActionType()) {
+            p.BonusActionCards.RemoveAll((Card obj) => obj.IsActionType());
+            p.SilverActionDoneThisTurn = true;
+        } else {
+            p.BonusActionCards.Remove(card);
+        }
     }
 
     private static void UseWorkers(this Player p, int workersNeeded) {

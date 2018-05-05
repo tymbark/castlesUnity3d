@@ -10,7 +10,7 @@ public class InputHandler : MonoBehaviour {
         GameObject gameObj = GameObject.Find("GameObjectController");
         GameController gameController = gameObj.GetComponent<GameController>();
 
-        GameEngine engine = gameController.GameEngine;
+        GameEngine = gameController.GameEngine;
     }
 
     private void Update() {

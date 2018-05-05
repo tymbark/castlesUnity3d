@@ -192,9 +192,9 @@ public static class Utils {
             statusText += "Projects: " + p.ProjectArea.Describe();
             statusText += "\n    ";
 
-            if (p.SilverActionCards.Count > 0) {
+            if (p.BonusActionCards.Count > 0) {
                 statusText += "Silver Action Cards:";
-                statusText += p.SilverActionCards.Describe();
+                statusText += p.BonusActionCards.Describe();
                 statusText += "\n    ";
             }
 
@@ -381,6 +381,24 @@ public static class Utils {
         return actions.FindAll((Action obj) => obj.Type == ActionType.EndTurn).Count == 1;
     }
 
+    public static bool HasBonusAction(this List<Action> actions) {
+
+        foreach (Action a in actions) {
+            switch (a.Type) {
+                case ActionType.BonusCastle:
+                case ActionType.BonusCarperter:
+                case ActionType.BonusChurch:
+                case ActionType.BonusMarket:
+                case ActionType.BonusCityHall:
+                case ActionType.BonusBoardinghouse:
+                case ActionType.BonusWarehouse:
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
     public static Action GetSellSilverOrWorkersAction(this List<Action> actions, Card actionCard) {
         return actions.FindAll((Action obj) => obj.Type == ActionType.SellSilverAndWorkers
             && obj.ActionCard.IsEqualTo(actionCard))[0];
@@ -407,6 +425,48 @@ public static class Utils {
 
     public static bool HasUseSilverAction(this List<Action> actions) {
         return actions.FindAll((Action obj) => obj.Type == ActionType.UseSilver).Count == 1;
+    }
+
+    public static void print_(this object o, string message) {
+        UnityEngine.Debug.Log(message);
+    }
+
+    public static bool IsActionType(this Card c) {
+        switch (c.Class) {
+            case CardClass.ActionCastle:
+            case CardClass.ActionMine:
+            case CardClass.ActionCloister:
+            case CardClass.ActionKnowledge:
+            case CardClass.ActionShip:
+            case CardClass.ActionPasture:
+            case CardClass.ActionCarpenter:
+            case CardClass.ActionChurch:
+            case CardClass.ActionMarket:
+            case CardClass.ActionWatchtower:
+            case CardClass.ActionBank:
+            case CardClass.ActionBoardinghouse:
+            case CardClass.ActionWarehouse:
+            case CardClass.ActionCityHall:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static List<Card> OnlyShippableBonuses(this List<Card> cards) {
+        return cards.FindAll((Card c) => c.IsActionType() || c.Class == CardClass.BonusCastle || c.Class == CardClass.BonusWarehouse);
+    }
+
+    public static List<Card> OnlyBuildAnyPojectBonuses(this List<Card> cards) {
+        return cards.FindAll((Card c) => c.IsActionType() || c.Class == CardClass.BonusCastle || c.Class == CardClass.BonusCityHall);
+    }
+
+    public static List<Card> OnlySilverAndCastleBonuses(this List<Card> cards) {
+        return cards.FindAll((Card c) => c.IsActionType() || c.Class == CardClass.BonusCastle);
+    }
+
+    public static List<Card> OnlySilverBonuses(this List<Card> cards) {
+        return cards.FindAll((Card c) => c.IsActionType());
     }
 
 }

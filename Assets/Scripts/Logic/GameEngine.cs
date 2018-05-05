@@ -13,7 +13,7 @@ public class GameEngine {
     public GameEngine() {
 
         if (GameState == null) {
-            if (DataPersistance.GameStateExists()) {
+            if (false && DataPersistance.GameStateExists()) {
                 GameState = DataPersistance.LoadGameState();
             } else {
                 GameState = GenerateGameState();
@@ -24,12 +24,16 @@ public class GameEngine {
 
         ActionHandler = new ActionHandler(this);
 
+
+
         GameState.Players[0].CompletedProjects.Add(GameState.MainDeck.DrawCard());
-        GameState.Players[0].ProjectArea.Add(GameState.MainDeck.DrawCard());
         GameState.Players[0].ProjectArea.Add(GameState.MainDeck.DrawCard());
         GameState.Players[0].ProjectArea.Add(GameState.MainDeck.DrawCard());
         GameState.Players[1].ProjectArea.Add(GameState.MainDeck.DrawCard());
         GameState.Players[1].Animals.Add(GameState.AnimalsDeck.DrawCard());
+
+        GameState.Players[0].BonusActionCards.Add(new Card(CardClass.BonusCastle, CardDice.All));
+        GameState.Players[0].BonusActionCards.Add(new Card(CardClass.ActionShip, CardDice.I));
     }
 
     private GameState GenerateGameState() {

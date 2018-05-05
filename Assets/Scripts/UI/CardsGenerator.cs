@@ -32,10 +32,10 @@ public static class CardsGenerator {
     }
 
     public static GameObject DrawBigBackgroundCard(Card c, Vector2 coords) {
-        return DrawCard(c, coords.x, coords.y, D.CardWidth * 2, D.CardHeight * 2, true, true, false, false);
+        return DrawCard(c, coords.x, coords.y, D.CardWidth * 1.8f, D.CardHeight * 2, true, true, false, false);
     }
 
-    public static GameObject DrawHandCard(Card card, Vector2 coords) {
+    public static GameObject DrawHandCard(Card card, Vector2 coords, int order, bool disabled = false) {
         GameObject parentCanvas = GameObject.Find("Canvas");
         GameObject newCard = new GameObject();
 
@@ -46,9 +46,12 @@ public static class CardsGenerator {
         newCard.AddComponent<CanvasRenderer>();
         CardController controller = newCard.AddComponent<CardController>();
         controller.Card = card;
+        controller.draggable = !disabled;
+        controller.InitialLayerOrder = order;
 
         Image image = newCard.AddComponent<Image>();
         image.overrideSprite = GetSpriteForCard(card);
+        if (disabled) image.color = new Color(0.8f, 0.8f, 0.8f);
 
         BoxCollider2D boxCollider = newCard.AddComponent<BoxCollider2D>();
         boxCollider.isTrigger = true;
@@ -82,7 +85,7 @@ public static class CardsGenerator {
 
         Image image = newCard.AddComponent<Image>();
         image.overrideSprite = GetSpriteForCard(c);
-        if (transparent) image.color = new Color(255, 255, 255, (float)0.8);
+        //if (transparent) image.color = new Color(255, 255, 255, (float)0.8);
 
         newCard.transform.position = new Vector3(x, y, 0);
         newCard.transform.SetParent(canvas.transform);
@@ -249,7 +252,7 @@ public static class CardsGenerator {
             case CardClass.BonusE:
                 fileUri += "bonusE";
                 break;
-            case CardClass.BonusCastle:
+            case CardClass.BonusCastleCompleted:
                 break;
             case CardClass.BonusMine:
                 break;
@@ -510,6 +513,27 @@ public static class CardsGenerator {
                 break;
             case CardClass.ShipGoods:
                 fileUri += "sell_goods";
+                break;
+            case CardClass.BonusCastle:
+                fileUri += "bonus_castle";
+                break;
+            case CardClass.BonusCarperter:
+                fileUri += "bonus_car";
+                break;
+            case CardClass.BonusChurch:
+                fileUri += "bonus_ch";
+                break;
+            case CardClass.BonusMarket:
+                fileUri += "bonus_mar";
+                break;
+            case CardClass.BonusCityHall:
+                fileUri += "bonus_cityh";
+                break;
+            case CardClass.BonusBoardinghouse:
+                fileUri += "bonus_bh";
+                break;
+            case CardClass.BonusWarehouse:
+                fileUri += "bonus_wa";
                 break;
         }
 

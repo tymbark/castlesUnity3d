@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Models;
 
-public static class PlayerActionsValidator {
+public static class ActionsValidator {
 
     public static bool TakeProjectActionAvailable(this Player p, List<ProjectCard> availableProjectCards) {
         return p.AnyActionAvailable()
@@ -54,7 +54,7 @@ public static class PlayerActionsValidator {
     }
 
     private static bool SilverActionAvailable(this Player p) {
-        return p.SilverActionCards.Count > 0;
+        return p.BonusActionCards.Count > 0;
     }
 
     private static bool AnyActionAvailable(this Player p) {

@@ -12,10 +12,21 @@ public class PopupsController : MonoBehaviour {
     }
 
     public void ShowMessageCannotFinishTurn() {
+        ShowMessageCannotFinishTurn("first use a card");
+    }
+
+    public void ShowMessageUseBonusCard() {
+        ShowMessageCannotFinishTurn("use bonus card first");
+    }
+
+    private void ShowMessageCannotFinishTurn(string message) {
         GameController.ClicksEnabled = false;
         Object prefab = Resources.Load("Prefabs/TextUseACard");
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
         messageGameObject.transform.position = Vector3.one;
+
+        TMPro.TextMeshProUGUI text = messageGameObject.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+        text.text = message;
 
         GameObject canvas = GameObject.Find("Canvas");
         messageGameObject.transform.SetParent(canvas.transform);
