@@ -34,50 +34,50 @@ public static class DeckGenerator {
         List<Card> cards = new List<Card>();
 
         for (int i = 0; i < 2; i++) {
-            cards.Add(new Card(CardClass.ActionCastle, CardDice.I));
-            cards.Add(new Card(CardClass.ActionCastle, CardDice.II));
-            cards.Add(new Card(CardClass.ActionCastle, CardDice.III));
-            cards.Add(new Card(CardClass.ActionCastle, CardDice.IV));
-            cards.Add(new Card(CardClass.ActionCastle, CardDice.V));
-            cards.Add(new Card(CardClass.ActionCastle, CardDice.VI));
+            cards.Add(new Card(CardClass.ActionCastle, CardDice.I, i));
+            cards.Add(new Card(CardClass.ActionCastle, CardDice.II, i));
+            cards.Add(new Card(CardClass.ActionCastle, CardDice.III, i));
+            cards.Add(new Card(CardClass.ActionCastle, CardDice.IV, i));
+            cards.Add(new Card(CardClass.ActionCastle, CardDice.V, i));
+            cards.Add(new Card(CardClass.ActionCastle, CardDice.VI, i));
 
-            cards.Add(new Card(CardClass.ActionMine, CardDice.I));
-            cards.Add(new Card(CardClass.ActionMine, CardDice.II));
-            cards.Add(new Card(CardClass.ActionMine, CardDice.III));
-            cards.Add(new Card(CardClass.ActionMine, CardDice.IV));
-            cards.Add(new Card(CardClass.ActionMine, CardDice.V));
-            cards.Add(new Card(CardClass.ActionMine, CardDice.VI));
+            cards.Add(new Card(CardClass.ActionMine, CardDice.I, i));
+            cards.Add(new Card(CardClass.ActionMine, CardDice.II, i));
+            cards.Add(new Card(CardClass.ActionMine, CardDice.III, i));
+            cards.Add(new Card(CardClass.ActionMine, CardDice.IV, i));
+            cards.Add(new Card(CardClass.ActionMine, CardDice.V, i));
+            cards.Add(new Card(CardClass.ActionMine, CardDice.VI, i));
 
-            cards.Add(new Card(CardClass.ActionCloister, CardDice.I));
-            cards.Add(new Card(CardClass.ActionCloister, CardDice.II));
-            cards.Add(new Card(CardClass.ActionCloister, CardDice.III));
-            cards.Add(new Card(CardClass.ActionCloister, CardDice.IV));
-            cards.Add(new Card(CardClass.ActionCloister, CardDice.V));
-            cards.Add(new Card(CardClass.ActionCloister, CardDice.VI));
+            cards.Add(new Card(CardClass.ActionCloister, CardDice.I, i));
+            cards.Add(new Card(CardClass.ActionCloister, CardDice.II, i));
+            cards.Add(new Card(CardClass.ActionCloister, CardDice.III, i));
+            cards.Add(new Card(CardClass.ActionCloister, CardDice.IV, i));
+            cards.Add(new Card(CardClass.ActionCloister, CardDice.V, i));
+            cards.Add(new Card(CardClass.ActionCloister, CardDice.VI, i));
         }
 
 
         for (int i = 0; i < 3; i++) {
-            cards.Add(new Card(CardClass.ActionKnowledge, CardDice.I));
-            cards.Add(new Card(CardClass.ActionKnowledge, CardDice.II));
-            cards.Add(new Card(CardClass.ActionKnowledge, CardDice.III));
-            cards.Add(new Card(CardClass.ActionKnowledge, CardDice.IV));
-            cards.Add(new Card(CardClass.ActionKnowledge, CardDice.V));
-            cards.Add(new Card(CardClass.ActionKnowledge, CardDice.VI));
+            cards.Add(new Card(CardClass.ActionKnowledge, CardDice.I, i));
+            cards.Add(new Card(CardClass.ActionKnowledge, CardDice.II, i));
+            cards.Add(new Card(CardClass.ActionKnowledge, CardDice.III, i));
+            cards.Add(new Card(CardClass.ActionKnowledge, CardDice.IV, i));
+            cards.Add(new Card(CardClass.ActionKnowledge, CardDice.V, i));
+            cards.Add(new Card(CardClass.ActionKnowledge, CardDice.VI, i));
 
-            cards.Add(new Card(CardClass.ActionPasture, CardDice.I));
-            cards.Add(new Card(CardClass.ActionPasture, CardDice.II));
-            cards.Add(new Card(CardClass.ActionPasture, CardDice.III));
-            cards.Add(new Card(CardClass.ActionPasture, CardDice.IV));
-            cards.Add(new Card(CardClass.ActionPasture, CardDice.V));
-            cards.Add(new Card(CardClass.ActionPasture, CardDice.VI));
+            cards.Add(new Card(CardClass.ActionPasture, CardDice.I, i));
+            cards.Add(new Card(CardClass.ActionPasture, CardDice.II, i));
+            cards.Add(new Card(CardClass.ActionPasture, CardDice.III, i));
+            cards.Add(new Card(CardClass.ActionPasture, CardDice.IV, i));
+            cards.Add(new Card(CardClass.ActionPasture, CardDice.V, i));
+            cards.Add(new Card(CardClass.ActionPasture, CardDice.VI, i));
 
-            cards.Add(new Card(CardClass.ActionShip, CardDice.I));
-            cards.Add(new Card(CardClass.ActionShip, CardDice.II));
-            cards.Add(new Card(CardClass.ActionShip, CardDice.III));
-            cards.Add(new Card(CardClass.ActionShip, CardDice.IV));
-            cards.Add(new Card(CardClass.ActionShip, CardDice.V));
-            cards.Add(new Card(CardClass.ActionShip, CardDice.VI));
+            cards.Add(new Card(CardClass.ActionShip, CardDice.I, i));
+            cards.Add(new Card(CardClass.ActionShip, CardDice.II, i));
+            cards.Add(new Card(CardClass.ActionShip, CardDice.III, i));
+            cards.Add(new Card(CardClass.ActionShip, CardDice.IV, i));
+            cards.Add(new Card(CardClass.ActionShip, CardDice.V, i));
+            cards.Add(new Card(CardClass.ActionShip, CardDice.VI, i));
         }
 
 

@@ -23,17 +23,6 @@ public class GameEngine {
         }
 
         ActionHandler = new ActionHandler(this);
-
-
-
-        GameState.Players[0].CompletedProjects.Add(GameState.MainDeck.DrawCard());
-        GameState.Players[0].ProjectArea.Add(GameState.MainDeck.DrawCard());
-        GameState.Players[0].ProjectArea.Add(GameState.MainDeck.DrawCard());
-        GameState.Players[1].ProjectArea.Add(GameState.MainDeck.DrawCard());
-        GameState.Players[1].Animals.Add(GameState.AnimalsDeck.DrawCard());
-
-        GameState.Players[0].BonusActionCards.Add(new Card(CardClass.BonusCastle, CardDice.All));
-        GameState.Players[0].BonusActionCards.Add(new Card(CardClass.ActionShip, CardDice.I));
     }
 
     private GameState GenerateGameState() {
@@ -42,6 +31,13 @@ public class GameEngine {
         var goodsDeck = DeckGenerator.GenerateGoodsDeck();
         var projectCards = PrepareProjectCards(mainDeck, howManyPlayers);
         var players = PreparePlayers(animalsDeck, goodsDeck);
+
+
+        players[0].CompletedProjects.Add(mainDeck.DrawCard());
+        players[0].ProjectArea.Add(mainDeck.DrawCard());
+		
+        players[0].BonusActionCards.Add(new Card(CardClass.BonusCarperter, CardDice.All));
+        players[0].BonusActionCards.Add(new Card(CardClass.BonusCityHall, CardDice.All));
 
         return new GameState(players, mainDeck, animalsDeck, goodsDeck,
                              projectCards, Round.A, 0, players.Count);

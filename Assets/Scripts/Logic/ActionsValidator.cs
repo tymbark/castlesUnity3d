@@ -47,7 +47,7 @@ public static class ActionsValidator {
             && !p.SilverActionAvailable();
     }
 
-    private static bool NormalActionAvailable(this Player p) {
+    public static bool NormalActionAvailable(this Player p) {
         bool hasTwoCards = p.Cards.Count == 2;
         bool hasLastCard = p.Cards.Count == 1 && p.FutureCards.Count == 0;
         return hasTwoCards || hasLastCard;

@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour {
 
     public bool ClicksEnabled = true;
     public GameEngine GameEngine { get; private set; }
-    private List<GameObject> DynamicCardsGO = new List<GameObject>();
+    private List<GameObject> GUIobjects = new List<GameObject>();
     private ActionHandler ActionHandler;
     private GameBoardGenerator GameBoardGenerator = new GameBoardGenerator();
     private PopupsController PopupsController;
@@ -29,10 +29,11 @@ public class GameController : MonoBehaviour {
     }
 
     public void RefreshTable() {
-        foreach (GameObject gmo in DynamicCardsGO) {
+        foreach (GameObject gmo in GUIobjects) {
             Destroy(gmo);
         }
-        DynamicCardsGO = GameBoardGenerator.DrawGameBoard(GameEngine);
+        GUIobjects = GameBoardGenerator.DrawGameBoard(GameEngine);
+        GameEngine.GameState.Save();
     }
 
     public void HandleClickAction(Card targetCard) {

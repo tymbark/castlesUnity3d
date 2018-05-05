@@ -85,7 +85,7 @@ public static class ActinosExecutor {
         if (p.WorkersCount < workersNeeded) {
             throw new System.InvalidProgramException("Cannot use more workers than are available!");
         } else {
-            p.WorkersCount -= workersNeeded;
+            p.WorkersCount = p.WorkersCount - workersNeeded;
         }
     }
 

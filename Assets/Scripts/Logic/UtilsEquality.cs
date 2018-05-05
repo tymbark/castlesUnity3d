@@ -6,7 +6,7 @@ using Models;
 public static class UtilsEquality {
 
     public static bool IsEqualTo(this Card card1, Card card2) {
-        return card1.Class == card2.Class && card1.Dice == card2.Dice;
+        return card1.Class == card2.Class && card1.Dice == card2.Dice && card1.Number == card2.Number;
     }
 
     public static bool IsEqualTo(this ProjectCard card1, ProjectCard card2) {

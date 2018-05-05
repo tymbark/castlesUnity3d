@@ -8,14 +8,15 @@ public static class UtilsDataParse {
     private static readonly char CardSeparator = ';';
 
     public static string Stringify(this Card c) {
-        return "" + (int)c.Class + CardSeparator + (int)c.Dice;
+        return "" + (int)c.Class + CardSeparator + (int)c.Dice + CardSeparator + c.Number;
     }
 
     public static Card ParseToCard(this string card) {
         CardClass cardClass = (CardClass)int.Parse(card.Split(CardSeparator)[0]);
         CardDice cardDice = (CardDice)int.Parse(card.Split(CardSeparator)[1]);
+        int cardNumber = int.Parse(card.Split(CardSeparator)[2]);
 
-        return new Card(cardClass, cardDice);
+        return new Card(cardClass, cardDice, cardNumber);
     }
 
     public static string Stringify(this ProjectCard c) {
@@ -191,6 +192,8 @@ public static class UtilsDataParse {
         var serializedGameState = new SerializedGameState(
             player1, player2, player3, player4, mainDeck, animals, goods, projects,
             gameState.CurrentRound, gameState.CurrentPlayerIndex, gameState.HowManyPlayers);
+
+        5.print_(JsonUtility.ToJson(serializedGameState));
 
         return JsonUtility.ToJson(serializedGameState);
     }

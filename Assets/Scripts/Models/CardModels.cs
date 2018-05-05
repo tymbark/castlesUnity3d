@@ -56,9 +56,14 @@ namespace Models {
     }
 
     public class Card {
-        public Card(CardClass cardClass, CardDice cardDice = CardDice.O) {
+
+        // used for distinguish two cards with the same class and dice
+        public readonly int Number;
+
+        public Card(CardClass cardClass, CardDice cardDice = CardDice.O, int number = 0) {
             Dice = cardDice;
             Class = cardClass;
+            Number = number;
         }
 
         public readonly CardClass Class;
