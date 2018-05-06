@@ -60,10 +60,14 @@ namespace Models {
         // used for distinguish two cards with the same class and dice
         public readonly int Number;
 
-        public Card(CardClass cardClass, CardDice cardDice = CardDice.O, int number = 0) {
+        // used for triple cards in finished buildings. Default 0.
+        public readonly int TripleId;
+
+        public Card(CardClass cardClass, CardDice cardDice = CardDice.O, int number = 0, int tripleId = 0) {
             Dice = cardDice;
             Class = cardClass;
             Number = number;
+            TripleId = tripleId;
         }
 
         public readonly CardClass Class;

@@ -8,15 +8,19 @@ public static class UtilsDataParse {
     private static readonly char CardSeparator = ';';
 
     public static string Stringify(this Card c) {
-        return "" + (int)c.Class + CardSeparator + (int)c.Dice + CardSeparator + c.Number;
+        return "" + (int)c.Class + CardSeparator
+                  + (int)c.Dice + CardSeparator
+                  + c.Number + CardSeparator
+                  + c.TripleId + CardSeparator;
     }
 
     public static Card ParseToCard(this string card) {
         CardClass cardClass = (CardClass)int.Parse(card.Split(CardSeparator)[0]);
         CardDice cardDice = (CardDice)int.Parse(card.Split(CardSeparator)[1]);
         int cardNumber = int.Parse(card.Split(CardSeparator)[2]);
+        int tripleId = int.Parse(card.Split(CardSeparator)[3]);
 
-        return new Card(cardClass, cardDice, cardNumber);
+        return new Card(cardClass, cardDice, cardNumber, tripleId);
     }
 
     public static string Stringify(this ProjectCard c) {

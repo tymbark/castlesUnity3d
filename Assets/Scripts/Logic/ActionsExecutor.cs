@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Models;
 
-public static class ActinosExecutor {
+public static class ActionsExecutor {
 
     public static void ExecuteTakeProjectAction(this Player p, Action action) {
         p.WithdrawUsedCard(action.ActionCard);
@@ -14,8 +14,9 @@ public static class ActinosExecutor {
     public static void ExecuteBuildProjectAction(this Player p, Action action, GameState gameState) {
         p.WithdrawUsedCard(action.ActionCard);
         p.UseWorkers(action.WorkersNeeded);
-        p.CompleteProject(action);
-        BonusSupplier.ApplyCompletingBonus(p, action.TargetCard, gameState);
+        p.CompleteProject(action.TargetCard);
+
+        p.ApplyCompletingBonus(action.TargetCard, gameState);
     }
 
     public static void ExecuteShipGoodsAction(this Player p, Action action) {
@@ -90,13 +91,100 @@ public static class ActinosExecutor {
         }
     }
 
-    public static void CompleteProject(this Player p, Action action) {
-        if (p.ProjectArea.Contains(action.TargetCard)) {
-            p.ProjectArea.Remove(action.TargetCard);
-            p.CompletedProjects.Add(action.TargetCard);
+    public static void CompleteProject(this Player p, Card targetCard) {
+        if (p.ProjectArea.Contains(targetCard)) {
+            p.ProjectArea.Remove(targetCard);
+
+            List<List<Card>> spots = p.CompletedProjects.FindAvailableSpots(targetCard);
+
+            Card cardWithTripleId;
+
+            if (spots.Count == 0) {
+                int newTripleId = p.CompletedProjects.Count + 1;
+                cardWithTripleId = targetCard.WithTripleId(newTripleId);
+            } else {
+                cardWithTripleId = targetCard.WithTripleId(spots[0][0].TripleId);
+            }
+
+            p.CompletedProjects.Add(cardWithTripleId);
+            p.CompletedProjects.Sort((x, y)=> x.TripleId.CompareTo(y.TripleId));
+
         } else {
             throw new System.InvalidProgramException("Cannot build a project that is not in projects area!");
         }
+    }
+
+    public static List<List<Card>> FindAvailableSpots(this List<Card> buildings, Card newCard) {
+        List<List<Card>> triples = buildings.CreateTripleLists();
+
+        List<List<Card>> result = new List<List<Card>>();
+
+        foreach (List<Card> list in triples) {
+            if (list.Count < 3) {
+                if (list.MatchesCard(newCard)) {
+                    result.Add(list);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public static bool MatchesCard(this List<Card> cards, Card test) {
+        bool listMatches = true;
+
+        foreach (Card c in cards) {
+
+            bool theSameAction = test.Class == c.Class;
+            bool bothBuildings = test.IsBuildingType() && c.IsBuildingType();
+            bool cloisterType = test.Class == CardClass.ActionCloister || c.Class == CardClass.ActionCloister;
+
+            if (!theSameAction && !bothBuildings && !cloisterType) {
+                listMatches = false;
+            }
+        }
+
+        return listMatches;
+    }
+
+    public static bool IsBuildingType(this Card card) {
+        switch (card.Class) {
+            case CardClass.ActionCarpenter:
+            case CardClass.ActionChurch:
+            case CardClass.ActionMarket:
+            case CardClass.ActionWatchtower:
+            case CardClass.ActionBank:
+            case CardClass.ActionBoardinghouse:
+            case CardClass.ActionWarehouse:
+            case CardClass.ActionCityHall:
+                return true;
+        }
+        return false;
+    }
+
+    public static List<List<Card>> CreateTripleLists(this List<Card> completedProjects) {
+
+        List<List<Card>> buildings = new List<List<Card>>();
+        List<Card> currentList = new List<Card>();
+        int currentId = -1;
+
+        foreach (Card c in completedProjects) {
+            if (currentId != c.TripleId) {
+                var newList = new List<Card>();
+                newList.Add(c);
+                buildings.Add(newList);
+                currentList = newList;
+                currentId = c.TripleId;
+            } else {
+                currentList.Add(c);
+            }
+        }
+
+        return buildings;
+    }
+
+    private static Card WithTripleId(this Card card, int tripleId) {
+        return new Card(card.Class, card.Dice, card.Number, tripleId);
     }
 
     public static void ShipGoods(this Player p, Card card) {

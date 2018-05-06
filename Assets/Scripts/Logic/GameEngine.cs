@@ -13,7 +13,7 @@ public class GameEngine {
     public GameEngine() {
 
         if (GameState == null) {
-            if (DataPersistance.GameStateExists()) {
+            if (false && DataPersistance.GameStateExists()) {
                 GameState = DataPersistance.LoadGameState();
             } else {
                 GameState = GenerateGameState();
@@ -33,11 +33,24 @@ public class GameEngine {
         var players = PreparePlayers(animalsDeck, goodsDeck);
 
 
-        players[0].CompletedProjects.Add(mainDeck.DrawCard());
-        players[0].ProjectArea.Add(new Card(CardClass.ActionPasture, CardDice.II, 3));
+        var c1 = mainDeck.DrawCard();
+        var c2 = mainDeck.DrawCard();
+        var c3 = mainDeck.DrawCard();
+        var c4 = mainDeck.DrawCard();
+        var c5 = mainDeck.DrawCard();
+        players[0].ProjectArea.Add(c1);
+        players[0].ProjectArea.Add(c2);
+        players[0].ProjectArea.Add(c3);
+        players[0].ProjectArea.Add(c4);
+        players[0].ProjectArea.Add(c5);
+        players[0].CompleteProject(c1);
+        players[0].CompleteProject(c2);
+        players[0].CompleteProject(c3);
+        players[0].CompleteProject(c4);
+        players[0].CompleteProject(c5);
 
-        players[0].BonusActionCards.Add(new Card(CardClass.BonusCarperter, CardDice.All));
-        players[0].BonusActionCards.Add(new Card(CardClass.BonusCityHall, CardDice.All));
+        //players[0].BonusActionCards.Add(new Card(CardClass.BonusCarperter, CardDice.All));
+        //players[0].BonusActionCards.Add(new Card(CardClass.BonusCityHall, CardDice.All));
 
         return new GameState(players, mainDeck, animalsDeck, goodsDeck,
                              projectCards, Round.A, 0, players.Count);

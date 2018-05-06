@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using Models;
 
-public class ParserTests {
+public class TestDataParser {
 
     [Test]
     public void TestTwoCardsAreEqual1() {
@@ -554,7 +554,7 @@ public class ParserTests {
         Assert.IsFalse(gs1.IsEqualTo(gs2));
     }
 
-    private static Player RandomPlayer(int capacity1, int capacity2) {
+    public static Player RandomPlayer(int capacity1, int capacity2) {
         return new Player(
             RandomList(capacity1),
             RandomList(capacity2),
@@ -570,7 +570,7 @@ public class ParserTests {
             false);
     }
 
-    private static List<Card> RandomList(int capacity) {
+    public static List<Card> RandomList(int capacity) {
         List<Card> result = new List<Card>();
         for (int i = 0; i < capacity; i++) {
             result.Add(RandomCard());
@@ -578,7 +578,7 @@ public class ParserTests {
         return result;
     }
 
-    private static Card RandomCard(int classNo = -1) {
+    public static Card RandomCard(int classNo = -1) {
         System.Random random = new System.Random();
         CardClass cc;
         if (classNo == -1) {
