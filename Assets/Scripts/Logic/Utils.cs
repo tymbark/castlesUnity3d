@@ -285,6 +285,9 @@ public static class Utils {
             case CardClass.ShipGoods:
                 return actions.HasShipGoodsAction(actionCard);
 
+            case CardClass.Goods:
+                return actions.HasTakeGoodsAction(actionCard);
+
             default:
 
                 if (actions.HasBuildThisProjectAction(targetCard, actionCard)) {
@@ -416,6 +419,12 @@ public static class Utils {
 
     public static bool HasShipGoodsAction(this List<Action> actions, Card actionCard) {
         return actions.FindAll((Action obj) => obj.Type == ActionType.ShipGoods
+            && obj.ActionCard.IsEqualTo(actionCard)).Count == 1;
+    }
+
+    //todo random goods
+    public static bool HasTakeGoodsAction(this List<Action> actions, Card actionCard) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.TakeGoods
             && obj.ActionCard.IsEqualTo(actionCard)).Count == 1;
     }
 

@@ -73,6 +73,10 @@ namespace Models {
             return "Card[ " + Class + " - " + Dice + " ]";
         }
 
+    }
+
+    public static class StaticCards {
+        
         public static Card Dummy = new Card(CardClass.None, CardDice.O);
 
         public static Card DummyDiceI = new Card(CardClass.Dice, CardDice.I);

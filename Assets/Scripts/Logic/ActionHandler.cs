@@ -28,7 +28,7 @@ public class ActionHandler {
                 break;
             case ActionType.BuildProject:
 
-                CurrentPlayer().ExecuteBuildProjectAction(action);
+                CurrentPlayer().ExecuteBuildProjectAction(action, GameEngine.GameState);
 
                 break;
             case ActionType.ShipGoods:
@@ -115,7 +115,7 @@ public class ActionHandler {
         }
 
         if (CurrentPlayer().EndTurnActionAvailable()) {
-            availableActions.Add(new Action(ActionType.EndTurn, Card.DummyEndTurn, Card.DummyEndTurn));
+            availableActions.Add(new Action(ActionType.EndTurn, StaticCards.DummyEndTurn, StaticCards.DummyEndTurn));
         }
 
 

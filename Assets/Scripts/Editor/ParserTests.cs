@@ -236,28 +236,28 @@ public class ParserTests {
 
     [Test]
     public void TestPlayerEquals1() {
-        Player p1 = RandomPlayer(50,50);
+        Player p1 = RandomPlayer(50, 50);
 
         Assert.IsTrue(p1.IsEqualTo(p1));
     }
 
     [Test]
     public void TestPlayerEquals2() {
-        Player p1 = RandomPlayer(0,50);
+        Player p1 = RandomPlayer(0, 50);
 
         Assert.IsTrue(p1.IsEqualTo(p1));
     }
 
     [Test]
     public void TestPlayerEquals3() {
-        Player p1 = RandomPlayer(50,0);
+        Player p1 = RandomPlayer(50, 0);
 
         Assert.IsTrue(p1.IsEqualTo(p1));
     }
 
     [Test]
     public void TestPlayerEquals4() {
-        Player p1 = RandomPlayer(0,0);
+        Player p1 = RandomPlayer(0, 0);
 
         Assert.IsTrue(p1.IsEqualTo(p1));
     }
@@ -285,7 +285,7 @@ public class ParserTests {
 
         Assert.IsTrue(p1.IsEqualTo(p2));
     }
-    
+
     [Test]
     public void TestDoubleParsingPlayer1() {
         Player p1 = RandomPlayer(50, 50);
@@ -293,7 +293,7 @@ public class ParserTests {
 
         Assert.IsTrue(p1.IsEqualTo(p2));
     }
-    
+
     [Test]
     public void TestDoubleParsingPlayer2() {
         Player p1 = RandomPlayer(50, 0);
@@ -301,7 +301,7 @@ public class ParserTests {
 
         Assert.IsTrue(p1.IsEqualTo(p2));
     }
-    
+
     [Test]
     public void TestDoubleParsingPlayer3() {
         Player p1 = RandomPlayer(0, 50);
@@ -309,7 +309,7 @@ public class ParserTests {
 
         Assert.IsTrue(p1.IsEqualTo(p2));
     }
-    
+
     [Test]
     public void TestListPlayersEquals() {
         List<Player> l1 = new List<Player>();
@@ -582,7 +582,7 @@ public class ParserTests {
         System.Random random = new System.Random();
         CardClass cc;
         if (classNo == -1) {
-            cc = (CardClass)random.Next(46);
+            cc = (CardClass)random.Next((int)CardClass.ActionCityHall);
         } else {
             cc = (CardClass)classNo;
         }

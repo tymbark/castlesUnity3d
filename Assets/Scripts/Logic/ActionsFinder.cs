@@ -108,7 +108,7 @@ public static class ActionsFinder {
 
         foreach (Card card in p.BonusActionCards.OnlySilverBonuses()) {
 
-            var action = new Action(ActionType.TakeSilverProject, Card.Dummy, card);
+            var action = new Action(ActionType.TakeSilverProject, StaticCards.Dummy, card);
             silverFreeProjects.Add(action);
 
         }
@@ -160,7 +160,7 @@ public static class ActionsFinder {
     public static List<Action> ReadyToUseSilverActions(this Player p) {
         var actionsUseSilver = new List<Action>();
 
-        actionsUseSilver.Add(new Action(ActionType.UseSilver, Card.Dummy, Card.Dummy));
+        actionsUseSilver.Add(new Action(ActionType.UseSilver, StaticCards.Dummy, StaticCards.Dummy));
 
         return actionsUseSilver;
     }

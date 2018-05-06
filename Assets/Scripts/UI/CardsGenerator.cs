@@ -99,31 +99,31 @@ public static class CardsGenerator {
     }
 
     public static GameObject DrawPointsButton(int points) {
-        return DrawPrefabCardWithText(Card.DummyPoints, D.PositionPointsButton, "ButtonPoints", points + "");
+        return DrawPrefabCardWithText(StaticCards.DummyPoints, D.PositionPointsButton, "ButtonPoints", points + "");
     }
 
     public static GameObject DrawWorkersCard(int howMany) {
-        return DrawPrefabCardWithText(Card.DummyWorker, D.PositionWorkerCard, "CardWorker", howMany + "");
+        return DrawPrefabCardWithText(StaticCards.DummyWorker, D.PositionWorkerCard, "CardWorker", howMany + "");
     }
 
     public static GameObject DrawSilverCard(int howMany) {
-        return DrawPrefabCardWithText(Card.DummySilver, D.PositionSilverCard, "CardSilver", howMany + "");
+        return DrawPrefabCardWithText(StaticCards.DummySilver, D.PositionSilverCard, "CardSilver", howMany + "");
     }
 
     public static GameObject DrawAnimalsCard(int howMany) {
-        return DrawPrefabCardWithText(Card.DummyAllAnimals, D.PositionAllAnimalsCard, "CardAnimals", howMany + "");
+        return DrawPrefabCardWithText(StaticCards.DummyAllAnimals, D.PositionAllAnimalsCard, "CardAnimals", howMany + "");
     }
 
     public static GameObject DrawStorageCard(int howMany) {
-        return DrawPrefabCardWithText(Card.DummyAllStorages, D.PositionAllStoragesCard, "CardStorage", howMany + "");
+        return DrawPrefabCardWithText(StaticCards.DummyAllStorages, D.PositionAllStoragesCard, "CardStorage", howMany + "");
     }
 
     public static GameObject DrawEstateCard(int howMany) {
-        return DrawPrefabCardWithText(Card.DummyAllEstates, D.PositionAllEstatesCard, "CardEstate", howMany + "");
+        return DrawPrefabCardWithText(StaticCards.DummyAllEstates, D.PositionAllEstatesCard, "CardEstate", howMany + "");
     }
 
     public static GameObject DrawProjectsCard(int howMany) {
-        return DrawPrefabCardWithText(Card.DummyAllProjects, D.PositionAllProjectsCard, "CardProjects", howMany + "");
+        return DrawPrefabCardWithText(StaticCards.DummyAllProjects, D.PositionAllProjectsCard, "CardProjects", howMany + "");
     }
 
     private static GameObject DrawPrefabCardWithText(Card c, Vector2 position, string prefabRes, string text) {

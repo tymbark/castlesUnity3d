@@ -13,7 +13,7 @@ public class GameEngine {
     public GameEngine() {
 
         if (GameState == null) {
-            if (false && DataPersistance.GameStateExists()) {
+            if (DataPersistance.GameStateExists()) {
                 GameState = DataPersistance.LoadGameState();
             } else {
                 GameState = GenerateGameState();
@@ -34,8 +34,8 @@ public class GameEngine {
 
 
         players[0].CompletedProjects.Add(mainDeck.DrawCard());
-        players[0].ProjectArea.Add(mainDeck.DrawCard());
-		
+        players[0].ProjectArea.Add(new Card(CardClass.ActionPasture, CardDice.II, 3));
+
         players[0].BonusActionCards.Add(new Card(CardClass.BonusCarperter, CardDice.All));
         players[0].BonusActionCards.Add(new Card(CardClass.BonusCityHall, CardDice.All));
 

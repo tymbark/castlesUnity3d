@@ -11,10 +11,11 @@ public static class ActinosExecutor {
         p.ProjectArea.Add(action.TargetCard);
     }
 
-    public static void ExecuteBuildProjectAction(this Player p, Action action) {
+    public static void ExecuteBuildProjectAction(this Player p, Action action, GameState gameState) {
         p.WithdrawUsedCard(action.ActionCard);
         p.UseWorkers(action.WorkersNeeded);
         p.CompleteProject(action);
+        BonusSupplier.ApplyCompletingBonus(p, action.TargetCard, gameState);
     }
 
     public static void ExecuteShipGoodsAction(this Player p, Action action) {

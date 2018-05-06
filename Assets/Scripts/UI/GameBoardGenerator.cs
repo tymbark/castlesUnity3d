@@ -133,16 +133,16 @@ public class GameBoardGenerator {
         gameObjects.Add(CardsGenerator.DrawStorageCard(currentPlayer.Goods.Count));
         gameObjects.Add(CardsGenerator.DrawAnimalsCard(currentPlayer.Animals.Count));
 
-        gameObjects.Add(CardsGenerator.DrawClickableAndExecutableCard(Card.DummySellSilverAndWorkers, D.PositionSellSilverAndWorkersCard));
-        gameObjects.Add(CardsGenerator.DrawClickableAndExecutableCard(Card.DummyShipGoods, D.PositionShipGoodsCard));
+        gameObjects.Add(CardsGenerator.DrawClickableAndExecutableCard(StaticCards.DummySellSilverAndWorkers, D.PositionSellSilverAndWorkersCard));
+        gameObjects.Add(CardsGenerator.DrawClickableAndExecutableCard(StaticCards.DummyShipGoods, D.PositionShipGoodsCard));
         gameObjects.Add(CardsGenerator.DrawSilverCard(currentPlayer.SilverCount));
         gameObjects.Add(CardsGenerator.DrawWorkersCard(currentPlayer.WorkersCount));
 
         gameObjects.Add(CardsGenerator.DrawPointsButton(currentPlayer.Score));
-        gameObjects.Add(CardsGenerator.DrawClickableButtonCard(Card.DummyEndTurn, D.PositionEndTurnButton));
-        gameObjects.Add(CardsGenerator.DrawClickableButtonCard(Card.DummyExit, D.PositionExitButton));
+        gameObjects.Add(CardsGenerator.DrawClickableButtonCard(StaticCards.DummyEndTurn, D.PositionEndTurnButton));
+        gameObjects.Add(CardsGenerator.DrawClickableButtonCard(StaticCards.DummyExit, D.PositionExitButton));
 
-        gameObjects.Add(CardsGenerator.DrawBigBackgroundCard(Card.DummyAllProjects, D.PositionCardProjectsBigCard));
+        gameObjects.Add(CardsGenerator.DrawBigBackgroundCard(StaticCards.DummyAllProjects, D.PositionCardProjectsBigCard));
 
         switch (gameState.CurrentRound) {
             case Round.A:
@@ -165,12 +165,12 @@ public class GameBoardGenerator {
     }
 
     private void DrawDices() {
-        gameObjects.Add(CardsGenerator.DrawStaticCard(Card.DummyDiceI, D.PositionProjectDiceI));
-        gameObjects.Add(CardsGenerator.DrawStaticCard(Card.DummyDiceII, D.PositionProjectDiceII));
-        gameObjects.Add(CardsGenerator.DrawStaticCard(Card.DummyDiceIII, D.PositionProjectDiceIII));
-        gameObjects.Add(CardsGenerator.DrawStaticCard(Card.DummyDiceIV, D.PositionProjectDiceIV));
-        gameObjects.Add(CardsGenerator.DrawStaticCard(Card.DummyDiceV, D.PositionProjectDiceV));
-        gameObjects.Add(CardsGenerator.DrawStaticCard(Card.DummyDiceVI, D.PositionProjectDiceVI));
+        gameObjects.Add(CardsGenerator.DrawStaticCard(StaticCards.DummyDiceI, D.PositionProjectDiceI));
+        gameObjects.Add(CardsGenerator.DrawStaticCard(StaticCards.DummyDiceII, D.PositionProjectDiceII));
+        gameObjects.Add(CardsGenerator.DrawStaticCard(StaticCards.DummyDiceIII, D.PositionProjectDiceIII));
+        gameObjects.Add(CardsGenerator.DrawStaticCard(StaticCards.DummyDiceIV, D.PositionProjectDiceIV));
+        gameObjects.Add(CardsGenerator.DrawStaticCard(StaticCards.DummyDiceV, D.PositionProjectDiceV));
+        gameObjects.Add(CardsGenerator.DrawStaticCard(StaticCards.DummyDiceVI, D.PositionProjectDiceVI));
     }
 
     private void DrawAvailableProjectCards(List<ProjectCard> cards) {

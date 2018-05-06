@@ -81,7 +81,7 @@ public static class LogicHelper {
 
                 if ((i + j) % 3 == 0) {
                     actions.Add(new Action(ActionType.SellSilverAndWorkers, actionCard,
-                                           Card.Dummy, 0, i, j));
+                                           StaticCards.Dummy, 0, i, j));
                 }
             }
         }

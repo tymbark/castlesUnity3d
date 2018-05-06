@@ -39,6 +39,7 @@ namespace Models {
         TakeSilverProject,
         BuildProject,
         ShipGoods,
+        TakeGoods, //todo random goods
         BuyWorkers,
         BuySilver,
         UseSilver,
