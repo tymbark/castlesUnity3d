@@ -16,11 +16,6 @@ namespace Models {
         AllProjects, AllEstates, AllAnimals, AllStorages,
         SellSilverAndWorkers, ShipGoods,
 
-        // Bonuses
-        BonusA, BonusB, BonusC, BonusD, BonusE,
-        BonusCastleCompleted, BonusMine, BonusCloister, BonusKnowledge, BonusShip, BonusPasture,
-        BonusAllSeven1, BonusAllSeven2, BonusAllSeven3, BonusAllSeven4,
-
         BonusCastle,
         BonusCarperter,
         BonusChurch,
@@ -53,6 +48,12 @@ namespace Models {
         I, II, III, IV, V, VI,
         I_II, III_IV, V_VI, // for goods
         All // for bonus cards
+    }
+
+    public enum BonusCard {
+        FirstPlayer, 
+        Building, Castle, Mine, Cloister, Knowledge, Ship, Pasture, 
+        AllSeven4, AllSeven3, AllSeven2, AllSeven1
     }
 
     public class Card {

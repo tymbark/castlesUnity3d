@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Models;
+using InputActions;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -36,11 +37,11 @@ public class GameController : MonoBehaviour {
         GameEngine.GameState.Save();
     }
 
-    public void HandleClickAction(Card targetCard) {
+    public void HandleClickAction(ClickAction action) {
         List<Action> actions = GameEngine.ActionHandler.GetAvailableActions();
 
-        switch (targetCard.Class) {
-            case CardClass.EndTurn:
+        switch (action) {
+            case ClickAction.EndTurn:
                 if (actions.HasEndTurnAction()) {
                     ActionHandler.ProcessAction(actions.GetEndTurnAction());
                     PopupsController.ShowMessageNextTurn();
@@ -48,20 +49,24 @@ public class GameController : MonoBehaviour {
                     PopupsController.ShowMessageCannotFinishTurn();
                 }
                 break;
-            case CardClass.Exit:
+            case ClickAction.ExitGame:
+                print("todo exit game ...");
                 break;
-            case CardClass.Worker:
-            case CardClass.Silver:
-            case CardClass.AllProjects:
+            case ClickAction.ShowProjects:
+            case ClickAction.ShowWorkers:
+            case ClickAction.ShowSilver:
                 SceneManager.LoadScene("Projects");
                 break;
-            case CardClass.AllEstates:
+            case ClickAction.ShowEstates:
                 SceneManager.LoadScene("Estates");
                 break;
-            case CardClass.AllAnimals:
+            case ClickAction.ShowAnimals:
                 SceneManager.LoadScene("Animals");
                 break;
-            case CardClass.AllStorages:
+            case ClickAction.ShowBonuses:
+                print("todo open bonuses ...");
+                break;
+            case ClickAction.ShowStorage:
                 SceneManager.LoadScene("Goods");
                 break;
         }

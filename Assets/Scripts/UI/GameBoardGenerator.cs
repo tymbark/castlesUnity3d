@@ -144,24 +144,7 @@ public class GameBoardGenerator {
 
         gameObjects.Add(CardsGenerator.DrawBigBackgroundCard(StaticCards.DummyAllProjects, D.PositionCardProjectsBigCard));
 
-        switch (gameState.CurrentRound) {
-            case Round.A:
-                gameObjects.Add(CardsGenerator.DrawClickableCard(new Card(CardClass.BonusA, CardDice.O), D.PositionCurrentBonusCard));
-                break;
-            case Round.B:
-                gameObjects.Add(CardsGenerator.DrawClickableCard(new Card(CardClass.BonusB, CardDice.O), D.PositionCurrentBonusCard));
-                break;
-            case Round.C:
-                gameObjects.Add(CardsGenerator.DrawClickableCard(new Card(CardClass.BonusC, CardDice.O), D.PositionCurrentBonusCard));
-                break;
-            case Round.D:
-                gameObjects.Add(CardsGenerator.DrawClickableCard(new Card(CardClass.BonusD, CardDice.O), D.PositionCurrentBonusCard));
-                break;
-            case Round.E:
-                gameObjects.Add(CardsGenerator.DrawClickableCard(new Card(CardClass.BonusE, CardDice.O), D.PositionCurrentBonusCard));
-                break;
-        }
-
+        gameObjects.Add(CardsGenerator.DrawCurrentBonusCard(gameState.CurrentRound));
     }
 
     private void DrawDices() {

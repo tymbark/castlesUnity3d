@@ -16,12 +16,14 @@ namespace Models {
         public readonly Deck AnimalsDeck;
         public readonly Deck GoodsDeck;
         public readonly List<ProjectCard> AvailableProjectCards;
+        public readonly List<BonusCard> AvailableBonusCards; 
 
         public GameState(List<Player> players,
                          Deck mainDeck,
                          Deck animalsDeck,
                          Deck goodsDeck,
                          List<ProjectCard> availableProjectCards,
+                         List<BonusCard> availableBonusCards,
                          Round currentRound,
                          int currentPlayerIndex,
                          int howManyPlayers) {
@@ -31,6 +33,7 @@ namespace Models {
             this.AnimalsDeck = animalsDeck;
             this.GoodsDeck = goodsDeck;
             this.AvailableProjectCards = availableProjectCards;
+            this.AvailableBonusCards = availableBonusCards;
             this.HowManyPlayers = howManyPlayers;
             this.CurrentRound = currentRound;
             this.CurrentPlayerIndex = currentPlayerIndex;

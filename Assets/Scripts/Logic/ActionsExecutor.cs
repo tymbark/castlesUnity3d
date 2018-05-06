@@ -14,7 +14,7 @@ public static class ActionsExecutor {
     public static void ExecuteBuildProjectAction(this Player p, Action action, GameState gameState) {
         p.WithdrawUsedCard(action.ActionCard);
         p.UseWorkers(action.WorkersNeeded);
-        p.CompleteProject(action.TargetCard);
+        p.CompleteProject(action.TargetCard, gameState);
 
         p.ApplyCompletingBonus(action.TargetCard, gameState);
     }
@@ -91,7 +91,7 @@ public static class ActionsExecutor {
         }
     }
 
-    public static void CompleteProject(this Player p, Card targetCard) {
+    public static void CompleteProject(this Player p, Card targetCard, GameState gameState) {
         if (p.ProjectArea.Contains(targetCard)) {
             p.ProjectArea.Remove(targetCard);
 
@@ -103,11 +103,18 @@ public static class ActionsExecutor {
                 int newTripleId = p.CompletedProjects.Count + 1;
                 cardWithTripleId = targetCard.WithTripleId(newTripleId);
             } else {
-                cardWithTripleId = targetCard.WithTripleId(spots[0][0].TripleId);
+                List<Card> tripleCards = spots[0];
+                cardWithTripleId = targetCard.WithTripleId(tripleCards[0].TripleId);
+
+                tripleCards.Add(targetCard);
+
+                if (tripleCards.Count == 3) {
+                    p.ApplyCompletingTripleBonus(tripleCards, gameState);
+                }
             }
 
             p.CompletedProjects.Add(cardWithTripleId);
-            p.CompletedProjects.Sort((x, y)=> x.TripleId.CompareTo(y.TripleId));
+            p.CompletedProjects.Sort((x, y) => x.TripleId.CompareTo(y.TripleId));
 
         } else {
             throw new System.InvalidProgramException("Cannot build a project that is not in projects area!");

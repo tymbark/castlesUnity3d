@@ -16,6 +16,7 @@ namespace Models {
         public readonly List<Card> ProjectArea;
         public readonly List<Card> BonusActionCards;
         public readonly List<Card> CompletedProjects;
+        public readonly List<BonusCard> ReceivedBonuses;
 
         public int Score;
         public int WorkersCount;
@@ -30,6 +31,7 @@ namespace Models {
             ProjectArea = new List<Card>();
             BonusActionCards = new List<Card>();
             CompletedProjects = new List<Card>();
+            ReceivedBonuses = new List<BonusCard>();
 
             Name = name;
             WorkersCount = startingWorkers;
@@ -46,6 +48,7 @@ namespace Models {
                       List<Card> projectArea,
                       List<Card> silverActionCards,
                       List<Card> completedProjects,
+                      List<BonusCard> receivedBonuses,
                       string name,
                       int score,
                       int workersCount,
@@ -63,6 +66,7 @@ namespace Models {
             WorkersCount = workersCount;
             SilverCount = silverCount;
             SilverActionDoneThisTurn = silverDoneThisTurn;
+            ReceivedBonuses = receivedBonuses;
         }
 
         public void DrawCards(Deck deck) {

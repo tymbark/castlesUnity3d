@@ -23,6 +23,31 @@ public static class UtilsDataParse {
         return new Card(cardClass, cardDice, cardNumber, tripleId);
     }
 
+    public static string Stringify<T>(this List<T> listToParse) {
+        T[] array = listToParse.ToArray();
+        var wrapper = new Wrapper<T[]>(array);
+
+        return JsonUtility.ToJson(wrapper);
+    }
+
+    public static List<T> ParseToList<T>(this string input) {
+        Wrapper<T[]> wrapper = JsonUtility.FromJson<Wrapper<T[]>>(input);
+        List<T> newList = new List<T>();
+
+        foreach (T item in wrapper.item) {
+            newList.Add(item);
+        }
+
+        return newList;
+    }
+
+    private class Wrapper<T> {
+        public Wrapper(T item) {
+            this.item = item;
+        }
+        public T item;
+    }
+
     public static string Stringify(this ProjectCard c) {
         return "" + (int)c.Card.Class + CardSeparator + (int)c.Card.Dice + CardSeparator + (int)c.TakeProjectDice;
     }
@@ -98,7 +123,7 @@ public static class UtilsDataParse {
         string completedProjects = player.CompletedProjects.Stringify();
 
         var sp = new SerializedPlayer(cards, futureCards, animals, goods,
-                                      projectArea, silverActionCards, completedProjects,
+                                      projectArea, silverActionCards, completedProjects, "", //todo
                                       player.Name, player.Score, player.WorkersCount,
                                       player.SilverCount, player.SilverActionDoneThisTurn);
 
@@ -117,7 +142,7 @@ public static class UtilsDataParse {
         List<Card> completedProjects = sp.Completed.ParseToCardsList();
 
         return new Player(cards, futureCards, animals, goods, projectArea,
-                          silverActionCards, completedProjects, sp.Name,
+                          silverActionCards, completedProjects, new List<BonusCard>(), sp.Name,
                           sp.Score, sp.WorkersCount, sp.SilverCount,
                           sp.SilverDone);
     }
@@ -132,6 +157,7 @@ public static class UtilsDataParse {
         public string ProjectArea;
         public string BonusCards;
         public string Completed;
+        public string Bonuses;
 
         public int Score;
         public int WorkersCount;
@@ -145,6 +171,7 @@ public static class UtilsDataParse {
                                 string projectArea,
                                 string bonusCards,
                                 string completedProjects,
+                                string bonuses,
                                 string name,
                                 int score,
                                 int workersCount,
@@ -162,6 +189,7 @@ public static class UtilsDataParse {
             WorkersCount = workersCount;
             SilverCount = silverCount;
             SilverDone = silverDoneThisTurn;
+            Bonuses = bonuses;
         }
 
     }
@@ -192,9 +220,11 @@ public static class UtilsDataParse {
         string animals = gameState.AnimalsDeck.Stringify();
         string goods = gameState.GoodsDeck.Stringify();
         string projects = gameState.AvailableProjectCards.Stringify();
+        string bonuses = gameState.AvailableBonusCards.Stringify();
 
         var serializedGameState = new SerializedGameState(
-            player1, player2, player3, player4, mainDeck, animals, goods, projects,
+            player1, player2, player3, player4,
+            mainDeck, animals, goods, projects, bonuses,
             gameState.CurrentRound, gameState.CurrentPlayerIndex, gameState.HowManyPlayers);
 
         5.print_(JsonUtility.ToJson(serializedGameState));
@@ -227,9 +257,13 @@ public static class UtilsDataParse {
         Deck animalsDeck = sgs.AnimalsDeck.ParseToDeck();
         Deck goodsDeck = sgs.GoodsDeck.ParseToDeck();
         List<ProjectCard> availableProjectCards = sgs.AvailableProjectCards.ParseToProjectCardList();
+        List<BonusCard> availableBonusCards = sgs.AvailableBonusCards.ParseToList<BonusCard>();
 
-        return new GameState(players, mainDeck, animalsDeck, goodsDeck,
-                             availableProjectCards, sgs.CurrentRound,
+        return new GameState(players,
+                             mainDeck, animalsDeck, goodsDeck,
+                             availableProjectCards,
+                             availableBonusCards,
+                             sgs.CurrentRound,
                              sgs.CurrentPlayerIndex, sgs.HowManyPlayers);
     }
 
@@ -247,11 +281,20 @@ public static class UtilsDataParse {
         public string AnimalsDeck;
         public string GoodsDeck;
         public string AvailableProjectCards;
+        public string AvailableBonusCards;
 
-        public SerializedGameState(string player1, string player2, string player3,
-                                   string player4, string mainDeck, string animalsDeck,
-                                   string goodsDeck, string availableProjectCards,
-                                   Round currentRound, int currentPlayerIndex, int howManyPlayers) {
+        public SerializedGameState(string player1,
+                                   string player2,
+                                   string player3,
+                                   string player4,
+                                   string mainDeck,
+                                   string animalsDeck,
+                                   string goodsDeck,
+                                   string availableProjectCards,
+                                   string availableBonusCards,
+                                   Round currentRound,
+                                   int currentPlayerIndex,
+                                   int howManyPlayers) {
             this.Player1 = player1;
             this.Player2 = player2;
             this.Player3 = player3;
@@ -260,6 +303,7 @@ public static class UtilsDataParse {
             this.AnimalsDeck = animalsDeck;
             this.GoodsDeck = goodsDeck;
             this.AvailableProjectCards = availableProjectCards;
+            this.AvailableBonusCards = availableBonusCards;
             this.HowManyPlayers = howManyPlayers;
             this.CurrentRound = currentRound;
             this.CurrentPlayerIndex = currentPlayerIndex;

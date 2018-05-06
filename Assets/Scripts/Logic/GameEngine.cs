@@ -13,16 +13,39 @@ public class GameEngine {
     public GameEngine() {
 
         if (GameState == null) {
-            if (false && DataPersistance.GameStateExists()) {
+            if (DataPersistance.GameStateExists()) {
                 GameState = DataPersistance.LoadGameState();
             } else {
                 GameState = GenerateGameState();
                 StartTurn();
                 GameState.Save();
+                AddDebugOptions(GameState);
             }
         }
 
         ActionHandler = new ActionHandler(this);
+    }
+
+    private void AddDebugOptions(GameState gameState) {
+
+        var c1 = gameState.MainDeck.DrawCard();
+        var c2 = gameState.MainDeck.DrawCard();
+        var c3 = gameState.MainDeck.DrawCard();
+        var c4 = gameState.MainDeck.DrawCard();
+        var c5 = gameState.MainDeck.DrawCard();
+        gameState.Players[0].ProjectArea.Add(c1);
+        gameState.Players[0].ProjectArea.Add(c2);
+        gameState.Players[0].ProjectArea.Add(c3);
+        gameState.Players[0].ProjectArea.Add(c4);
+        gameState.Players[0].ProjectArea.Add(c5);
+        gameState.Players[0].CompleteProject(c1, gameState);
+        gameState.Players[0].CompleteProject(c2, gameState);
+        gameState.Players[0].CompleteProject(c3, gameState);
+        gameState.Players[0].CompleteProject(c4, gameState);
+        gameState.Players[0].CompleteProject(c5, gameState);
+
+        //players[0].BonusActionCards.Add(new Card(CardClass.BonusCarperter, CardDice.All));
+        //players[0].BonusActionCards.Add(new Card(CardClass.BonusCityHall, CardDice.All));
     }
 
     private GameState GenerateGameState() {
@@ -31,29 +54,49 @@ public class GameEngine {
         var goodsDeck = DeckGenerator.GenerateGoodsDeck();
         var projectCards = PrepareProjectCards(mainDeck, howManyPlayers);
         var players = PreparePlayers(animalsDeck, goodsDeck);
+        var bonuses = PrepareAvailableBonuses(players.Count);
 
+        return new GameState(players,
+                             mainDeck,
+                             animalsDeck, 
+                             goodsDeck,
+                             projectCards,
+                             bonuses,
+                             Round.A,
+                             0, 
+                             players.Count);
+    }
 
-        var c1 = mainDeck.DrawCard();
-        var c2 = mainDeck.DrawCard();
-        var c3 = mainDeck.DrawCard();
-        var c4 = mainDeck.DrawCard();
-        var c5 = mainDeck.DrawCard();
-        players[0].ProjectArea.Add(c1);
-        players[0].ProjectArea.Add(c2);
-        players[0].ProjectArea.Add(c3);
-        players[0].ProjectArea.Add(c4);
-        players[0].ProjectArea.Add(c5);
-        players[0].CompleteProject(c1);
-        players[0].CompleteProject(c2);
-        players[0].CompleteProject(c3);
-        players[0].CompleteProject(c4);
-        players[0].CompleteProject(c5);
+    private List<BonusCard> PrepareAvailableBonuses(int howManyPlayers) {
+        List<BonusCard> bonuses = new List<BonusCard>();
 
-        //players[0].BonusActionCards.Add(new Card(CardClass.BonusCarperter, CardDice.All));
-        //players[0].BonusActionCards.Add(new Card(CardClass.BonusCityHall, CardDice.All));
+        switch(howManyPlayers) {
+            case 4:
+                bonuses.Add(BonusCard.AllSeven4);
+                bonuses.Add(BonusCard.AllSeven3);
+                bonuses.Add(BonusCard.AllSeven2);
+                bonuses.Add(BonusCard.AllSeven1);
+                break;
+            case 3:
+                bonuses.Add(BonusCard.AllSeven4);
+                bonuses.Add(BonusCard.AllSeven2);
+                bonuses.Add(BonusCard.AllSeven1);
+                break;
+            case 2:
+                bonuses.Add(BonusCard.AllSeven3);
+                bonuses.Add(BonusCard.AllSeven1);
+                break;
+        }
 
-        return new GameState(players, mainDeck, animalsDeck, goodsDeck,
-                             projectCards, Round.A, 0, players.Count);
+        bonuses.Add(BonusCard.Building);
+        bonuses.Add(BonusCard.Castle);
+        bonuses.Add(BonusCard.Mine);
+        bonuses.Add(BonusCard.Cloister);
+        bonuses.Add(BonusCard.Knowledge);
+        bonuses.Add(BonusCard.Pasture);
+        bonuses.Add(BonusCard.Ship);
+
+        return bonuses;
     }
 
     private List<Player> PreparePlayers(Deck animalsDeck, Deck goodsDeck) {

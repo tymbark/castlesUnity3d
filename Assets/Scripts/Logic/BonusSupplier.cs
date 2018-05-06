@@ -54,4 +54,32 @@ public static class BonusSupplier {
         }
     }
 
+    public static void ApplyCompletingTripleBonus(this Player player, List<Card> triple, GameState gameState) {
+        if (triple.Count != 3) throw new System.InvalidProgramException("Triple must have 3 items!");
+
+
+        if (triple[0].Class == triple[1].Class && triple[1].Class == triple[2].Class && triple[1].Class == CardClass.ActionCloister) {
+            player.Score = player.Score + 6;
+        }
+
+        Card tripleCardRepresentative = triple.FindAll((Card obj) => obj.Class != CardClass.ActionCloister)[0];
+
+        if (tripleCardRepresentative.IsBuildingType()) {
+            player.Score = player.Score + 3;
+        }
+
+        switch (tripleCardRepresentative.Class) {
+            case CardClass.ActionCastle:
+                player.Score = player.Score + 2;
+                break;
+            case CardClass.ActionMine:
+            case CardClass.ActionKnowledge:
+            case CardClass.ActionShip:
+            case CardClass.ActionPasture:
+                player.Score = player.Score + 4;
+                break;
+        }
+
+    }
+
 }

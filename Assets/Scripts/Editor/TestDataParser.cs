@@ -368,6 +368,7 @@ public class TestDataParser {
             new Deck(RandomList(20)),
             new Deck(RandomList(20)),
             pc,
+            RandomBonusList(20),
             Round.C,
             0,
             2
@@ -391,6 +392,7 @@ public class TestDataParser {
             new Deck(RandomList(20)),
             new Deck(RandomList(20)),
             pc,
+            RandomBonusList(20),
             Round.A,
             0,
             2
@@ -412,6 +414,7 @@ public class TestDataParser {
             new Deck(RandomList(20)),
             new Deck(RandomList(20)),
             pc,
+            RandomBonusList(20),
             Round.B,
             0,
             2
@@ -432,6 +435,7 @@ public class TestDataParser {
             new Deck(RandomList(0)),
             new Deck(RandomList(0)),
             pc,
+            RandomBonusList(20),
             Round.C,
             0,
             2
@@ -459,6 +463,7 @@ public class TestDataParser {
             new Deck(RandomList(20)),
             new Deck(RandomList(20)),
             pc,
+            RandomBonusList(20),
             Round.C,
             0,
             2
@@ -487,6 +492,7 @@ public class TestDataParser {
             new Deck(RandomList(20)),
             new Deck(RandomList(20)),
             pc,
+            RandomBonusList(20),
             Round.C,
             0,
             2
@@ -515,6 +521,7 @@ public class TestDataParser {
             new Deck(RandomList(20)),
             new Deck(RandomList(20)),
             pc,
+            RandomBonusList(20),
             Round.C,
             0,
             2
@@ -543,6 +550,7 @@ public class TestDataParser {
             new Deck(RandomList(20)),
             new Deck(RandomList(20)),
             pc,
+            RandomBonusList(20),
             Round.C,
             0,
             2
@@ -554,6 +562,42 @@ public class TestDataParser {
         Assert.IsFalse(gs1.IsEqualTo(gs2));
     }
 
+    [Test]
+    public void TestGenericParserWithInts() {
+        List<int> ints = new List<int>();
+        ints.Add(1);
+        ints.Add(2);
+        ints.Add(3);
+
+        List<int> newList = ints.Stringify().ParseToList<int>();
+        0.print_(ints.Stringify());
+
+        Assert.AreEqual(ints.Count, newList.Count);
+        Assert.AreEqual(ints[0], newList[0]);
+        Assert.AreEqual(ints[1], newList[1]);
+        Assert.AreEqual(ints[2], newList[2]);
+    }
+
+    private enum Test {
+        Foo, Bar, Xop
+    }
+
+    [Test]
+    public void TestGenericParserWithEnum() {
+
+        List<Test> list = new List<Test>();
+        list.Add(Test.Foo);
+        list.Add(Test.Bar);
+        list.Add(Test.Xop);
+
+        List<Test> newList = list.Stringify().ParseToList<Test>();
+
+        Assert.AreEqual(list.Count, newList.Count);
+        Assert.AreEqual(list[0], newList[0]);
+        Assert.AreEqual(list[1], newList[1]);
+        Assert.AreEqual(list[2], newList[2]);
+    }
+
     public static Player RandomPlayer(int capacity1, int capacity2) {
         return new Player(
             RandomList(capacity1),
@@ -563,6 +607,7 @@ public class TestDataParser {
             RandomList(capacity1),
             RandomList(capacity2),
             RandomList(capacity1),
+            RandomBonusList(capacity1),
             "" + new System.Random().Next(200),
             new System.Random().Next(capacity1),
             new System.Random().Next(capacity2),
@@ -589,6 +634,20 @@ public class TestDataParser {
 
         CardDice cd = (CardDice)random.Next(10);
         return new Card(cc, cd);
+    }
+
+    public static List<BonusCard> RandomBonusList(int capacity) {
+        List<BonusCard> result = new List<BonusCard>();
+        for (int i = 0; i < capacity; i++) {
+            result.Add(RandomBonusCard());
+        }
+        return result;
+    }
+
+    public static BonusCard RandomBonusCard() {
+        System.Random random = new System.Random();
+        BonusCard bc = (BonusCard)random.Next((int)BonusCard.AllSeven1);
+        return bc;
     }
 
 }

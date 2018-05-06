@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using InputActions;
 using Models;
 using UnityEngine.UI;
 using D = GameDimensions;
@@ -69,7 +70,7 @@ public static class CardsGenerator {
         return newCard;
     }
 
-    private static GameObject DrawCard(Card c, float x, float y, float width, float height, bool horizontal, bool transparent, bool executable, bool clickable) {
+    private static GameObject DrawCard(Card card, float x, float y, float width, float height, bool horizontal, bool transparent, bool executable, bool clickable) {
         GameObject canvas = GameObject.Find("Canvas");
         GameObject newCard = new GameObject();
         newCard.AddComponent<CanvasRenderer>();
@@ -84,16 +85,43 @@ public static class CardsGenerator {
         rectTransform.sizeDelta = new Vector2(width, height);
 
         Image image = newCard.AddComponent<Image>();
-        image.overrideSprite = GetSpriteForCard(c);
+        image.overrideSprite = GetSpriteForCard(card);
         //if (transparent) image.color = new Color(255, 255, 255, (float)0.8);
 
         newCard.transform.position = new Vector3(x, y, 0);
         newCard.transform.SetParent(canvas.transform);
 
         StaticCardsController controller = newCard.AddComponent<StaticCardsController>();
-        controller.Card = c;
-        controller.clickable = clickable;
-        controller.executable = executable;
+        controller.Card = card;
+        controller.Clickable = clickable;
+        controller.Executable = executable;
+
+        return newCard;
+    }
+
+    public static GameObject DrawCurrentBonusCard(Round currentRound) {
+        GameObject canvas = GameObject.Find("Canvas");
+        GameObject newCard = new GameObject();
+        newCard.AddComponent<CanvasRenderer>();
+
+        BoxCollider2D boxCollider = newCard.AddComponent<BoxCollider2D>();
+        boxCollider.isTrigger = true;
+        boxCollider.size = D.CardSize;
+
+        RectTransform rectTransform = newCard.AddComponent<RectTransform>();
+        rectTransform.localScale = new Vector3(1f, 1f, 1f);
+        rectTransform.sizeDelta = D.CardSize;
+
+        Image image = newCard.AddComponent<Image>();
+        image.overrideSprite = GetSpriteForCurrentRoundBonus(currentRound);
+
+        newCard.transform.position = D.PositionCurrentBonusCard;
+        newCard.transform.SetParent(canvas.transform);
+
+        StaticCardsController controller = newCard.AddComponent<StaticCardsController>();
+        controller.ClickAction = ClickAction.ShowBonuses;
+        controller.Clickable = true;
+        controller.Executable = false;
 
         return newCard;
     }
@@ -137,6 +165,7 @@ public static class CardsGenerator {
 
         StaticCardsController controller = prefab.GetComponent<StaticCardsController>();
         controller.Card = c;
+        controller.Clickable = true;
 
         TMPro.TextMeshProUGUI textObj = prefab.GetComponentInChildren<TMPro.TextMeshProUGUI>();
         textObj.text = "" + text;
@@ -236,41 +265,6 @@ public static class CardsGenerator {
                         fileUri += "goods5-6";
                         break;
                 }
-                break;
-            case CardClass.BonusA:
-                fileUri += "bonusA";
-                break;
-            case CardClass.BonusB:
-                fileUri += "bonusB";
-                break;
-            case CardClass.BonusC:
-                fileUri += "bonusC";
-                break;
-            case CardClass.BonusD:
-                fileUri += "bonusD";
-                break;
-            case CardClass.BonusE:
-                fileUri += "bonusE";
-                break;
-            case CardClass.BonusCastleCompleted:
-                break;
-            case CardClass.BonusMine:
-                break;
-            case CardClass.BonusCloister:
-                break;
-            case CardClass.BonusKnowledge:
-                break;
-            case CardClass.BonusShip:
-                break;
-            case CardClass.BonusPasture:
-                break;
-            case CardClass.BonusAllSeven1:
-                break;
-            case CardClass.BonusAllSeven2:
-                break;
-            case CardClass.BonusAllSeven3:
-                break;
-            case CardClass.BonusAllSeven4:
                 break;
             case CardClass.ActionCastle:
                 switch (card.Dice) {
@@ -539,6 +533,105 @@ public static class CardsGenerator {
 
         return Resources.Load<Sprite>(fileUri);
     }
+
+    public static Sprite GetSpriteForCurrentRoundBonus(Round round) {
+        var fileUri = "Cards/";
+
+        switch (round) {
+            case Round.A:
+                fileUri += "bonusA";
+                break;
+            case Round.B:
+                fileUri += "bonusB";
+                break;
+            case Round.C:
+                fileUri += "bonusC";
+                break;
+            case Round.D:
+                fileUri += "bonusD";
+                break;
+            case Round.E:
+                fileUri += "bonusE";
+                break;
+        }
+
+        return Resources.Load<Sprite>(fileUri);
+    }
+
+    public static Sprite GetSpriteForBonus(BonusCard bonusCard) {
+        var fileUri = "Cards/";
+
+        switch (bonusCard) {
+            case BonusCard.FirstPlayer:
+                break;
+            case BonusCard.Building:
+                break;
+            case BonusCard.Castle:
+                break;
+            case BonusCard.Mine:
+                break;
+            case BonusCard.Cloister:
+                break;
+            case BonusCard.Knowledge:
+                break;
+            case BonusCard.Ship:
+                break;
+            case BonusCard.Pasture:
+                break;
+            case BonusCard.AllSeven4:
+                break;
+            case BonusCard.AllSeven3:
+                break;
+            case BonusCard.AllSeven2:
+                break;
+            case BonusCard.AllSeven1:
+                break;
+        }
+
+        return Resources.Load<Sprite>(fileUri);
+    }
+
+    public static Sprite GetSpriteForClickAction(ClickAction clickAction) {
+        var fileUri = "Cards/";
+
+        switch (clickAction) {
+            case ClickAction.EndTurn:
+                fileUri += "finish";
+                break;
+            case ClickAction.ExitGame:
+                fileUri += "exit";
+                break;
+            case ClickAction.ShowProjects:
+                fileUri += "project";
+                break;
+            case ClickAction.ShowWorkers:
+                fileUri += "workerGS";
+                break;
+            case ClickAction.ShowSilver:
+                fileUri += "silver";
+                break;
+            case ClickAction.ShowEstates:
+                fileUri += "estate";
+                break;
+            case ClickAction.ShowAnimals:
+                fileUri += "all_animals";
+                break;
+            case ClickAction.ShowBonuses:
+                break;
+            case ClickAction.ShowStorage:
+                fileUri += "store";
+                break;
+            case ClickAction.SellSilverAndWorkers:
+                fileUri += "sell_silver";
+                break;
+            case ClickAction.ShipGoods:
+                fileUri += "sell_goods";
+                break;
+        }
+
+        return Resources.Load<Sprite>(fileUri);
+    }
+
 
 
 }
