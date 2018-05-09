@@ -55,13 +55,14 @@ public static class GameDimensions {
     public static readonly Vector2 PositionGoodsToTakeCard1 = ScreenBottomLeft + new Vector2(CardWidth / 2 + MarginBig, CardHeight / 2 + CardHeight + MarginBig + MarginSmall);
     public static readonly Vector2 PositionGoodsToTakeCard2 = PositionGoodsToTakeCard1 + new Vector2(CardWidth * 0.8f, 0);
 
-    public static readonly Vector2 PositionAllEstatesCard = new Vector2(PositionAnimalToTakeCard2.x + CardWidth / 2 + CardHeight / 2 + MarginBig, ScreenBottomLeft.y + CardWidth / 2 + MarginBig);
+    public static readonly Vector2 PositionCurrentBonusCard = PositionAnimalToTakeCard2 + new Vector2(CardWidth + MarginBig, 0);
+    public static readonly Vector2 PositionAllAnimalsCard = PositionCurrentBonusCard + new Vector2(0, MarginSmall + CardHeight);
+
+    public static readonly Vector2 PositionAllEstatesCard = new Vector2(PositionAllAnimalsCard.x + CardWidth / 2 + CardHeight / 2 + MarginBig, ScreenBottomLeft.y + CardWidth / 2 + MarginBig);
     public static readonly Vector2 PositionAllProjectsCard = PositionAllEstatesCard + new Vector2(0, CardWidth + MarginSmall);
     public static readonly Vector2 PositionAllStoragesCard = PositionAllProjectsCard + new Vector2(0, CardWidth + MarginSmall);
 
-    public static readonly Vector2 PositionCurrentBonusCard = new Vector2(PositionAllEstatesCard.x + CardHeight / 2 + CardWidth / 2 + MarginBig, ScreenBottomLeft.y + MarginBig + CardHeight / 2);
-    public static readonly Vector2 PositionAllAnimalsCard = PositionCurrentBonusCard + new Vector2(0, MarginSmall + CardHeight);
-    public static readonly Vector2 PositionSilverCard = PositionAllAnimalsCard + new Vector2(MarginSmall + CardWidth, 0);
+    public static readonly Vector2 PositionSilverCard = PositionAllAnimalsCard + new Vector2(2 * MarginBig + CardWidth + CardHeight, 0);
     public static readonly Vector2 PositionWorkerCard = PositionSilverCard + new Vector2(MarginSmall + CardWidth, 0);
     public static readonly Vector2 PositionShipGoodsCard = PositionSilverCard + new Vector2(0, -(MarginSmall + CardHeight));
     public static readonly Vector2 PositionSellSilverAndWorkersCard = PositionWorkerCard + new Vector2(0, -(MarginSmall + CardHeight));

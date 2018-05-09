@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 224759627812326482}
   - component: {fileID: 222550016609021472}
   - component: {fileID: 114048167272684214}
-  - component: {fileID: 114740276767479716}
+  - component: {fileID: 114800496468227552}
   m_Layer: 5
   m_Name: CardEstate
   m_TagString: Untagged
@@ -186,7 +186,7 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &114740276767479716
+--- !u!114 &114800496468227552
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -194,11 +194,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1859394988069502}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b1c2374b3c924ba59dd893434023bbf, type: 3}
+  m_Script: {fileID: 11500000, guid: 179812b62947e428d935f2e018729eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executable: 0
-  clickable: 1
+  ClickAction: 6
 --- !u!222 &222550016609021472
 CanvasRenderer:
   m_ObjectHideFlags: 1

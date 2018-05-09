@@ -39,7 +39,8 @@ GameObject:
   - component: {fileID: 222965920635619580}
   - component: {fileID: 114028516512168360}
   - component: {fileID: 61722569390644722}
-  - component: {fileID: 114451565793361810}
+  - component: {fileID: 114395394304138752}
+  - component: {fileID: 114034836087354392}
   m_Layer: 5
   m_Name: CardSilver
   m_TagString: Untagged
@@ -99,6 +100,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114034836087354392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1591798609128846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbae2b07e04b0466d99749a06b1e7ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DragDropAction: 2
 --- !u!114 &114189660197673752
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -212,7 +225,7 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &114451565793361810
+--- !u!114 &114395394304138752
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -220,11 +233,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1591798609128846}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b1c2374b3c924ba59dd893434023bbf, type: 3}
+  m_Script: {fileID: 11500000, guid: 179812b62947e428d935f2e018729eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executable: 1
-  clickable: 1
+  ClickAction: 5
 --- !u!222 &222431046836592162
 CanvasRenderer:
   m_ObjectHideFlags: 1

@@ -60,8 +60,8 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (dragging) {
-            StaticCardsController controller = collision.gameObject.GetComponent<StaticCardsController>();
-            if (controller != null && controller.Executable) {
+            DropCardController controller = collision.gameObject.GetComponent<DropCardController>();
+            if (controller != null) {
                 Colliders.Add(collision.gameObject);
             }
         }

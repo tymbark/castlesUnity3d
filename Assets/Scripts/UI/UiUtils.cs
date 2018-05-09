@@ -26,8 +26,8 @@ public static class UiUtils {
         image.color = new Color(1f, 0.5f, 0.5f, 1);
     }
 
-    public static StaticCardsController GetStaticController(this GameObject obj) {
-        StaticCardsController controller = obj.GetComponent<StaticCardsController>();
+    public static DropCardController GetDragDropController(this GameObject obj) {
+        DropCardController controller = obj.GetComponent<DropCardController>();
         return controller;
     }
 

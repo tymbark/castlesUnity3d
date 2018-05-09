@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 224904277589812508}
   - component: {fileID: 222138257692563894}
   - component: {fileID: 114857646827885510}
-  - component: {fileID: 114131155330364300}
+  - component: {fileID: 114124280715378788}
   m_Layer: 5
   m_Name: CardStorage
   m_TagString: Untagged
@@ -46,7 +46,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114131155330364300
+--- !u!114 &114124280715378788
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -54,11 +54,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1233438525366250}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b1c2374b3c924ba59dd893434023bbf, type: 3}
+  m_Script: {fileID: 11500000, guid: 179812b62947e428d935f2e018729eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executable: 0
-  clickable: 1
+  ClickAction: 10
 --- !u!114 &114857646827885510
 MonoBehaviour:
   m_ObjectHideFlags: 1

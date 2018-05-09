@@ -108,7 +108,7 @@ public class ProjectsController : MonoBehaviour {
     private static void DrawWorkersCardWithText(Vector2 position, string text) {
         Object obj = Resources.Load("Prefabs/CardWorker");
         GameObject prefab = Instantiate(obj) as GameObject;
-        Destroy(prefab.GetComponent<StaticCardsController>());
+        Destroy(prefab.GetComponent<DropCardController>());
 
         GameObject canvas = GameObject.Find("ProjectsCanvas");
         prefab.transform.SetParent(canvas.transform);
@@ -122,7 +122,7 @@ public class ProjectsController : MonoBehaviour {
     private static void DrawSilverCardWithText(Vector2 position, string text) {
         Object obj = Resources.Load("Prefabs/CardSilver");
         GameObject prefab = Instantiate(obj) as GameObject;
-        Destroy(prefab.GetComponent<StaticCardsController>());
+        Destroy(prefab.GetComponent<DropCardController>());
 
         GameObject canvas = GameObject.Find("ProjectsCanvas");
         prefab.transform.SetParent(canvas.transform);

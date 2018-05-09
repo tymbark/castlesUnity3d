@@ -5,6 +5,7 @@ using UnityEngine;
 namespace InputActions {
 
     public enum ClickAction {
+        NotSet = 0,
         EndTurn, 
         ExitGame, 
 
@@ -14,9 +15,18 @@ namespace InputActions {
         ShowEstates, 
         ShowAnimals, 
         ShowBonuses, 
-        SellSilverAndWorkers, 
-        ShipGoods, 
         ShowStorage 
+    }
+
+    //not used
+    public enum DragDropAction {
+        NotSet = 0,
+        BuyWorkers,
+        BuySilver,
+        SellSilverAndWorkers,
+        TakeProject,
+        BuildProject,
+        ShipGoods
     }
 
 }

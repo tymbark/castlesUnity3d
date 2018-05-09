@@ -21,6 +21,7 @@ namespace Models {
         public int Score;
         public int WorkersCount;
         public int SilverCount;
+        public int CurrentTurn;
         public bool SilverActionDoneThisTurn = false;
 
         public Player(string name, Card startingAnimal, Card startingGood, int startingWorkers) {

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 222840136670224572}
   - component: {fileID: 114462095401464076}
   - component: {fileID: 61218159730932860}
-  - component: {fileID: 114024071328746392}
+  - component: {fileID: 114679236154161586}
   m_Layer: 5
   m_Name: CardAnimals
   m_TagString: Untagged
@@ -72,19 +72,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 150, y: 225}
   m_EdgeRadius: 0
---- !u!114 &114024071328746392
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1174979310872106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b1c2374b3c924ba59dd893434023bbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executable: 0
-  clickable: 1
 --- !u!114 &114371652275439442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -225,6 +212,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114679236154161586
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1174979310872106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 179812b62947e428d935f2e018729eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ClickAction: 7
 --- !u!222 &222585471189110468
 CanvasRenderer:
   m_ObjectHideFlags: 1

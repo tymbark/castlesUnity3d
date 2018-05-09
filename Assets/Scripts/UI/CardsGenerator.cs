@@ -8,32 +8,72 @@ using D = GameDimensions;
 
 public static class CardsGenerator {
 
-    public static GameObject DrawClickableButtonCard(Card c, Vector2 coords) {
-        return DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardWidth, false, false, false, true);
+    public static GameObject DrawExitGameButton() {
+        return DrawObjectFromPrefab(D.PositionExitButton, "ButtonExitGame");
     }
 
-    public static GameObject DrawExecutableCard(Card c, Vector2 coords) {
-        return DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardHeight, false, false, true, false);
+    public static GameObject DrawNextTurnButton() {
+        return DrawObjectFromPrefab(D.PositionEndTurnButton, "ButtonEndTurn");
+    }
+
+    public static GameObject DrawTakeProjectCard(Card c, Vector2 coords) {
+        GameObject gameObject = DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardHeight, false);
+        DropCardController dcc = gameObject.AddComponent<DropCardController>();
+        dcc.Card = c;
+        dcc.DragDropAction = DragDropAction.TakeProject;
+        return gameObject;
+    }
+
+    public static GameObject DrawBuildProjectCard(Card c, Vector2 coords) {
+        GameObject gameObject = DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardHeight, false);
+        DropCardController dcc = gameObject.AddComponent<DropCardController>();
+        dcc.Card = c;
+        dcc.DragDropAction = DragDropAction.BuildProject;
+        return gameObject;
     }
 
     public static GameObject DrawStaticCard(Card c, Vector2 coords) {
-        return DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardHeight, false, false, false, false);
-    }
-
-    public static GameObject DrawClickableHorizontalCard(Card c, Vector2 coords) {
-        return DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardHeight, true, false, false, false);
-    }
-
-    public static GameObject DrawClickableAndExecutableCard(Card c, Vector2 coords) {
-        return DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardHeight, false, false, true, false);
-    }
-
-    public static GameObject DrawClickableCard(Card c, Vector2 coords) {
-        return DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardHeight, false, false, false, true);
+        return DrawCard(c, coords.x, coords.y, D.CardWidth, D.CardHeight, false);
     }
 
     public static GameObject DrawBigBackgroundCard(Card c, Vector2 coords) {
-        return DrawCard(c, coords.x, coords.y, D.CardWidth * 1.8f, D.CardHeight * 2, true, true, false, false);
+        return DrawCard(c, coords.x, coords.y, D.CardWidth * 1.8f, D.CardHeight * 2, true);
+    }
+
+    public static GameObject DrawPointsElement(int points) {
+        return DrawObjectWithTextFromPrefab(D.PositionPointsButton, "ButtonPoints", points + "");
+    }
+
+    public static GameObject DrawSellStuffCard() {
+        return DrawObjectFromPrefab(D.PositionSellSilverAndWorkersCard, "CardSellStuff");
+    }
+
+    public static GameObject DrawShipGoodsCard() {
+        return DrawObjectFromPrefab(D.PositionShipGoodsCard, "CardShipGoods");
+    }
+
+    public static GameObject DrawWorkersCard(int howMany) {
+        return DrawObjectWithTextFromPrefab(D.PositionWorkerCard, "CardWorker", howMany + "");
+    }
+
+    public static GameObject DrawSilverCard(int howMany) {
+        return DrawObjectWithTextFromPrefab(D.PositionSilverCard, "CardSilver", howMany + "");
+    }
+
+    public static GameObject DrawAnimalsCard(int howMany) {
+        return DrawObjectWithTextFromPrefab(D.PositionAllAnimalsCard, "CardAnimals", howMany + "");
+    }
+
+    public static GameObject DrawStorageCard(int howMany) {
+        return DrawObjectWithTextFromPrefab(D.PositionAllStoragesCard, "CardStorage", howMany + "");
+    }
+
+    public static GameObject DrawEstateCard(int howMany) {
+        return DrawObjectWithTextFromPrefab(D.PositionAllEstatesCard, "CardEstate", howMany + "");
+    }
+
+    public static GameObject DrawProjectsCard(int howMany) {
+        return DrawObjectWithTextFromPrefab(D.PositionAllProjectsCard, "CardProjects", howMany + "");
     }
 
     public static GameObject DrawHandCard(Card card, Vector2 coords, int order, bool disabled = false) {
@@ -70,7 +110,7 @@ public static class CardsGenerator {
         return newCard;
     }
 
-    private static GameObject DrawCard(Card card, float x, float y, float width, float height, bool horizontal, bool transparent, bool executable, bool clickable) {
+    private static GameObject DrawCard(Card card, float x, float y, float width, float height, bool horizontal) {
         GameObject canvas = GameObject.Find("Canvas");
         GameObject newCard = new GameObject();
         newCard.AddComponent<CanvasRenderer>();
@@ -90,11 +130,6 @@ public static class CardsGenerator {
 
         newCard.transform.position = new Vector3(x, y, 0);
         newCard.transform.SetParent(canvas.transform);
-
-        StaticCardsController controller = newCard.AddComponent<StaticCardsController>();
-        controller.Card = card;
-        controller.Clickable = clickable;
-        controller.Executable = executable;
 
         return newCard;
     }
@@ -118,43 +153,13 @@ public static class CardsGenerator {
         newCard.transform.position = D.PositionCurrentBonusCard;
         newCard.transform.SetParent(canvas.transform);
 
-        StaticCardsController controller = newCard.AddComponent<StaticCardsController>();
+        ClickableObjectController controller = newCard.AddComponent<ClickableObjectController>();
         controller.ClickAction = ClickAction.ShowBonuses;
-        controller.Clickable = true;
-        controller.Executable = false;
 
         return newCard;
     }
 
-    public static GameObject DrawPointsButton(int points) {
-        return DrawPrefabCardWithText(StaticCards.DummyPoints, D.PositionPointsButton, "ButtonPoints", points + "");
-    }
-
-    public static GameObject DrawWorkersCard(int howMany) {
-        return DrawPrefabCardWithText(StaticCards.DummyWorker, D.PositionWorkerCard, "CardWorker", howMany + "");
-    }
-
-    public static GameObject DrawSilverCard(int howMany) {
-        return DrawPrefabCardWithText(StaticCards.DummySilver, D.PositionSilverCard, "CardSilver", howMany + "");
-    }
-
-    public static GameObject DrawAnimalsCard(int howMany) {
-        return DrawPrefabCardWithText(StaticCards.DummyAllAnimals, D.PositionAllAnimalsCard, "CardAnimals", howMany + "");
-    }
-
-    public static GameObject DrawStorageCard(int howMany) {
-        return DrawPrefabCardWithText(StaticCards.DummyAllStorages, D.PositionAllStoragesCard, "CardStorage", howMany + "");
-    }
-
-    public static GameObject DrawEstateCard(int howMany) {
-        return DrawPrefabCardWithText(StaticCards.DummyAllEstates, D.PositionAllEstatesCard, "CardEstate", howMany + "");
-    }
-
-    public static GameObject DrawProjectsCard(int howMany) {
-        return DrawPrefabCardWithText(StaticCards.DummyAllProjects, D.PositionAllProjectsCard, "CardProjects", howMany + "");
-    }
-
-    private static GameObject DrawPrefabCardWithText(Card c, Vector2 position, string prefabRes, string text) {
+    private static GameObject DrawObjectFromPrefab(Vector2 position, string prefabRes) {
         Object obj = Resources.Load("Prefabs/" + prefabRes);
         GameObject prefab = Object.Instantiate(obj) as GameObject;
 
@@ -162,10 +167,17 @@ public static class CardsGenerator {
         prefab.transform.SetParent(canvas.transform);
 
         prefab.transform.position = new Vector3(position.x, position.y, 0);
+        return prefab;
+    }
 
-        StaticCardsController controller = prefab.GetComponent<StaticCardsController>();
-        controller.Card = c;
-        controller.Clickable = true;
+    private static GameObject DrawObjectWithTextFromPrefab(Vector2 position, string prefabRes, string text) {
+        Object obj = Resources.Load("Prefabs/" + prefabRes);
+        GameObject prefab = Object.Instantiate(obj) as GameObject;
+
+        GameObject canvas = GameObject.Find("Canvas");
+        prefab.transform.SetParent(canvas.transform);
+
+        prefab.transform.position = new Vector3(position.x, position.y, 0);
 
         TMPro.TextMeshProUGUI textObj = prefab.GetComponentInChildren<TMPro.TextMeshProUGUI>();
         textObj.text = "" + text;
@@ -590,48 +602,5 @@ public static class CardsGenerator {
 
         return Resources.Load<Sprite>(fileUri);
     }
-
-    public static Sprite GetSpriteForClickAction(ClickAction clickAction) {
-        var fileUri = "Cards/";
-
-        switch (clickAction) {
-            case ClickAction.EndTurn:
-                fileUri += "finish";
-                break;
-            case ClickAction.ExitGame:
-                fileUri += "exit";
-                break;
-            case ClickAction.ShowProjects:
-                fileUri += "project";
-                break;
-            case ClickAction.ShowWorkers:
-                fileUri += "workerGS";
-                break;
-            case ClickAction.ShowSilver:
-                fileUri += "silver";
-                break;
-            case ClickAction.ShowEstates:
-                fileUri += "estate";
-                break;
-            case ClickAction.ShowAnimals:
-                fileUri += "all_animals";
-                break;
-            case ClickAction.ShowBonuses:
-                break;
-            case ClickAction.ShowStorage:
-                fileUri += "store";
-                break;
-            case ClickAction.SellSilverAndWorkers:
-                fileUri += "sell_silver";
-                break;
-            case ClickAction.ShipGoods:
-                fileUri += "sell_goods";
-                break;
-        }
-
-        return Resources.Load<Sprite>(fileUri);
-    }
-
-
 
 }

@@ -39,7 +39,6 @@ GameObject:
   - component: {fileID: 222480903721475818}
   - component: {fileID: 114949590763889958}
   - component: {fileID: 61694283353935980}
-  - component: {fileID: 114216575263931996}
   m_Layer: 5
   m_Name: ButtonPoints
   m_TagString: Untagged
@@ -72,19 +71,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 150, y: 150}
   m_EdgeRadius: 0
---- !u!114 &114216575263931996
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1962290706234384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b1c2374b3c924ba59dd893434023bbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executable: 0
-  clickable: 1
 --- !u!114 &114461964153540216
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -92,16 +92,7 @@ namespace Models {
         public static Card DummyDiceVI = new Card(CardClass.Dice, CardDice.VI);
 
         public static Card DummyAllProjects = new Card(CardClass.AllProjects, CardDice.O);
-        public static Card DummyAllStorages = new Card(CardClass.AllStorages, CardDice.O);
-        public static Card DummyAllEstates = new Card(CardClass.AllEstates, CardDice.O);
-        public static Card DummyAllAnimals = new Card(CardClass.AllAnimals, CardDice.O);
-        public static Card DummySellSilverAndWorkers = new Card(CardClass.SellSilverAndWorkers, CardDice.O);
-        public static Card DummyShipGoods = new Card(CardClass.ShipGoods, CardDice.O);
-        public static Card DummySilver = new Card(CardClass.Silver, CardDice.O);
-        public static Card DummyWorker = new Card(CardClass.Worker, CardDice.O);
-        public static Card DummyExit = new Card(CardClass.Exit, CardDice.O);
         public static Card DummyEndTurn = new Card(CardClass.EndTurn, CardDice.O);
-        public static Card DummyPoints = new Card(CardClass.Points, CardDice.O);
 
     }
 

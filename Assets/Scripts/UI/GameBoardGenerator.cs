@@ -24,13 +24,13 @@ public class GameBoardGenerator {
     private void DrawPlayerProjectCards(List<Card> cards) {
 
         if (cards.Count > 0) {
-            gameObjects.Add(CardsGenerator.DrawExecutableCard(cards[0], D.PositionProjectCard1));
+            gameObjects.Add(CardsGenerator.DrawBuildProjectCard(cards[0], D.PositionProjectCard1));
         }
         if (cards.Count > 1) {
-            gameObjects.Add(CardsGenerator.DrawExecutableCard(cards[1], D.PositionProjectCard2));
+            gameObjects.Add(CardsGenerator.DrawBuildProjectCard(cards[1], D.PositionProjectCard2));
         }
         if (cards.Count > 2) {
-            gameObjects.Add(CardsGenerator.DrawExecutableCard(cards[2], D.PositionProjectCard3));
+            gameObjects.Add(CardsGenerator.DrawBuildProjectCard(cards[2], D.PositionProjectCard3));
         }
 
     }
@@ -133,14 +133,14 @@ public class GameBoardGenerator {
         gameObjects.Add(CardsGenerator.DrawStorageCard(currentPlayer.Goods.Count));
         gameObjects.Add(CardsGenerator.DrawAnimalsCard(currentPlayer.Animals.Count));
 
-        gameObjects.Add(CardsGenerator.DrawClickableAndExecutableCard(StaticCards.DummySellSilverAndWorkers, D.PositionSellSilverAndWorkersCard));
-        gameObjects.Add(CardsGenerator.DrawClickableAndExecutableCard(StaticCards.DummyShipGoods, D.PositionShipGoodsCard));
+        gameObjects.Add(CardsGenerator.DrawSellStuffCard());
+        gameObjects.Add(CardsGenerator.DrawShipGoodsCard());
         gameObjects.Add(CardsGenerator.DrawSilverCard(currentPlayer.SilverCount));
         gameObjects.Add(CardsGenerator.DrawWorkersCard(currentPlayer.WorkersCount));
 
-        gameObjects.Add(CardsGenerator.DrawPointsButton(currentPlayer.Score));
-        gameObjects.Add(CardsGenerator.DrawClickableButtonCard(StaticCards.DummyEndTurn, D.PositionEndTurnButton));
-        gameObjects.Add(CardsGenerator.DrawClickableButtonCard(StaticCards.DummyExit, D.PositionExitButton));
+        gameObjects.Add(CardsGenerator.DrawPointsElement(currentPlayer.Score));
+        gameObjects.Add(CardsGenerator.DrawNextTurnButton());
+        gameObjects.Add(CardsGenerator.DrawExitGameButton());
 
         gameObjects.Add(CardsGenerator.DrawBigBackgroundCard(StaticCards.DummyAllProjects, D.PositionCardProjectsBigCard));
 
@@ -177,32 +177,32 @@ public class GameBoardGenerator {
             switch (pc.TakeProjectDice) {
                 case CardDice.I:
                     position = D.PositionForActionCard(D.PositionProjectDiceI, countI, howManyI);
-                    gameObjects.Add(CardsGenerator.DrawExecutableCard(pc.Card, position));
+                    gameObjects.Add(CardsGenerator.DrawTakeProjectCard(pc.Card, position));
                     countI++;
                     break;
                 case CardDice.II:
                     position = D.PositionForActionCard(D.PositionProjectDiceII, countII, howManyII);
-                    gameObjects.Add(CardsGenerator.DrawExecutableCard(pc.Card, position));
+                    gameObjects.Add(CardsGenerator.DrawTakeProjectCard(pc.Card, position));
                     countII++;
                     break;
                 case CardDice.III:
                     position = D.PositionForActionCard(D.PositionProjectDiceIII, countIII, howManyIII);
-                    gameObjects.Add(CardsGenerator.DrawExecutableCard(pc.Card, position));
+                    gameObjects.Add(CardsGenerator.DrawTakeProjectCard(pc.Card, position));
                     countIII++;
                     break;
                 case CardDice.IV:
                     position = D.PositionForActionCard(D.PositionProjectDiceIV, countIV, howManyIV);
-                    gameObjects.Add(CardsGenerator.DrawExecutableCard(pc.Card, position));
+                    gameObjects.Add(CardsGenerator.DrawTakeProjectCard(pc.Card, position));
                     countIV++;
                     break;
                 case CardDice.V:
                     position = D.PositionForActionCard(D.PositionProjectDiceV, countV, howManyV);
-                    gameObjects.Add(CardsGenerator.DrawExecutableCard(pc.Card, position));
+                    gameObjects.Add(CardsGenerator.DrawTakeProjectCard(pc.Card, position));
                     countV++;
                     break;
                 case CardDice.VI:
                     position = D.PositionForActionCard(D.PositionProjectDiceVI, countVI, howManyVI);
-                    gameObjects.Add(CardsGenerator.DrawExecutableCard(pc.Card, position));
+                    gameObjects.Add(CardsGenerator.DrawTakeProjectCard(pc.Card, position));
                     countVI++;
                     break;
                 default:

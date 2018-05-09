@@ -39,7 +39,8 @@ GameObject:
   - component: {fileID: 222305478942852122}
   - component: {fileID: 114577409534272280}
   - component: {fileID: 61993614069791794}
-  - component: {fileID: 114068031041043886}
+  - component: {fileID: 114887634282265668}
+  - component: {fileID: 114761025276607214}
   m_Layer: 5
   m_Name: CardWorker
   m_TagString: Untagged
@@ -72,19 +73,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 150, y: 225}
   m_EdgeRadius: 0
---- !u!114 &114068031041043886
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1443498641031962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b1c2374b3c924ba59dd893434023bbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  executable: 1
-  clickable: 1
 --- !u!114 &114577409534272280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -112,6 +100,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114761025276607214
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1443498641031962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbae2b07e04b0466d99749a06b1e7ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DragDropAction: 1
 --- !u!114 &114822680371418024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -225,6 +225,18 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &114887634282265668
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1443498641031962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 179812b62947e428d935f2e018729eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ClickAction: 4
 --- !u!222 &222305478942852122
 CanvasRenderer:
   m_ObjectHideFlags: 1

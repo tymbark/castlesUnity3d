@@ -74,7 +74,8 @@ public class GameController : MonoBehaviour {
 
     public void HandleCardDroppedAction(GameObject playerCardObject, GameObject targetCardObject) {
         targetCardObject.ResetColor();
-        Card targetCard = targetCardObject.GetStaticController().Card;
+
+        Card targetCard = targetCardObject.GetDragDropController().Card;
         Card actionCard = playerCardObject.GetCardController().Card;
 
         List<Action> actions = GameEngine.ActionHandler.GetAvailableActions();
@@ -90,7 +91,7 @@ public class GameController : MonoBehaviour {
     }
 
     public void HandleCardHoverAction(GameObject playerCardObject, GameObject targetCardObject) {
-        Card targetCard = targetCardObject.GetStaticController().Card;
+        Card targetCard = targetCardObject.GetDragDropController().Card;
         Card actionCard = playerCardObject.GetCardController().Card;
 
         List<Action> actions = GameEngine.ActionHandler.GetAvailableActions();
@@ -105,6 +106,6 @@ public class GameController : MonoBehaviour {
 
     public void HandleCardLeaveAction(GameObject playerCardObject, GameObject targetCardObject) {
         targetCardObject.ResetColor();
-        StaticCardsController controller = targetCardObject.GetStaticController();
+        DropCardController controller = targetCardObject.GetDragDropController();
     }
 }
