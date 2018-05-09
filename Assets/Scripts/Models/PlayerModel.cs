@@ -21,7 +21,6 @@ namespace Models {
         public int Score;
         public int WorkersCount;
         public int SilverCount;
-        public int CurrentTurn;
         public bool SilverActionDoneThisTurn = false;
 
         public Player(string name, Card startingAnimal, Card startingGood, int startingWorkers) {
@@ -47,7 +46,7 @@ namespace Models {
                       List<Card> animals,
                       List<Card> goods,
                       List<Card> projectArea,
-                      List<Card> silverActionCards,
+                      List<Card> bonusActionCards,
                       List<Card> completedProjects,
                       List<BonusCard> receivedBonuses,
                       string name,
@@ -61,7 +60,7 @@ namespace Models {
             Animals = animals;
             Goods = goods;
             ProjectArea = projectArea;
-            BonusActionCards = silverActionCards;
+            BonusActionCards = bonusActionCards;
             CompletedProjects = completedProjects;
             Score = score;
             WorkersCount = workersCount;

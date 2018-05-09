@@ -119,13 +119,23 @@ public static class UtilsDataParse {
         string animals = player.Animals.Stringify();
         string goods = player.Goods.Stringify();
         string projectArea = player.ProjectArea.Stringify();
-        string silverActionCards = player.BonusActionCards.Stringify();
+        string bonusActionCards = player.BonusActionCards.Stringify();
         string completedProjects = player.CompletedProjects.Stringify();
+        string receivedBonuses = player.ReceivedBonuses.Stringify();
 
-        var sp = new SerializedPlayer(cards, futureCards, animals, goods,
-                                      projectArea, silverActionCards, completedProjects, "", //todo
-                                      player.Name, player.Score, player.WorkersCount,
-                                      player.SilverCount, player.SilverActionDoneThisTurn);
+        var sp = new SerializedPlayer(cards,
+                                      futureCards, 
+                                      animals, 
+                                      goods,
+                                      projectArea,
+                                      bonusActionCards, 
+                                      completedProjects,
+                                      receivedBonuses,
+                                      player.Name,
+                                      player.Score,
+                                      player.WorkersCount,
+                                      player.SilverCount, 
+                                      player.SilverActionDoneThisTurn);
 
         return JsonUtility.ToJson(sp);
     }
@@ -138,12 +148,22 @@ public static class UtilsDataParse {
         List<Card> animals = sp.Animals.ParseToCardsList();
         List<Card> goods = sp.Goods.ParseToCardsList();
         List<Card> projectArea = sp.ProjectArea.ParseToCardsList();
-        List<Card> silverActionCards = sp.BonusCards.ParseToCardsList();
-        List<Card> completedProjects = sp.Completed.ParseToCardsList();
+        List<Card> bonusCards = sp.BonusCards.ParseToCardsList();
+        List<Card> completed = sp.Completed.ParseToCardsList();
+        List<BonusCard> bonusesReceived = sp.Bonuses.ParseToList<BonusCard>();
 
-        return new Player(cards, futureCards, animals, goods, projectArea,
-                          silverActionCards, completedProjects, new List<BonusCard>(), sp.Name,
-                          sp.Score, sp.WorkersCount, sp.SilverCount,
+        return new Player(cards, 
+                          futureCards, 
+                          animals, 
+                          goods, 
+                          projectArea,
+                          bonusCards, 
+                          completed, 
+                          bonusesReceived, 
+                          sp.Name,
+                          sp.Score, 
+                          sp.WorkersCount, 
+                          sp.SilverCount,
                           sp.SilverDone);
     }
 
@@ -157,6 +177,7 @@ public static class UtilsDataParse {
         public string ProjectArea;
         public string BonusCards;
         public string Completed;
+
         public string Bonuses;
 
         public int Score;

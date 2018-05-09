@@ -70,6 +70,25 @@ public static class UtilsEquality {
         return true;
     }
 
+    public static bool IsEqualTo(this List<BonusCard> l1, List<BonusCard> l2) {
+        if (l1 == null || l2 == null) {
+            throw new System.InvalidProgramException("Cannot compare nulls!");
+        }
+
+        if (l1.Count != l2.Count) {
+            return false;
+        }
+
+        for (int i = 0; i < l1.Count; i++) {
+            BonusCard bc1 = l1[i];
+            BonusCard bc2 = l2[i];
+            if (bc1 != bc2) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static bool IsEqualTo(this Player p1, Player p2) {
         bool cardsEqual = p1.Cards.IsEqualTo(p2.Cards);
         bool futureCardsEqual = p1.FutureCards.IsEqualTo(p2.FutureCards);
@@ -83,9 +102,10 @@ public static class UtilsEquality {
         bool workersEqual = p1.WorkersCount == p2.WorkersCount;
         bool silverEqual = p1.SilverCount == p2.SilverCount;
         bool silverDoneEqual = p1.SilverActionDoneThisTurn == p2.SilverActionDoneThisTurn;
+        bool receivedBonusesEqual = p1.ReceivedBonuses.IsEqualTo(p2.ReceivedBonuses);
 
         return cardsEqual && futureCardsEqual && animalsEqual && goodsEqual && projectAreaEqual
-            && bonusActionCardsEqual && completedProjectsEqual;
+            && bonusActionCardsEqual && completedProjectsEqual && receivedBonusesEqual;
     }
 
     public static bool IsEqualTo(this GameState gs1, GameState gs2) {

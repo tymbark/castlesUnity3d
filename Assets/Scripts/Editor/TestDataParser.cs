@@ -235,6 +235,26 @@ public class TestDataParser {
     }
 
     [Test]
+    public void TestEnumListEqual() {
+        List<BonusCard> list1 = new List<BonusCard>();
+        List<BonusCard> list2 = new List<BonusCard>();
+
+        BonusCard b1 = RandomBonusCard();
+        BonusCard b2 = RandomBonusCard();
+        BonusCard b3 = RandomBonusCard();
+
+        list1.Add(b1);
+        list1.Add(b2);
+        list1.Add(b3);
+
+        list2.Add(b1);
+        list2.Add(b2);
+        list2.Add(b3);
+
+        Assert.IsTrue(list1.IsEqualTo(list2));
+    }
+
+    [Test]
     public void TestPlayerEquals1() {
         Player p1 = RandomPlayer(50, 50);
 
