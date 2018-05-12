@@ -382,17 +382,7 @@ public class TestDataParser {
         pc.Add(new ProjectCard(RandomCard(), CardDice.III));
         pc.Add(new ProjectCard(RandomCard(), CardDice.IV));
 
-        GameState gs1 = new GameState(
-            players,
-            new Deck(RandomList(20)),
-            new Deck(RandomList(20)),
-            new Deck(RandomList(20)),
-            pc,
-            RandomBonusList(20),
-            Round.C,
-            0,
-            2
-        );
+        GameState gs1 = RandomGameState(players, pc, RandomBonusList(20));
 
         GameState gs2 = gs1.Stringify().ParseToGameState();
 
@@ -406,17 +396,7 @@ public class TestDataParser {
         players.Add(RandomPlayer(24, 0));
         List<ProjectCard> pc = new List<ProjectCard>();
 
-        GameState gs1 = new GameState(
-            players,
-            new Deck(RandomList(20)),
-            new Deck(RandomList(20)),
-            new Deck(RandomList(20)),
-            pc,
-            RandomBonusList(20),
-            Round.A,
-            0,
-            2
-        );
+        GameState gs1 = RandomGameState(players, pc, RandomBonusList(20));
 
         GameState gs2 = gs1.Stringify().ParseToGameState();
 
@@ -428,17 +408,8 @@ public class TestDataParser {
         List<Player> players = new List<Player>();
         List<ProjectCard> pc = new List<ProjectCard>();
 
-        GameState gs1 = new GameState(
-            players,
-            new Deck(RandomList(20)),
-            new Deck(RandomList(20)),
-            new Deck(RandomList(20)),
-            pc,
-            RandomBonusList(20),
-            Round.B,
-            0,
-            2
-        );
+        GameState gs1 = RandomGameState(players, pc, RandomBonusList(20));
+
         GameState gs2 = gs1.Stringify().ParseToGameState();
 
         Assert.IsTrue(gs1.IsEqualTo(gs2));
@@ -449,17 +420,19 @@ public class TestDataParser {
         List<Player> players = new List<Player>();
         List<ProjectCard> pc = new List<ProjectCard>();
 
-        GameState gs1 = new GameState(
-            players,
-            new Deck(RandomList(0)),
-            new Deck(RandomList(0)),
-            new Deck(RandomList(0)),
-            pc,
-            RandomBonusList(20),
-            Round.C,
-            0,
-            2
-        );
+        GameState gs1 = RandomGameState(players, pc, RandomBonusList(20));
+
+        GameState gs2 = gs1.Stringify().ParseToGameState();
+
+        Assert.IsTrue(gs1.IsEqualTo(gs2));
+    }
+
+    [Test]
+    public void TestGameStateEqual5() {
+        List<Player> players = new List<Player>();
+        List<ProjectCard> pc = new List<ProjectCard>();
+
+        GameState gs1 = RandomGameState(players, pc, new List<BonusCard>());
 
         GameState gs2 = gs1.Stringify().ParseToGameState();
 
@@ -477,20 +450,16 @@ public class TestDataParser {
         pc.Add(new ProjectCard(RandomCard(), CardDice.III));
         pc.Add(new ProjectCard(RandomCard(), CardDice.IV));
 
-        GameState gs1 = new GameState(
-            players,
-            new Deck(RandomList(20)),
-            new Deck(RandomList(20)),
-            new Deck(RandomList(20)),
-            pc,
-            RandomBonusList(20),
-            Round.C,
-            0,
-            2
-        );
+        GameState gs1 = RandomGameState(players, pc, RandomBonusList(20));
 
         GameState gs2 = gs1.Stringify().ParseToGameState();
-        gs2.CurrentRound = Round.A;
+
+        if (gs2.CurrentRound == Round.A) {
+            gs2.CurrentRound = Round.B;
+        } else {
+            gs2.CurrentRound = Round.A;
+
+        }
 
         Assert.IsFalse(gs1.IsEqualTo(gs2));
     }
@@ -506,20 +475,10 @@ public class TestDataParser {
         pc.Add(new ProjectCard(RandomCard(), CardDice.III));
         pc.Add(new ProjectCard(RandomCard(), CardDice.IV));
 
-        GameState gs1 = new GameState(
-            players,
-            new Deck(RandomList(20)),
-            new Deck(RandomList(20)),
-            new Deck(RandomList(20)),
-            pc,
-            RandomBonusList(20),
-            Round.C,
-            0,
-            2
-        );
+        GameState gs1 = RandomGameState(players, pc, RandomBonusList(20));
 
         GameState gs2 = gs1.Stringify().ParseToGameState();
-        gs2.CurrentPlayerIndex = 1;
+        gs2.Players.Clear();
 
         Assert.IsFalse(gs1.IsEqualTo(gs2));
     }
@@ -535,17 +494,7 @@ public class TestDataParser {
         pc.Add(new ProjectCard(RandomCard(), CardDice.III));
         pc.Add(new ProjectCard(RandomCard(), CardDice.IV));
 
-        GameState gs1 = new GameState(
-            players,
-            new Deck(RandomList(20)),
-            new Deck(RandomList(20)),
-            new Deck(RandomList(20)),
-            pc,
-            RandomBonusList(20),
-            Round.C,
-            0,
-            2
-        );
+        GameState gs1 = RandomGameState(players, pc, RandomBonusList(20));
 
         GameState gs2 = gs1.Stringify().ParseToGameState();
         gs2.AvailableProjectCards.Clear();
@@ -564,22 +513,87 @@ public class TestDataParser {
         pc.Add(new ProjectCard(RandomCard(), CardDice.III));
         pc.Add(new ProjectCard(RandomCard(), CardDice.IV));
 
-        GameState gs1 = new GameState(
-            players,
-            new Deck(RandomList(20)),
-            new Deck(RandomList(20)),
-            new Deck(RandomList(20)),
-            pc,
-            RandomBonusList(20),
-            Round.C,
-            0,
-            2
-        );
+        GameState gs1 = RandomGameState(players, pc, RandomBonusList(20));
 
         GameState gs2 = gs1.Stringify().ParseToGameState();
         gs2.MainDeck.DrawCard();
 
         Assert.IsFalse(gs1.IsEqualTo(gs2));
+    }
+
+    [Test]
+    public void TestGameStateNotEqual5() {
+        List<Player> players = new List<Player>();
+        players.Add(RandomPlayer(23, 123));
+        players.Add(RandomPlayer(24, 92));
+        List<ProjectCard> pc = new List<ProjectCard>();
+        pc.Add(new ProjectCard(RandomCard(), CardDice.I));
+        pc.Add(new ProjectCard(RandomCard(), CardDice.II));
+        pc.Add(new ProjectCard(RandomCard(), CardDice.III));
+        pc.Add(new ProjectCard(RandomCard(), CardDice.IV));
+
+        GameState gs1 = RandomGameState(players, pc, RandomBonusList(20));
+
+        GameState gs2 = gs1.Stringify().ParseToGameState();
+        gs2.IsFinished = !gs2.IsFinished;
+
+        Assert.IsFalse(gs1.IsEqualTo(gs2));
+    }
+
+    [Test]
+    public void TestGameStateNotEqual6() {
+        List<Player> players = new List<Player>();
+        players.Add(RandomPlayer(23, 123));
+        players.Add(RandomPlayer(24, 92));
+        List<ProjectCard> pc = new List<ProjectCard>();
+        pc.Add(new ProjectCard(RandomCard(), CardDice.I));
+        pc.Add(new ProjectCard(RandomCard(), CardDice.II));
+        pc.Add(new ProjectCard(RandomCard(), CardDice.III));
+        pc.Add(new ProjectCard(RandomCard(), CardDice.IV));
+
+        GameState gs1 = RandomGameState(players, pc, RandomBonusList(20));
+
+        GameState gs2 = gs1.Stringify().ParseToGameState();
+        gs2.CurrentPlayerIndex = gs2.CurrentPlayerIndex + 1;
+
+        Assert.IsFalse(gs1.IsEqualTo(gs2));
+    }
+
+    [Test]
+    public void TestGameStateNotEqual7() {
+        List<Player> players = new List<Player>();
+        players.Add(RandomPlayer(23, 123));
+        players.Add(RandomPlayer(24, 92));
+        List<ProjectCard> pc = new List<ProjectCard>();
+        pc.Add(new ProjectCard(RandomCard(), CardDice.I));
+        pc.Add(new ProjectCard(RandomCard(), CardDice.II));
+        pc.Add(new ProjectCard(RandomCard(), CardDice.III));
+        pc.Add(new ProjectCard(RandomCard(), CardDice.IV));
+
+        GameState gs1 = RandomGameState(players, pc, RandomBonusList(20));
+
+        GameState gs2 = gs1.Stringify().ParseToGameState();
+        gs2.AvailableBonusCards.Clear();
+
+        Assert.IsFalse(gs1.IsEqualTo(gs2));
+    }
+
+    private static GameState RandomGameState(List<Player> players,
+                                             List<ProjectCard> pc,
+                                             List<BonusCard> bl) {
+        return new GameState(
+                    players,
+                    new Deck(RandomList(20)),
+                    new Deck(RandomList(20)),
+                    new Deck(RandomList(20)),
+                    pc,
+                    bl,
+                    (Round)new System.Random().Next((int)Round.E),
+                    new System.Random().Next(10),
+                    new System.Random().Next(10),
+                    new System.Random().Next(10),
+                    new System.Random().Next(10) > 4
+                );
     }
 
     [Test]

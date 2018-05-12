@@ -11,12 +11,14 @@ namespace Models {
         public readonly int HowManyPlayers;
         public Round CurrentRound;
         public int CurrentPlayerIndex;
+        public int CurrentTurn;
+        public bool IsFinished;
 
         public readonly Deck MainDeck;
         public readonly Deck AnimalsDeck;
         public readonly Deck GoodsDeck;
         public readonly List<ProjectCard> AvailableProjectCards;
-        public readonly List<BonusCard> AvailableBonusCards; 
+        public readonly List<BonusCard> AvailableBonusCards;
 
         public GameState(List<Player> players,
                          Deck mainDeck,
@@ -26,7 +28,9 @@ namespace Models {
                          List<BonusCard> availableBonusCards,
                          Round currentRound,
                          int currentPlayerIndex,
-                         int howManyPlayers) {
+                         int currentTurn,
+                         int howManyPlayers,
+                         bool isFinished) {
             this.Players = players;
             this.HowManyPlayers = Players.Count;
             this.MainDeck = mainDeck;
@@ -36,7 +40,9 @@ namespace Models {
             this.AvailableBonusCards = availableBonusCards;
             this.HowManyPlayers = howManyPlayers;
             this.CurrentRound = currentRound;
+            this.CurrentTurn = currentTurn;
             this.CurrentPlayerIndex = currentPlayerIndex;
+            this.IsFinished = isFinished;
         }
 
         public Player CurrentPlayer { get { return Players[CurrentPlayerIndex]; } }

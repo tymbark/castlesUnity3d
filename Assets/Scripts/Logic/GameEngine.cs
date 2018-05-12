@@ -13,11 +13,11 @@ public class GameEngine {
     public GameEngine() {
 
         if (GameState == null) {
-            if (DataPersistance.GameStateExists()) {
+            if (false && DataPersistance.GameStateExists()) {
                 GameState = DataPersistance.LoadGameState();
             } else {
                 GameState = GenerateGameState();
-                StartTurn();
+                StartGame();
                 GameState.Save();
                 AddDebugOptions(GameState);
             }
@@ -52,25 +52,27 @@ public class GameEngine {
         var mainDeck = DeckGenerator.GenerateActionsDeck();
         var animalsDeck = DeckGenerator.GenerateAnimalsDeck();
         var goodsDeck = DeckGenerator.GenerateGoodsDeck();
-        var projectCards = PrepareProjectCards(mainDeck, howManyPlayers);
+        var projectCards = PrepareProjectCards(mainDeck);
         var players = PreparePlayers(animalsDeck, goodsDeck);
-        var bonuses = PrepareAvailableBonuses(players.Count);
+        var bonuses = PrepareAvailableBonuses();
 
         return new GameState(players,
                              mainDeck,
-                             animalsDeck, 
+                             animalsDeck,
                              goodsDeck,
                              projectCards,
                              bonuses,
                              Round.A,
-                             0, 
-                             players.Count);
+                             0,
+                             1,
+                             players.Count,
+                             false);
     }
 
-    private List<BonusCard> PrepareAvailableBonuses(int howManyPlayers) {
+    private List<BonusCard> PrepareAvailableBonuses() {
         List<BonusCard> bonuses = new List<BonusCard>();
 
-        switch(howManyPlayers) {
+        switch (howManyPlayers) {
             case 4:
                 bonuses.Add(BonusCard.AllSeven4);
                 bonuses.Add(BonusCard.AllSeven3);
@@ -120,38 +122,111 @@ public class GameEngine {
         return Players;
     }
 
-
-    public void StartTurn() {
+    private void StartGame() {
         GameState.CurrentPlayerIndex = 0;
-        DrawCards();
+        GameState.CurrentTurn = 1;
+        DrawFutureCards();
+        DrawHandCards();
     }
 
-
-    public void NextTurn() {
-
-        if (GameState.Players.IndexOf(GameState.CurrentPlayer) == GameState.Players.Count - 1) {
-            GameState.CurrentPlayerIndex = 0;
-        } else {
+    public void ExecuteEndTurnAction() {
+        if (GameState.CurrentPlayerIndex + 1 < GameState.Players.Count) {
             GameState.CurrentPlayerIndex = GameState.CurrentPlayerIndex + 1;
+        } else {
+            GameState.CurrentPlayerIndex = 0;
+            NextTurn();
         }
+        UnityEngine.Debug.Log("Current player: " + GameState.CurrentPlayer.Name);
+        UnityEngine.Debug.Log("Current round: " + GameState.CurrentRound);
+        UnityEngine.Debug.Log("Current turn: " + GameState.CurrentTurn);
+    }
 
-        if (GameState.CurrentPlayer.Cards.Count == 1) {
-            DrawCards();
+    private void NextTurn() {
+        if (GameState.CurrentTurn >= 1 && GameState.CurrentTurn <= 6) {
+            GameState.CurrentTurn = GameState.CurrentTurn + 1;
+        } else if (GameState.CurrentTurn == 7) {
+            NextRound();
+            GameState.CurrentTurn = 1;
+        } else {
+            throw new System.InvalidProgramException("Illegal turn :" + GameState.CurrentTurn);
         }
     }
 
-    private void DrawCards() {
+    private void NextRound() {
+        switch (GameState.CurrentRound) {
+            case Round.A:
+                GameState.CurrentRound = Round.B;
+                DrawFutureCards();
+                DrawHandCards();
+                break;
+            case Round.B:
+                GameState.CurrentRound = Round.C;
+                DrawFutureCards();
+                DrawHandCards();
+                break;
+            case Round.C:
+                GameState.CurrentRound = Round.D;
+                DrawFutureCards();
+                DrawHandCards();
+                break;
+            case Round.D:
+                GameState.CurrentRound = Round.E;
+                DrawFutureCards();
+                DrawHandCards();
+                break;
+            case Round.E:
+                FinishGame();
+                break;
+        }
+    }
+
+    private void FinishGame() {
+
+    }
+
+    private void DrawFutureCards() {
         foreach (Player p in GameState.Players) {
-            p.DrawCards(GameState.MainDeck);
+            if (p.FutureCards.Count == 0) {
+                Utils.Repeat(6, () => { p.FutureCards.Add(GameState.MainDeck.DrawCard()); });
+            } else {
+                throw new System.InvalidProgramException("Future cards can be redrawn only if empty");
+            }
         }
     }
 
-    private static List<ProjectCard> PrepareProjectCards(Deck mainDeck, int playersCount) {
+    private void DrawHandCards() {
+        foreach (Player p in GameState.Players) {
+            switch (p.Cards.Count) {
+                case 0:
+                    if (p.FutureCards.Count < 2) {
+                        throw new System.InvalidProgramException("Not enough future cards.");
+                    }
+
+                    Utils.Repeat(2, () => {
+                        Card c = p.FutureCards[p.FutureCards.Count - 1];
+                        p.FutureCards.Remove(c);
+                        p.Cards.Add(c);
+                    });
+                    break;
+                case 1:
+                    if (p.FutureCards.Count == 0) {
+                        // last turn!
+                    } else {
+                        Card c = p.FutureCards[p.FutureCards.Count - 1];
+                        p.FutureCards.Remove(c);
+                        p.Cards.Add(c);
+                    }
+                    break;
+            }
+        }
+    }
+
+    private List<ProjectCard> PrepareProjectCards(Deck mainDeck) {
         var AvailableProjectCards = new List<ProjectCard>();
 
         int howManyProjectCardsPerTurn = 0;
 
-        switch (playersCount) {
+        switch (howManyPlayers) {
             case 2:
                 howManyProjectCardsPerTurn = 7;
                 break;

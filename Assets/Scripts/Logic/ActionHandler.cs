@@ -64,7 +64,7 @@ public class ActionHandler {
             case ActionType.EndTurn:
 
                 CurrentPlayer().ExecuteEndTurnAction();
-                GameEngine.NextTurn();
+                GameEngine.ExecuteEndTurnAction();
                 break;
 
             default:

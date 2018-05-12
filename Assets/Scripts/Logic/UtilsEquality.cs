@@ -109,18 +109,21 @@ public static class UtilsEquality {
     }
 
     public static bool IsEqualTo(this GameState gs1, GameState gs2) {
-        bool playersEqual = gs1.Players.IsEqualTo(gs2.Players);
-        bool currentPlayerEqual = gs1.CurrentPlayerIndex == gs2.CurrentPlayerIndex;
-        bool mainDeckEqual = gs1.MainDeck.Cards.IsEqualTo(gs2.MainDeck.Cards);
-        bool animalsDeckEqual = gs1.AnimalsDeck.Cards.IsEqualTo(gs2.AnimalsDeck.Cards);
-        bool goodsDeckEqual = gs1.GoodsDeck.Cards.IsEqualTo(gs2.GoodsDeck.Cards);
-        bool availableProjectCardsEqual = gs1.AvailableProjectCards.IsEqualTo(gs2.AvailableProjectCards);
-        bool noPlayersEqual = gs1.HowManyPlayers == gs2.HowManyPlayers;
-        bool currentRoundEqual = gs1.CurrentRound == gs2.CurrentRound;
+        List<bool> equality = new List<bool>();
 
-        return playersEqual && currentPlayerEqual && mainDeckEqual && animalsDeckEqual
-            && goodsDeckEqual && availableProjectCardsEqual && noPlayersEqual
-            && currentRoundEqual;
+        equality.Add(gs1.Players.IsEqualTo(gs2.Players));
+        equality.Add(gs1.HowManyPlayers == gs2.HowManyPlayers);
+        equality.Add(gs1.CurrentRound == gs2.CurrentRound);
+        equality.Add(gs1.CurrentPlayerIndex == gs2.CurrentPlayerIndex);
+        equality.Add(gs1.CurrentTurn == gs2.CurrentTurn);
+        equality.Add(gs1.IsFinished == gs2.IsFinished);
+        equality.Add(gs1.MainDeck.Cards.IsEqualTo(gs2.MainDeck.Cards));
+        equality.Add(gs1.AnimalsDeck.Cards.IsEqualTo(gs2.AnimalsDeck.Cards));
+        equality.Add(gs1.GoodsDeck.Cards.IsEqualTo(gs2.GoodsDeck.Cards));
+        equality.Add(gs1.AvailableProjectCards.IsEqualTo(gs2.AvailableProjectCards));
+        equality.Add(gs1.AvailableBonusCards.IsEqualTo(gs2.AvailableBonusCards));
+
+        return equality.TrueForAll((bool obj) => obj);
     }
 
 

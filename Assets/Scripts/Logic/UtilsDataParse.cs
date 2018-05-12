@@ -124,17 +124,17 @@ public static class UtilsDataParse {
         string receivedBonuses = player.ReceivedBonuses.Stringify();
 
         var sp = new SerializedPlayer(cards,
-                                      futureCards, 
-                                      animals, 
+                                      futureCards,
+                                      animals,
                                       goods,
                                       projectArea,
-                                      bonusActionCards, 
+                                      bonusActionCards,
                                       completedProjects,
                                       receivedBonuses,
                                       player.Name,
                                       player.Score,
                                       player.WorkersCount,
-                                      player.SilverCount, 
+                                      player.SilverCount,
                                       player.SilverActionDoneThisTurn);
 
         return JsonUtility.ToJson(sp);
@@ -152,17 +152,17 @@ public static class UtilsDataParse {
         List<Card> completed = sp.Completed.ParseToCardsList();
         List<BonusCard> bonusesReceived = sp.Bonuses.ParseToList<BonusCard>();
 
-        return new Player(cards, 
-                          futureCards, 
-                          animals, 
-                          goods, 
+        return new Player(cards,
+                          futureCards,
+                          animals,
+                          goods,
                           projectArea,
-                          bonusCards, 
-                          completed, 
-                          bonusesReceived, 
+                          bonusCards,
+                          completed,
+                          bonusesReceived,
                           sp.Name,
-                          sp.Score, 
-                          sp.WorkersCount, 
+                          sp.Score,
+                          sp.WorkersCount,
                           sp.SilverCount,
                           sp.SilverDone);
     }
@@ -246,9 +246,12 @@ public static class UtilsDataParse {
         var serializedGameState = new SerializedGameState(
             player1, player2, player3, player4,
             mainDeck, animals, goods, projects, bonuses,
-            gameState.CurrentRound, gameState.CurrentPlayerIndex, gameState.HowManyPlayers);
+            gameState.CurrentRound,
+            gameState.CurrentPlayerIndex,
+            gameState.CurrentTurn,
+            gameState.HowManyPlayers,
+            gameState.IsFinished);
 
-        5.print_(JsonUtility.ToJson(serializedGameState));
 
         return JsonUtility.ToJson(serializedGameState);
     }
@@ -285,7 +288,10 @@ public static class UtilsDataParse {
                              availableProjectCards,
                              availableBonusCards,
                              sgs.CurrentRound,
-                             sgs.CurrentPlayerIndex, sgs.HowManyPlayers);
+                             sgs.CurrentPlayerIndex,
+                             sgs.CurrentTurn,
+                             sgs.HowManyPlayers,
+                             sgs.IsFinished);
     }
 
     private class SerializedGameState {
@@ -294,9 +300,11 @@ public static class UtilsDataParse {
         public string Player2;
         public string Player3;
         public string Player4;
-        public int HowManyPlayers;
         public Round CurrentRound;
         public int CurrentPlayerIndex;
+        public int CurrentTurn;
+        public int HowManyPlayers;
+        public bool IsFinished;
 
         public string MainDeck;
         public string AnimalsDeck;
@@ -315,7 +323,9 @@ public static class UtilsDataParse {
                                    string availableBonusCards,
                                    Round currentRound,
                                    int currentPlayerIndex,
-                                   int howManyPlayers) {
+                                   int currentTurn,
+                                   int howManyPlayers,
+                                   bool isFinished) {
             this.Player1 = player1;
             this.Player2 = player2;
             this.Player3 = player3;
@@ -328,6 +338,8 @@ public static class UtilsDataParse {
             this.HowManyPlayers = howManyPlayers;
             this.CurrentRound = currentRound;
             this.CurrentPlayerIndex = currentPlayerIndex;
+            this.CurrentTurn = currentTurn;
+            this.IsFinished = isFinished;
         }
 
     }

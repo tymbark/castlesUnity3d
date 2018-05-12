@@ -69,39 +69,6 @@ namespace Models {
             ReceivedBonuses = receivedBonuses;
         }
 
-        public void DrawCards(Deck deck) {
-
-            if (FutureCards.Count == 0) {
-
-                Utils.Repeat(6, () => { FutureCards.Add(deck.DrawCard()); });
-                Utils.Repeat(2, () => {
-                    Card c = FutureCards[FutureCards.Count - 1];
-                    FutureCards.Remove(c);
-                    Cards.Add(c);
-                });
-
-            } else {
-
-                if (FutureCards.Count > 0) {
-
-                    Card c = FutureCards[FutureCards.Count - 1];
-                    FutureCards.Remove(c);
-                    Cards.Add(c);
-
-                }
-            }
-
-            switch (Cards.Count) {
-                case 0:
-                    Cards.Add(deck.DrawCard());
-                    Cards.Add(deck.DrawCard());
-                    break;
-                case 1:
-                    Cards.Add(deck.DrawCard());
-                    break;
-            }
-        }
-
     }
 
 }
