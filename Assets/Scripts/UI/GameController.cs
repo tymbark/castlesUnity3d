@@ -38,6 +38,7 @@ public class GameController : MonoBehaviour {
     }
 
     public void HandleClickAction(ClickAction action) {
+        print("handle click action " + action);
         List<Action> actions = GameEngine.ActionHandler.GetAvailableActions();
 
         switch (action) {

@@ -7,7 +7,7 @@ public class PopupsController : MonoBehaviour {
     private readonly List<GameObject> Trash = new List<GameObject>();
     private GameController GameController;
 
-    private void Start() {        
+    private void Start() {
         GameController = GetComponent<GameController>();
     }
 

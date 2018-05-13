@@ -17,7 +17,6 @@ public class ClickableObjectController : MonoBehaviour, IPointerClickHandler {
             GameController gameController = gameObj.GetComponent<GameController>();
 
             if (gameController.ClicksEnabled && ClickAction != ClickAction.NotSet) {
-                print("clicked");
                 gameController.HandleClickAction(ClickAction);
             }
 
