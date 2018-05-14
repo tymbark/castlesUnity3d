@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Models;
+using NetworkModels;
 
 public static class UtilsDataParse {
 
@@ -342,6 +343,42 @@ public static class UtilsDataParse {
             this.IsFinished = isFinished;
         }
 
+    }
+
+    private class GameWrapper {
+        public string id = "";
+        public bool available = false;
+        public string creator_name = "";
+        public int players_max = 0;
+        public int players_now = 0;
+        public string[] players = { };
+
+        public Game ParseToGame() {
+            List<string> playersList = new List<string>();
+            foreach (string s in players) {
+                playersList.Add(s);
+            }
+            return new Game(id, available, creator_name, players_max, players_now, playersList);
+        }
+    }
+
+    public static List<Game> ParseToListOfGames(this string jsonData) {
+        List<Game> result = new List<Game>();
+
+        string json = jsonData
+            .Replace(" ", "")
+            .Replace("\n", "")
+            .Replace("{\"games\":[", "")
+            .Replace("}]}", "}")
+            .Replace("},{", "}###{");
+
+        foreach (var item in json.Split(new string[] { "###" }, System.StringSplitOptions.RemoveEmptyEntries)) {
+            GameWrapper gameWrapper = JsonUtility.FromJson<GameWrapper>(item);
+            Game game = gameWrapper.ParseToGame();
+            result.Add(game);
+        }
+
+        return result;
     }
 
 }

@@ -34,17 +34,20 @@ public class GameEngine {
         var c4 = gameState.MainDeck.DrawCard();
         var c5 = gameState.MainDeck.DrawCard();
         gameState.Players[0].ProjectArea.Add(c1);
-        gameState.Players[0].ProjectArea.Add(c2);
-        gameState.Players[0].ProjectArea.Add(c3);
-        gameState.Players[0].ProjectArea.Add(c4);
-        gameState.Players[0].ProjectArea.Add(c5);
-        gameState.Players[0].CompleteProject(c1, gameState);
-        gameState.Players[0].CompleteProject(c2, gameState);
-        gameState.Players[0].CompleteProject(c3, gameState);
-        gameState.Players[0].CompleteProject(c4, gameState);
-        gameState.Players[0].CompleteProject(c5, gameState);
+        //gameState.Players[0].ProjectArea.Add(c2);
+        //gameState.Players[0].ProjectArea.Add(c3);
+        //gameState.Players[0].ProjectArea.Add(c4);
+        //gameState.Players[0].ProjectArea.Add(c5);
+        //gameState.Players[0].CompleteProject(c1, gameState);
+        //gameState.Players[0].CompleteProject(c2, gameState);
+        //gameState.Players[0].CompleteProject(c3, gameState);
+        //gameState.Players[0].CompleteProject(c4, gameState);
+        //gameState.Players[0].CompleteProject(c5, gameState);
 
-        //players[0].BonusActionCards.Add(new Card(CardClass.BonusCarperter, CardDice.All));
+        gameState.Players[0].BonusActionCards.Add(new Card(CardClass.ActionKnowledge, CardDice.All));
+        gameState.Players[0].BonusActionCards.Add(new Card(CardClass.ActionCastle, CardDice.All));
+        gameState.Players[0].BonusActionCards.Add(new Card(CardClass.ActionBank, CardDice.All));
+
         //players[0].BonusActionCards.Add(new Card(CardClass.BonusCityHall, CardDice.All));
     }
 

@@ -170,7 +170,7 @@ public static class CardsGenerator {
         return prefab;
     }
 
-    private static GameObject DrawObjectWithTextFromPrefab(Vector2 position, string prefabRes, string text) {
+    public static GameObject DrawObjectWithTextFromPrefab(Vector2 position, string prefabRes, string text) {
         Object obj = Resources.Load("Prefabs/" + prefabRes);
         GameObject prefab = Object.Instantiate(obj) as GameObject;
 
