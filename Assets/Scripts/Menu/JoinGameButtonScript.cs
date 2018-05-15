@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class JoinGameButtonScript : MonoBehaviour, IPointerClickHandler {
 
     public void OnPointerClick(PointerEventData eventData) {
-        SceneManager.LoadScene("AvailableGames");
+        SceneManager.LoadScene("JoinGame");
     }
 
 }

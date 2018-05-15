@@ -6,12 +6,12 @@ namespace NetworkModels {
 
     public class Game {
 
-        public readonly string Id;
-        public readonly bool Available;
-        public readonly string CreatorName;
-        public readonly int PlayersMax;
-        public readonly int PlayersNow;
-        public readonly List<string> PlayersIds;
+        public string Id;
+        public bool Available;
+        public string CreatorName;
+        public int PlayersMax;
+        public int PlayersNow;
+        public List<string> PlayersIds;
 
         public Game(string id,
                     bool available,
@@ -41,6 +41,11 @@ namespace NetworkModels {
                 + "\nNow:" + PlayersNow
                 + "\nplayers:" + players;
         }
+    }
+
+    public class GameStateWithId {
+        public string id;
+        public string game_data;
     }
 
     public class ResponseOrError<T> {

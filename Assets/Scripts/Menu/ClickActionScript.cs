@@ -5,14 +5,14 @@ using NetworkModels;
 
 public class ClickActionScript : MonoBehaviour, IPointerClickHandler {
 
-    public System.Action<Game> action;
-    public Game game;
+    public System.Action<object> ClickMethod;
+    public object ClickParameter;
 
     public void OnPointerClick(PointerEventData eventData) {
-        if (action != null && game != null) {
-            action(game);
+        if (ClickMethod != null) {
+            ClickMethod(ClickParameter);
         } else {
-            throw new System.InvalidProgramException("Game or action is null!");
+            throw new System.InvalidProgramException("Click method not set!");
         }
     }
 

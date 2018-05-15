@@ -7,6 +7,7 @@ namespace Models {
 
     public class GameState {
 
+        public readonly string Id;
         public readonly List<Player> Players;
         public readonly int HowManyPlayers;
         public Round CurrentRound;
@@ -20,7 +21,8 @@ namespace Models {
         public readonly List<ProjectCard> AvailableProjectCards;
         public readonly List<BonusCard> AvailableBonusCards;
 
-        public GameState(List<Player> players,
+        public GameState(string id,
+                         List<Player> players,
                          Deck mainDeck,
                          Deck animalsDeck,
                          Deck goodsDeck,
@@ -31,6 +33,7 @@ namespace Models {
                          int currentTurn,
                          int howManyPlayers,
                          bool isFinished) {
+            this.Id = id;
             this.Players = players;
             this.HowManyPlayers = Players.Count;
             this.MainDeck = mainDeck;

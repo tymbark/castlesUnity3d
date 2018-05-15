@@ -244,10 +244,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 131849594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ad0f4afd5d1f4420a8694ee074ebf47, type: 3}
+  m_Script: {fileID: 11500000, guid: b313f336d417349b9bf787ac7d38c008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  howManyPlayers: 3
 --- !u!114 &131849597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,8 +276,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4289518335
+  m_fontColor: {r: 1, g: 0.85490197, b: 0.6745098, a: 1}
   m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
@@ -442,8 +441,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 622663488}
+  - component: {fileID: 622663489}
   m_Layer: 0
-  m_Name: ProjectsObjectController
+  m_Name: SceneController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -462,6 +462,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &622663489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 622663487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa89fcfdd220d4929bf5744123fcfb66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &759821966
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,10 +519,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 759821966}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ad0f4afd5d1f4420a8694ee074ebf47, type: 3}
+  m_Script: {fileID: 11500000, guid: b313f336d417349b9bf787ac7d38c008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  howManyPlayers: 4
 --- !u!114 &759821969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -541,8 +551,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4289518335
+  m_fontColor: {r: 1, g: 0.85490197, b: 0.6745098, a: 1}
   m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
@@ -664,7 +674,7 @@ GameObject:
   - component: {fileID: 1217772669}
   - component: {fileID: 1217772668}
   m_Layer: 5
-  m_Name: HowManyPlayersCanvas
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -761,7 +771,7 @@ GameObject:
   - component: {fileID: 1267561722}
   - component: {fileID: 1267561725}
   - component: {fileID: 1267561724}
-  - component: {fileID: 1267561723}
+  - component: {fileID: 1267561726}
   m_Layer: 5
   m_Name: 2Players
   m_TagString: Untagged
@@ -788,18 +798,6 @@ RectTransform:
   m_AnchoredPosition: {x: -500, y: 0}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1267561723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1267561721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ad0f4afd5d1f4420a8694ee074ebf47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  howManyPlayers: 2
 --- !u!114 &1267561724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -829,8 +827,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4289518335
+  m_fontColor: {r: 1, g: 0.85490197, b: 0.6745098, a: 1}
   m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
@@ -921,6 +919,17 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1267561721}
+--- !u!114 &1267561726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1267561721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b313f336d417349b9bf787ac7d38c008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1449634541
 Prefab:
   m_ObjectHideFlags: 0
@@ -1078,8 +1087,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278226687
+  m_fontColor: {r: 1, g: 0.5568628, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}

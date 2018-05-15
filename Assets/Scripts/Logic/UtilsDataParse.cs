@@ -245,8 +245,16 @@ public static class UtilsDataParse {
         string bonuses = gameState.AvailableBonusCards.Stringify();
 
         var serializedGameState = new SerializedGameState(
-            player1, player2, player3, player4,
-            mainDeck, animals, goods, projects, bonuses,
+            gameState.Id,
+            player1,
+            player2,
+            player3,
+            player4,
+            mainDeck,
+            animals,
+            goods,
+            projects,
+            bonuses,
             gameState.CurrentRound,
             gameState.CurrentPlayerIndex,
             gameState.CurrentTurn,
@@ -284,8 +292,11 @@ public static class UtilsDataParse {
         List<ProjectCard> availableProjectCards = sgs.AvailableProjectCards.ParseToProjectCardList();
         List<BonusCard> availableBonusCards = sgs.AvailableBonusCards.ParseToList<BonusCard>();
 
-        return new GameState(players,
-                             mainDeck, animalsDeck, goodsDeck,
+        return new GameState(sgs.Id,
+                             players,
+                             mainDeck,
+                             animalsDeck,
+                             goodsDeck,
                              availableProjectCards,
                              availableBonusCards,
                              sgs.CurrentRound,
@@ -297,6 +308,7 @@ public static class UtilsDataParse {
 
     private class SerializedGameState {
 
+        public string Id;
         public string Player1;
         public string Player2;
         public string Player3;
@@ -313,7 +325,8 @@ public static class UtilsDataParse {
         public string AvailableProjectCards;
         public string AvailableBonusCards;
 
-        public SerializedGameState(string player1,
+        public SerializedGameState(string id,
+                                   string player1,
                                    string player2,
                                    string player3,
                                    string player4,
@@ -327,6 +340,7 @@ public static class UtilsDataParse {
                                    int currentTurn,
                                    int howManyPlayers,
                                    bool isFinished) {
+            this.Id = id;
             this.Player1 = player1;
             this.Player2 = player2;
             this.Player3 = player3;

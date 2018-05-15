@@ -13,6 +13,12 @@ public class JoinGameScript : MonoBehaviour {
         StartCoroutine(NetworkController.GetAllGames(HandleAction));
     }
 
+    private void OnGameItemClick(object game) {
+        if (game.GetType() == typeof(Game)) {
+            StartCoroutine(NetworkController.GetGameState((game as Game).Id));
+        }
+    }
+
     void HandleAction(ResponseOrError<List<NetworkModels.Game>> responseOrError) {
 
         if (responseOrError.IsSuccess) {
@@ -22,13 +28,9 @@ public class JoinGameScript : MonoBehaviour {
                 string text = game.CreatorName + "'s game, players " + game.PlayersNow + "/" + game.PlayersMax;
                 var obj = CardsGenerator.DrawObjectWithTextFromPrefab(new Vector2(0, y), "DefaultTextWhite", text);
                 var script = obj.AddComponent<ClickActionScript>();
-                script.action = ClickAction;
-                script.game = game;
+                script.ClickMethod = OnGameItemClick;
+                script.ClickParameter = game;
             }
         }
-    }
-
-    private void ClickAction(Game game) {
-        StartCoroutine(NetworkController.GetGameState(game.Id));
     }
 }

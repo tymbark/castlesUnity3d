@@ -582,6 +582,7 @@ public class TestDataParser {
                                              List<ProjectCard> pc,
                                              List<BonusCard> bl) {
         return new GameState(
+                    new System.Random().Next(9999) + "",
                     players,
                     new Deck(RandomList(20)),
                     new Deck(RandomList(20)),

@@ -111,6 +111,7 @@ public static class UtilsEquality {
     public static bool IsEqualTo(this GameState gs1, GameState gs2) {
         List<bool> equality = new List<bool>();
 
+        equality.Add(gs1.Id == gs2.Id);
         equality.Add(gs1.Players.IsEqualTo(gs2.Players));
         equality.Add(gs1.HowManyPlayers == gs2.HowManyPlayers);
         equality.Add(gs1.CurrentRound == gs2.CurrentRound);
