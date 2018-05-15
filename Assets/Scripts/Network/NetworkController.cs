@@ -24,7 +24,7 @@ public class NetworkController {
 
         yield return request.SendWebRequest();
         if (request.isNetworkError || request.isHttpError) {
-            print("HTTP ERROR!\n" + request.error);
+            print("HTTP ERROR " + +request.responseCode + "\n" + request.error);
             action(new ResponseOrError<List<Game>>("request failed"));
         } else {
             if (request.isDone) {
@@ -34,7 +34,7 @@ public class NetworkController {
                 jsonResult = jsonResult.Replace(" ", "");
                 jsonResult = jsonResult.Replace("\n", "");
 
-                print("HTTP SUCCESS!\n" + jsonResult);
+                print("HTTP SUCCESS\n" + jsonResult);
 
                 var games = jsonResult.ParseToListOfGames();
                 action(new ResponseOrError<List<Game>>(games));
@@ -43,18 +43,17 @@ public class NetworkController {
         }
     }
 
-    public static IEnumerator GetGameState() {
-        string getCountriesUrl = "https://cn0izbewf2.execute-api.eu-west-2.amazonaws.com/alpha2/games/1";
-        UnityWebRequest request = UnityWebRequest.Get(getCountriesUrl);
-        //www.chunkedTransfer = false;
+    public static IEnumerator GetGameState(string gameId) {
+        string url = BASE_URL + "/games/" + gameId;
+        UnityWebRequest request = UnityWebRequest.Get(url);
+
         yield return request.SendWebRequest();
         if (request.isNetworkError || request.isHttpError) {
-            print(request.error);
+            print("HTTP ERROR " + +request.responseCode + "\n" + request.error);
         } else {
             if (request.isDone) {
-                string jsonResult =
-                    System.Text.Encoding.UTF8.GetString(request.downloadHandler.data);
-                print(jsonResult);
+                string jsonResult = System.Text.Encoding.UTF8.GetString(request.downloadHandler.data);
+                print("HTTP SUCCESS\n" + jsonResult);
 
             }
         }
