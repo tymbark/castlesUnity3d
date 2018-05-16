@@ -65,7 +65,7 @@ public class NetworkController {
 
         UnityWebRequest request = new UnityWebRequest(url, UnityWebRequest.kHttpVerbPOST);
 
-        string bodyJson = JsonUtility.ToJson(game);
+        string bodyJson = game.ToJson();
         print(bodyJson);
 
         byte[] bodyRaw = new System.Text.UTF8Encoding().GetBytes(bodyJson);

@@ -30,9 +30,9 @@ public class NewGameController : MonoBehaviour {
 
     void HandleResponse(bool success) {
         if (success) {
-
+            SceneLoader.LoadWaitingRoomScene();
         } else {
-
+            print("error");
         }
     }
 

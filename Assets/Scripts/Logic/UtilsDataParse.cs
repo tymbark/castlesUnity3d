@@ -79,7 +79,7 @@ public static class UtilsDataParse {
     private class CardsWrapper {
         public string[] cards;
         public CardsWrapper(List<Card> cardsList) {
-            this.cards = cardsList.ConvertAll((Card input) => input.Stringify()).ToArray(); ;
+            this.cards = cardsList.ConvertAll((Card input) => input.Stringify()).ToArray();
         }
     }
 
@@ -101,7 +101,7 @@ public static class UtilsDataParse {
     private class ProjectCardsWrapper {
         public string[] cards;
         public ProjectCardsWrapper(List<ProjectCard> cardsList) {
-            this.cards = cardsList.ConvertAll((ProjectCard input) => input.Stringify()).ToArray(); ;
+            this.cards = cardsList.ConvertAll((ProjectCard input) => input.Stringify()).ToArray();
         }
     }
 
@@ -361,10 +361,10 @@ public static class UtilsDataParse {
 
     private class GameWrapper {
         public string id = "";
-        public bool available = false;
+        public bool available;
         public string creator_name = "";
-        public int players_max = 0;
-        public int players_now = 0;
+        public int players_max;
+        public int players_now;
         public string[] players = { };
 
         public Game ParseToGame() {
@@ -393,6 +393,18 @@ public static class UtilsDataParse {
         }
 
         return result;
+    }
+
+    public static string ToJson(this Game game) {
+        var wrapper = new GameWrapper();
+        wrapper.available = game.Available;
+        wrapper.creator_name = game.CreatorName;
+        wrapper.id = game.Id;
+        wrapper.players = game.PlayersIds.ToArray();
+        wrapper.players_max = game.PlayersMax;
+        wrapper.players_now = game.PlayersNow;
+
+        return JsonUtility.ToJson(wrapper);
     }
 
 }
