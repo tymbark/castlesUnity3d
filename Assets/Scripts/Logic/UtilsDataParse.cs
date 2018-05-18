@@ -132,6 +132,7 @@ public static class UtilsDataParse {
                                       bonusActionCards,
                                       completedProjects,
                                       receivedBonuses,
+                                      player.Id,
                                       player.Name,
                                       player.Score,
                                       player.WorkersCount,
@@ -161,6 +162,7 @@ public static class UtilsDataParse {
                           bonusCards,
                           completed,
                           bonusesReceived,
+                          sp.Id,
                           sp.Name,
                           sp.Score,
                           sp.WorkersCount,
@@ -169,6 +171,7 @@ public static class UtilsDataParse {
     }
 
     private class SerializedPlayer {
+        public string Id;
         public string Name;
 
         public string Cards;
@@ -194,11 +197,13 @@ public static class UtilsDataParse {
                                 string bonusCards,
                                 string completedProjects,
                                 string bonuses,
+                                string id,
                                 string name,
                                 int score,
                                 int workersCount,
                                 int silverCount,
                                 bool silverDoneThisTurn) {
+            Id = id;
             Name = name;
             Cards = cards;
             FutureCards = futureCards;
@@ -262,11 +267,16 @@ public static class UtilsDataParse {
             gameState.IsFinished);
 
 
-        return JsonUtility.ToJson(serializedGameState);
+        string jsonString = JsonUtility.ToJson(serializedGameState)
+                                       .Replace("\\", "/")
+                                       .Replace("\"", "'");
+
+        return jsonString;
     }
 
-    public static GameState ParseToGameState(this string input) {
+    public static GameState ParseToGameState(this string inputString) {
 
+        var input = inputString.Replace("/", "\\").Replace("'", "\"");
         SerializedGameState sgs = JsonUtility.FromJson<SerializedGameState>(input);
         List<Player> players = new List<Player>();
 
@@ -359,7 +369,7 @@ public static class UtilsDataParse {
 
     }
 
-    private class GameWrapper {
+    private class GameInfoWrapper {
         public string id = "";
         public bool available;
         public string creator_name = "";
@@ -367,17 +377,24 @@ public static class UtilsDataParse {
         public int players_now;
         public string[] players = { };
 
-        public Game ParseToGame() {
+        public GameInfo ParseToGame() {
             List<string> playersList = new List<string>();
             foreach (string s in players) {
                 playersList.Add(s);
             }
-            return new Game(id, available, creator_name, players_max, players_now, playersList);
+            return new GameInfo(id, available, creator_name, players_max, players_now, playersList);
         }
     }
 
-    public static List<Game> ParseToListOfGames(this string jsonData) {
-        List<Game> result = new List<Game>();
+    public static GameInfo ParseToGameInfo(this string jsonData) {
+        GameInfoWrapper gameWrapper = JsonUtility.FromJson<GameInfoWrapper>(jsonData);
+        GameInfo gameInfo = gameWrapper.ParseToGame();
+
+        return gameInfo;
+    }
+
+    public static List<GameInfo> ParseToListOfGameInfos(this string jsonData) {
+        List<GameInfo> result = new List<GameInfo>();
 
         string json = jsonData
             .Replace(" ", "")
@@ -387,16 +404,16 @@ public static class UtilsDataParse {
             .Replace("},{", "}###{");
 
         foreach (var item in json.Split(new string[] { "###" }, System.StringSplitOptions.RemoveEmptyEntries)) {
-            GameWrapper gameWrapper = JsonUtility.FromJson<GameWrapper>(item);
-            Game game = gameWrapper.ParseToGame();
+            GameInfoWrapper gameWrapper = JsonUtility.FromJson<GameInfoWrapper>(item);
+            GameInfo game = gameWrapper.ParseToGame();
             result.Add(game);
         }
 
         return result;
     }
 
-    public static string ToJson(this Game game) {
-        var wrapper = new GameWrapper();
+    public static string ToJson(this GameInfo game) {
+        var wrapper = new GameInfoWrapper();
         wrapper.available = game.Available;
         wrapper.creator_name = game.CreatorName;
         wrapper.id = game.Id;

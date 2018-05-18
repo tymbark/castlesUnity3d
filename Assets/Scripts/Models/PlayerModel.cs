@@ -7,6 +7,7 @@ namespace Models {
 
     public class Player {
 
+        public readonly string Id;
         public readonly string Name;
 
         public readonly List<Card> Cards;
@@ -23,7 +24,11 @@ namespace Models {
         public int SilverCount;
         public bool SilverActionDoneThisTurn = false;
 
-        public Player(string name, Card startingAnimal, Card startingGood, int startingWorkers) {
+        public Player(string id,
+                      string name,
+                      Card startingAnimal,
+                      Card startingGood,
+                      int startingWorkers) {
             Cards = new List<Card>();
             FutureCards = new List<Card>();
             Animals = new List<Card>();
@@ -34,6 +39,7 @@ namespace Models {
             ReceivedBonuses = new List<BonusCard>();
 
             Name = name;
+            Id = id;
             WorkersCount = startingWorkers;
             SilverCount = 1; // default starting value
 
@@ -49,12 +55,14 @@ namespace Models {
                       List<Card> bonusActionCards,
                       List<Card> completedProjects,
                       List<BonusCard> receivedBonuses,
+                      string id,
                       string name,
                       int score,
                       int workersCount,
                       int silverCount,
                       bool silverDoneThisTurn) {
             Name = name;
+            Id = id;
             Cards = cards;
             FutureCards = futureCards;
             Animals = animals;

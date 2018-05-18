@@ -256,7 +256,7 @@ public class TestDataParser {
 
     [Test]
     public void TestPlayerEquals1() {
-        Player p1 = RandomPlayer(50, 50);
+        Player p1 = RandomPlayer(50, 500);
 
         Assert.IsTrue(p1.IsEqualTo(p1));
     }
@@ -307,8 +307,42 @@ public class TestDataParser {
     }
 
     [Test]
+    public void TestParsingPlayer4() {
+        Player p1 = RandomPlayer(0, 0, 0);
+        Player p2 = p1.Stringify().ParseToPlayer();
+
+        Assert.IsTrue(p1.IsEqualTo(p2));
+    }
+
+    [Test]
+    public void TestParsingPlayer5() {
+        Player p1 = RandomPlayer(50, 100, 0);
+        Player p2 = p1.Stringify().ParseToPlayer();
+
+        Assert.IsTrue(p1.IsEqualTo(p2));
+    }
+
+    [Test]
+    public void TestParsingPlayer6() {
+        Player p1 = RandomPlayer(50, 100, 50);
+        Player p2 = p1.Stringify().ParseToPlayer();
+
+        Assert.IsTrue(p1.IsEqualTo(p2));
+    }
+
+    [Test]
+    public void TestParsingPlayer99Times() {
+        for (int i = 0; i < 99; i++) {
+            Player p1 = RandomPlayer(50, 100, 500);
+            Player p2 = p1.Stringify().ParseToPlayer();
+
+            Assert.IsTrue(p1.IsEqualTo(p2));
+        }
+    }
+
+    [Test]
     public void TestDoubleParsingPlayer1() {
-        Player p1 = RandomPlayer(50, 50);
+        Player p1 = RandomPlayer(10, 50);
         Player p2 = p1.Stringify().ParseToPlayer().Stringify().ParseToPlayer();
 
         Assert.IsTrue(p1.IsEqualTo(p2));
@@ -584,16 +618,16 @@ public class TestDataParser {
         return new GameState(
                     new System.Random().Next(9999) + "",
                     players,
+                    new Deck(RandomList(10)),
                     new Deck(RandomList(20)),
-                    new Deck(RandomList(20)),
-                    new Deck(RandomList(20)),
+                    new Deck(RandomList(30)),
                     pc,
                     bl,
                     (Round)new System.Random().Next((int)Round.E),
                     new System.Random().Next(10),
-                    new System.Random().Next(10),
-                    new System.Random().Next(10),
-                    new System.Random().Next(10) > 4
+                    new System.Random().Next(20),
+                    new System.Random().Next(30),
+                    new System.Random().Next(40) > 4
                 );
     }
 
@@ -633,7 +667,7 @@ public class TestDataParser {
         Assert.AreEqual(list[2], newList[2]);
     }
 
-    public static Player RandomPlayer(int capacity1, int capacity2) {
+    public static Player RandomPlayer(int capacity1, int capacity2, int capacity3 = 200) {
         return new Player(
             RandomList(capacity1),
             RandomList(capacity2),
@@ -643,7 +677,8 @@ public class TestDataParser {
             RandomList(capacity2),
             RandomList(capacity1),
             RandomBonusList(capacity1),
-            "" + new System.Random().Next(200),
+            "" + new System.Random().Next(capacity3),
+            "" + new System.Random().Next(capacity3),
             new System.Random().Next(capacity1),
             new System.Random().Next(capacity2),
             new System.Random().Next(capacity1),

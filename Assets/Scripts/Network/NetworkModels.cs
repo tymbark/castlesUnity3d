@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace NetworkModels {
 
-    public class Game {
+    public class GameInfo {
 
         public string Id;
         public bool Available;
@@ -13,7 +13,7 @@ namespace NetworkModels {
         public int PlayersNow;
         public List<string> PlayersIds;
 
-        public Game(string id,
+        public GameInfo(string id,
                     bool available,
                     string creatorName,
                     int playersMax,
@@ -46,6 +46,11 @@ namespace NetworkModels {
     public class GameStateWithId {
         public string id;
         public string game_data;
+        public GameStateWithId(){}
+        public GameStateWithId(string id, string data){
+            this.id = id;
+            this.game_data = data;
+        }
     }
 
     public class ResponseOrError<T> {

@@ -15,14 +15,18 @@ public class GameEngine {
                 GameState = DataPersistance.LoadGameState();
             } else {
                 //only for debug - starting game scene
-                GameState = GameStateGenerator.GenerateGameState(2);
+                GameState = GameStateGenerator.GenerateGameState("DEBUG_ID", 2);
                 StartGame();
-                GameState.Save();
+                GameState.SaveGameState();
                 AddDebugOptions(GameState);
             }
         }
 
         ActionHandler = new ActionHandler(this);
+    }
+
+    public void Refresh() {
+        GameState = DataPersistance.LoadGameState();
     }
 
     private void AddDebugOptions(GameState gameState) {
@@ -43,9 +47,9 @@ public class GameEngine {
         //gameState.Players[0].CompleteProject(c4, gameState);
         //gameState.Players[0].CompleteProject(c5, gameState);
 
-        gameState.Players[0].BonusActionCards.Add(new Card(CardClass.ActionKnowledge, CardDice.All));
-        gameState.Players[0].BonusActionCards.Add(new Card(CardClass.ActionCastle, CardDice.All));
-        gameState.Players[0].BonusActionCards.Add(new Card(CardClass.ActionBank, CardDice.All));
+        gameState.Players[0].BonusActionCards.Add(new Card(CardClass.BonusCarperter, CardDice.All));
+        gameState.Players[0].BonusActionCards.Add(new Card(CardClass.BonusWarehouse, CardDice.All));
+        gameState.Players[0].BonusActionCards.Add(new Card(CardClass.BonusChurch, CardDice.All));
 
         //players[0].BonusActionCards.Add(new Card(CardClass.BonusCityHall, CardDice.All));
     }

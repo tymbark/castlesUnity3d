@@ -5,9 +5,11 @@ using Models;
 
 public static class DataPersistance {
 
-    private static string GAME_STATE_KEY = "game_state_cob";
+    private static string GAME_STATE_KEY = "game_state";
+    private static string CURRENT_GAME_ID_KEY = "game_key_id";
+    private static string PLAYER_ID_KEY = "player_id";
 
-    public static void Save(this GameState gameState) {
+    public static void SaveGameState(this GameState gameState) {
         string gameStateString = gameState.Stringify();
         PlayerPrefs.SetString(GAME_STATE_KEY, gameStateString);
     }
@@ -20,6 +22,26 @@ public static class DataPersistance {
         Debug.Log("loading game state...");
         string gameStateString = PlayerPrefs.GetString(GAME_STATE_KEY);
         return gameStateString.ParseToGameState();
+    }
+
+    public static string GetPlayerId() {
+        if (!PlayerPrefs.HasKey(PLAYER_ID_KEY)) {
+            string newPlayerId = "PLAYER_" + ((int)(System.DateTime.UtcNow - new System.DateTime(1970, 1, 1))
+                                           .TotalSeconds).ToString("X2");
+            PlayerPrefs.SetString(PLAYER_ID_KEY, newPlayerId);
+        }
+        return PlayerPrefs.GetString(PLAYER_ID_KEY);
+    }
+
+    public static void SaveCurrentGameId(string currentGameId) {
+        PlayerPrefs.SetString(CURRENT_GAME_ID_KEY, currentGameId);
+    }
+
+    public static string GetCurrentGameId() {
+        if (!PlayerPrefs.HasKey(CURRENT_GAME_ID_KEY)) {
+            throw new System.InvalidProgramException("Current game key does not exist!");
+        }
+        return PlayerPrefs.GetString(CURRENT_GAME_ID_KEY);
     }
 
 }

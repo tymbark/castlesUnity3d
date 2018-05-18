@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public static class GameStateGenerator {
 
-    public static GameState GenerateGameState(int howManyPlayers) {
-        string newId = DateTime.Now.Ticks.ToString("X2");
+    public static GameState GenerateGameState(string newGameId, int howManyPlayers) {
+        string newId = newGameId;
         var mainDeck = DeckGenerator.GenerateActionsDeck();
         var animalsDeck = DeckGenerator.GenerateAnimalsDeck();
         var goodsDeck = DeckGenerator.GenerateGoodsDeck();
@@ -75,7 +75,7 @@ public static class GameStateGenerator {
                     break;
             }
 
-            Players.Add(new Player("ewa" + i, animalsDeck.DrawCard(), goodsDeck.DrawCard(), startingWorkers));
+            Players.Add(new Player("ewaID" + i, "ewa" + i, animalsDeck.DrawCard(), goodsDeck.DrawCard(), startingWorkers));
         }
         return Players;
     }

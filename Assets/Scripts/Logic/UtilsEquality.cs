@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Models;
+using NetworkModels;
 
 public static class UtilsEquality {
 
@@ -89,23 +90,59 @@ public static class UtilsEquality {
         return true;
     }
 
-    public static bool IsEqualTo(this Player p1, Player p2) {
-        bool cardsEqual = p1.Cards.IsEqualTo(p2.Cards);
-        bool futureCardsEqual = p1.FutureCards.IsEqualTo(p2.FutureCards);
-        bool animalsEqual = p1.Animals.IsEqualTo(p2.Animals);
-        bool goodsEqual = p1.Goods.IsEqualTo(p2.Goods);
-        bool projectAreaEqual = p1.ProjectArea.IsEqualTo(p2.ProjectArea);
-        bool bonusActionCardsEqual = p1.BonusActionCards.IsEqualTo(p2.BonusActionCards);
-        bool completedProjectsEqual = p1.CompletedProjects.IsEqualTo(p2.CompletedProjects);
-        bool namesEqual = p1.Name == p2.Name;
-        bool scoreEqual = p1.Score == p2.Score;
-        bool workersEqual = p1.WorkersCount == p2.WorkersCount;
-        bool silverEqual = p1.SilverCount == p2.SilverCount;
-        bool silverDoneEqual = p1.SilverActionDoneThisTurn == p2.SilverActionDoneThisTurn;
-        bool receivedBonusesEqual = p1.ReceivedBonuses.IsEqualTo(p2.ReceivedBonuses);
+    public static bool IsEqualTo(this List<string> l1, List<string> l2) {
+        if (l1 == null || l2 == null) {
+            throw new System.InvalidProgramException("Cannot compare nulls!");
+        }
 
-        return cardsEqual && futureCardsEqual && animalsEqual && goodsEqual && projectAreaEqual
-            && bonusActionCardsEqual && completedProjectsEqual && receivedBonusesEqual;
+        if (l1.Count != l2.Count) {
+            return false;
+        }
+
+        for (int i = 0; i < l1.Count; i++) {
+            string val1 = l1[i];
+            string val2 = l2[i];
+            if (val1 != val2) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static bool IsEqualTo(this Player p1, Player p2) {
+        List<bool> equality = new List<bool>();
+
+        equality.Add(p1.Cards.IsEqualTo(p2.Cards));
+        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("1"));
+        equality.Add(p1.FutureCards.IsEqualTo(p2.FutureCards));
+        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("2"));
+        equality.Add(p1.Animals.IsEqualTo(p2.Animals));
+        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("3"));
+        equality.Add(p1.Goods.IsEqualTo(p2.Goods));
+        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("4"));
+        equality.Add(p1.ProjectArea.IsEqualTo(p2.ProjectArea));
+        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("5"));
+        equality.Add(p1.BonusActionCards.IsEqualTo(p2.BonusActionCards));
+        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("6"));
+        equality.Add(p1.CompletedProjects.IsEqualTo(p2.CompletedProjects));
+        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("7"));
+        equality.Add(p1.Id == p2.Id);
+        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("8"));
+        equality.Add(p1.Name == p2.Name);
+        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("9"));
+        equality.Add(p1.Score == p2.Score);
+        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("10"));
+        equality.Add(p1.WorkersCount == p2.WorkersCount);
+        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("11"));
+        equality.Add(p1.SilverCount == p2.SilverCount);
+        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("12"));
+        equality.Add(p1.SilverActionDoneThisTurn == p2.SilverActionDoneThisTurn);
+        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("13"));
+        equality.Add(p1.ReceivedBonuses.IsEqualTo(p2.ReceivedBonuses));
+        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("14"));
+
+
+        return equality.TrueForAll((bool obj) => obj);
     }
 
     public static bool IsEqualTo(this GameState gs1, GameState gs2) {
@@ -127,5 +164,19 @@ public static class UtilsEquality {
         return equality.TrueForAll((bool obj) => obj);
     }
 
+    public static bool IsEqualTo(this GameInfo gi1, GameInfo gi2) {
+        List<bool> equality = new List<bool>();
+
+        equality.Add(gi1.Id == gi2.Id);
+        equality.Add(gi1.Available == gi2.Available);
+        equality.Add(gi1.CreatorName == gi2.CreatorName);
+        equality.Add(gi1.PlayersNow == gi2.PlayersNow);
+        equality.Add(gi1.PlayersMax == gi2.PlayersMax);
+        equality.Add(gi1.PlayersIds.IsEqualTo(gi2.PlayersIds));
+
+
+        return equality.TrueForAll((bool obj) => obj);
+
+    }
 
 }

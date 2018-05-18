@@ -78,8 +78,8 @@ MonoBehaviour:
   m_fontSizeBase: 280
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 100
-  m_fontSizeMax: 100
+  m_fontSizeMin: 90
+  m_fontSizeMax: 90
   m_fontStyle: 0
   m_textAlignment: 514
   m_isAlignmentEnumConverted: 1

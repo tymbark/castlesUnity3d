@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Models;
+using NetworkModels;
 using InputActions;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,6 +15,7 @@ public class GameController : MonoBehaviour {
     private ActionHandler ActionHandler;
     private GameBoardGenerator GameBoardGenerator = new GameBoardGenerator();
     private PopupsController PopupsController;
+    private string CurrentGameId;
 
     private void Awake() {
         GameEngine = new GameEngine();
@@ -21,12 +23,38 @@ public class GameController : MonoBehaviour {
     }
 
     void Start() {
+        if (!DataPersistance.GameStateExists()) {
+            throw new System.InvalidProgramException("Game state don't exist!");
+        }
+        CurrentGameId = DataPersistance.LoadGameState().Id;
         PopupsController = GetComponent<PopupsController>();
         RefreshTable();
+        GetGameStateFromServer();
     }
 
-    void Update() {
+    private void GetGameStateFromServer() {
+        StartCoroutine(NetworkController.GetGameState(CurrentGameId, GameStateResponse));
+    }
 
+    private void GameStateResponse(ResponseOrError<GameState> responseOrError) {
+        if (responseOrError.IsSuccess) {
+            var newGameState = responseOrError.Response;
+            if (!GameEngine.GameState.IsEqualTo(newGameState)) {
+                newGameState.SaveGameState();
+                GameEngine.Refresh();
+                RefreshTable();
+                print("game state has changed... how refreshing");
+            } else {
+                print("game state hasn't changed");
+            }
+
+            if (!(newGameState.CurrentPlayer.Id == DataPersistance.GetPlayerId())) {
+                Invoke("GetGameStateFromServer", 3);
+            }
+
+        } else {
+            Invoke("GetGameStateFromServer", 5);
+        }
     }
 
     public void RefreshTable() {
@@ -34,7 +62,7 @@ public class GameController : MonoBehaviour {
             Destroy(gmo);
         }
         GUIobjects = GameBoardGenerator.DrawGameBoard(GameEngine);
-        GameEngine.GameState.Save();
+        GameEngine.GameState.SaveGameState();
     }
 
     public void HandleClickAction(ClickAction action) {
