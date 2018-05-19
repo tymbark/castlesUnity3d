@@ -132,8 +132,7 @@ public static class UtilsDataParse {
                                       bonusActionCards,
                                       completedProjects,
                                       receivedBonuses,
-                                      player.Id,
-                                      player.Name,
+                                      player.NickName,
                                       player.Score,
                                       player.WorkersCount,
                                       player.SilverCount,
@@ -162,8 +161,7 @@ public static class UtilsDataParse {
                           bonusCards,
                           completed,
                           bonusesReceived,
-                          sp.Id,
-                          sp.Name,
+                          sp.NickName,
                           sp.Score,
                           sp.WorkersCount,
                           sp.SilverCount,
@@ -171,8 +169,7 @@ public static class UtilsDataParse {
     }
 
     private class SerializedPlayer {
-        public string Id;
-        public string Name;
+        public string NickName;
 
         public string Cards;
         public string FutureCards;
@@ -197,14 +194,12 @@ public static class UtilsDataParse {
                                 string bonusCards,
                                 string completedProjects,
                                 string bonuses,
-                                string id,
-                                string name,
+                                string nickName,
                                 int score,
                                 int workersCount,
                                 int silverCount,
                                 bool silverDoneThisTurn) {
-            Id = id;
-            Name = name;
+            NickName = nickName;
             Cards = cards;
             FutureCards = futureCards;
             Animals = animals;
@@ -372,7 +367,7 @@ public static class UtilsDataParse {
     private class GameInfoWrapper {
         public string id = "";
         public bool available;
-        public string creator_name = "";
+        public string creator_nickname = "";
         public int players_max;
         public int players_now;
         public string[] players = { };
@@ -382,7 +377,7 @@ public static class UtilsDataParse {
             foreach (string s in players) {
                 playersList.Add(s);
             }
-            return new GameInfo(id, available, creator_name, players_max, players_now, playersList);
+            return new GameInfo(id, available, creator_nickname, players_max, players_now, playersList);
         }
     }
 
@@ -395,6 +390,10 @@ public static class UtilsDataParse {
 
     public static List<GameInfo> ParseToListOfGameInfos(this string jsonData) {
         List<GameInfo> result = new List<GameInfo>();
+
+        if (jsonData.Length < 20) {
+            return result;
+        }
 
         string json = jsonData
             .Replace(" ", "")
@@ -415,9 +414,9 @@ public static class UtilsDataParse {
     public static string ToJson(this GameInfo game) {
         var wrapper = new GameInfoWrapper();
         wrapper.available = game.Available;
-        wrapper.creator_name = game.CreatorName;
+        wrapper.creator_nickname = game.CreatorNickName;
         wrapper.id = game.Id;
-        wrapper.players = game.PlayersIds.ToArray();
+        wrapper.players = game.PlayersNicknames.ToArray();
         wrapper.players_max = game.PlayersMax;
         wrapper.players_now = game.PlayersNow;
 

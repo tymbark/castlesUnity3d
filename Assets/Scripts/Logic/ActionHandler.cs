@@ -17,7 +17,7 @@ public class ActionHandler {
             throw new System.InvalidProgramException("Cannot use and action that is not in the available actions!");
         }
 
-        UnityEngine.Debug.Log(CurrentPlayer().Name + " used " + action.Describe());
+        UnityEngine.Debug.Log(CurrentPlayer().NickName + " used " + action.Describe());
 
         switch (action.Type) {
             case ActionType.TakeProject:

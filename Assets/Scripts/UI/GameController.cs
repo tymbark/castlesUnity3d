@@ -48,7 +48,7 @@ public class GameController : MonoBehaviour {
                 print("game state hasn't changed");
             }
 
-            if (!(newGameState.CurrentPlayer.Id == DataPersistance.GetPlayerId())) {
+            if (!(newGameState.CurrentPlayer.NickName == DataPersistance.GetPlayerNickName())) {
                 Invoke("GetGameStateFromServer", 3);
             }
 

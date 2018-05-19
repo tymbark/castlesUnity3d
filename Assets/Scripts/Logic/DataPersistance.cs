@@ -7,7 +7,7 @@ public static class DataPersistance {
 
     private static string GAME_STATE_KEY = "game_state";
     private static string CURRENT_GAME_ID_KEY = "game_key_id";
-    private static string PLAYER_ID_KEY = "player_id";
+    private static string PLAYER_NICKNAME_KEY = "player_nickname";
 
     public static void SaveGameState(this GameState gameState) {
         string gameStateString = gameState.Stringify();
@@ -24,13 +24,13 @@ public static class DataPersistance {
         return gameStateString.ParseToGameState();
     }
 
-    public static string GetPlayerId() {
-        if (!PlayerPrefs.HasKey(PLAYER_ID_KEY)) {
+    public static string GetPlayerNickName() {
+        if (!PlayerPrefs.HasKey(PLAYER_NICKNAME_KEY)) {
             string newPlayerId = "PLAYER_" + ((int)(System.DateTime.UtcNow - new System.DateTime(1970, 1, 1))
                                            .TotalSeconds).ToString("X2");
-            PlayerPrefs.SetString(PLAYER_ID_KEY, newPlayerId);
+            PlayerPrefs.SetString(PLAYER_NICKNAME_KEY, newPlayerId);
         }
-        return PlayerPrefs.GetString(PLAYER_ID_KEY);
+        return PlayerPrefs.GetString(PLAYER_NICKNAME_KEY);
     }
 
     public static void SaveCurrentGameId(string currentGameId) {

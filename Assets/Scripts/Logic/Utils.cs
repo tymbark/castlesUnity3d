@@ -179,12 +179,12 @@ public static class Utils {
 
         statusText += "Actions Cards in Deck: \n" + gameEngine.GameState.MainDeck.Cards.Describe() + "\n\n";
 
-        statusText += "Current player: " + gameEngine.GameState.CurrentPlayer.Name + "\n\n";
+        statusText += "Current player: " + gameEngine.GameState.CurrentPlayer.NickName + "\n\n";
 
         for (int i = 0; i < gameEngine.GameState.Players.Count; i++) {
             Player p = gameEngine.GameState.Players[i];
 
-            statusText += p.Name + "\n    ";
+            statusText += p.NickName + "\n    ";
             statusText += "Cards: " + p.Cards.Describe();
             statusText += "\n    ";
             statusText += "Future Cards: " + p.FutureCards.Describe();
@@ -476,6 +476,10 @@ public static class Utils {
 
     public static List<Card> OnlySilverBonuses(this List<Card> cards) {
         return cards.FindAll((Card c) => c.IsActionType());
+    }
+
+    public static bool IsEmpty<T>(this List<T> list) {
+        return list.Count == 0;
     }
 
 }

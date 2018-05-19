@@ -113,34 +113,18 @@ public static class UtilsEquality {
         List<bool> equality = new List<bool>();
 
         equality.Add(p1.Cards.IsEqualTo(p2.Cards));
-        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("1"));
         equality.Add(p1.FutureCards.IsEqualTo(p2.FutureCards));
-        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("2"));
         equality.Add(p1.Animals.IsEqualTo(p2.Animals));
-        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("3"));
         equality.Add(p1.Goods.IsEqualTo(p2.Goods));
-        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("4"));
         equality.Add(p1.ProjectArea.IsEqualTo(p2.ProjectArea));
-        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("5"));
         equality.Add(p1.BonusActionCards.IsEqualTo(p2.BonusActionCards));
-        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("6"));
         equality.Add(p1.CompletedProjects.IsEqualTo(p2.CompletedProjects));
-        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("7"));
-        equality.Add(p1.Id == p2.Id);
-        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("8"));
-        equality.Add(p1.Name == p2.Name);
-        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("9"));
+        equality.Add(p1.NickName == p2.NickName);
         equality.Add(p1.Score == p2.Score);
-        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("10"));
         equality.Add(p1.WorkersCount == p2.WorkersCount);
-        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("11"));
         equality.Add(p1.SilverCount == p2.SilverCount);
-        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("12"));
         equality.Add(p1.SilverActionDoneThisTurn == p2.SilverActionDoneThisTurn);
-        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("13"));
         equality.Add(p1.ReceivedBonuses.IsEqualTo(p2.ReceivedBonuses));
-        equality.FindAll((bool obj) => !obj).ForEach((bool obj) => obj.print_("14"));
-
 
         return equality.TrueForAll((bool obj) => obj);
     }
@@ -169,10 +153,10 @@ public static class UtilsEquality {
 
         equality.Add(gi1.Id == gi2.Id);
         equality.Add(gi1.Available == gi2.Available);
-        equality.Add(gi1.CreatorName == gi2.CreatorName);
+        equality.Add(gi1.CreatorNickName == gi2.CreatorNickName);
         equality.Add(gi1.PlayersNow == gi2.PlayersNow);
         equality.Add(gi1.PlayersMax == gi2.PlayersMax);
-        equality.Add(gi1.PlayersIds.IsEqualTo(gi2.PlayersIds));
+        equality.Add(gi1.PlayersNicknames.IsEqualTo(gi2.PlayersNicknames));
 
 
         return equality.TrueForAll((bool obj) => obj);

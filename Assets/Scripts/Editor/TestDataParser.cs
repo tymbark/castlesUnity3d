@@ -678,7 +678,6 @@ public class TestDataParser {
             RandomList(capacity1),
             RandomBonusList(capacity1),
             "" + new System.Random().Next(capacity3),
-            "" + new System.Random().Next(capacity3),
             new System.Random().Next(capacity1),
             new System.Random().Next(capacity2),
             new System.Random().Next(capacity1),

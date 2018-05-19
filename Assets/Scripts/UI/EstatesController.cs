@@ -24,22 +24,22 @@ public class EstatesController : MonoBehaviour {
     private void DrawPlayerEstate(Player player, int index) {
         switch (index) {
             case 0:
-                DrawPlayerName(ED.Player1Name, player.Name);
+                DrawPlayerName(ED.Player1Name, player.NickName);
                 DrawPoints(ED.Player1Points, player.Score + "");
                 DrawPlayerCards(player, ED.Player1Name.y);
                 break;
             case 1:
-                DrawPlayerName(ED.Player2Name, player.Name);
+                DrawPlayerName(ED.Player2Name, player.NickName);
                 DrawPoints(ED.Player2Points, player.Score + "");
                 DrawPlayerCards(player, ED.Player2Name.y);
                 break;
             case 2:
-                DrawPlayerName(ED.Player3Name, player.Name);
+                DrawPlayerName(ED.Player3Name, player.NickName);
                 DrawPoints(ED.Player3Points, player.Score + "");
                 DrawPlayerCards(player, ED.Player3Name.y);
                 break;
             case 3:
-                DrawPlayerName(ED.Player4Name, player.Name);
+                DrawPlayerName(ED.Player4Name, player.NickName);
                 DrawPoints(ED.Player4Points, player.Score + "");
                 DrawPlayerCards(player, ED.Player4Name.y);
                 break;

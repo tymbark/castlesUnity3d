@@ -8,35 +8,35 @@ namespace NetworkModels {
 
         public string Id;
         public bool Available;
-        public string CreatorName;
+        public string CreatorNickName;
         public int PlayersMax;
         public int PlayersNow;
-        public List<string> PlayersIds;
+        public List<string> PlayersNicknames;
 
         public GameInfo(string id,
-                    bool available,
-                    string creatorName,
-                    int playersMax,
-                    int playersNow,
-                    List<string> playersIds) {
+                        bool available,
+                        string creatorNickName,
+                        int playersMax,
+                        int playersNow,
+                        List<string> playersNicknames) {
 
             Id = id;
             Available = available;
-            CreatorName = creatorName;
+            CreatorNickName = creatorNickName;
             PlayersMax = playersMax;
             PlayersNow = playersNow;
-            PlayersIds = playersIds;
+            PlayersNicknames = playersNicknames;
 
         }
 
         public string Describe() {
             string players = "";
-            foreach (string s in PlayersIds) {
+            foreach (string s in PlayersNicknames) {
                 players = players + s + " ";
             }
             return "id:" + Id
                 + "\navailable:" + Available
-                + "\ncreatorName" + CreatorName
+                + "\ncreatorNickName" + CreatorNickName
                 + "\nMax:" + PlayersMax
                 + "\nNow:" + PlayersNow
                 + "\nplayers:" + players;
@@ -46,8 +46,8 @@ namespace NetworkModels {
     public class GameStateWithId {
         public string id;
         public string game_data;
-        public GameStateWithId(){}
-        public GameStateWithId(string id, string data){
+        public GameStateWithId() { }
+        public GameStateWithId(string id, string data) {
             this.id = id;
             this.game_data = data;
         }

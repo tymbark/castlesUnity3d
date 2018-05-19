@@ -24,28 +24,28 @@ public class ProjectsController : MonoBehaviour {
     private void DrawPlayerProjects(Player player, int index) {
         switch (index) {
             case 0:
-                DrawPlayerName(ED.Player1Name, player.Name);
+                DrawPlayerName(ED.Player1Name, player.NickName);
                 DrawPoints(ED.Player1Points, player.Score + "");
                 DrawPlayerCards(player, ED.Player1Name.y);
                 DrawSilverCardWithText(ED.Player1Silver, player.SilverCount + "");
                 DrawWorkersCardWithText(ED.Player1Workers, player.WorkersCount + "");
                 break;
             case 1:
-                DrawPlayerName(ED.Player2Name, player.Name);
+                DrawPlayerName(ED.Player2Name, player.NickName);
                 DrawPoints(ED.Player2Points, player.Score + "");
                 DrawPlayerCards(player, ED.Player2Name.y);
                 DrawSilverCardWithText(ED.Player2Silver, player.SilverCount + "");
                 DrawWorkersCardWithText(ED.Player2Workers, player.WorkersCount + "");
                 break;
             case 2:
-                DrawPlayerName(ED.Player3Name, player.Name);
+                DrawPlayerName(ED.Player3Name, player.NickName);
                 DrawPoints(ED.Player3Points, player.Score + "");
                 DrawPlayerCards(player, ED.Player3Name.y);
                 DrawSilverCardWithText(ED.Player3Silver, player.SilverCount + "");
                 DrawWorkersCardWithText(ED.Player3Workers, player.WorkersCount + "");
                 break;
             case 3:
-                DrawPlayerName(ED.Player4Name, player.Name);
+                DrawPlayerName(ED.Player4Name, player.NickName);
                 DrawPoints(ED.Player4Points, player.Score + "");
                 DrawPlayerCards(player, ED.Player4Name.y);
                 DrawSilverCardWithText(ED.Player4Silver, player.SilverCount + "");

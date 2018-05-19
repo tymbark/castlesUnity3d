@@ -4,13 +4,15 @@ using System.Collections.Generic;
 
 public static class GameStateGenerator {
 
-    public static GameState GenerateGameState(string newGameId, int howManyPlayers) {
+    public static GameState GenerateGameState(string newGameId,
+                                              int howManyPlayers,
+                                              List<string> playersNicknames) {
         string newId = newGameId;
         var mainDeck = DeckGenerator.GenerateActionsDeck();
         var animalsDeck = DeckGenerator.GenerateAnimalsDeck();
         var goodsDeck = DeckGenerator.GenerateGoodsDeck();
         var projectCards = PrepareProjectCards(mainDeck, howManyPlayers);
-        var players = PreparePlayers(animalsDeck, goodsDeck, howManyPlayers);
+        var players = PreparePlayers(animalsDeck, goodsDeck, howManyPlayers, playersNicknames);
         var bonuses = PrepareAvailableBonuses(howManyPlayers);
 
         return new GameState(newId,
@@ -59,9 +61,16 @@ public static class GameStateGenerator {
         return bonuses;
     }
 
-    private static List<Player> PreparePlayers(Deck animalsDeck, Deck goodsDeck, int howManyPlayers) {
+    private static List<Player> PreparePlayers(Deck animalsDeck,
+                                               Deck goodsDeck,
+                                               int howManyPlayers,
+                                               List<string> playersNicknames) {
+        if (howManyPlayers != playersNicknames.Count) {
+            throw new System.InvalidProgramException("Players count must be the same as players nicknames array size!");
+        }
         List<Player> Players = new List<Player>();
         for (int i = 0; i < howManyPlayers; i++) {
+            string nickname = playersNicknames[i];
             int startingWorkers;
             switch (i) {
                 case 0:
@@ -75,7 +84,7 @@ public static class GameStateGenerator {
                     break;
             }
 
-            Players.Add(new Player("ewaID" + i, "ewa" + i, animalsDeck.DrawCard(), goodsDeck.DrawCard(), startingWorkers));
+            Players.Add(new Player(nickname, animalsDeck.DrawCard(), goodsDeck.DrawCard(), startingWorkers));
         }
         return Players;
     }

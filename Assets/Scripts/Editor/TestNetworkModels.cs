@@ -81,15 +81,24 @@ public class TestNetworkModels {
     }
 
     [Test]
-    public void TestParsingGameInfoEquals1() {
+    public void TestParsingGameInfoEquals0() {
         GameInfo gi1 = new GameInfo(
-            "" + new System.Random().Next(200),
+            "" ,
             new System.Random().Next(10) > 4,
-            "" + new System.Random().Next(200),
-            new System.Random().Next(200),
-            new System.Random().Next(200),
-            RandomStringList(20)
+            "" ,
+            new System.Random().Next(5),
+            new System.Random().Next(5),
+            RandomStringList(5)
         );
+
+        GameInfo gi2 = gi1.ToJson().ParseToGameInfo();
+
+        Assert.IsTrue(gi1.IsEqualTo(gi1));
+    }
+
+    [Test]
+    public void TestParsingGameInfoEquals1() {
+        GameInfo gi1 = RandomGameInfo(20, 20, 20, 20, 20);
 
         GameInfo gi2 = gi1.ToJson().ParseToGameInfo();
 
@@ -98,14 +107,7 @@ public class TestNetworkModels {
 
     [Test]
     public void TestParsingGameInfoEquals2() {
-        GameInfo gi1 = new GameInfo(
-            "" + new System.Random().Next(0),
-            new System.Random().Next(10) > 4,
-            "" + new System.Random().Next(0),
-            new System.Random().Next(0),
-            new System.Random().Next(0),
-            RandomStringList(0)
-        );
+        GameInfo gi1 = RandomGameInfo(20, 20, 20, 20, 0);
 
         GameInfo gi2 = gi1.ToJson().ParseToGameInfo();
 
@@ -114,14 +116,43 @@ public class TestNetworkModels {
 
     [Test]
     public void TestParsingGameInfoEquals3() {
-        GameInfo gi1 = new GameInfo(
-            "" + new System.Random().Next(10),
-            new System.Random().Next(10) > 4,
-            "" + new System.Random().Next(0),
-            new System.Random().Next(0),
-            new System.Random().Next(0),
-            RandomStringList(10)
-        );
+        GameInfo gi1 = RandomGameInfo(20, 20, 20, 0, 0);
+
+        GameInfo gi2 = gi1.ToJson().ParseToGameInfo();
+
+        Assert.IsTrue(gi1.IsEqualTo(gi1));
+    }
+
+    [Test]
+    public void TestParsingGameInfoEquals4() {
+        GameInfo gi1 = RandomGameInfo(20, 20, 0, 0, 0);
+
+        GameInfo gi2 = gi1.ToJson().ParseToGameInfo();
+
+        Assert.IsTrue(gi1.IsEqualTo(gi1));
+    }
+
+    [Test]
+    public void TestParsingGameInfoEquals5() {
+        GameInfo gi1 = RandomGameInfo(20, 0, 0, 0, 0);
+
+        GameInfo gi2 = gi1.ToJson().ParseToGameInfo();
+
+        Assert.IsTrue(gi1.IsEqualTo(gi1));
+    }
+
+    [Test]
+    public void TestParsingGameInfoEquals6() {
+        GameInfo gi1 = RandomGameInfo(0, 0, 0, 0, 0);
+
+        GameInfo gi2 = gi1.ToJson().ParseToGameInfo();
+
+        Assert.IsTrue(gi1.IsEqualTo(gi1));
+    }
+
+    [Test]
+    public void TestParsingGameInfoEquals7() {
+        GameInfo gi1 = RandomGameInfo(10, 100, 1000, 10000, 100000);
 
         GameInfo gi2 = gi1.ToJson().ParseToGameInfo();
 
@@ -130,14 +161,7 @@ public class TestNetworkModels {
 
     [Test]
     public void TestParsingGameInfoNotEquals1() {
-        GameInfo gi1 = new GameInfo(
-            "" + new System.Random().Next(10),
-            new System.Random().Next(10) > 4,
-            "" + new System.Random().Next(0),
-            new System.Random().Next(0),
-            new System.Random().Next(0),
-            RandomStringList(10)
-        );
+        GameInfo gi1 = RandomGameInfo(20, 20, 20, 20, 20);
 
         GameInfo gi2 = gi1.ToJson().ParseToGameInfo();
         gi1.Available = !gi1.Available;
@@ -147,14 +171,7 @@ public class TestNetworkModels {
 
     [Test]
     public void TestParsingGameInfoNotEquals2() {
-        GameInfo gi1 = new GameInfo(
-            "" + new System.Random().Next(10),
-            new System.Random().Next(10) > 4,
-            "" + new System.Random().Next(20),
-            new System.Random().Next(30),
-            new System.Random().Next(40),
-            RandomStringList(10)
-        );
+        GameInfo gi1 = RandomGameInfo(20, 30, 40, 50, 60);
 
         GameInfo gi2 = gi1.ToJson().ParseToGameInfo();
         gi1.Id = "test";
@@ -164,31 +181,17 @@ public class TestNetworkModels {
 
     [Test]
     public void TestParsingGameInfoNotEquals3() {
-        GameInfo gi1 = new GameInfo(
-            "" + new System.Random().Next(10),
-            new System.Random().Next(10) > 4,
-            "" + new System.Random().Next(20),
-            new System.Random().Next(30),
-            new System.Random().Next(40),
-            RandomStringList(10)
-        );
+        GameInfo gi1 = RandomGameInfo(20, 0, 40, 50, 0);
 
         GameInfo gi2 = gi1.ToJson().ParseToGameInfo();
-        gi1.CreatorName = "test";
+        gi1.CreatorNickName = "test";
 
         Assert.IsFalse(gi1.IsEqualTo(gi2));
     }
 
     [Test]
     public void TestParsingGameInfoNotEquals4() {
-        GameInfo gi1 = new GameInfo(
-            "" + new System.Random().Next(10),
-            new System.Random().Next(10) > 4,
-            "" + new System.Random().Next(20),
-            new System.Random().Next(30),
-            new System.Random().Next(40),
-            RandomStringList(10)
-        );
+        GameInfo gi1 = RandomGameInfo(20, 30, 40, 50, 60);
 
         GameInfo gi2 = gi1.ToJson().ParseToGameInfo();
         gi1.PlayersMax = -20;
@@ -198,14 +201,7 @@ public class TestNetworkModels {
 
     [Test]
     public void TestParsingGameInfoNotEquals5() {
-        GameInfo gi1 = new GameInfo(
-            "" + new System.Random().Next(10),
-            new System.Random().Next(10) > 4,
-            "" + new System.Random().Next(20),
-            new System.Random().Next(30),
-            new System.Random().Next(40),
-            RandomStringList(10)
-        );
+        GameInfo gi1 = RandomGameInfo(0, 0, 0, 0, 0);
 
         GameInfo gi2 = gi1.ToJson().ParseToGameInfo();
         gi1.PlayersNow = -20;
@@ -215,19 +211,23 @@ public class TestNetworkModels {
 
     [Test]
     public void TestParsingGameInfoNotEquals6() {
-        GameInfo gi1 = new GameInfo(
-            "" + new System.Random().Next(10),
-            new System.Random().Next(10) > 4,
-            "" + new System.Random().Next(20),
-            new System.Random().Next(30),
-            new System.Random().Next(40),
-            RandomStringList(10)
-        );
+        GameInfo gi1 = RandomGameInfo(20, 30, 0, 50, 60);
 
         GameInfo gi2 = gi1.ToJson().ParseToGameInfo();
-        gi1.PlayersIds.Clear();
+        gi1.PlayersNicknames.Clear();
 
         Assert.IsFalse(gi1.IsEqualTo(gi2));
+    }
+
+    private GameInfo RandomGameInfo(int c1, int c2, int c3, int c4, int c5) {
+        return new GameInfo(
+            "" + new System.Random().Next(c1),
+            new System.Random().Next(10) > 4,
+            "" + new System.Random().Next(c2),
+            new System.Random().Next(c3),
+            new System.Random().Next(c4),
+            RandomStringList(c5)
+        );
     }
 
     private List<string> RandomStringList(int howMany) {

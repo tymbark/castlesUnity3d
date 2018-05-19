@@ -41,7 +41,7 @@ public class PopupsController : MonoBehaviour {
         messageGameObject.transform.position = Vector3.one;
 
         TMPro.TextMeshProUGUI text = messageGameObject.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        text.text = "next player: " + GameController.GameEngine.GameState.CurrentPlayer.Name;
+        text.text = "next player: " + GameController.GameEngine.GameState.CurrentPlayer.NickName;
 
         GameObject canvas = GameObject.Find("Canvas");
         messageGameObject.transform.SetParent(canvas.transform);

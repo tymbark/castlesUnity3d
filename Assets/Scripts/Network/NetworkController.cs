@@ -7,22 +7,18 @@ using NetworkModels;
 
 public class NetworkController {
 
-    private static readonly string STAGE = "beta6";
+    private static readonly string STAGE = "beta8";
     private static readonly string BASE_URL = "https://cn0izbewf2.execute-api.eu-west-2.amazonaws.com/" + STAGE;
 
     private static void print(object message) {
-        0.print_(message.ToString());
-    }
-
-    void DoSomething(ResponseOrError<List<GameInfo>> responseOrError) {
-        print(responseOrError.IsError);
-        print(responseOrError.Response[0].CreatorName);
+        UnityEngine.Debug.Log(message.ToString());
     }
 
     public static IEnumerator GetAllGameInfos(System.Action<ResponseOrError<List<GameInfo>>> action) {
         string url = BASE_URL + "/gamestates";
         UnityWebRequest request = UnityWebRequest.Get(url);
 
+        print("HTTP GET\n" + url);
         yield return request.SendWebRequest();
 
         if (request.isNetworkError || request.isHttpError) {
@@ -37,7 +33,7 @@ public class NetworkController {
                 jsonResult = jsonResult.Replace(" ", "");
                 jsonResult = jsonResult.Replace("\n", "");
 
-                print("HTTP SUCCESS\n" + jsonResult);
+                print("HTTP SUCCESS\n" + url + "\n" + jsonResult);
 
                 var games = jsonResult.ParseToListOfGameInfos();
                 action(new ResponseOrError<List<GameInfo>>(games));
@@ -50,6 +46,7 @@ public class NetworkController {
         string url = BASE_URL + "/gamestates/" + gameId;
         UnityWebRequest request = UnityWebRequest.Get(url);
 
+        print("HTTP GET\n" + url);
         yield return request.SendWebRequest();
 
         if (request.isNetworkError || request.isHttpError) {
@@ -64,7 +61,7 @@ public class NetworkController {
                 jsonResult = jsonResult.Replace(" ", "");
                 jsonResult = jsonResult.Replace("\n", "");
 
-                print("HTTP SUCCESS\n" + jsonResult);
+                print("HTTP SUCCESS\n" + url + "\n" + jsonResult);
 
                 var games = jsonResult.ParseToGameInfo();
                 action(new ResponseOrError<GameInfo>(games));
@@ -79,13 +76,13 @@ public class NetworkController {
         UnityWebRequest request = new UnityWebRequest(url, UnityWebRequest.kHttpVerbPOST);
 
         string bodyJson = game.ToJson();
-        print(bodyJson);
 
         byte[] bodyRaw = new System.Text.UTF8Encoding().GetBytes(bodyJson);
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
 
+        print("HTTP POST\n" + url + "\n" + bodyJson);
         yield return request.SendWebRequest();
 
         if (request.isNetworkError || request.isHttpError) {
@@ -95,7 +92,7 @@ public class NetworkController {
         } else {
             if (request.isDone) {
                 string jsonResult = System.Text.Encoding.UTF8.GetString(request.downloadHandler.data);
-                print("HTTP SUCCESS\n" + jsonResult);
+                print("HTTP SUCCESS\n" + url + "\n" + jsonResult);
                 action(true);
             }
         }
@@ -106,6 +103,7 @@ public class NetworkController {
         string url = BASE_URL + "/games/" + gameId;
         UnityWebRequest request = UnityWebRequest.Get(url);
 
+        print("HTTP GET\n" + url);
         yield return request.SendWebRequest();
 
         if (request.isNetworkError || request.isHttpError) {
@@ -115,7 +113,16 @@ public class NetworkController {
         } else {
             if (request.isDone) {
                 string jsonResult = System.Text.Encoding.UTF8.GetString(request.downloadHandler.data);
-                print("HTTP SUCCESS\n" + jsonResult);
+
+                if (jsonResult.Length == 0) {
+                    print("HTTP SUCCESS (no body) \n" + url + "\n" + jsonResult);
+                    action(new ResponseOrError<GameState>("request failed"));
+                } else {
+                    print("HTTP SUCCESS\n" + url + "\n" + jsonResult);
+                    GameStateWithId gameStateWithId = JsonUtility.FromJson<GameStateWithId>(jsonResult);
+                    GameState gameState = gameStateWithId.game_data.ParseToGameState();
+                    action(new ResponseOrError<GameState>(gameState));
+                }
             }
         }
 
@@ -124,16 +131,17 @@ public class NetworkController {
     public static IEnumerator PostGameState(GameState gameState, System.Action<bool> action) {
         string url = BASE_URL + "/games";
         string gameStateString = gameState.Stringify();
-        var jsonBody = JsonUtility.ToJson(new GameStateWithId(gameState.Id, gameStateString));
+        var bodyJson = JsonUtility.ToJson(new GameStateWithId(gameState.Id, gameStateString));
 
-        print(jsonBody);
+        print(bodyJson);
         UnityWebRequest request = new UnityWebRequest(url, UnityWebRequest.kHttpVerbPOST);
 
-        byte[] bodyRaw = new System.Text.UTF8Encoding().GetBytes(jsonBody);
+        byte[] bodyRaw = new System.Text.UTF8Encoding().GetBytes(bodyJson);
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json");
 
+        print("HTTP POST\n" + url + "\n" + bodyJson);
         yield return request.SendWebRequest();
 
         if (request.isNetworkError || request.isHttpError) {
@@ -143,7 +151,8 @@ public class NetworkController {
         } else {
             if (request.isDone) {
                 string jsonResult = System.Text.Encoding.UTF8.GetString(request.downloadHandler.data);
-                print("HTTP SUCCESS\n" + jsonResult);
+
+                print("HTTP SUCCESS\n" + url + "\n" + jsonResult);
                 action(true);
             }
         }

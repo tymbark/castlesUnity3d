@@ -16,35 +16,48 @@ public class JoinGameController : MonoBehaviour {
     }
 
     private void GetAvailableGames() {
-        StartCoroutine(NetworkController.GetAllGameInfos(AllGamesResponse));
+        StartCoroutine(NetworkController.GetAllGameInfos(AllGameInfosResponse));
     }
 
-    private void AllGamesResponse(ResponseOrError<List<GameInfo>> responseOrError) {
-
-        foreach (GameObject gameObj in GarbageCollector) {
-            Destroy(gameObj);
-        }
+    private void AllGameInfosResponse(ResponseOrError<List<GameInfo>> responseOrError) {
 
         if (responseOrError.IsSuccess) {
-            for (int i = 0; i < responseOrError.Response.Count; i++) {
-                GameInfo game = responseOrError.Response[i];
-                float y = StartingAxisY - i * SpaceBetweenTexts;
-                string text = game.CreatorName + "'s game, players " + game.PlayersNow + "/" + game.PlayersMax;
-                var obj = CardsGenerator.DrawObjectWithTextFromPrefab(new Vector2(0, y), "DefaultTextWhite", text);
-                var script = obj.AddComponent<ClickActionScript>();
-                script.ClickMethod = OnGameItemClick;
-                script.ClickParameter = game;
+            CleanGarbageCollector();
+
+            List<GameInfo> info = responseOrError.Response.FindAll((obj) => obj.Available && obj.PlayersNow < obj.PlayersMax);
+
+            if (info.IsEmpty()) {
+                string text = "no games available";
+                var obj = CardsGenerator.DrawObjectWithTextFromPrefab(new Vector2(0, 0), "DefaultTextWhite", text);
                 GarbageCollector.Add(obj);
+            } else {
+                for (int i = 0; i < info.Count; i++) {
+                    GameInfo game = responseOrError.Response[i];
+                    float y = StartingAxisY - i * SpaceBetweenTexts;
+                    string text = game.CreatorNickName + "'s game, players " + game.PlayersNow + "/" + game.PlayersMax;
+                    var obj = CardsGenerator.DrawObjectWithTextFromPrefab(new Vector2(0, y), "DefaultTextWhite", text);
+                    var script = obj.AddComponent<ClickActionScript>();
+                    script.ClickMethod = OnGameItemClick;
+                    script.ClickParameter = game;
+                    GarbageCollector.Add(obj);
+                }
             }
         }
 
         Invoke("GetAvailableGames", 3);
     }
 
+    private void CleanGarbageCollector() {
+        foreach (GameObject gameObj in GarbageCollector) {
+            Destroy(gameObj);
+        }
+        GarbageCollector.Clear();
+    }
+
     private void OnGameItemClick(object game) {
         if (game.GetType() == typeof(GameInfo)) {
             GameInfo gameInfo = (game as GameInfo);
-            gameInfo.PlayersIds.Add(DataPersistance.GetPlayerId());
+            gameInfo.PlayersNicknames.Add(DataPersistance.GetPlayerNickName());
             gameInfo.PlayersNow = gameInfo.PlayersNow + 1;
             DataPersistance.SaveCurrentGameId(gameInfo.Id);
             StartCoroutine(NetworkController.PostGameInfo(gameInfo, PostGameInfoResponse));

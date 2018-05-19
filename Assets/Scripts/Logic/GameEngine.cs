@@ -15,7 +15,10 @@ public class GameEngine {
                 GameState = DataPersistance.LoadGameState();
             } else {
                 //only for debug - starting game scene
-                GameState = GameStateGenerator.GenerateGameState("DEBUG_ID", 2);
+                List<string> nicknames = new List<string>();
+                nicknames.Add("ewa");
+                nicknames.Add("katarzyna");
+                GameState = GameStateGenerator.GenerateGameState("DEBUG_ID", 2, nicknames);
                 StartGame();
                 GameState.SaveGameState();
                 AddDebugOptions(GameState);
@@ -69,7 +72,7 @@ public class GameEngine {
             GameState.CurrentPlayerIndex = 0;
             NextTurn();
         }
-        UnityEngine.Debug.Log("Current player: " + GameState.CurrentPlayer.Name);
+        UnityEngine.Debug.Log("Current player: " + GameState.CurrentPlayer.NickName);
         UnityEngine.Debug.Log("Current round: " + GameState.CurrentRound);
         UnityEngine.Debug.Log("Current turn: " + GameState.CurrentTurn);
     }

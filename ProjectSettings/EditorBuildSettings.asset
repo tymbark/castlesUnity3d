@@ -32,3 +32,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Goods.unity
     guid: 74119016eea3343b2bd96328eb6bd812
+  - enabled: 1
+    path: Assets/Scenes/GameReady.unity
+    guid: 13e4ab13cde0542bba5b5954f8255405
