@@ -133,7 +133,6 @@ public class NetworkController {
         string gameStateString = gameState.Stringify();
         var bodyJson = JsonUtility.ToJson(new GameStateWithId(gameState.Id, gameStateString));
 
-        print(bodyJson);
         UnityWebRequest request = new UnityWebRequest(url, UnityWebRequest.kHttpVerbPOST);
 
         byte[] bodyRaw = new System.Text.UTF8Encoding().GetBytes(bodyJson);

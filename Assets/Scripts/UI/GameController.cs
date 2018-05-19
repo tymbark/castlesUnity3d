@@ -26,7 +26,7 @@ public class GameController : MonoBehaviour {
         if (!DataPersistance.GameStateExists()) {
             throw new System.InvalidProgramException("Game state don't exist!");
         }
-        CurrentGameId = DataPersistance.LoadGameState().Id;
+        CurrentGameId = DataPersistance.GetCurrentGameId();
         PopupsController = GetComponent<PopupsController>();
         RefreshTable();
         GetGameStateFromServer();

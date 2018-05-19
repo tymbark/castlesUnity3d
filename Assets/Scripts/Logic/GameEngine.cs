@@ -11,7 +11,7 @@ public class GameEngine {
     public GameEngine() {
 
         if (GameState == null) {
-            if (false && DataPersistance.GameStateExists()) {
+            if (DataPersistance.GameStateExists()) {
                 GameState = DataPersistance.LoadGameState();
             } else {
                 //only for debug - starting game scene
