@@ -9,11 +9,11 @@ public class WaitingRoomController : MonoBehaviour {
 
     private readonly List<GameObject> GarbageCollector = new List<GameObject>();
     private string currentGameId;
-    private string playerId;
+    private string playerNickName;
 
     private void Start() {
         currentGameId = DataPersistance.GetCurrentGameId();
-        playerId = DataPersistance.GetPlayerNickName();
+        playerNickName = DataPersistance.GetPlayerNickName();
         GetGameInfo();
     }
 
@@ -28,7 +28,7 @@ public class WaitingRoomController : MonoBehaviour {
             if (response.PlayersNow == response.PlayersMax) {
                 print("all players are present, ready to start");
 
-                if (response.CreatorNickName == playerId) {
+                if (response.CreatorNickName == playerNickName) {
                     CreateAndSendGameState(response);
                 } else {
                     SceneLoader.LoadGameReadyScene();
@@ -59,7 +59,7 @@ public class WaitingRoomController : MonoBehaviour {
 
     private void CreateAndSendGameState(GameInfo gameInfo) {
         GameState gameState = GameStateGenerator
-            .GenerateGameState(gameInfo.Id, gameInfo.PlayersMax, gameInfo.PlayersNicknames);
+            .GenerateGameState(gameInfo.Id, gameInfo.PlayersMax, gameInfo.PlayersNicknames, playerNickName);
 
         StartCoroutine(NetworkController.PostGameState(gameState, GameStateCreatedResponse));
 

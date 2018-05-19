@@ -136,7 +136,7 @@ public static class UtilsEquality {
         equality.Add(gs1.Players.IsEqualTo(gs2.Players));
         equality.Add(gs1.HowManyPlayers == gs2.HowManyPlayers);
         equality.Add(gs1.CurrentRound == gs2.CurrentRound);
-        equality.Add(gs1.CurrentPlayerIndex == gs2.CurrentPlayerIndex);
+        equality.Add(gs1.CurrentPlayerNickName == gs2.CurrentPlayerNickName);
         equality.Add(gs1.CurrentTurn == gs2.CurrentTurn);
         equality.Add(gs1.IsFinished == gs2.IsFinished);
         equality.Add(gs1.MainDeck.Cards.IsEqualTo(gs2.MainDeck.Cards));

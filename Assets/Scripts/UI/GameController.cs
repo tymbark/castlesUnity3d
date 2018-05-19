@@ -29,7 +29,10 @@ public class GameController : MonoBehaviour {
         CurrentGameId = DataPersistance.GetCurrentGameId();
         PopupsController = GetComponent<PopupsController>();
         RefreshTable();
-        GetGameStateFromServer();
+
+        if (GameEngine.GameState.HasNotStarted()){
+            GameEngine.StartGame();
+        }
     }
 
     private void GetGameStateFromServer() {

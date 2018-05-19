@@ -588,7 +588,7 @@ public class TestDataParser {
         GameState gs1 = RandomGameState(players, pc, RandomBonusList(20));
 
         GameState gs2 = gs1.Stringify().ParseToGameState();
-        gs2.CurrentPlayerIndex = gs2.CurrentPlayerIndex + 1;
+        gs2.CurrentPlayerNickName = "123";
 
         Assert.IsFalse(gs1.IsEqualTo(gs2));
     }
@@ -624,7 +624,7 @@ public class TestDataParser {
                     pc,
                     bl,
                     (Round)new System.Random().Next((int)Round.E),
-                    new System.Random().Next(10),
+                    "" + new System.Random().Next(100),
                     new System.Random().Next(20),
                     new System.Random().Next(30),
                     new System.Random().Next(40) > 4

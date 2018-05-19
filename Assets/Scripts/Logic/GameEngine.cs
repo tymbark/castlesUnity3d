@@ -18,7 +18,7 @@ public class GameEngine {
                 List<string> nicknames = new List<string>();
                 nicknames.Add("ewa");
                 nicknames.Add("katarzyna");
-                GameState = GameStateGenerator.GenerateGameState("DEBUG_ID", 2, nicknames);
+                GameState = GameStateGenerator.GenerateGameState("DEBUG_ID", 2, nicknames, "ewa");
                 StartGame();
                 GameState.SaveGameState();
                 AddDebugOptions(GameState);
@@ -57,21 +57,23 @@ public class GameEngine {
         //players[0].BonusActionCards.Add(new Card(CardClass.BonusCityHall, CardDice.All));
     }
 
-
-    private void StartGame() {
-        GameState.CurrentPlayerIndex = 0;
+    public void StartGame() {
         GameState.CurrentTurn = 1;
         DrawFutureCards();
         DrawHandCards();
     }
 
     public void ExecuteEndTurnAction() {
-        if (GameState.CurrentPlayerIndex + 1 < GameState.Players.Count) {
-            GameState.CurrentPlayerIndex = GameState.CurrentPlayerIndex + 1;
+        List<string> nicks = GameState.Players.ConvertAll(p => p.NickName);
+        int indexOfCurrentNick = nicks.IndexOf(GameState.CurrentPlayerNickName);
+
+        if (indexOfCurrentNick + 1 < GameState.Players.Count) {
+            GameState.CurrentPlayerNickName = nicks[indexOfCurrentNick + 1];
         } else {
-            GameState.CurrentPlayerIndex = 0;
+            GameState.CurrentPlayerNickName = nicks[0];
             NextTurn();
         }
+
         UnityEngine.Debug.Log("Current player: " + GameState.CurrentPlayer.NickName);
         UnityEngine.Debug.Log("Current round: " + GameState.CurrentRound);
         UnityEngine.Debug.Log("Current turn: " + GameState.CurrentTurn);

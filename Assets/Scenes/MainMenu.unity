@@ -271,8 +271,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 622663488}
+  - component: {fileID: 622663489}
   m_Layer: 0
-  m_Name: ProjectsObjectController
+  m_Name: Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -291,6 +292,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &622663489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 622663487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2fbcebd1b84c45469dbe0c5ac16909f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &626515244
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,9 +314,8 @@ GameObject:
   - component: {fileID: 626515245}
   - component: {fileID: 626515248}
   - component: {fileID: 626515247}
-  - component: {fileID: 626515246}
   m_Layer: 5
-  m_Name: JoinGame
+  m_Name: JoinGameButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -329,17 +340,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -100}
   m_SizeDelta: {x: 800, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &626515246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 626515244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b30ca68c41f584c179d0feb3c5adaceb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &626515247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -473,7 +473,7 @@ GameObject:
   - component: {fileID: 868487183}
   - component: {fileID: 868487182}
   m_Layer: 5
-  m_Name: Options
+  m_Name: OptionsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -746,9 +746,8 @@ GameObject:
   - component: {fileID: 1267561722}
   - component: {fileID: 1267561725}
   - component: {fileID: 1267561724}
-  - component: {fileID: 1267561723}
   m_Layer: 5
-  m_Name: NewGame
+  m_Name: NewGameButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -773,17 +772,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 100}
   m_SizeDelta: {x: 800, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1267561723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1267561721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccdb39d580b2243e0b89e4744f1ebde1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1267561724
 MonoBehaviour:
   m_ObjectHideFlags: 0

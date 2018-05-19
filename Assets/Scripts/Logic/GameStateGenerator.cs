@@ -6,7 +6,8 @@ public static class GameStateGenerator {
 
     public static GameState GenerateGameState(string newGameId,
                                               int howManyPlayers,
-                                              List<string> playersNicknames) {
+                                              List<string> playersNicknames,
+                                              string firstPlayerNickname) {
         string newId = newGameId;
         var mainDeck = DeckGenerator.GenerateActionsDeck();
         var animalsDeck = DeckGenerator.GenerateAnimalsDeck();
@@ -23,7 +24,7 @@ public static class GameStateGenerator {
                              projectCards,
                              bonuses,
                              Round.A,
-                             0,
+                             firstPlayerNickname,
                              1,
                              players.Count,
                              false);

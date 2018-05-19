@@ -11,7 +11,7 @@ namespace Models {
         public readonly List<Player> Players;
         public readonly int HowManyPlayers;
         public Round CurrentRound;
-        public int CurrentPlayerIndex;
+        public string CurrentPlayerNickName;
         public int CurrentTurn;
         public bool IsFinished;
 
@@ -29,7 +29,7 @@ namespace Models {
                          List<ProjectCard> availableProjectCards,
                          List<BonusCard> availableBonusCards,
                          Round currentRound,
-                         int currentPlayerIndex,
+                         string currentPlayerNickName,
                          int currentTurn,
                          int howManyPlayers,
                          bool isFinished) {
@@ -44,11 +44,15 @@ namespace Models {
             this.HowManyPlayers = howManyPlayers;
             this.CurrentRound = currentRound;
             this.CurrentTurn = currentTurn;
-            this.CurrentPlayerIndex = currentPlayerIndex;
+            this.CurrentPlayerNickName = currentPlayerNickName;
             this.IsFinished = isFinished;
         }
 
-        public Player CurrentPlayer { get { return Players[CurrentPlayerIndex]; } }
+        public Player CurrentPlayer {
+            get {
+                return Players.Find((obj) => obj.NickName == CurrentPlayerNickName);
+            }
+        }
 
     }
 
@@ -56,4 +60,17 @@ namespace Models {
         A, B, C, D, E
     }
 
+    public static class GameStateHelperMethods {
+
+        public static bool ItsMyTurn(this GameState gameState) {
+            return DataPersistance.GetPlayerNickName() == gameState.CurrentPlayer.NickName;
+        }
+
+        public static bool HasNotStarted(this GameState gameState) {
+            return gameState.Players.TrueForAll((Player p) =>
+                                                p.Cards.IsEmpty() &&
+                                                p.FutureCards.IsEmpty() &&
+                                                p.Score == 0);
+        }
+    }
 }

@@ -256,7 +256,7 @@ public static class UtilsDataParse {
             projects,
             bonuses,
             gameState.CurrentRound,
-            gameState.CurrentPlayerIndex,
+            gameState.CurrentPlayerNickName,
             gameState.CurrentTurn,
             gameState.HowManyPlayers,
             gameState.IsFinished);
@@ -305,7 +305,7 @@ public static class UtilsDataParse {
                              availableProjectCards,
                              availableBonusCards,
                              sgs.CurrentRound,
-                             sgs.CurrentPlayerIndex,
+                             sgs.CurrentPlayerNickName,
                              sgs.CurrentTurn,
                              sgs.HowManyPlayers,
                              sgs.IsFinished);
@@ -319,7 +319,7 @@ public static class UtilsDataParse {
         public string Player3;
         public string Player4;
         public Round CurrentRound;
-        public int CurrentPlayerIndex;
+        public string CurrentPlayerNickName;
         public int CurrentTurn;
         public int HowManyPlayers;
         public bool IsFinished;
@@ -341,7 +341,7 @@ public static class UtilsDataParse {
                                    string availableProjectCards,
                                    string availableBonusCards,
                                    Round currentRound,
-                                   int currentPlayerIndex,
+                                   string currentPlayerNickName,
                                    int currentTurn,
                                    int howManyPlayers,
                                    bool isFinished) {
@@ -357,7 +357,7 @@ public static class UtilsDataParse {
             this.AvailableBonusCards = availableBonusCards;
             this.HowManyPlayers = howManyPlayers;
             this.CurrentRound = currentRound;
-            this.CurrentPlayerIndex = currentPlayerIndex;
+            this.CurrentPlayerNickName = currentPlayerNickName;
             this.CurrentTurn = currentTurn;
             this.IsFinished = isFinished;
         }
