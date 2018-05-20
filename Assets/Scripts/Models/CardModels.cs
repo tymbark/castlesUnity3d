@@ -51,7 +51,7 @@ namespace Models {
     }
 
     public enum BonusCard {
-        FirstPlayer, 
+        FirstPlayer, FirstPlayerReverse, 
         Building, Castle, Mine, Cloister, Knowledge, Ship, Pasture, 
         AllSeven4, AllSeven3, AllSeven2, AllSeven1
     }

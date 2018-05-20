@@ -10,7 +10,7 @@ public class GameEngine {
 
     public GameEngine() {
 
-        if (DataPersistance.GameStateExists()) {
+        if (false && DataPersistance.GameStateExists()) {
             GameState = DataPersistance.LoadGameState();
         } else {
             //only for debug - starting game scene
@@ -45,6 +45,7 @@ public class GameEngine {
     }
 
     public void StartGame() {
+        GameState.CurrentPlayer.ReceivedBonuses.Add(BonusCard.FirstPlayer);
         GameState.CurrentTurn = 1;
         DrawFutureCards();
         DrawHandCards();

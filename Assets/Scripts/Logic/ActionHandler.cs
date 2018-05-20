@@ -34,7 +34,7 @@ public class ActionHandler {
                 break;
             
             case ActionType.ShipGoods:
-                CurrentPlayer().ExecuteShipGoodsAction(action);
+                CurrentPlayer().ExecuteShipGoodsAction(action, GameEngine.GameState);
                 break;
 
             case ActionType.BuyWorkers:

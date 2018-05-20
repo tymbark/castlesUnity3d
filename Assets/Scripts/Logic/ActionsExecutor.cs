@@ -21,10 +21,11 @@ public static class ActionsExecutor {
         return didFinishTriple;
     }
 
-    public static void ExecuteShipGoodsAction(this Player p, Action action) {
+    public static void ExecuteShipGoodsAction(this Player p, Action action, GameState gameState) {
         p.WithdrawUsedCard(action.ActionCard);
         p.UseWorkers(action.WorkersNeeded);
         p.ShipGoods(action.TargetCard);
+        p.MoveFirstPlayerBonusCard(gameState);
     }
 
     public static void ExecuteBuySilverAction(this Player p, Action action) {
@@ -201,7 +202,7 @@ public static class ActionsExecutor {
         return new Card(card.Class, card.Dice, card.Number, tripleId);
     }
 
-    public static void ShipGoods(this Player p, Card card) {
+    private static void ShipGoods(this Player p, Card card) {
         var goodsToShip = p.Goods.FindAll((Card obj) => obj.Dice == card.Dice);
 
         foreach (Card good in goodsToShip) {
@@ -209,6 +210,27 @@ public static class ActionsExecutor {
             p.SilverCount++;
             p.Score++;
         }
-
     }
+
+    private static void MoveFirstPlayerBonusCard(this Player p, GameState gameState) {
+        if (p.HasBonusFirstPlayerCard()) {
+            return;
+        } else {
+            Player previousOwner = gameState.Players.Find((Player obj) => obj.HasBonusFirstPlayerCard());
+            if (previousOwner.ReceivedBonuses.Contains(BonusCard.FirstPlayer)) {
+                previousOwner.ReceivedBonuses.Remove(BonusCard.FirstPlayer);
+            }
+            if (previousOwner.ReceivedBonuses.Contains(BonusCard.FirstPlayerReverse)) {
+                previousOwner.ReceivedBonuses.Remove(BonusCard.FirstPlayerReverse);
+            }
+            p.ReceivedBonuses.Add(BonusCard.FirstPlayerReverse);
+        }
+    }
+
+    private static bool HasBonusFirstPlayerCard(this Player p) {
+        return p.ReceivedBonuses.Contains(BonusCard.FirstPlayer) ||
+                p.ReceivedBonuses.Contains(BonusCard.FirstPlayerReverse);
+    }
+
+
 }
