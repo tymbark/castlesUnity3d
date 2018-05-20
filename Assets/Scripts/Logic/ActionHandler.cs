@@ -22,51 +22,42 @@ public class ActionHandler {
 
         switch (action.Type) {
             case ActionType.TakeProject:
-
                 CurrentPlayer().ExecuteTakeProjectAction(action);
                 RemoveCardFromProjects(action.TargetCard);
-
                 break;
+            
             case ActionType.BuildProject:
-
                 bool didFinishedTriple = CurrentPlayer().ExecuteBuildProjectAction(action, GameEngine.GameState);
                 if (didFinishedTriple) {
                     ShowChooseBonusSceneAction();
                 }
-
                 break;
+            
             case ActionType.ShipGoods:
-
                 CurrentPlayer().ExecuteShipGoodsAction(action);
                 break;
 
             case ActionType.BuyWorkers:
-
                 CurrentPlayer().ExecuteBuyWorkersAction(action);
                 break;
 
             case ActionType.BuySilver:
-
                 CurrentPlayer().ExecuteBuySilverAction(action);
                 break;
 
             case ActionType.SellSilverAndWorkers:
-
                 CurrentPlayer().ExecuteSellSilverAndWorkersAction(action);
                 break;
 
             case ActionType.UseSilver:
-
                 CurrentPlayer().ExecuteUseSilverAction(action, GameEngine.GameState.MainDeck);
                 break;
 
             case ActionType.TakeSilverProject:
-
                 CurrentPlayer().ExecuteTakeSilverProjectAction(action);
                 break;
 
             case ActionType.EndTurn:
-
                 CurrentPlayer().ExecuteEndTurnAction();
                 GameEngine.ExecuteEndTurnAction();
                 break;

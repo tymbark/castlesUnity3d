@@ -26,12 +26,6 @@ namespace Models {
             SilverSell = silverSell;
         }
 
-        public bool CompareTo(Action action) {
-            return action.Type == Type
-                             && action.ActionCard.IsEqualTo(ActionCard)
-                             && action.TargetCard.IsEqualTo(TargetCard);
-        }
-
     }
 
     public enum ActionType {

@@ -226,7 +226,18 @@ public static class Utils {
     public static bool Has(this List<Action> actions, Action action) {
 
         foreach (Action a in actions) {
-            if (a.CompareTo(action)) {
+            if (a.IsEqualTo(action)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static bool Has(this List<Card> cards, Card card) {
+
+        foreach (Card c in cards) {
+            if (c.IsEqualTo(card)) {
                 return true;
             }
         }
@@ -254,7 +265,7 @@ public static class Utils {
             case CardDice.VI:
                 return 6;
             default:
-                throw new System.InvalidProgramException("Cannot convert this enum " + cardDice + "to integer!");
+                throw new System.InvalidProgramException("Cannot convert this enum " + cardDice + " to integer!");
         }
     }
 
@@ -480,6 +491,10 @@ public static class Utils {
 
     public static bool IsEmpty<T>(this List<T> list) {
         return list.Count == 0;
+    }
+
+    public static bool IsNotEmpty<T>(this List<T> list) {
+        return list.Count > 0;
     }
 
 }

@@ -32,6 +32,10 @@ public static class DataPersistance {
         return PlayerPrefs.GetString(PLAYER_NICKNAME_KEY);
     }
 
+    public static void SavePlayerNickName(string playerNicknames) {
+        PlayerPrefs.SetString(PLAYER_NICKNAME_KEY, playerNicknames);
+    }
+
     public static void SaveCurrentGameId(string currentGameId) {
         PlayerPrefs.SetString(CURRENT_GAME_ID_KEY, currentGameId);
     }

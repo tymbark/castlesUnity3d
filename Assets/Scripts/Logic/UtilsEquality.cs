@@ -14,6 +14,15 @@ public static class UtilsEquality {
         return card1.Card.IsEqualTo(card2.Card) && card1.TakeProjectDice == card2.TakeProjectDice;
     }
 
+    public static bool IsEqualTo(this Action action1, Action action2) {
+        return action1.Type == action2.Type
+                      && action1.WorkersSell == action2.WorkersSell
+                      && action1.SilverSell == action2.SilverSell
+                      && action1.WorkersNeeded == action2.WorkersNeeded
+                      && action1.ActionCard.IsEqualTo(action2.ActionCard)
+                      && action1.TargetCard.IsEqualTo(action2.TargetCard);
+    }
+
     public static bool IsEqualTo(this List<Card> cards1, List<Card> cards2) {
         if (cards1.Count != cards2.Count) {
             return false;

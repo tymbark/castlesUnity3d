@@ -110,6 +110,11 @@ public class GameController : MonoBehaviour {
         List<Action> actions = GameEngine.ActionHandler.GetAvailableActions();
 
         switch (action) {
+            case ClickAction.UseSilver:
+                ActionHandler.ProcessAction(actions.GetUseSilverAction());
+                UpdateGameState(GameEngine.GameState);
+                RedrawUI();
+                break;
             case ClickAction.EndTurn:
                 if (actions.HasEndTurnAction()) {
                     ActionHandler.ProcessAction(actions.GetEndTurnAction());
@@ -153,7 +158,6 @@ public class GameController : MonoBehaviour {
         Card actionCard = playerCardObject.GetCardController().Card;
 
         List<Action> actions = GameEngine.ActionHandler.GetAvailableActions();
-        print(actions.Describe());
 
         if (actions.IsMoveAvailable(targetCard, actionCard)) {
             Action actionForExecute = actions.GetAvailableMove(targetCard, actionCard);

@@ -45,7 +45,7 @@ public static class ActionsExecutor {
     }
 
     public static void ExecuteUseSilverAction(this Player p, Action action, Deck actionsDeck) {
-        p.SilverCount -= 3;
+        p.SilverCount = p.SilverCount - 3;
         Utils.Repeat(3, () => { p.BonusActionCards.Add(actionsDeck.DrawCard()); });
     }
 
@@ -95,8 +95,10 @@ public static class ActionsExecutor {
 
     public static bool CompleteProject(this Player p, Card targetCard, GameState gameState) {
         bool didFinishedTriple = false;
-        if (p.ProjectArea.Contains(targetCard)) {
-            p.ProjectArea.Remove(targetCard);
+        if (p.ProjectArea.Has(targetCard)) {
+
+            var projectToRemove = p.ProjectArea.Find((Card obj) => obj.IsEqualTo(targetCard));
+            p.ProjectArea.Remove(projectToRemove);
 
             List<List<Card>> spots = p.CompletedProjects.FindAvailableSpots(targetCard);
 

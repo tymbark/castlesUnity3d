@@ -7,6 +7,7 @@ namespace InputActions {
     public enum ClickAction {
         NotSet = 0,
         EndTurn, 
+        UseSilver,
         ExitGame, 
 
         ShowProjects, 

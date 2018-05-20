@@ -129,8 +129,8 @@ public class ProjectsController : MonoBehaviour {
 
         prefab.transform.position = new Vector3(position.x, position.y, 0);
 
-        TMPro.TextMeshProUGUI textObj = prefab.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        textObj.text = "" + text;
+        prefab.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "" + text;
+        prefab.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = "";
     }
 
 }

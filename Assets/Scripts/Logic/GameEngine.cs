@@ -10,19 +10,18 @@ public class GameEngine {
 
     public GameEngine() {
 
-        if (GameState == null) {
-            if (DataPersistance.GameStateExists()) {
-                GameState = DataPersistance.LoadGameState();
-            } else {
-                //only for debug - starting game scene
-                List<string> nicknames = new List<string>();
-                nicknames.Add("ewa");
-                nicknames.Add("katarzyna");
-                GameState = GameStateGenerator.GenerateGameState("DEBUG_ID", 2, nicknames, "ewa");
-                StartGame();
-                GameState.SaveGameState();
-                AddDebugOptions(GameState);
-            }
+        if (false && DataPersistance.GameStateExists()) {
+            GameState = DataPersistance.LoadGameState();
+        } else {
+            //only for debug - starting game scene
+            List<string> nicknames = new List<string>();
+            nicknames.Add("ewa");
+            nicknames.Add("katarzyna");
+            GameState = GameStateGenerator.GenerateGameState("DEBUG_ID", 2, nicknames, "ewa");
+            AddDebugOptions(GameState);
+            StartGame();
+            DataPersistance.SavePlayerNickName("ewa");
+            GameState.SaveGameState();
         }
 
         ActionHandler = new ActionHandler(this);
@@ -34,27 +33,15 @@ public class GameEngine {
 
     private void AddDebugOptions(GameState gameState) {
 
-        var c1 = gameState.MainDeck.DrawCard();
-        var c2 = gameState.MainDeck.DrawCard();
-        var c3 = gameState.MainDeck.DrawCard();
-        var c4 = gameState.MainDeck.DrawCard();
-        var c5 = gameState.MainDeck.DrawCard();
-        gameState.Players[0].ProjectArea.Add(c1);
-        //gameState.Players[0].ProjectArea.Add(c2);
-        //gameState.Players[0].ProjectArea.Add(c3);
-        //gameState.Players[0].ProjectArea.Add(c4);
-        //gameState.Players[0].ProjectArea.Add(c5);
-        //gameState.Players[0].CompleteProject(c1, gameState);
-        //gameState.Players[0].CompleteProject(c2, gameState);
-        //gameState.Players[0].CompleteProject(c3, gameState);
-        //gameState.Players[0].CompleteProject(c4, gameState);
-        //gameState.Players[0].CompleteProject(c5, gameState);
 
-        gameState.Players[0].BonusActionCards.Add(new Card(CardClass.BonusCarperter, CardDice.All));
-        gameState.Players[0].BonusActionCards.Add(new Card(CardClass.BonusWarehouse, CardDice.All));
-        gameState.Players[0].BonusActionCards.Add(new Card(CardClass.BonusChurch, CardDice.All));
+        gameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCastle, CardDice.II));
+        gameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCastle, CardDice.II));
+        gameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCastle, CardDice.II));
+        gameState.Players[0].CompleteProject(new Card(CardClass.ActionCastle, CardDice.II), GameState);
+        gameState.Players[0].CompleteProject(new Card(CardClass.ActionCastle, CardDice.II), GameState);
 
-        //players[0].BonusActionCards.Add(new Card(CardClass.BonusCityHall, CardDice.All));
+
+        gameState.Players[0].BonusActionCards.Add(new Card(CardClass.BonusCastle, CardDice.All));
     }
 
     public void StartGame() {

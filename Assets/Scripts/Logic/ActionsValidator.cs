@@ -34,7 +34,7 @@ public static class ActionsValidator {
     }
 
     public static bool UseSilverActionAvailable(this Player p) {
-        return !p.SilverActionAvailable() && !p.SilverActionDoneThisTurn;
+        return p.SilverCount >= 3 && !p.SilverActionDoneThisTurn;
     }
 
     public static bool SellWorkersAndSilverActionAvailable(this Player p) {

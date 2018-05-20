@@ -57,7 +57,15 @@ public static class CardsGenerator {
     }
 
     public static GameObject DrawSilverCard(int howMany) {
-        return DrawObjectWithTextFromPrefab(D.PositionSilverCard, "CardSilver", howMany + "");
+        GameObject gameObject = DrawObjectWithTextFromPrefab(D.PositionSilverCard, "CardSilver", howMany + "");
+        if (howMany >=3) {
+            gameObject.GetComponent<ClickableObjectController>().ClickAction = ClickAction.UseSilver;
+            gameObject.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = "use";
+        } else {
+            gameObject.GetComponent<ClickableObjectController>().ClickAction = ClickAction.ShowSilver;
+            gameObject.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = "";
+        }
+        return gameObject;
     }
 
     public static GameObject DrawAllAnimalsCard(int howMany) {

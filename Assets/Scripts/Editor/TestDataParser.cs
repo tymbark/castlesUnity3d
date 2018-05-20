@@ -10,6 +10,79 @@ using Models;
 public class TestDataParser {
 
     [Test]
+    public void TestTwoActionsAreEqual1() {
+
+        Card targetCard = RandomCard();
+        Card actionCard = RandomCard();
+
+        Models.Action a1 = new Models.Action(ActionType.BonusCarperter, actionCard, targetCard, 5, 6, 7);
+        Models.Action a2 = new Models.Action(ActionType.BonusCarperter, actionCard, targetCard, 5, 6, 7);
+
+        Assert.IsTrue(a1.IsEqualTo(a2));
+    }
+
+    [Test]
+    public void TestTwoActionsAreEqual2() {
+
+        Card targetCard = RandomCard();
+        Card actionCard = RandomCard();
+
+        Models.Action a1 = new Models.Action(ActionType.BonusCastle, actionCard, targetCard, 0, 0, 0);
+        Models.Action a2 = new Models.Action(ActionType.BonusCastle, actionCard, targetCard, 0, 0, 0);
+
+        Assert.IsTrue(a1.IsEqualTo(a2));
+    }
+
+    [Test]
+    public void TestTwoActionsAreNotEqual1() {
+
+        Card targetCard = RandomCard(1);
+        Card actionCard = RandomCard(2);
+        Card c1 = RandomCard(3);
+
+        Models.Action a1 = new Models.Action(ActionType.BonusCastle, actionCard, targetCard, 0, 0, 0);
+        Models.Action a2 = new Models.Action(ActionType.BonusCastle, actionCard, c1, 0, 0, 0);
+
+        Assert.IsFalse(a1.IsEqualTo(a2));
+    }
+
+    [Test]
+    public void TestTwoActionsAreNotEqual2() {
+
+        Card targetCard = RandomCard();
+        Card actionCard = RandomCard();
+
+        Models.Action a1 = new Models.Action(ActionType.BonusCastle, actionCard, targetCard, 0, 0, 0);
+        Models.Action a2 = new Models.Action(ActionType.BonusCastle, actionCard, targetCard, 1, 0, 0);
+
+        Assert.IsFalse(a1.IsEqualTo(a2));
+    }
+
+    [Test]
+    public void TestTwoActionsAreNotEqual4() {
+
+        Card targetCard = RandomCard();
+        Card actionCard = RandomCard();
+
+        Models.Action a1 = new Models.Action(ActionType.BonusCastle, actionCard, targetCard, 0, 0, 0);
+        Models.Action a2 = new Models.Action(ActionType.BonusCastle, actionCard, targetCard, 0, 0, 1);
+
+        Assert.IsFalse(a1.IsEqualTo(a2));
+    }
+
+    [Test]
+    public void TestTwoActionsAreNotEqual3() {
+
+        Card targetCard = RandomCard();
+        Card actionCard = RandomCard();
+
+        Models.Action a1 = new Models.Action(ActionType.BonusCastle, actionCard, targetCard, 0, 0, 0);
+        Models.Action a2 = new Models.Action(ActionType.BonusCastle, actionCard, targetCard, 0, 1, 0);
+
+        Assert.IsFalse(a1.IsEqualTo(a2));
+    }
+
+    [Test]
     public void TestTwoCardsAreEqual1() {
 
         Card c1 = new Card(CardClass.ActionBank, CardDice.II);
