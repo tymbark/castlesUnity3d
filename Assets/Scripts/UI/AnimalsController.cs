@@ -17,11 +17,11 @@ public class AnimalsController : MonoBehaviour {
     void Start() {
         for (int i = 0; i < GameEngine.GameState.Players.Count; i++) {
             Player p = GameEngine.GameState.Players[i];
-            DrawPlayerAnimals(p, i);
+            DrawAnimals(p, i);
         }
     }
 
-    private void DrawPlayerAnimals(Player player, int index) {
+    private void DrawAnimals(Player player, int index) {
         switch (index) {
             case 0:
                 DrawPlayerName(ED.Player1Name, player.NickName);
@@ -48,28 +48,10 @@ public class AnimalsController : MonoBehaviour {
 
     private static void DrawPlayerAnimals(Player player, float axisY) {
         float margin = ED.CardsSpaceStart;
-        int numberOfCows = 0;
-        int numberOfChickens = 0;
-        int numberOfPigs = 0;
-        int numberOfSheep = 0;
-
-        for (int i = 0; i < player.Animals.Count; i++) {
-            Card c = player.Animals[i];
-            switch (c.Class) {
-                case CardClass.Pig:
-                    numberOfPigs++;
-                    break;
-                case CardClass.Cow:
-                    numberOfCows++;
-                    break;
-                case CardClass.Chicken:
-                    numberOfChickens++;
-                    break;
-                case CardClass.Sheep:
-                    numberOfSheep++;
-                    break;
-            }
-        }
+        int numberOfCows = player.Animals.FindAll((Card obj) => obj.Class == CardClass.Cow).Count;
+        int numberOfChickens = player.Animals.FindAll((Card obj) => obj.Class == CardClass.Chicken).Count;
+        int numberOfPigs = player.Animals.FindAll((Card obj) => obj.Class == CardClass.Pig).Count;
+        int numberOfSheep = player.Animals.FindAll((Card obj) => obj.Class == CardClass.Sheep).Count;
 
         if (numberOfCows > 0) {
             Vector2 position = new Vector2(margin, axisY);
@@ -125,7 +107,7 @@ public class AnimalsController : MonoBehaviour {
 
     public static GameObject DrawAnimalCard(Vector2 position, Card card, string text) {
         Object obj = Resources.Load("Prefabs/CardWithNumber");
-        GameObject prefab = Object.Instantiate(obj) as GameObject;
+        GameObject prefab = Instantiate(obj) as GameObject;
 
         GameObject canvas = GameObject.Find("Canvas");
         prefab.transform.SetParent(canvas.transform);
@@ -140,18 +122,5 @@ public class AnimalsController : MonoBehaviour {
 
         return prefab;
     }
-
-    //private static void DrawCard(Vector2 position, Card card) {
-    //    Object obj = Resources.Load("Prefabs/Card");
-    //    GameObject prefab = Instantiate(obj) as GameObject;
-
-    //    GameObject canvas = GameObject.Find("AnimalsCanvas");
-    //    prefab.transform.SetParent(canvas.transform);
-
-    //    Image image = prefab.GetComponent<Image>();
-    //    image.overrideSprite = CardsGenerator.GetSpriteForCard(card);
-
-    //    prefab.transform.position = new Vector3(position.x, position.y, 0);
-    //}
 
 }
