@@ -1,11 +1,12 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Models;
 
 public static class BonusSupplier {
 
-    public static void ApplyCompletingBonus(this Player player, Card card, GameState gameState) {
+    public static void ApplyCompletingSingleBuildingBonus(this Player player, Card card, GameState gameState) {
         Deck goodsDeck = gameState.GoodsDeck;
         Deck animalsDeck = gameState.AnimalsDeck;
 
@@ -79,6 +80,7 @@ public static class BonusSupplier {
                 player.Score = player.Score + 4;
                 break;
         }
+
 
     }
 

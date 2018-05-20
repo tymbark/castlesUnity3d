@@ -17,6 +17,7 @@ public class SceneLoader : MonoBehaviour {
     private static readonly string PROJECTS = "Projects";
     private static readonly string BONUSES_TAKEN = "BonusesTaken";
     private static readonly string BONUSES_AVAILABLE = "BonusesAvailable";
+    private static readonly string CHOOSE_BONUS = "ChooseBonus";
 
     public static void LoadWaitingRoomScene() {
         print("Load Scene " + WAITING_ROOM);
@@ -71,6 +72,11 @@ public class SceneLoader : MonoBehaviour {
     public static void LoadBonusesAvailableScene() {
         print("Load Scene " + BONUSES_AVAILABLE);
         SceneManager.LoadScene(BONUSES_AVAILABLE);
+    }
+
+    public static void LoadChooseBonusScene() {
+        print("Load Scene " + CHOOSE_BONUS);
+        SceneManager.LoadScene(CHOOSE_BONUS);
     }
 
 }

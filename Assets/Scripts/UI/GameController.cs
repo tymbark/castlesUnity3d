@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour {
     private void Awake() {
         GameEngine = new GameEngine();
         ActionHandler = GameEngine.ActionHandler;
+        ActionHandler.ShowChooseBonusSceneAction = SceneLoader.LoadChooseBonusScene;
     }
 
     void Start() {
@@ -122,6 +123,7 @@ public class GameController : MonoBehaviour {
                 }
                 break;
             case ClickAction.ExitGame:
+                SceneLoader.LoadChooseBonusScene();
                 print("todo exit game ...");
                 break;
             case ClickAction.ShowProjects:

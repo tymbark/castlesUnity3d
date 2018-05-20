@@ -15,7 +15,6 @@ public class GameBoardGenerator {
         if (possiblePlayers.Count != 1) {
             throw new System.InvalidProgramException("There must be exactly one player with that ID!");
         }
-        0.print_("draw board for player: " + playerNickname);
 
         Player mePlayer = possiblePlayers[0];
 
@@ -139,7 +138,7 @@ public class GameBoardGenerator {
         gameObjects.Add(CardsGenerator.DrawEstateCard(mePlayer.CompletedProjects.Count));
         gameObjects.Add(CardsGenerator.DrawProjectsCard(mePlayer.ProjectArea.Count));
         gameObjects.Add(CardsGenerator.DrawStorageCard(mePlayer.Goods.Count));
-        gameObjects.Add(CardsGenerator.DrawAnimalsCard(mePlayer.Animals.Count));
+        gameObjects.Add(CardsGenerator.DrawAllAnimalsCard(mePlayer.Animals.Count));
 
         gameObjects.Add(CardsGenerator.DrawSellStuffCard());
         gameObjects.Add(CardsGenerator.DrawShipGoodsCard());

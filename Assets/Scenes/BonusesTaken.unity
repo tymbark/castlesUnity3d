@@ -756,7 +756,7 @@ Prefab:
     - target: {fileID: 224430925793424222, guid: 7bbf6de36821349d99e3b8b876a9e9a6,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 463.6
+      value: 470
       objectReference: {fileID: 0}
     - target: {fileID: 224430925793424222, guid: 7bbf6de36821349d99e3b8b876a9e9a6,
         type: 2}
@@ -866,7 +866,7 @@ Prefab:
     - target: {fileID: 224430925793424222, guid: 7bbf6de36821349d99e3b8b876a9e9a6,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 463.6
+      value: 470
       objectReference: {fileID: 0}
     - target: {fileID: 224430925793424222, guid: 7bbf6de36821349d99e3b8b876a9e9a6,
         type: 2}
@@ -935,22 +935,27 @@ Prefab:
     - target: {fileID: 114169360564476718, guid: 7bbf6de36821349d99e3b8b876a9e9a6,
         type: 2}
       propertyPath: m_fontColor.g
-      value: 0.85490197
+      value: 0.53067964
       objectReference: {fileID: 0}
     - target: {fileID: 114169360564476718, guid: 7bbf6de36821349d99e3b8b876a9e9a6,
         type: 2}
       propertyPath: m_fontColor.b
-      value: 0.6745098
+      value: 0.8455882
       objectReference: {fileID: 0}
     - target: {fileID: 114169360564476718, guid: 7bbf6de36821349d99e3b8b876a9e9a6,
         type: 2}
       propertyPath: m_fontColor32.rgba
-      value: 4289518335
+      value: 4292314880
       objectReference: {fileID: 0}
     - target: {fileID: 114771868174359620, guid: 7bbf6de36821349d99e3b8b876a9e9a6,
         type: 2}
       propertyPath: TargetScene
       value: BonusesAvailable
+      objectReference: {fileID: 0}
+    - target: {fileID: 114169360564476718, guid: 7bbf6de36821349d99e3b8b876a9e9a6,
+        type: 2}
+      propertyPath: m_fontColor.r
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7bbf6de36821349d99e3b8b876a9e9a6, type: 2}

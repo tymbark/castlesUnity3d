@@ -11,12 +11,14 @@ public static class ActionsExecutor {
         p.ProjectArea.Add(action.TargetCard);
     }
 
-    public static void ExecuteBuildProjectAction(this Player p, Action action, GameState gameState) {
+    public static bool ExecuteBuildProjectAction(this Player p, Action action, GameState gameState) {
         p.WithdrawUsedCard(action.ActionCard);
         p.UseWorkers(action.WorkersNeeded);
-        p.CompleteProject(action.TargetCard, gameState);
+        p.ApplyCompletingSingleBuildingBonus(action.TargetCard, gameState);
 
-        p.ApplyCompletingBonus(action.TargetCard, gameState);
+        bool didFinishTriple = p.CompleteProject(action.TargetCard, gameState);
+
+        return didFinishTriple;
     }
 
     public static void ExecuteShipGoodsAction(this Player p, Action action) {
@@ -91,7 +93,8 @@ public static class ActionsExecutor {
         }
     }
 
-    public static void CompleteProject(this Player p, Card targetCard, GameState gameState) {
+    public static bool CompleteProject(this Player p, Card targetCard, GameState gameState) {
+        bool didFinishedTriple = false;
         if (p.ProjectArea.Contains(targetCard)) {
             p.ProjectArea.Remove(targetCard);
 
@@ -110,12 +113,14 @@ public static class ActionsExecutor {
 
                 if (tripleCards.Count == 3) {
                     p.ApplyCompletingTripleBonus(tripleCards, gameState);
+                    didFinishedTriple = true;
                 }
             }
 
             p.CompletedProjects.Add(cardWithTripleId);
             p.CompletedProjects.Sort((x, y) => x.TripleId.CompareTo(y.TripleId));
 
+            return didFinishedTriple;
         } else {
             throw new System.InvalidProgramException("Cannot build a project that is not in projects area!");
         }

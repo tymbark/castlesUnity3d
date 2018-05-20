@@ -60,7 +60,7 @@ public static class CardsGenerator {
         return DrawObjectWithTextFromPrefab(D.PositionSilverCard, "CardSilver", howMany + "");
     }
 
-    public static GameObject DrawAnimalsCard(int howMany) {
+    public static GameObject DrawAllAnimalsCard(int howMany) {
         return DrawObjectWithTextFromPrefab(D.PositionAllAnimalsCard, "CardAnimals", howMany + "");
     }
 
@@ -230,6 +230,9 @@ public static class CardsGenerator {
             case CardClass.EndTurn:
                 fileUri += "finish";
                 break;
+            case CardClass.Barrel:
+                fileUri += "barrel1";
+                break;
             case CardClass.Dice:
                 switch (card.Dice) {
                     case CardDice.I:
@@ -275,6 +278,9 @@ public static class CardsGenerator {
                         break;
                     case CardDice.V_VI:
                         fileUri += "goods5-6";
+                        break;
+                    default:
+                        fileUri += "generic_goods";
                         break;
                 }
                 break;

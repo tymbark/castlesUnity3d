@@ -14,7 +14,7 @@ namespace Models {
         // Enviroment
         Dice, Worker, Silver, EndTurn, Exit, Points,
         AllProjects, AllEstates, AllAnimals, AllStorages,
-        SellSilverAndWorkers, ShipGoods,
+        SellSilverAndWorkers, ShipGoods, Barrel,
 
         BonusCastle,
         BonusCarperter,
@@ -122,7 +122,7 @@ namespace Models {
             if (Cards.Count == 0) {
                 throw new System.InvalidProgramException("Deck is empty!");
             }
-            Card card = Cards[Cards.Count - 1];
+            Card card = Cards[0];
             Cards.Remove(card);
             return card;
         }

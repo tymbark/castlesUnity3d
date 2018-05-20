@@ -6,6 +6,7 @@ public class ActionHandler {
 
     private readonly GameEngine GameEngine;
     private readonly List<ProjectCard> AvailableProjectCards;
+    public System.Action ShowChooseBonusSceneAction = () => { };
 
     public ActionHandler(GameEngine gameEngine) {
         AvailableProjectCards = gameEngine.GameState.AvailableProjectCards;
@@ -28,7 +29,10 @@ public class ActionHandler {
                 break;
             case ActionType.BuildProject:
 
-                CurrentPlayer().ExecuteBuildProjectAction(action, GameEngine.GameState);
+                bool didFinishedTriple = CurrentPlayer().ExecuteBuildProjectAction(action, GameEngine.GameState);
+                if (didFinishedTriple) {
+                    ShowChooseBonusSceneAction();
+                }
 
                 break;
             case ActionType.ShipGoods:
