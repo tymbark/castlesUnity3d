@@ -142,7 +142,7 @@ public class GameBoardGenerator {
 
         gameObjects.Add(CardsGenerator.DrawSellStuffCard());
         gameObjects.Add(CardsGenerator.DrawShipGoodsCard());
-        gameObjects.Add(CardsGenerator.DrawSilverCard(mePlayer.SilverCount));
+        gameObjects.Add(CardsGenerator.DrawSilverCard(mePlayer.SilverCount, mePlayer.SilverActionDoneThisTurn));
         gameObjects.Add(CardsGenerator.DrawWorkersCard(mePlayer.WorkersCount));
 
         gameObjects.Add(CardsGenerator.DrawPointsElement(mePlayer.Score));

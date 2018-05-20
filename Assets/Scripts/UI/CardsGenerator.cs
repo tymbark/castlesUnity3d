@@ -56,9 +56,9 @@ public static class CardsGenerator {
         return DrawObjectWithTextFromPrefab(D.PositionWorkerCard, "CardWorker", howMany + "");
     }
 
-    public static GameObject DrawSilverCard(int howMany) {
+    public static GameObject DrawSilverCard(int howMany, bool silverDoneThisTurn) {
         GameObject gameObject = DrawObjectWithTextFromPrefab(D.PositionSilverCard, "CardSilver", howMany + "");
-        if (howMany >=3) {
+        if (!silverDoneThisTurn && howMany >=3) {
             gameObject.GetComponent<ClickableObjectController>().ClickAction = ClickAction.UseSilver;
             gameObject.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = "use";
         } else {

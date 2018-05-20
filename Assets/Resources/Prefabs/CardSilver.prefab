@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 179812b62947e428d935f2e018729eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClickAction: 5
+  ClickAction: 6
 --- !u!114 &114705383012005006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -283,7 +283,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4289518335
-  m_fontColor: {r: 1, g: 0.85663205, b: 0.6764706, a: 1}
+  m_fontColor: {r: 0, g: 0.53067964, b: 0.8455882, a: 1}
   m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
@@ -349,7 +349,7 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}

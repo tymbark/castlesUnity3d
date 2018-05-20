@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 179812b62947e428d935f2e018729eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClickAction: 7
+  ClickAction: 8
 --- !u!222 &222585471189110468
 CanvasRenderer:
   m_ObjectHideFlags: 1
