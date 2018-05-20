@@ -9,14 +9,23 @@ public class GameBoardGenerator {
 
     private List<GameObject> gameObjects = new List<GameObject>();
 
-    public List<GameObject> DrawGameBoard(GameEngine engine) {
-        DrawPlayerHand(engine.GameState.CurrentPlayer);
-        DrawEnviroment(engine.GameState);
-        DrawPlayerProjectCards(engine.GameState.CurrentPlayer.ProjectArea);
-        DrawAnimals(engine.GameState.AnimalsDeck);
-        DrawGoods(engine.GameState.GoodsDeck);
+    public List<GameObject> DrawGameBoard(GameState gameState) {
+        string playerNickname = DataPersistance.GetPlayerNickName();
+        List<Player> possiblePlayers = gameState.Players.FindAll((obj) => playerNickname == obj.NickName);
+        if (possiblePlayers.Count != 1) {
+            throw new System.InvalidProgramException("There must be exactly one player with that ID!");
+        }
+        0.print_("draw board for player: " + playerNickname);
+
+        Player mePlayer = possiblePlayers[0];
+
+        DrawPlayerHand(mePlayer);
+        DrawEnviroment(gameState, mePlayer);
+        DrawPlayerProjectCards(mePlayer.ProjectArea);
+        DrawAnimals(gameState.AnimalsDeck);
+        DrawGoods(gameState.GoodsDeck);
         DrawDices();
-        DrawAvailableProjectCards(engine.GameState.AvailableProjectCards);
+        DrawAvailableProjectCards(gameState.AvailableProjectCards);
 
         return gameObjects;
     }
@@ -125,20 +134,19 @@ public class GameBoardGenerator {
         }
     }
 
-    private void DrawEnviroment(GameState gameState) {
-        Player currentPlayer = gameState.CurrentPlayer;
+    private void DrawEnviroment(GameState gameState, Player mePlayer) {
 
-        gameObjects.Add(CardsGenerator.DrawEstateCard(currentPlayer.CompletedProjects.Count));
-        gameObjects.Add(CardsGenerator.DrawProjectsCard(currentPlayer.ProjectArea.Count));
-        gameObjects.Add(CardsGenerator.DrawStorageCard(currentPlayer.Goods.Count));
-        gameObjects.Add(CardsGenerator.DrawAnimalsCard(currentPlayer.Animals.Count));
+        gameObjects.Add(CardsGenerator.DrawEstateCard(mePlayer.CompletedProjects.Count));
+        gameObjects.Add(CardsGenerator.DrawProjectsCard(mePlayer.ProjectArea.Count));
+        gameObjects.Add(CardsGenerator.DrawStorageCard(mePlayer.Goods.Count));
+        gameObjects.Add(CardsGenerator.DrawAnimalsCard(mePlayer.Animals.Count));
 
         gameObjects.Add(CardsGenerator.DrawSellStuffCard());
         gameObjects.Add(CardsGenerator.DrawShipGoodsCard());
-        gameObjects.Add(CardsGenerator.DrawSilverCard(currentPlayer.SilverCount));
-        gameObjects.Add(CardsGenerator.DrawWorkersCard(currentPlayer.WorkersCount));
+        gameObjects.Add(CardsGenerator.DrawSilverCard(mePlayer.SilverCount));
+        gameObjects.Add(CardsGenerator.DrawWorkersCard(mePlayer.WorkersCount));
 
-        gameObjects.Add(CardsGenerator.DrawPointsElement(currentPlayer.Score));
+        gameObjects.Add(CardsGenerator.DrawPointsElement(mePlayer.Score));
         gameObjects.Add(CardsGenerator.DrawNextTurnButton());
         gameObjects.Add(CardsGenerator.DrawExitGameButton());
 

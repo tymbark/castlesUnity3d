@@ -4,14 +4,13 @@ using UnityEngine;
 using Models;
 using NetworkModels;
 using InputActions;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour {
 
     public bool ClicksEnabled = true;
     public GameEngine GameEngine { get; private set; }
-    private List<GameObject> GUIobjects = new List<GameObject>();
+    private List<GameObject> GarbageCollector = new List<GameObject>();
     private ActionHandler ActionHandler;
     private GameBoardGenerator GameBoardGenerator = new GameBoardGenerator();
     private PopupsController PopupsController;
@@ -28,44 +27,81 @@ public class GameController : MonoBehaviour {
         }
         CurrentGameId = DataPersistance.GetCurrentGameId();
         PopupsController = GetComponent<PopupsController>();
-        RefreshTable();
 
-        if (GameEngine.GameState.HasNotStarted()){
-            GameEngine.StartGame();
+        if (GameEngine.GameState.ItsMyTurn()) {
+            if (GameEngine.GameState.HasNotStarted()) {
+                GameEngine.StartGame();
+            }
         }
+
+        RedrawUI();
+        CheckTheTurn();
     }
 
-    private void GetGameStateFromServer() {
+    private void GetGameStateRequest() {
         StartCoroutine(NetworkController.GetGameState(CurrentGameId, GameStateResponse));
+    }
+
+    private void PostGameStateRequest() {
+        StartCoroutine(NetworkController.PostGameState(GameEngine.GameState, (bool success) => {
+            if (success) {
+                CheckTheTurn();
+            }
+        }));
+    }
+
+    private void CheckTheTurn() {
+        if (!GameEngine.GameState.ItsMyTurn()) {
+            Invoke("GetGameStateRequest", 4);
+        } else {
+            // PLAY
+        }
     }
 
     private void GameStateResponse(ResponseOrError<GameState> responseOrError) {
         if (responseOrError.IsSuccess) {
             var newGameState = responseOrError.Response;
+
             if (!GameEngine.GameState.IsEqualTo(newGameState)) {
-                newGameState.SaveGameState();
-                GameEngine.Refresh();
-                RefreshTable();
+                UpdateGameState(newGameState);
+                RedrawUI();
                 print("game state has changed... how refreshing");
             } else {
                 print("game state hasn't changed");
             }
 
-            if (!(newGameState.CurrentPlayer.NickName == DataPersistance.GetPlayerNickName())) {
-                Invoke("GetGameStateFromServer", 3);
-            }
+            CheckTheTurn();
 
         } else {
-            Invoke("GetGameStateFromServer", 5);
+            CheckTheTurn();
         }
     }
 
-    public void RefreshTable() {
-        foreach (GameObject gmo in GUIobjects) {
+    private void RedrawUI() {
+        print("redraw UI");
+        foreach (GameObject gmo in GarbageCollector) {
             Destroy(gmo);
         }
-        GUIobjects = GameBoardGenerator.DrawGameBoard(GameEngine);
-        GameEngine.GameState.SaveGameState();
+        GarbageCollector.Clear();
+        GarbageCollector = GameBoardGenerator.DrawGameBoard(GameEngine.GameState);
+
+        ShowOrHideScreenBlockerWaitForTurn();
+    }
+
+    private void UpdateGameState(GameState gameState) {
+        gameState.SaveGameState();
+        GameEngine.UpdateGameState();
+    }
+
+    private void ShowOrHideScreenBlockerWaitForTurn() {
+        if (!GameEngine.GameState.ItsMyTurn()) {
+            print("its not my turn -> show UI blocker");
+            GarbageCollector.Add(PopupsController.ShowMessageWaitForYourTurn(GameEngine.GameState.CurrentPlayerNickName));
+            ClicksEnabled = false;
+        } else {
+            print("its my turn...");
+            ClicksEnabled = true;
+        }
     }
 
     public void HandleClickAction(ClickAction action) {
@@ -76,7 +112,11 @@ public class GameController : MonoBehaviour {
             case ClickAction.EndTurn:
                 if (actions.HasEndTurnAction()) {
                     ActionHandler.ProcessAction(actions.GetEndTurnAction());
-                    PopupsController.ShowMessageNextTurn();
+
+                    UpdateGameState(GameEngine.GameState);
+                    RedrawUI();
+                    PostGameStateRequest();
+
                 } else {
                     PopupsController.ShowMessageCannotFinishTurn();
                 }
@@ -87,19 +127,19 @@ public class GameController : MonoBehaviour {
             case ClickAction.ShowProjects:
             case ClickAction.ShowWorkers:
             case ClickAction.ShowSilver:
-                SceneManager.LoadScene("Projects");
+                SceneLoader.LoadProjectsScene();
                 break;
             case ClickAction.ShowEstates:
-                SceneManager.LoadScene("Estates");
+                SceneLoader.LoadEstatesScene();
                 break;
             case ClickAction.ShowAnimals:
-                SceneManager.LoadScene("Animals");
+                SceneLoader.LoadAnimalsScene();
                 break;
             case ClickAction.ShowBonuses:
-                print("todo open bonuses ...");
+                SceneLoader.LoadBonusesTakenScene();
                 break;
             case ClickAction.ShowStorage:
-                SceneManager.LoadScene("Goods");
+                SceneLoader.LoadGoodsScene();
                 break;
         }
     }
@@ -117,9 +157,10 @@ public class GameController : MonoBehaviour {
             Action actionForExecute = actions.GetAvailableMove(targetCard, actionCard);
 
             ActionHandler.ProcessAction(actionForExecute);
-            RefreshTable();
+            UpdateGameState(GameEngine.GameState);
+            RedrawUI();
+            CheckTheTurn();
         }
-
     }
 
     public void HandleCardHoverAction(GameObject playerCardObject, GameObject targetCardObject) {

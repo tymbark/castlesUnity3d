@@ -35,3 +35,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameReady.unity
     guid: 13e4ab13cde0542bba5b5954f8255405
+  - enabled: 1
+    path: Assets/Scenes/BonusesAvailable.unity
+    guid: 77b0aedeb043d4007abe63776a3be1e6
+  - enabled: 1
+    path: Assets/Scenes/BonusesTaken.unity
+    guid: 8a13fc32adf584f8880827ffbc621284

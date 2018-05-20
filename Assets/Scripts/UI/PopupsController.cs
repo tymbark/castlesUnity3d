@@ -34,24 +34,33 @@ public class PopupsController : MonoBehaviour {
         Invoke("RemovePopups", 2.5f);
     }
 
-    public void ShowMessageNextTurn() {
-        GameController.ClicksEnabled = false;
-        Object prefab = Resources.Load("Prefabs/TextNextTurn");
+    //public void ShowMessageNextTurn() {
+    //    GameController.ClicksEnabled = false;
+    //    Object prefab = Resources.Load("Prefabs/TextNextTurn");
+    //    GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+    //    messageGameObject.transform.position = Vector3.one;
+
+    //    TMPro.TextMeshProUGUI text = messageGameObject.GetComponentInChildren<TMPro.TextMeshProUGUI>();
+    //    text.text = "next player: " + GameController.GameEngine.GameState.CurrentPlayer.NickName;
+
+    //    GameObject canvas = GameObject.Find("Canvas");
+    //    messageGameObject.transform.SetParent(canvas.transform);
+    //    Trash.Add(messageGameObject);
+    //    Invoke("RemovePopups", 2.5f);
+    //    Invoke("Refresh", 2.6f);
+    //}
+
+    public static GameObject ShowMessageWaitForYourTurn(string name) {
+        Object prefab = Resources.Load("Prefabs/TextWaitForTurn");
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
         messageGameObject.transform.position = Vector3.one;
 
         TMPro.TextMeshProUGUI text = messageGameObject.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        text.text = "next player: " + GameController.GameEngine.GameState.CurrentPlayer.NickName;
+        text.text = "current turn: " + name;
 
         GameObject canvas = GameObject.Find("Canvas");
         messageGameObject.transform.SetParent(canvas.transform);
-        Trash.Add(messageGameObject);
-        Invoke("RemovePopups", 2.5f);
-        Invoke("Refresh", 2.6f);
-    }
-
-    public void Refresh() {
-        GameController.RefreshTable();
+        return messageGameObject;
     }
 
     public void RemovePopups() {

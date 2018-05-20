@@ -23,7 +23,7 @@ public class GameReadyController : MonoBehaviour {
     private void GameStateResponse(ResponseOrError<GameState> responseOrError) {
         if (responseOrError.IsSuccess) {
             responseOrError.Response.SaveGameState();
-            Invoke("OpenMainGameBoard", 3);
+            Invoke("OpenMainGameBoard", 1);
         } else {
             print("cannot get game state, retry in 3 sec");
             Invoke("GetGameState", 3);

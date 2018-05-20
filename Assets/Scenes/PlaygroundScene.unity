@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &14526292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,6 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &104674505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,6 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &104782484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,6 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &105983671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -494,6 +498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &127436762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -575,6 +580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &130313614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -697,6 +703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &158309490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -778,6 +785,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &204344408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -859,6 +867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &243305275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1005,6 +1014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &282874896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1086,6 +1096,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &299216791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1167,6 +1178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &313058876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1548,6 +1560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!23 &474328633
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1650,6 +1663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &486329156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1731,6 +1745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &492649993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1812,6 +1827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &499037277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1893,6 +1909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &524690709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1974,6 +1991,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &537546844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2059,6 +2077,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &572457071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2221,6 +2240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &573495490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2427,6 +2447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &625358181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2513,6 +2534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &675213007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2594,6 +2616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &677907440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2755,6 +2778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &710298696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2836,6 +2860,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &757618991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2917,6 +2942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &759967042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2998,6 +3024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &796412642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3079,6 +3106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &862058024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3160,6 +3188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &877925584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3241,6 +3270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &879653701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3322,6 +3352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &903903418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3408,6 +3439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &965670008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3489,6 +3521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &974558615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3666,6 +3699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!61 &1054549523
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3872,6 +3906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1084681332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4063,6 +4098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1122556122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4259,6 +4295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1172480567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4340,6 +4377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1177292062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4558,6 +4596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1282219896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4639,6 +4678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1286887331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4760,6 +4800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1381247629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4841,6 +4882,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1387557948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5049,6 +5091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1397228093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5135,6 +5178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1405820634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5310,6 +5354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1456488389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5391,6 +5436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1472473962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5697,6 +5743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1566950428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5778,6 +5825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1577028370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5859,6 +5907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1583036028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5940,6 +5989,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1599022134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6036,6 +6086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1627821525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6117,6 +6168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1636716319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6487,6 +6539,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!23 &1739743648
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6691,6 +6744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1805992166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6866,6 +6920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1826238210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6947,6 +7002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1853350572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7075,6 +7131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1861439174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7281,6 +7338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1882367193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7362,6 +7420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1918105901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7490,6 +7549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1927902466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7571,6 +7631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &1949667274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7846,6 +7907,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   draggable: 1
+  InitialLayerOrder: -1
 --- !u!114 &2049424196
 MonoBehaviour:
   m_ObjectHideFlags: 0

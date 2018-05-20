@@ -19,7 +19,6 @@ public static class DataPersistance {
     }
 
     public static GameState LoadGameState() {
-        Debug.Log("loading game state...");
         string gameStateString = PlayerPrefs.GetString(GAME_STATE_KEY);
         return gameStateString.ParseToGameState();
     }

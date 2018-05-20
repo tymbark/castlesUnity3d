@@ -575,28 +575,40 @@ public static class CardsGenerator {
 
         switch (bonusCard) {
             case BonusCard.FirstPlayer:
+                fileUri += "1player";
                 break;
             case BonusCard.Building:
+                fileUri += "bonusBuilding";
                 break;
             case BonusCard.Castle:
+                fileUri += "bonusCastle";
                 break;
             case BonusCard.Mine:
+                fileUri += "bonusMine";
                 break;
             case BonusCard.Cloister:
+                fileUri += "bonusCloister";
                 break;
             case BonusCard.Knowledge:
+                fileUri += "bonusKnowledge";
                 break;
             case BonusCard.Ship:
+                fileUri += "bonusShip";
                 break;
             case BonusCard.Pasture:
+                fileUri += "bonusPasture";
                 break;
             case BonusCard.AllSeven4:
+                fileUri += "bonus4";
                 break;
             case BonusCard.AllSeven3:
+                fileUri += "bonus3";
                 break;
             case BonusCard.AllSeven2:
+                fileUri += "bonus2";
                 break;
             case BonusCard.AllSeven1:
+                fileUri += "bonus1";
                 break;
         }
 

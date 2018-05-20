@@ -28,7 +28,7 @@ public class GameEngine {
         ActionHandler = new ActionHandler(this);
     }
 
-    public void Refresh() {
+    public void UpdateGameState() {
         GameState = DataPersistance.LoadGameState();
     }
 
@@ -82,6 +82,7 @@ public class GameEngine {
     private void NextTurn() {
         if (GameState.CurrentTurn >= 1 && GameState.CurrentTurn <= 6) {
             GameState.CurrentTurn = GameState.CurrentTurn + 1;
+            DrawHandCards();
         } else if (GameState.CurrentTurn == 7) {
             NextRound();
             GameState.CurrentTurn = 1;
