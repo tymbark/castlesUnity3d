@@ -41,47 +41,141 @@ public static class CardsGenerator {
     }
 
     public static GameObject DrawPointsElement(int points) {
-        return DrawObjectWithTextFromPrefab(D.PositionPointsButton, "ButtonPoints", points + "");
+        GameObject pointsCard = CreateCardGameObject("small_card_empty", D.PositionPointsButton, false, true);
+        pointsCard.AddSmallText(points + "", false, true);
+
+        return pointsCard;
     }
 
     public static GameObject DrawSellStuffCard() {
-        return DrawObjectFromPrefab(D.PositionSellSilverAndWorkersCard, "CardSellStuff");
+        GameObject workerCard = CreateCardGameObject("sell_goods", D.PositionSellSilverAndWorkersCard);
+        workerCard.AddDropCardAction(DragDropAction.SellSilverAndWorkers);
+
+        return workerCard;
     }
 
     public static GameObject DrawShipGoodsCard() {
-        return DrawObjectFromPrefab(D.PositionShipGoodsCard, "CardShipGoods");
+        GameObject workerCard = CreateCardGameObject("sell_goods", D.PositionShipGoodsCard);
+        workerCard.AddDropCardAction(DragDropAction.ShipGoods);
+
+        return workerCard;
     }
 
     public static GameObject DrawWorkersCard(int howMany) {
-        return DrawObjectWithTextFromPrefab(D.PositionWorkerCard, "CardWorker", howMany + "");
+        GameObject workerCard = CreateCardGameObject("workerGS", D.PositionWorkerCard);
+        workerCard.AddSmallText(howMany + "");
+        workerCard.AddClickAction(ClickAction.ShowWorkers);
+        workerCard.AddDropCardAction(DragDropAction.BuyWorkers);
+
+        return workerCard;
     }
 
     public static GameObject DrawSilverCard(int howMany, bool silverDoneThisTurn) {
-        GameObject gameObject = DrawObjectWithTextFromPrefab(D.PositionSilverCard, "CardSilver", howMany + "");
-        if (!silverDoneThisTurn && howMany >=3) {
-            gameObject.GetComponent<ClickableObjectController>().ClickAction = ClickAction.UseSilver;
-            gameObject.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = "use";
+        GameObject silverCard = CreateCardGameObject("silver", D.PositionSilverCard);
+        silverCard.AddSmallText(howMany + "");
+        silverCard.AddDropCardAction(DragDropAction.BuySilver);
+
+        var textObj = Object.Instantiate(Resources.Load("Prefabs/DefaultTextOrange80")) as GameObject;
+        textObj.transform.SetParent(silverCard.transform);
+        textObj.GetComponent<TMPro.TextMeshProUGUI>().text = "use";
+        textObj.GetComponent<TMPro.TextMeshProUGUI>().color = new Color32(0x00, 0x87, 0xD8, 0xFF);
+        textObj.GetComponent<RectTransform>().sizeDelta = D.CardSize;
+        textObj.transform.localPosition = new Vector2(0, -60);
+
+        if (!silverDoneThisTurn && howMany >= 3) {
+            silverCard.AddClickAction(ClickAction.UseSilver);
         } else {
-            gameObject.GetComponent<ClickableObjectController>().ClickAction = ClickAction.ShowSilver;
-            gameObject.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = "";
+            silverCard.AddClickAction(ClickAction.ShowSilver);
         }
-        return gameObject;
+
+        return silverCard;
     }
 
     public static GameObject DrawAllAnimalsCard(int howMany) {
-        return DrawObjectWithTextFromPrefab(D.PositionAllAnimalsCard, "CardAnimals", howMany + "");
+        GameObject animalsCard = CreateCardGameObject("all_animals", D.PositionAllAnimalsCard);
+        animalsCard.AddSmallText(howMany + "");
+        animalsCard.AddClickAction(ClickAction.ShowAnimals);
+
+        return animalsCard;
     }
 
     public static GameObject DrawStorageCard(int howMany) {
-        return DrawObjectWithTextFromPrefab(D.PositionAllStoragesCard, "CardStorage", howMany + "");
+        GameObject storageCard = CreateCardGameObject("store", D.PositionAllStoragesCard, true);
+        storageCard.AddSmallText(howMany + "", true);
+        storageCard.AddClickAction(ClickAction.ShowStorage);
+
+        return storageCard;
     }
 
     public static GameObject DrawEstateCard(int howMany) {
-        return DrawObjectWithTextFromPrefab(D.PositionAllEstatesCard, "CardEstate", howMany + "");
+        GameObject estateCard = CreateCardGameObject("estate", D.PositionAllEstatesCard, true);
+        estateCard.AddSmallText(howMany + "", true);
+        estateCard.AddClickAction(ClickAction.ShowEstates);
+
+        return estateCard;
     }
 
     public static GameObject DrawProjectsCard(int howMany) {
-        return DrawObjectWithTextFromPrefab(D.PositionAllProjectsCard, "CardProjects", howMany + "");
+        GameObject projectsCard = CreateCardGameObject("project", D.PositionAllProjectsCard, true);
+        projectsCard.AddSmallText(howMany + "", true);
+        projectsCard.AddClickAction(ClickAction.ShowProjects);
+
+        return projectsCard;
+    }
+
+    public static GameObject CreateCardGameObject(string imageResId, Vector2 position, bool horizontal = false, bool small = false) {
+        GameObject canvas = GameObject.Find("Canvas");
+        GameObject newCard = new GameObject();
+        newCard.AddComponent<CanvasRenderer>();
+
+        RectTransform rectTransform = newCard.AddComponent<RectTransform>();
+        rectTransform.localScale = new Vector3(1f, 1f, 1f);
+
+        if (small) {
+            rectTransform.sizeDelta = new Vector2(D.CardWidth, D.CardWidth);
+        } else {
+            rectTransform.sizeDelta = D.CardSize;
+        }
+
+        if (horizontal) {
+            rectTransform.rotation = Quaternion.Euler(new Vector3(0, 0, -90));
+        }
+
+        Image image = newCard.AddComponent<Image>();
+        image.overrideSprite = Resources.Load<Sprite>("Cards/" + imageResId);
+
+        newCard.transform.position = position;
+        newCard.transform.SetParent(canvas.transform);
+
+        return newCard;
+    }
+
+    public static void AddSmallText(this GameObject gameObject, string text, bool horizontal = false, bool centerText = false) {
+        var textObj = Object.Instantiate(Resources.Load("Prefabs/DefaultTextOrange80")) as GameObject;
+        textObj.transform.SetParent(gameObject.transform);
+        textObj.GetComponent<TMPro.TextMeshProUGUI>().text = text;
+        textObj.GetComponent<RectTransform>().sizeDelta = D.CardSize;
+
+        if (horizontal) {
+            textObj.transform.localPosition = new Vector2(-38, 72);
+        } else if (centerText) {
+            textObj.transform.localPosition = new Vector2(0, 0);
+        } else {
+            textObj.transform.localPosition = new Vector2(35, 65);
+        }
+    }
+
+    private static void AddClickAction(this GameObject gameObject, ClickAction clickAction) {
+        var clickComponent = gameObject.AddComponent<ClickableObjectController>();
+        clickComponent.ClickAction = clickAction;
+    }
+
+    private static void AddDropCardAction(this GameObject gameObject, DragDropAction dropAction) {
+        BoxCollider2D boxCollider = gameObject.AddComponent<BoxCollider2D>();
+        boxCollider.isTrigger = true;
+        boxCollider.size = D.CardSize;
+        var dropController = gameObject.AddComponent<DropCardController>();
+        dropController.DragDropAction = dropAction;
     }
 
     public static GameObject DrawHandCard(Card card, Vector2 coords, int order, bool disabled = false) {

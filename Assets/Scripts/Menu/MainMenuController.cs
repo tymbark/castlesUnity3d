@@ -16,6 +16,13 @@ public class MainMenuController : MonoBehaviour {
         GameObject.Find("OptionsButton")
                   .AddComponent<ClickActionScript>()
                   .ClickMethod = OptionsClicked;
+
+        CardsGenerator.DrawSilverCard(4, false);
+        CardsGenerator.DrawStorageCard(4);
+        CardsGenerator.DrawEstateCard(1);
+        CardsGenerator.DrawProjectsCard(2);
+        CardsGenerator.DrawPointsElement(2);
+
     }
 
     private void NewGameClicked(object param) {
