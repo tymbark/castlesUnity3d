@@ -5,10 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour {
 
+    private static readonly string MAIN_MENU = "MainMenu";
     private static readonly string NEW_GAME = "NewGame";
     private static readonly string JOIN_GAME = "JoinGame";
     private static readonly string GAME_READY = "GameReady";
     private static readonly string WAITING_ROOM = "WaitingRoom";
+    private static readonly string OPTIONS = "Options";
 
     private static readonly string MAIN_GAME = "MainGame";
     private static readonly string ESTATES = "Estates";
@@ -18,6 +20,12 @@ public class SceneLoader : MonoBehaviour {
     private static readonly string BONUSES_TAKEN = "BonusesTaken";
     private static readonly string BONUSES_AVAILABLE = "BonusesAvailable";
     private static readonly string CHOOSE_BONUS = "ChooseBonus";
+    private static readonly string GAME_FINISHED = "GameFinished";
+
+    public static void LoadMainMenuScene() {
+        print("Load Scene " + MAIN_MENU);
+        SceneManager.LoadScene(MAIN_MENU);
+    }
 
     public static void LoadWaitingRoomScene() {
         print("Load Scene " + WAITING_ROOM);
@@ -32,6 +40,11 @@ public class SceneLoader : MonoBehaviour {
     public static void LoadJoinGameScene() {
         print("Load Scene " + JOIN_GAME);
         SceneManager.LoadScene(JOIN_GAME);
+    }
+
+    public static void LoadOptionsScene() {
+        print("Load Scene " + OPTIONS);
+        SceneManager.LoadScene(OPTIONS);
     }
 
     public static void LoadGameReadyScene() {
@@ -77,6 +90,11 @@ public class SceneLoader : MonoBehaviour {
     public static void LoadChooseBonusScene() {
         print("Load Scene " + CHOOSE_BONUS);
         SceneManager.LoadScene(CHOOSE_BONUS);
+    }
+
+    public static void LoadGameFinishedScene() {
+        print("Load Scene " + GAME_FINISHED);
+        SceneManager.LoadScene(GAME_FINISHED);
     }
 
 }

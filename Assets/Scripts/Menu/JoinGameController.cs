@@ -10,9 +10,11 @@ public class JoinGameController : MonoBehaviour {
     private static readonly float StartingAxisY = 150f;
     private static readonly float SpaceBetweenTexts = 150f;
     private List<GameObject> GarbageCollector = new List<GameObject>();
+    private string PlayerNickName;
 
     private void Start() {
         GetAvailableGames();
+        PlayerNickName = DataPersistance.GetPlayerNickName();
     }
 
     private void GetAvailableGames() {
@@ -24,7 +26,12 @@ public class JoinGameController : MonoBehaviour {
         if (responseOrError.IsSuccess) {
             CleanGarbageCollector();
 
-            List<GameInfo> info = responseOrError.Response.FindAll((obj) => obj.Available && obj.PlayersNow < obj.PlayersMax);
+            List<GameInfo> info = responseOrError
+                .Response
+                .FindAll((obj) =>
+                         !obj.PlayersNicknames.Contains(PlayerNickName)
+                         && obj.Available
+                         && obj.PlayersNow < obj.PlayersMax);
 
             if (info.IsEmpty()) {
                 string text = "no games available";
@@ -57,7 +64,7 @@ public class JoinGameController : MonoBehaviour {
     private void OnGameItemClick(object game) {
         if (game.GetType() == typeof(GameInfo)) {
             GameInfo gameInfo = (game as GameInfo);
-            gameInfo.PlayersNicknames.Add(DataPersistance.GetPlayerNickName());
+            gameInfo.PlayersNicknames.Add(PlayerNickName);
             gameInfo.PlayersNow = gameInfo.PlayersNow + 1;
             DataPersistance.SaveCurrentGameId(gameInfo.Id);
             StartCoroutine(NetworkController.PostGameInfo(gameInfo, PostGameInfoResponse));

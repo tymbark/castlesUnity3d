@@ -591,6 +591,9 @@ public static class CardsGenerator {
             case BonusCard.FirstPlayer:
                 fileUri += "1player";
                 break;
+            case BonusCard.FirstPlayerReverse:
+                fileUri += "1playerQ";
+                break;
             case BonusCard.Building:
                 fileUri += "bonusBuilding";
                 break;

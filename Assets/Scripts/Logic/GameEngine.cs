@@ -36,7 +36,7 @@ public class GameEngine {
 
         gameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCastle, CardDice.II));
         gameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCastle, CardDice.II));
-        gameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCastle, CardDice.II));
+        gameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionShip, CardDice.II));
         gameState.Players[0].CompleteProject(new Card(CardClass.ActionCastle, CardDice.II), GameState);
         gameState.Players[0].CompleteProject(new Card(CardClass.ActionCastle, CardDice.II), GameState);
 
@@ -45,7 +45,8 @@ public class GameEngine {
     }
 
     public void StartGame() {
-        GameState.CurrentPlayer.ReceivedBonuses.Add(BonusCard.FirstPlayer);
+        //GameState.CurrentPlayer.ReceivedBonuses.Add(BonusCard.FirstPlayer);
+        GameState.Players[1].ReceivedBonuses.Add(BonusCard.FirstPlayer);
         GameState.CurrentTurn = 1;
         DrawFutureCards();
         DrawHandCards();
@@ -108,7 +109,7 @@ public class GameEngine {
     }
 
     private void FinishGame() {
-
+        GameState.IsFinished = true;
     }
 
     private void DrawFutureCards() {

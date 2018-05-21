@@ -27,6 +27,6 @@ public class MainMenuController : MonoBehaviour {
     }
 
     private void OptionsClicked(object param) {
-        print("todo options...");
+        SceneLoader.LoadOptionsScene();
     }
 }

@@ -86,7 +86,12 @@ public class GameController : MonoBehaviour {
         GarbageCollector.Clear();
         GarbageCollector = GameBoardGenerator.DrawGameBoard(GameEngine.GameState);
 
-        ShowOrHideScreenBlockerWaitForTurn();
+        if (GameEngine.GameState.IsFinished) {
+            SceneLoader.LoadGameFinishedScene();
+        } else {
+            ShowOrHideScreenBlockerWaitForTurn();
+        }
+
     }
 
     private void UpdateGameState(GameState gameState) {
