@@ -29,7 +29,7 @@ public class JoinGameController : MonoBehaviour {
             List<GameInfo> info = responseOrError
                 .Response
                 .FindAll((obj) =>
-                         !obj.PlayersNicknames.Contains(PlayerNickName)
+                         obj.CreatorNickName != PlayerNickName
                          && obj.Available
                          && obj.PlayersNow < obj.PlayersMax);
 
@@ -39,7 +39,7 @@ public class JoinGameController : MonoBehaviour {
                 GarbageCollector.Add(obj);
             } else {
                 for (int i = 0; i < info.Count; i++) {
-                    GameInfo game = responseOrError.Response[i];
+                    GameInfo game = info[i];
                     float y = StartingAxisY - i * SpaceBetweenTexts;
                     string text = game.CreatorNickName + "'s game, players " + game.PlayersNow + "/" + game.PlayersMax;
                     var obj = CardsGenerator.DrawObjectWithTextFromPrefab(new Vector2(0, y), "DefaultTextWhite", text);
