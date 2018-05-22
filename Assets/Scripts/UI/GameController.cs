@@ -11,15 +11,12 @@ public class GameController : MonoBehaviour {
     public bool ClicksEnabled = true;
     public GameEngine GameEngine { get; private set; }
     private List<GameObject> GarbageCollector = new List<GameObject>();
-    private ActionHandler ActionHandler;
     private GameBoardGenerator GameBoardGenerator = new GameBoardGenerator();
     private PopupsController PopupsController;
     private string CurrentGameId;
 
     private void Awake() {
         GameEngine = new GameEngine();
-        ActionHandler = GameEngine.ActionHandler;
-        ActionHandler.ShowChooseBonusSceneAction = SceneLoader.LoadChooseBonusScene;
     }
 
     void Start() {
@@ -112,17 +109,17 @@ public class GameController : MonoBehaviour {
 
     public void HandleClickAction(ClickAction action) {
         print("handle click action " + action);
-        List<Action> actions = GameEngine.ActionHandler.GetAvailableActions();
+        List<Action> actions = GameEngine.GameState.GetAvailableActions();
 
         switch (action) {
             case ClickAction.UseSilver:
-                ActionHandler.ProcessAction(actions.GetUseSilverAction());
+                GameEngine.ProcessAction(actions.GetUseSilverAction(), SceneLoader.LoadChooseBonusScene);
                 UpdateGameState(GameEngine.GameState);
                 RedrawUI();
                 break;
             case ClickAction.EndTurn:
                 if (actions.HasEndTurnAction()) {
-                    ActionHandler.ProcessAction(actions.GetEndTurnAction());
+                    GameEngine.ProcessAction(actions.GetEndTurnAction());
 
                     UpdateGameState(GameEngine.GameState);
                     RedrawUI();
@@ -162,12 +159,12 @@ public class GameController : MonoBehaviour {
         Card targetCard = targetCardObject.GetDragDropController().Card;
         Card actionCard = playerCardObject.GetCardController().Card;
 
-        List<Action> actions = GameEngine.ActionHandler.GetAvailableActions();
+        List<Action> actions = GameEngine.GameState.GetAvailableActions();
 
         if (actions.IsMoveAvailable(targetCard, actionCard)) {
             Action actionForExecute = actions.GetAvailableMove(targetCard, actionCard);
 
-            ActionHandler.ProcessAction(actionForExecute);
+            GameEngine.ProcessAction(actionForExecute);
             UpdateGameState(GameEngine.GameState);
             RedrawUI();
             CheckTheTurn();
@@ -178,7 +175,7 @@ public class GameController : MonoBehaviour {
         Card targetCard = targetCardObject.GetDragDropController().Card;
         Card actionCard = playerCardObject.GetCardController().Card;
 
-        List<Action> actions = GameEngine.ActionHandler.GetAvailableActions();
+        List<Action> actions = GameEngine.GameState.GetAvailableActions();
 
         if (actions.IsMoveAvailable(targetCard, actionCard)) {
             targetCardObject.SetBlueColor();

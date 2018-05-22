@@ -2,64 +2,60 @@ using System.Collections;
 using Models;
 using System.Collections.Generic;
 
-public class ActionHandler {
+public static class ActionHandler {
 
-    private readonly GameEngine GameEngine;
-    private readonly List<ProjectCard> AvailableProjectCards;
-    public System.Action ShowChooseBonusSceneAction = () => { };
+    public static void ProcessAction(this GameEngine gameEngine, Action action, System.Action chooseBonusCallback = null) {
 
-    public ActionHandler(GameEngine gameEngine) {
-        AvailableProjectCards = gameEngine.GameState.AvailableProjectCards;
-        GameEngine = gameEngine;
-    }
+        var gameState = gameEngine.GameState;
+        var availableProjectCards = gameState.AvailableProjectCards;
+        var currentPlayer = gameState.CurrentPlayer;
 
-    public void ProcessAction(Action action) {
-        if (!GetAvailableActions().Has(action)) {
+        if (!gameState.GetAvailableActions().Has(action)) {
             throw new System.InvalidProgramException("Cannot use and action that is not in the available actions!");
         }
 
-        UnityEngine.Debug.Log(CurrentPlayer().NickName + " used " + action.Describe());
+        UnityEngine.Debug.Log(currentPlayer.NickName + " used " + action.Describe());
 
         switch (action.Type) {
             case ActionType.TakeProject:
-                CurrentPlayer().ExecuteTakeProjectAction(action);
-                RemoveCardFromProjects(action.TargetCard);
+                currentPlayer.ExecuteTakeProjectAction(action);
+                availableProjectCards.RemoveCardFromProjects(action.TargetCard);
                 break;
 
             case ActionType.BuildProject:
-                bool didFinishedTriple = CurrentPlayer().ExecuteBuildProjectAction(action, GameEngine.GameState);
-                if (didFinishedTriple) {
-                    ShowChooseBonusSceneAction();
+                bool didFinishedTriple = currentPlayer.ExecuteBuildProjectAction(action, gameState);
+                if (didFinishedTriple && chooseBonusCallback != null) {
+                    chooseBonusCallback();
                 }
                 break;
 
             case ActionType.ShipGoods:
-                CurrentPlayer().ExecuteShipGoodsAction(action, GameEngine.GameState);
+                currentPlayer.ExecuteShipGoodsAction(action, gameState);
                 break;
 
             case ActionType.BuyWorkers:
-                CurrentPlayer().ExecuteBuyWorkersAction(action);
+                currentPlayer.ExecuteBuyWorkersAction(action);
                 break;
 
             case ActionType.BuySilver:
-                CurrentPlayer().ExecuteBuySilverAction(action);
+                currentPlayer.ExecuteBuySilverAction(action);
                 break;
 
             case ActionType.SellSilverAndWorkers:
-                CurrentPlayer().ExecuteSellSilverAndWorkersAction(action);
+                currentPlayer.ExecuteSellSilverAndWorkersAction(action);
                 break;
 
             case ActionType.UseSilver:
-                CurrentPlayer().ExecuteUseSilverAction(action, GameEngine.GameState.MainDeck);
+                currentPlayer.ExecuteUseSilverAction(action, gameState.MainDeck);
                 break;
 
             case ActionType.TakeSilverProject:
-                CurrentPlayer().ExecuteTakeSilverProjectAction(action);
+                currentPlayer.ExecuteTakeSilverProjectAction(action);
                 break;
 
             case ActionType.EndTurn:
-                CurrentPlayer().ExecuteEndTurnAction();
-                GameEngine.ExecuteEndTurnAction();
+                currentPlayer.ExecuteEndTurnAction();
+                gameEngine.ExecuteEndTurnAction();
                 break;
 
             default:
@@ -67,56 +63,58 @@ public class ActionHandler {
         }
     }
 
-    public void RemoveCardFromProjects(Card card) {
-        var projectToRemove = AvailableProjectCards.Find((ProjectCard obj) => obj.Card.IsEqualTo(card));
+    public static void RemoveCardFromProjects(this List<ProjectCard> availableProjectCards, Card card) {
+        UnityEngine.Debug.Log(" action handler 2 " + availableProjectCards.Describe());
+        var projectToRemove = availableProjectCards.Find((ProjectCard obj) => obj.Card.IsEqualTo(card));
         UnityEngine.Debug.Log("removing " + projectToRemove.Stringify());
-        AvailableProjectCards.Remove(projectToRemove);
+        availableProjectCards.Remove(projectToRemove);
+        UnityEngine.Debug.Log(" action handler 3 " + availableProjectCards.Describe());
     }
 
-    public List<Action> GetAvailableActions() {
+    public static List<Action> GetAvailableActions(this GameState gameState) {
+
+        var availableProjectCards = gameState.AvailableProjectCards;
+        var currentPlayer = gameState.CurrentPlayer;
 
         List<Action> availableActions = new List<Action>();
 
-        if (CurrentPlayer().TakeProjectActionAvailable(AvailableProjectCards)) {
-            availableActions.AddRange(CurrentPlayer().ReadyToTakeProjectActions(AvailableProjectCards));
+        if (currentPlayer.TakeProjectActionAvailable(availableProjectCards)) {
+            availableActions.AddRange(currentPlayer.ReadyToTakeProjectActions(availableProjectCards));
         }
 
-        if (CurrentPlayer().BuildProjectActionAvailable()) {
-            availableActions.AddRange(CurrentPlayer().ReadyToBuildProjectActions());
+        if (currentPlayer.BuildProjectActionAvailable()) {
+            availableActions.AddRange(currentPlayer.ReadyToBuildProjectActions());
         }
 
-        if (CurrentPlayer().ShipGoodsActionAvailable()) {
-            availableActions.AddRange(CurrentPlayer().ReadyToShipGoodsActions());
+        if (currentPlayer.ShipGoodsActionAvailable()) {
+            availableActions.AddRange(currentPlayer.ReadyToShipGoodsActions());
         }
 
-        if (CurrentPlayer().BuyWorkersActionAvailable()) {
-            availableActions.AddRange(CurrentPlayer().ReadyToBuyWorkersActions());
+        if (currentPlayer.BuyWorkersActionAvailable()) {
+            availableActions.AddRange(currentPlayer.ReadyToBuyWorkersActions());
         }
 
-        if (CurrentPlayer().BuySilverActionAvailable()) {
-            availableActions.AddRange(CurrentPlayer().ReadyToBuySilverActions());
+        if (currentPlayer.BuySilverActionAvailable()) {
+            availableActions.AddRange(currentPlayer.ReadyToBuySilverActions());
         }
 
-        if (CurrentPlayer().SellWorkersAndSilverActionAvailable()) {
-            availableActions.AddRange(CurrentPlayer().ReadyToSellSilverAndWorkersActions());
+        if (currentPlayer.SellWorkersAndSilverActionAvailable()) {
+            availableActions.AddRange(currentPlayer.ReadyToSellSilverAndWorkersActions());
         }
 
-        if (CurrentPlayer().UseSilverActionAvailable()) {
-            availableActions.AddRange(CurrentPlayer().ReadyToUseSilverActions());
+        if (currentPlayer.UseSilverActionAvailable()) {
+            availableActions.AddRange(currentPlayer.ReadyToUseSilverActions());
         }
 
-        if (CurrentPlayer().TakeFreeSilverProjectActionsAvailable()) {
-            availableActions.AddRange(CurrentPlayer().ReadyToTakeFreeSilverProjectActions());
+        if (currentPlayer.TakeFreeSilverProjectActionsAvailable()) {
+            availableActions.AddRange(currentPlayer.ReadyToTakeFreeSilverProjectActions());
         }
 
-        if (CurrentPlayer().EndTurnActionAvailable()) {
+        if (currentPlayer.EndTurnActionAvailable()) {
             availableActions.Add(new Action(ActionType.EndTurn, StaticCards.DummyEndTurn, StaticCards.DummyEndTurn));
         }
 
 
         return availableActions;
-    }
-    private Player CurrentPlayer() {
-        return GameEngine.GameState.CurrentPlayer;
     }
 }

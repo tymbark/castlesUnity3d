@@ -217,7 +217,7 @@ public static class Utils {
 
         statusText += "\n\n";
         statusText += "Available Actions:\n";
-        statusText += gameEngine.ActionHandler.GetAvailableActions().Describe();
+        statusText += gameEngine.GameState.GetAvailableActions().Describe();
 
         statusText += "\n";
         return statusText;

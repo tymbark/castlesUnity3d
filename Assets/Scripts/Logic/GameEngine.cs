@@ -6,7 +6,6 @@ using Models;
 public class GameEngine {
 
     public GameState GameState { get; private set; }
-    public ActionHandler ActionHandler { get; private set; }
 
     public GameEngine() {
 
@@ -24,7 +23,6 @@ public class GameEngine {
             GameState.SaveGameState();
         }
 
-        ActionHandler = new ActionHandler(this);
     }
 
     public void UpdateGameState() {
