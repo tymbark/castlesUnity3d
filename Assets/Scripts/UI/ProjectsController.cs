@@ -25,31 +25,31 @@ public class ProjectsController : MonoBehaviour {
         switch (index) {
             case 0:
                 DrawPlayerName(ED.Player1Name, player.NickName);
-                DrawPoints(ED.Player1Points, player.Score + "");
+                DrawPoints(ED.Player1Points, player.Score);
                 DrawPlayerCards(player, ED.Player1Name.y);
-                DrawSilverCardWithText(ED.Player1Silver, player.SilverCount + "");
-                DrawWorkersCardWithText(ED.Player1Workers, player.WorkersCount + "");
+                DrawSilverCard(ED.Player1Silver, player.SilverCount);
+                DrawWorkersCard(ED.Player1Workers, player.WorkersCount);
                 break;
             case 1:
                 DrawPlayerName(ED.Player2Name, player.NickName);
-                DrawPoints(ED.Player2Points, player.Score + "");
+                DrawPoints(ED.Player2Points, player.Score);
                 DrawPlayerCards(player, ED.Player2Name.y);
-                DrawSilverCardWithText(ED.Player2Silver, player.SilverCount + "");
-                DrawWorkersCardWithText(ED.Player2Workers, player.WorkersCount + "");
+                DrawSilverCard(ED.Player2Silver, player.SilverCount);
+                DrawWorkersCard(ED.Player2Workers, player.WorkersCount);
                 break;
             case 2:
                 DrawPlayerName(ED.Player3Name, player.NickName);
-                DrawPoints(ED.Player3Points, player.Score + "");
+                DrawPoints(ED.Player3Points, player.Score);
                 DrawPlayerCards(player, ED.Player3Name.y);
-                DrawSilverCardWithText(ED.Player3Silver, player.SilverCount + "");
-                DrawWorkersCardWithText(ED.Player3Workers, player.WorkersCount + "");
+                DrawSilverCard(ED.Player3Silver, player.SilverCount);
+                DrawWorkersCard(ED.Player3Workers, player.WorkersCount);
                 break;
             case 3:
                 DrawPlayerName(ED.Player4Name, player.NickName);
-                DrawPoints(ED.Player4Points, player.Score + "");
+                DrawPoints(ED.Player4Points, player.Score);
                 DrawPlayerCards(player, ED.Player4Name.y);
-                DrawSilverCardWithText(ED.Player4Silver, player.SilverCount + "");
-                DrawWorkersCardWithText(ED.Player4Workers, player.WorkersCount + "");
+                DrawSilverCard(ED.Player4Silver, player.SilverCount);
+                DrawWorkersCard(ED.Player4Workers, player.WorkersCount);
                 break;
         }
     }
@@ -58,7 +58,7 @@ public class ProjectsController : MonoBehaviour {
         Object obj = Resources.Load("Prefabs/TextPlayerName");
         GameObject prefab = Instantiate(obj) as GameObject;
 
-        GameObject canvas = GameObject.Find("ProjectsCanvas");
+        GameObject canvas = GameObject.Find("Canvas");
         prefab.transform.SetParent(canvas.transform);
 
         prefab.transform.position = new Vector3(position.x, position.y, 0);
@@ -67,17 +67,11 @@ public class ProjectsController : MonoBehaviour {
         textObj.text = "" + text;
     }
 
-    private static void DrawPoints(Vector2 position, string points) {
-        Object obj = Resources.Load("Prefabs/TextPoints");
-        GameObject prefab = Instantiate(obj) as GameObject;
+    private static GameObject DrawPoints(Vector2 position, int points) {
+        GameObject pointsCard = CardsGenerator.CreateCardGameObject("small_card_empty", position, false, true);
+        pointsCard.AddSmallText(points + "", false, true);
 
-        GameObject canvas = GameObject.Find("ProjectsCanvas");
-        prefab.transform.SetParent(canvas.transform);
-
-        prefab.transform.position = new Vector3(position.x, position.y, 0);
-
-        TMPro.TextMeshProUGUI textObj = prefab.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        textObj.text = "" + points;
+        return pointsCard;
     }
 
     private static void DrawPlayerCards(Player player, float axisY) {
@@ -96,7 +90,7 @@ public class ProjectsController : MonoBehaviour {
         Object obj = Resources.Load("Prefabs/Card");
         GameObject prefab = Instantiate(obj) as GameObject;
 
-        GameObject canvas = GameObject.Find("ProjectsCanvas");
+        GameObject canvas = GameObject.Find("Canvas");
         prefab.transform.SetParent(canvas.transform);
 
         Image image = prefab.GetComponent<Image>();
@@ -105,32 +99,16 @@ public class ProjectsController : MonoBehaviour {
         prefab.transform.position = new Vector3(position.x, position.y, 0);
     }
 
-    private static void DrawWorkersCardWithText(Vector2 position, string text) {
-        Object obj = Resources.Load("Prefabs/CardWorker");
-        GameObject prefab = Instantiate(obj) as GameObject;
-        Destroy(prefab.GetComponent<DropCardController>());
-
-        GameObject canvas = GameObject.Find("ProjectsCanvas");
-        prefab.transform.SetParent(canvas.transform);
-
-        prefab.transform.position = new Vector3(position.x, position.y, 0);
-
-        TMPro.TextMeshProUGUI textObj = prefab.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        textObj.text = "" + text;
+    private static GameObject DrawWorkersCard(Vector2 position, int howMany) {
+        GameObject workerCard = CardsGenerator.CreateCardGameObject("workerGS", position);
+        workerCard.AddSmallText(howMany + "");
+        return workerCard;
     }
 
-    private static void DrawSilverCardWithText(Vector2 position, string text) {
-        Object obj = Resources.Load("Prefabs/CardSilver");
-        GameObject prefab = Instantiate(obj) as GameObject;
-        Destroy(prefab.GetComponent<DropCardController>());
-
-        GameObject canvas = GameObject.Find("ProjectsCanvas");
-        prefab.transform.SetParent(canvas.transform);
-
-        prefab.transform.position = new Vector3(position.x, position.y, 0);
-
-        prefab.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = "" + text;
-        prefab.transform.GetChild(1).GetComponent<TMPro.TextMeshProUGUI>().text = "";
+    private static GameObject DrawSilverCard(Vector2 position, int howMany) {
+        GameObject silverCard = CardsGenerator.CreateCardGameObject("silver", position);
+        silverCard.AddSmallText(howMany + "");
+        return silverCard;
     }
 
 }

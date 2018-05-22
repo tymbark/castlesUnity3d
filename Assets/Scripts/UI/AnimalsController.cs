@@ -25,22 +25,22 @@ public class AnimalsController : MonoBehaviour {
         switch (index) {
             case 0:
                 DrawPlayerName(ED.Player1Name, player.NickName);
-                DrawPoints(ED.Player1Points, player.Score + "");
+                DrawPoints(ED.Player1Points, player.Score);
                 DrawPlayerAnimals(player, ED.Player1Name.y);
                 break;
             case 1:
                 DrawPlayerName(ED.Player2Name, player.NickName);
-                DrawPoints(ED.Player2Points, player.Score + "");
+                DrawPoints(ED.Player2Points, player.Score);
                 DrawPlayerAnimals(player, ED.Player2Name.y);
                 break;
             case 2:
                 DrawPlayerName(ED.Player3Name, player.NickName);
-                DrawPoints(ED.Player3Points, player.Score + "");
+                DrawPoints(ED.Player3Points, player.Score);
                 DrawPlayerAnimals(player, ED.Player3Name.y);
                 break;
             case 3:
                 DrawPlayerName(ED.Player4Name, player.NickName);
-                DrawPoints(ED.Player4Points, player.Score + "");
+                DrawPoints(ED.Player4Points, player.Score);
                 DrawPlayerAnimals(player, ED.Player4Name.y);
                 break;
         }
@@ -92,7 +92,7 @@ public class AnimalsController : MonoBehaviour {
         textObj.text = "" + text;
     }
 
-    private static void DrawPoints(Vector2 position, string points) {
+    private static void DrawPoints(Vector2 position, int points) {
         GameObject pointsCard = CardsGenerator.CreateCardGameObject("small_card_empty", position, false, true);
         pointsCard.AddSmallText(points + "", false, true);
     }

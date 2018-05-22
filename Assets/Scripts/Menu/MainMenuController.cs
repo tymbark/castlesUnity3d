@@ -5,6 +5,7 @@ using UnityEngine;
 public class MainMenuController : MonoBehaviour {
 
     void Start() {
+        
         GameObject.Find("NewGameButton")
                   .AddComponent<ClickActionScript>()
                   .ClickMethod = NewGameClicked;
@@ -16,12 +17,6 @@ public class MainMenuController : MonoBehaviour {
         GameObject.Find("OptionsButton")
                   .AddComponent<ClickActionScript>()
                   .ClickMethod = OptionsClicked;
-
-        CardsGenerator.DrawSilverCard(4, false);
-        CardsGenerator.DrawStorageCard(4);
-        CardsGenerator.DrawEstateCard(1);
-        CardsGenerator.DrawProjectsCard(2);
-        CardsGenerator.DrawPointsElement(2);
 
     }
 

@@ -25,14 +25,14 @@ public class ActionHandler {
                 CurrentPlayer().ExecuteTakeProjectAction(action);
                 RemoveCardFromProjects(action.TargetCard);
                 break;
-            
+
             case ActionType.BuildProject:
                 bool didFinishedTriple = CurrentPlayer().ExecuteBuildProjectAction(action, GameEngine.GameState);
                 if (didFinishedTriple) {
                     ShowChooseBonusSceneAction();
                 }
                 break;
-            
+
             case ActionType.ShipGoods:
                 CurrentPlayer().ExecuteShipGoodsAction(action, GameEngine.GameState);
                 break;
@@ -69,8 +69,8 @@ public class ActionHandler {
 
     public void RemoveCardFromProjects(Card card) {
         var projectToRemove = AvailableProjectCards.Find((ProjectCard obj) => obj.Card.IsEqualTo(card));
+        UnityEngine.Debug.Log("removing " + projectToRemove.Stringify());
         AvailableProjectCards.Remove(projectToRemove);
-
     }
 
     public List<Action> GetAvailableActions() {

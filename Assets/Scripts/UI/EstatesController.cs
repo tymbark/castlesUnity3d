@@ -25,22 +25,22 @@ public class EstatesController : MonoBehaviour {
         switch (index) {
             case 0:
                 DrawPlayerName(ED.Player1Name, player.NickName);
-                DrawPoints(ED.Player1Points, player.Score + "");
+                DrawPoints(ED.Player1Points, player.Score);
                 DrawPlayerCards(player, ED.Player1Name.y);
                 break;
             case 1:
                 DrawPlayerName(ED.Player2Name, player.NickName);
-                DrawPoints(ED.Player2Points, player.Score + "");
+                DrawPoints(ED.Player2Points, player.Score);
                 DrawPlayerCards(player, ED.Player2Name.y);
                 break;
             case 2:
                 DrawPlayerName(ED.Player3Name, player.NickName);
-                DrawPoints(ED.Player3Points, player.Score + "");
+                DrawPoints(ED.Player3Points, player.Score);
                 DrawPlayerCards(player, ED.Player3Name.y);
                 break;
             case 3:
                 DrawPlayerName(ED.Player4Name, player.NickName);
-                DrawPoints(ED.Player4Points, player.Score + "");
+                DrawPoints(ED.Player4Points, player.Score);
                 DrawPlayerCards(player, ED.Player4Name.y);
                 break;
         }
@@ -50,7 +50,7 @@ public class EstatesController : MonoBehaviour {
         Object obj = Resources.Load("Prefabs/TextPlayerName");
         GameObject prefab = Instantiate(obj) as GameObject;
 
-        GameObject canvas = GameObject.Find("EstateCanvas");
+        GameObject canvas = GameObject.Find("Canvas");
         prefab.transform.SetParent(canvas.transform);
 
         prefab.transform.position = new Vector3(position.x, position.y, 0);
@@ -59,17 +59,11 @@ public class EstatesController : MonoBehaviour {
         textObj.text = "" + text;
     }
 
-    private static void DrawPoints(Vector2 position, string points) {
-        Object obj = Resources.Load("Prefabs/TextPoints");
-        GameObject prefab = Instantiate(obj) as GameObject;
+    private static GameObject DrawPoints(Vector2 position, int points) {
+        GameObject pointsCard = CardsGenerator.CreateCardGameObject("small_card_empty", position, false, true);
+        pointsCard.AddSmallText(points + "", false, true);
 
-        GameObject canvas = GameObject.Find("EstateCanvas");
-        prefab.transform.SetParent(canvas.transform);
-
-        prefab.transform.position = new Vector3(position.x, position.y, 0);
-
-        TMPro.TextMeshProUGUI textObj = prefab.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        textObj.text = "" + points;
+        return pointsCard;
     }
 
     private static void DrawPlayerCards(Player player, float axisY) {
@@ -100,7 +94,7 @@ public class EstatesController : MonoBehaviour {
         Object obj = Resources.Load("Prefabs/Card");
         GameObject prefab = Instantiate(obj) as GameObject;
 
-        GameObject canvas = GameObject.Find("EstateCanvas");
+        GameObject canvas = GameObject.Find("Canvas");
         prefab.transform.SetParent(canvas.transform);
 
         Image image = prefab.GetComponent<Image>();
