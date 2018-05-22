@@ -7,8 +7,18 @@ public class ClickActionScript : MonoBehaviour, IPointerClickHandler {
 
     public System.Action<object> ClickMethod;
     public object ClickParameter;
+    private int time = 0;
 
     public void OnPointerClick(PointerEventData eventData) {
+        int clickTime = (int)Time.time;
+
+        if (clickTime - time <= 1) {
+            print("ignored click ");
+            return;
+        } else {
+            time = clickTime;
+        }
+
         if (ClickMethod != null) {
             ClickMethod(ClickParameter);
         } else {

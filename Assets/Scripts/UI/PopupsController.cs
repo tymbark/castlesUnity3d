@@ -63,6 +63,30 @@ public class PopupsController : MonoBehaviour {
         return messageGameObject;
     }
 
+    public static void ShowAreYouSurePopup(System.Action yesClicked) {
+        Object prefab = Resources.Load("Prefabs/AreYouSure");
+        GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+        messageGameObject.transform.position = Vector3.one;
+
+        GameObject canvas = GameObject.Find("Canvas");
+        messageGameObject.transform.SetParent(canvas.transform);
+
+        messageGameObject.transform
+                         .Find("Yes")
+                         .GetComponent<ClickActionScript>()
+                         .ClickMethod = (item) => {
+                             Destroy(messageGameObject, 0.2f);
+                             yesClicked();
+                         };
+
+        messageGameObject.transform
+                         .Find("No")
+                         .GetComponent<ClickActionScript>()
+                         .ClickMethod = (item) => {
+                             Destroy(messageGameObject, 0.2f);
+                         };
+    }
+
     public void RemovePopups() {
         foreach (GameObject obj in Trash) {
             Destroy(obj);

@@ -5,7 +5,7 @@ using UnityEngine;
 public class MainMenuController : MonoBehaviour {
 
     void Start() {
-        
+
         GameObject.Find("NewGameButton")
                   .AddComponent<ClickActionScript>()
                   .ClickMethod = NewGameClicked;
@@ -17,6 +17,11 @@ public class MainMenuController : MonoBehaviour {
         GameObject.Find("OptionsButton")
                   .AddComponent<ClickActionScript>()
                   .ClickMethod = OptionsClicked;
+
+
+        PopupsController.ShowAreYouSurePopup(() => {
+            print("dupa");
+        });
 
     }
 

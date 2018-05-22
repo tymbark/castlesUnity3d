@@ -113,9 +113,11 @@ public class GameController : MonoBehaviour {
 
         switch (action) {
             case ClickAction.UseSilver:
-                GameEngine.ProcessAction(actions.GetUseSilverAction(), SceneLoader.LoadChooseBonusScene);
-                UpdateGameState(GameEngine.GameState);
-                RedrawUI();
+                PopupsController.ShowAreYouSurePopup(() => {
+                    GameEngine.ProcessAction(actions.GetUseSilverAction(), SceneLoader.LoadChooseBonusScene);
+                    UpdateGameState(GameEngine.GameState);
+                    RedrawUI();
+                });
                 break;
             case ClickAction.EndTurn:
                 if (actions.HasEndTurnAction()) {
