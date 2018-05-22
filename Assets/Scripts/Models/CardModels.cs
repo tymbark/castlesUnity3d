@@ -12,8 +12,8 @@ namespace Models {
         Goods,
 
         // Enviroment
-        Dice, Worker, Silver, EndTurn, Exit, Points,
-        AllProjects, AllEstates, AllAnimals, AllStorages,
+        Dice, Worker, Silver, EndTurn, Exit,
+        AllProjects,
         SellSilverAndWorkers, ShipGoods, Barrel,
 
         BonusCastle,

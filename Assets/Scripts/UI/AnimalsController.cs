@@ -55,25 +55,25 @@ public class AnimalsController : MonoBehaviour {
 
         if (numberOfCows > 0) {
             Vector2 position = new Vector2(margin, axisY);
-            DrawAnimalCard(position, new Card(CardClass.Cow), numberOfCows + "");
+            DrawAnimalCard(position, "cow", numberOfCows);
             margin += GD.CardWidth + GD.MarginSmall;
         }
 
         if (numberOfChickens > 0) {
             Vector2 position = new Vector2(margin, axisY);
-            DrawAnimalCard(position, new Card(CardClass.Chicken), numberOfChickens + "");
+            DrawAnimalCard(position, "hen", numberOfChickens);
             margin += GD.CardWidth + GD.MarginSmall;
         }
 
         if (numberOfPigs > 0) {
             Vector2 position = new Vector2(margin, axisY);
-            DrawAnimalCard(position, new Card(CardClass.Pig), numberOfPigs + "");
+            DrawAnimalCard(position, "pig", numberOfPigs);
             margin += GD.CardWidth + GD.MarginSmall;
         }
 
         if (numberOfSheep > 0) {
             Vector2 position = new Vector2(margin, axisY);
-            DrawAnimalCard(position, new Card(CardClass.Sheep), numberOfSheep + "");
+            DrawAnimalCard(position, "sheep", numberOfSheep);
             margin += GD.CardWidth + GD.MarginSmall;
         }
 
@@ -97,22 +97,10 @@ public class AnimalsController : MonoBehaviour {
         pointsCard.AddSmallText(points + "", false, true);
     }
 
-    public static GameObject DrawAnimalCard(Vector2 position, Card card, string text) {
-        Object obj = Resources.Load("Prefabs/CardWithNumber");
-        GameObject prefab = Instantiate(obj) as GameObject;
-
-        GameObject canvas = GameObject.Find("Canvas");
-        prefab.transform.SetParent(canvas.transform);
-
-        prefab.transform.position = new Vector3(position.x, position.y, 0);
-
-        Image image = prefab.GetComponent<Image>();
-        image.overrideSprite = CardsGenerator.GetSpriteForCard(card);
-
-        TMPro.TextMeshProUGUI textObj = prefab.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        textObj.text = "" + text;
-
-        return prefab;
+    private static GameObject DrawAnimalCard(Vector2 position, string resId, int howMany) {
+        GameObject card = CardsGenerator.CreateCardGameObject(resId, position);
+        card.AddSmallText(howMany + "");
+        return card;
     }
 
 }

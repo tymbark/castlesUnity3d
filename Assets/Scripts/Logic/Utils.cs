@@ -287,9 +287,6 @@ public static class Utils {
             case CardClass.Silver:
                 return actions.HasBuySilverAction(actionCard);
 
-            case CardClass.AllStorages:
-                return actions.HasShipGoodsAction(actionCard);
-
             case CardClass.SellSilverAndWorkers:
                 return actions.HasSellSilverOrWorkersAction(actionCard);
 
@@ -320,9 +317,6 @@ public static class Utils {
 
             case CardClass.Silver:
                 return actions.GetBuySilverAction(actionCard);
-
-            case CardClass.AllStorages:
-                return actions.GetShipGoodsAction(actionCard);
 
             case CardClass.SellSilverAndWorkers:
                 return actions.GetSellSilverOrWorkersAction(actionCard);

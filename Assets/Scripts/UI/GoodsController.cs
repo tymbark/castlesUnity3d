@@ -25,22 +25,22 @@ public class GoodsController : MonoBehaviour {
         switch (index) {
             case 0:
                 DrawPlayerName(ED.Player1Name, player.NickName);
-                DrawPoints(ED.Player1Points, player.Score + "");
+                DrawPoints(ED.Player1Points, player.Score);
                 DrawPlayerGoods(player, ED.Player1Name.y);
                 break;
             case 1:
                 DrawPlayerName(ED.Player2Name, player.NickName);
-                DrawPoints(ED.Player2Points, player.Score + "");
+                DrawPoints(ED.Player2Points, player.Score);
                 DrawPlayerGoods(player, ED.Player2Name.y);
                 break;
             case 2:
                 DrawPlayerName(ED.Player3Name, player.NickName);
-                DrawPoints(ED.Player3Points, player.Score + "");
+                DrawPoints(ED.Player3Points, player.Score);
                 DrawPlayerGoods(player, ED.Player3Name.y);
                 break;
             case 3:
                 DrawPlayerName(ED.Player4Name, player.NickName);
-                DrawPoints(ED.Player4Points, player.Score + "");
+                DrawPoints(ED.Player4Points, player.Score);
                 DrawPlayerGoods(player, ED.Player4Name.y);
                 break;
         }
@@ -55,19 +55,19 @@ public class GoodsController : MonoBehaviour {
 
         if (numberOf_I_II > 0) {
             Vector2 position = new Vector2(margin, axisY);
-            DrawGoodsCard(position, new Card(CardClass.Goods, CardDice.I_II), numberOf_I_II + "");
+            DrawGoodsCard(position, "goods1-2", numberOf_I_II);
             margin += GD.CardWidth + GD.MarginSmall;
         }
 
         if (numberOf_III_IV > 0) {
             Vector2 position = new Vector2(margin, axisY);
-            DrawGoodsCard(position, new Card(CardClass.Goods, CardDice.III_IV), numberOf_III_IV + "");
+            DrawGoodsCard(position, "goods3-4", numberOf_III_IV);
             margin += GD.CardWidth + GD.MarginSmall;
         }
 
         if (numberOf_V_VI > 0) {
             Vector2 position = new Vector2(margin, axisY);
-            DrawGoodsCard(position, new Card(CardClass.Goods, CardDice.V_VI), numberOf_V_VI + "");
+            DrawGoodsCard(position, "goods5-6", numberOf_V_VI);
             margin += GD.CardWidth + GD.MarginSmall;
         }
 
@@ -77,7 +77,7 @@ public class GoodsController : MonoBehaviour {
         Object obj = Resources.Load("Prefabs/TextPlayerName");
         GameObject prefab = Instantiate(obj) as GameObject;
 
-        GameObject canvas = GameObject.Find("GoodsCanvas");
+        GameObject canvas = GameObject.Find("Canvas");
         prefab.transform.SetParent(canvas.transform);
 
         prefab.transform.position = new Vector3(position.x, position.y, 0);
@@ -86,35 +86,15 @@ public class GoodsController : MonoBehaviour {
         textObj.text = "" + text;
     }
 
-    private static void DrawPoints(Vector2 position, string points) {
-        Object obj = Resources.Load("Prefabs/TextPoints");
-        GameObject prefab = Instantiate(obj) as GameObject;
-
-        GameObject canvas = GameObject.Find("GoodsCanvas");
-        prefab.transform.SetParent(canvas.transform);
-
-        prefab.transform.position = new Vector3(position.x, position.y, 0);
-
-        TMPro.TextMeshProUGUI textObj = prefab.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        textObj.text = "" + points;
+    private static void DrawPoints(Vector2 position, int points) {
+        GameObject pointsCard = CardsGenerator.CreateCardGameObject("small_card_empty", position, false, true);
+        pointsCard.AddSmallText(points + "", false, true);
     }
 
-    public static GameObject DrawGoodsCard(Vector2 position, Card card, string text) {
-        Object obj = Resources.Load("Prefabs/CardWithNumber");
-        GameObject prefab = Instantiate(obj) as GameObject;
-
-        GameObject canvas = GameObject.Find("GoodsCanvas");
-        prefab.transform.SetParent(canvas.transform);
-
-        prefab.transform.position = new Vector3(position.x, position.y, 0);
-
-        Image image = prefab.GetComponent<Image>();
-        image.overrideSprite = CardsGenerator.GetSpriteForCard(card);
-
-        TMPro.TextMeshProUGUI textObj = prefab.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        textObj.text = "" + text;
-
-        return prefab;
+    private static GameObject DrawGoodsCard(Vector2 position, string resId, int howMany) {
+        GameObject card = CardsGenerator.CreateCardGameObject(resId, position);
+        card.AddSmallText(howMany + "");
+        return card;
     }
 
 }

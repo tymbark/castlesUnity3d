@@ -48,14 +48,14 @@ public static class CardsGenerator {
     }
 
     public static GameObject DrawSellStuffCard() {
-        GameObject workerCard = CreateCardGameObject("sell_goods", D.PositionSellSilverAndWorkersCard);
+        GameObject workerCard = CreateCardGameObject("sell_silver", D.PositionSellSilverAndWorkersCard);
         workerCard.AddDropCardAction(DragDropAction.SellSilverAndWorkers);
 
         return workerCard;
     }
 
     public static GameObject DrawShipGoodsCard() {
-        GameObject workerCard = CreateCardGameObject("sell_goods", D.PositionShipGoodsCard);
+        GameObject workerCard = CreateCardGameObject("ship_goods", D.PositionShipGoodsCard);
         workerCard.AddDropCardAction(DragDropAction.ShipGoods);
 
         return workerCard;
@@ -75,15 +75,14 @@ public static class CardsGenerator {
         silverCard.AddSmallText(howMany + "");
         silverCard.AddDropCardAction(DragDropAction.BuySilver);
 
-        var textObj = Object.Instantiate(Resources.Load("Prefabs/DefaultTextOrange80")) as GameObject;
-        textObj.transform.SetParent(silverCard.transform);
-        textObj.GetComponent<TMPro.TextMeshProUGUI>().text = "use";
-        textObj.GetComponent<TMPro.TextMeshProUGUI>().color = new Color32(0x00, 0x87, 0xD8, 0xFF);
-        textObj.GetComponent<RectTransform>().sizeDelta = D.CardSize;
-        textObj.transform.localPosition = new Vector2(0, -60);
-
         if (!silverDoneThisTurn && howMany >= 3) {
             silverCard.AddClickAction(ClickAction.UseSilver);
+            var textObj = Object.Instantiate(Resources.Load("Prefabs/DefaultTextOrange80")) as GameObject;
+            textObj.transform.SetParent(silverCard.transform);
+            textObj.GetComponent<TMPro.TextMeshProUGUI>().text = "use";
+            textObj.GetComponent<TMPro.TextMeshProUGUI>().color = new Color32(0x00, 0x87, 0xD8, 0xFF);
+            textObj.GetComponent<RectTransform>().sizeDelta = D.CardSize;
+            textObj.transform.localPosition = new Vector2(0, -60);
         } else {
             silverCard.AddClickAction(ClickAction.ShowSilver);
         }
@@ -303,9 +302,9 @@ public static class CardsGenerator {
         dot.transform.SetParent(canvas.transform);
     }
 
-    public static Sprite GetSpriteForCard(Card card) {
-        var fileUri = "Cards/";
+    public static Sprite GetSpriteForCard(Card card, bool fullPath = true) {
 
+        var fileUri = "Cards/";
 
         switch (card.Class) {
             case CardClass.Worker:
@@ -313,15 +312,6 @@ public static class CardsGenerator {
                 break;
             case CardClass.Silver:
                 fileUri += "silver";
-                break;
-            case CardClass.AllEstates:
-                fileUri += "estate";
-                break;
-            case CardClass.AllAnimals:
-                fileUri += "all_animals";
-                break;
-            case CardClass.AllStorages:
-                fileUri += "store";
                 break;
             case CardClass.AllProjects:
                 fileUri += "project";
@@ -626,7 +616,7 @@ public static class CardsGenerator {
                 fileUri += "sell_silver";
                 break;
             case CardClass.ShipGoods:
-                fileUri += "sell_goods";
+                fileUri += "ship_goods";
                 break;
             case CardClass.BonusCastle:
                 fileUri += "bonus_castle";
