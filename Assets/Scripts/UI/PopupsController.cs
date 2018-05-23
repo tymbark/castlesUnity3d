@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Models;
 
 public class PopupsController : MonoBehaviour {
 
@@ -85,6 +86,17 @@ public class PopupsController : MonoBehaviour {
                          .ClickMethod = (item) => {
                              Destroy(messageGameObject, 0.2f);
                          };
+    }
+
+    public static void ShowChooseAnimalPopup(List<Card> availableCards) {
+        Object prefab = Resources.Load("Prefabs/ChooseAnimalPopup");
+        GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+        messageGameObject.transform.position = new Vector3(0, 0, -11);
+
+        GameObject canvas = GameObject.Find("Canvas");
+        messageGameObject.transform.SetParent(canvas.transform);
+        ChooseAnimalController chooseAnimalController = messageGameObject.GetComponent<ChooseAnimalController>();
+        chooseAnimalController.Setup(availableCards);
     }
 
     public void RemovePopups() {

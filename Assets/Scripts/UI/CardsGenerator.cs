@@ -122,9 +122,20 @@ public static class CardsGenerator {
         return projectsCard;
     }
 
-    public static GameObject CreateCardGameObject(string imageResId, Vector2 position, bool horizontal = false, bool small = false) {
-        GameObject canvas = GameObject.Find("Canvas");
+    public static GameObject CreateCardGameObject(string imageResId,
+                                                  Vector2 position,
+                                                  bool horizontal = false,
+                                                  bool small = false,
+                                                  GameObject parent = null) {
         GameObject newCard = new GameObject();
+
+        if (parent == null) {
+            GameObject canvas = GameObject.Find("Canvas");
+            newCard.transform.SetParent(canvas.transform);
+        } else {
+            newCard.transform.SetParent(parent.transform);
+        }
+
         newCard.AddComponent<CanvasRenderer>();
 
         RectTransform rectTransform = newCard.AddComponent<RectTransform>();
@@ -143,8 +154,8 @@ public static class CardsGenerator {
         Image image = newCard.AddComponent<Image>();
         image.overrideSprite = Resources.Load<Sprite>("Cards/" + imageResId);
 
-        newCard.transform.position = position;
-        newCard.transform.SetParent(canvas.transform);
+        newCard.transform.localPosition = new Vector3(position.x, position.y, 0);
+
 
         return newCard;
     }

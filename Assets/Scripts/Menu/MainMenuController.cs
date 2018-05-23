@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Models;
 
 public class MainMenuController : MonoBehaviour {
 
@@ -18,10 +19,10 @@ public class MainMenuController : MonoBehaviour {
                   .AddComponent<ClickActionScript>()
                   .ClickMethod = OptionsClicked;
 
-
-        PopupsController.ShowAreYouSurePopup(() => {
-            print("dupa");
-        });
+        //List<Card> cards = new List<Card>();
+        //cards.Add(new Card(CardClass.Cow));
+        //cards.Add(new Card(CardClass.Pig));
+        //PopupsController.ShowChooseAnimalPopup(cards);
 
     }
 

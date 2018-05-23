@@ -73,7 +73,7 @@ public class AnimalsController : MonoBehaviour {
 
         if (numberOfSheep > 0) {
             Vector2 position = new Vector2(margin, axisY);
-            DrawAnimalCard(position, "sheep", numberOfSheep);
+            DrawAnimalCard(position, "lamb", numberOfSheep);
             margin += GD.CardWidth + GD.MarginSmall;
         }
 
