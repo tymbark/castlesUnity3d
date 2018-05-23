@@ -132,7 +132,8 @@ public class GameController : MonoBehaviour {
                 }
                 break;
             case ClickAction.ExitGame:
-                SceneLoader.LoadChooseBonusScene();
+                //SceneLoader.LoadChooseBonusScene();
+                PopupsController.ShowChooseAnimalPopup(2);
                 print("todo exit game ...");
                 break;
             case ClickAction.ShowProjects:

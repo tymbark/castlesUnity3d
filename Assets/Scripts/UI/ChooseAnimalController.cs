@@ -6,24 +6,41 @@ using GD = GameDimensions;
 
 public class ChooseAnimalController : MonoBehaviour {
 
+    private bool clickable = true;
     private GameState GameState;
     private Vector2 posAvailableCards;
     private Vector2 posYourCards;
     private GameObject dragCardText;
     public int HowManyCards;
-    public List<Card> AvailableCards;
     public System.Action DoneCallback;
+    private List<GameObject> GarbageCollector = new List<GameObject>();
 
     private void Awake() {
         GameState = new GameEngine().GameState;
     }
 
-    public void Setup(List<Card> availableCards) {
-        AvailableCards = availableCards;
+    public void UpdateView(int howManycards) {
+        foreach (GameObject obj in GarbageCollector) {
+            Destroy(obj);
+        }
+        GarbageCollector.Clear();
 
-        posYourCards = GameObject.Find("your_cards_position").transform.position;
-        posAvailableCards = GameObject.Find("available_cards_position").transform.position;
+        HowManyCards = howManycards;
+        posYourCards = new Vector2(-200, -350);
+        posAvailableCards = new Vector2(-200, 200);
+
         dragCardText = GameObject.Find("drag_card_text");
+
+        string text;
+        if (howManycards == 1) {
+            text = "take " + howManycards + " card";
+        } else {
+            text = "take " + howManycards + " cards";
+
+        }
+        GameObject.Find("how_many_text")
+                  .GetComponent<TMPro.TextMeshProUGUI>()
+                  .text = text;
 
         DrawPlayerAnimals(GameState.CurrentPlayer, posYourCards);
         DrawAvailableAnimals();
@@ -32,26 +49,58 @@ public class ChooseAnimalController : MonoBehaviour {
     private void DrawAvailableAnimals() {
         float margin = posAvailableCards.x;
 
-        foreach (Card animal in AvailableCards) {
-            string resId = "";
-            switch (animal.Class) {
-                case CardClass.Pig:
-                    resId = "pig";
-                    break;
-                case CardClass.Cow:
-                    resId = "cow";
-                    break;
-                case CardClass.Sheep:
-                    resId = "sheep";
-                    break;
-                case CardClass.Chicken:
-                    resId = "hen";
-                    break;
-            }
-            CardsGenerator.CreateCardGameObject(resId, new Vector2(margin, posAvailableCards.y), parent: gameObject);
-
+        if (GameState.AnimalsDeck.Cards.Count > 0) {
+            DrawCard(margin, 0);
             margin += GD.CardWidth + GD.MarginBig;
         }
+
+        if (GameState.AnimalsDeck.Cards.Count > 1) {
+            DrawCard(margin, 1);
+        }
+
+    }
+
+    private void DrawCard(float margin, int index) {
+        var animal = GameState.AnimalsDeck.Cards[index];
+
+        string resId = "";
+        switch (animal.Class) {
+            case CardClass.Pig:
+                resId = "pig";
+                break;
+            case CardClass.Cow:
+                resId = "cow";
+                break;
+            case CardClass.Sheep:
+                resId = "lamb";
+                break;
+            case CardClass.Chicken:
+                resId = "hen";
+                break;
+        }
+        var card = CardsGenerator.CreateCardGameObject(resId, new Vector2(margin, posAvailableCards.y), parent: gameObject);
+        GarbageCollector.Add(card);
+        var clickComponent = card.AddComponent<ClickActionScript>();
+        clickComponent.ClickMethod = (x) => {
+            if (!clickable) return;
+
+            GiveThisCardToPlayer(index);
+            HowManyCards = HowManyCards - 1;
+            if (HowManyCards == 0) {
+                UpdateView(HowManyCards);
+                Destroy(gameObject, 0.5f);
+                clickable = false;
+            } else {
+                UpdateView(HowManyCards);
+            }
+        };
+    }
+
+    private void GiveThisCardToPlayer(int index) {
+        var card = GameState.AnimalsDeck.Cards[index];
+        GameState.AnimalsDeck.Cards.RemoveAt(index);
+        GameState.CurrentPlayer.Animals.Add(card);
+        GameState.SaveGameState();
     }
 
     private void DrawPlayerAnimals(Player player, Vector2 startingPosition) {
@@ -91,6 +140,7 @@ public class ChooseAnimalController : MonoBehaviour {
     private GameObject DrawAnimalCard(Vector2 position, string resId, int howMany) {
         GameObject card = CardsGenerator.CreateCardGameObject(resId, position, parent: gameObject);
         card.AddSmallText(howMany + "");
+        GarbageCollector.Add(card);
         return card;
     }
 

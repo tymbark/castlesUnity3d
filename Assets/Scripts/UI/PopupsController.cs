@@ -35,22 +35,6 @@ public class PopupsController : MonoBehaviour {
         Invoke("RemovePopups", 2.5f);
     }
 
-    //public void ShowMessageNextTurn() {
-    //    GameController.ClicksEnabled = false;
-    //    Object prefab = Resources.Load("Prefabs/TextNextTurn");
-    //    GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
-    //    messageGameObject.transform.position = Vector3.one;
-
-    //    TMPro.TextMeshProUGUI text = messageGameObject.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-    //    text.text = "next player: " + GameController.GameEngine.GameState.CurrentPlayer.NickName;
-
-    //    GameObject canvas = GameObject.Find("Canvas");
-    //    messageGameObject.transform.SetParent(canvas.transform);
-    //    Trash.Add(messageGameObject);
-    //    Invoke("RemovePopups", 2.5f);
-    //    Invoke("Refresh", 2.6f);
-    //}
-
     public static GameObject ShowMessageWaitForYourTurn(string name) {
         Object prefab = Resources.Load("Prefabs/TextWaitForTurn");
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
@@ -88,7 +72,7 @@ public class PopupsController : MonoBehaviour {
                          };
     }
 
-    public static void ShowChooseAnimalPopup(List<Card> availableCards) {
+    public static void ShowChooseAnimalPopup(int howMany) {
         Object prefab = Resources.Load("Prefabs/ChooseAnimalPopup");
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
         messageGameObject.transform.position = new Vector3(0, 0, -11);
@@ -96,7 +80,7 @@ public class PopupsController : MonoBehaviour {
         GameObject canvas = GameObject.Find("Canvas");
         messageGameObject.transform.SetParent(canvas.transform);
         ChooseAnimalController chooseAnimalController = messageGameObject.GetComponent<ChooseAnimalController>();
-        chooseAnimalController.Setup(availableCards);
+        chooseAnimalController.UpdateView(howMany);
     }
 
     public void RemovePopups() {

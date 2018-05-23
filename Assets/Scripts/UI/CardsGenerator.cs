@@ -175,7 +175,7 @@ public static class CardsGenerator {
         }
     }
 
-    private static void AddClickAction(this GameObject gameObject, ClickAction clickAction) {
+    public static void AddClickAction(this GameObject gameObject, ClickAction clickAction) {
         var clickComponent = gameObject.AddComponent<ClickableObjectController>();
         clickComponent.ClickAction = clickAction;
     }

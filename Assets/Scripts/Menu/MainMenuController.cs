@@ -19,10 +19,7 @@ public class MainMenuController : MonoBehaviour {
                   .AddComponent<ClickActionScript>()
                   .ClickMethod = OptionsClicked;
 
-        //List<Card> cards = new List<Card>();
-        //cards.Add(new Card(CardClass.Cow));
-        //cards.Add(new Card(CardClass.Pig));
-        //PopupsController.ShowChooseAnimalPopup(cards);
+        PopupsController.ShowChooseAnimalPopup(2);
 
     }
 
