@@ -88,7 +88,7 @@ public class ChooseAnimalController : MonoBehaviour {
             HowManyCards = HowManyCards - 1;
             if (HowManyCards == 0) {
                 UpdateView(HowManyCards);
-                Destroy(gameObject, 0.5f);
+                Destroy(gameObject, 1f);
                 clickable = false;
             } else {
                 UpdateView(HowManyCards);
