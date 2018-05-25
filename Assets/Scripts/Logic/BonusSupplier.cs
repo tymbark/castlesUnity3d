@@ -23,7 +23,9 @@ public static class BonusSupplier {
                 player.WorkersCount += 2;
                 break;
             case CardClass.ActionShip:
-                player.Goods.Add(goodsDeck.DrawCard());
+                GameObject.Find("GameObjectController")
+                          .GetComponent<GameController>()
+                          .HandleOtherGameEvent(InputActions.OtherGameEvent.ChooseGoods, 1);
                 break;
             case CardClass.ActionPasture:
                 GameObject.Find("GameObjectController")

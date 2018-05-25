@@ -4,7 +4,7 @@ using UnityEngine;
 using Models;
 using GD = GameDimensions;
 
-public class ChooseAnimalController : MonoBehaviour {
+public class ChooseGoodsController : MonoBehaviour {
 
     private bool clickable = true;
     private GameState GameState;
@@ -42,40 +42,37 @@ public class ChooseAnimalController : MonoBehaviour {
                   .GetComponent<TMPro.TextMeshProUGUI>()
                   .text = text;
 
-        DrawPlayerAnimals(GameState.CurrentPlayer, posYourCards);
-        DrawAvailableAnimals();
+        DrawPlayerGoods(GameState.CurrentPlayer, posYourCards);
+        DrawAvailableGoods();
     }
 
-    private void DrawAvailableAnimals() {
+    private void DrawAvailableGoods() {
         float margin = posAvailableCards.x;
 
-        if (GameState.AnimalsDeck.Cards.Count > 0) {
+        if (GameState.GoodsDeck.Cards.Count > 0) {
             DrawCard(margin, 0);
             margin += GD.CardWidth + GD.MarginBig;
         }
 
-        if (GameState.AnimalsDeck.Cards.Count > 1) {
+        if (GameState.GoodsDeck.Cards.Count > 1) {
             DrawCard(margin, 1);
         }
 
     }
 
     private void DrawCard(float margin, int index) {
-        var animal = GameState.AnimalsDeck.Cards[index];
+        var goods = GameState.GoodsDeck.Cards[index];
 
         string resId = "";
-        switch (animal.Class) {
-            case CardClass.Pig:
-                resId = "pig";
+        switch (goods.Dice) {
+            case CardDice.I_II:
+                resId = "goods1-2";
                 break;
-            case CardClass.Cow:
-                resId = "cow";
+            case CardDice.III_IV:
+                resId = "goods3-4";
                 break;
-            case CardClass.Sheep:
-                resId = "lamb";
-                break;
-            case CardClass.Chicken:
-                resId = "hen";
+            case CardDice.V_VI:
+                resId = "goods5-6";
                 break;
         }
         var card = CardsGenerator.CreateCardGameObject(resId, new Vector2(margin, posAvailableCards.y), parent: gameObject);
@@ -98,47 +95,41 @@ public class ChooseAnimalController : MonoBehaviour {
     }
 
     private void GiveThisCardToPlayer(int index) {
-        var card = GameState.AnimalsDeck.Cards[index];
-        GameState.AnimalsDeck.Cards.RemoveAt(index);
-        GameState.CurrentPlayer.Animals.Add(card);
+        var card = GameState.GoodsDeck.Cards[index];
+        GameState.GoodsDeck.Cards.RemoveAt(index);
+        GameState.CurrentPlayer.Goods.Add(card);
         GameState.SaveGameState();
     }
 
-    private void DrawPlayerAnimals(Player player, Vector2 startingPosition) {
+    private void DrawPlayerGoods(Player player, Vector2 startingPosition) {
         float margin = startingPosition.x;
 
-        int numberOfCows = player.Animals.FindAll((Card obj) => obj.Class == CardClass.Cow).Count;
-        int numberOfChickens = player.Animals.FindAll((Card obj) => obj.Class == CardClass.Chicken).Count;
-        int numberOfPigs = player.Animals.FindAll((Card obj) => obj.Class == CardClass.Pig).Count;
-        int numberOfSheep = player.Animals.FindAll((Card obj) => obj.Class == CardClass.Sheep).Count;
+        int numberOf_I_II = player.Goods.FindAll((Card obj) => obj.Dice == CardDice.I_II).Count;
+        int numberOf_III_IV = player.Goods.FindAll((Card obj) => obj.Dice == CardDice.III_IV).Count;
+        int numberOf_V_VI = player.Goods.FindAll((Card obj) => obj.Dice == CardDice.V_VI).Count;
 
-        if (numberOfCows > 0) {
+        if (numberOf_I_II > 0) {
             Vector2 position = new Vector2(margin, startingPosition.y);
-            DrawAnimalCard(position, "cow", numberOfCows);
+            DrawGoodsCard(position, "goods1-2", numberOf_I_II);
             margin += GD.CardWidth + GD.MarginSmall;
         }
 
-        if (numberOfChickens > 0) {
+        if (numberOf_III_IV > 0) {
             Vector2 position = new Vector2(margin, startingPosition.y);
-            DrawAnimalCard(position, "hen", numberOfChickens);
+            DrawGoodsCard(position, "goods3-4", numberOf_III_IV);
             margin += GD.CardWidth + GD.MarginSmall;
         }
 
-        if (numberOfPigs > 0) {
+        if (numberOf_V_VI > 0) {
             Vector2 position = new Vector2(margin, startingPosition.y);
-            DrawAnimalCard(position, "pig", numberOfPigs);
+            DrawGoodsCard(position, "goods5-6", numberOf_V_VI);
             margin += GD.CardWidth + GD.MarginSmall;
         }
 
-        if (numberOfSheep > 0) {
-            Vector2 position = new Vector2(margin, startingPosition.y);
-            DrawAnimalCard(position, "lamb", numberOfSheep);
-            margin += GD.CardWidth + GD.MarginSmall;
-        }
 
     }
 
-    private GameObject DrawAnimalCard(Vector2 position, string resId, int howMany) {
+    private GameObject DrawGoodsCard(Vector2 position, string resId, int howMany) {
         GameObject card = CardsGenerator.CreateCardGameObject(resId, position, parent: gameObject);
         card.AddSmallText(howMany + "");
         GarbageCollector.Add(card);

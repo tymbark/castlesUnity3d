@@ -79,9 +79,21 @@ public class PopupsController : MonoBehaviour {
 
         GameObject canvas = GameObject.Find("Canvas");
         messageGameObject.transform.SetParent(canvas.transform);
-        ChooseAnimalController chooseAnimalController = messageGameObject.GetComponent<ChooseAnimalController>();
-        chooseAnimalController.UpdateView(howMany);
-        chooseAnimalController.DoneCallback = callback;
+        ChooseAnimalController controller = messageGameObject.AddComponent<ChooseAnimalController>();
+        controller.UpdateView(howMany);
+        controller.DoneCallback = callback;
+    }
+
+    public static void ShowChooseGoodsPopup(int howMany, System.Action callback) {
+        Object prefab = Resources.Load("Prefabs/ChooseAnimalPopup");
+        GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+        messageGameObject.transform.position = new Vector3(0, 0, -11);
+
+        GameObject canvas = GameObject.Find("Canvas");
+        messageGameObject.transform.SetParent(canvas.transform);
+        ChooseGoodsController controller = messageGameObject.AddComponent<ChooseGoodsController>();
+        controller.UpdateView(howMany);
+        controller.DoneCallback = callback;
     }
 
     public void RemovePopups() {

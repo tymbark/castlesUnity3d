@@ -184,6 +184,10 @@ public class GameController : MonoBehaviour {
                 });
                 break;
             case OtherGameEvent.ChooseGoods:
+                PopupsController.ShowChooseGoodsPopup((int)data, () => {
+                    UpdateGameState(GameEngine.GameState);
+                    RedrawUI();
+                });
                 break;
             case OtherGameEvent.PlaceCompletedProject:
                 break;
