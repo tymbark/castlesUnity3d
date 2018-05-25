@@ -90,6 +90,7 @@ public class ChooseAnimalController : MonoBehaviour {
                 UpdateView(HowManyCards);
                 Destroy(gameObject, 1f);
                 clickable = false;
+                DoneCallback();
             } else {
                 UpdateView(HowManyCards);
             }
@@ -100,7 +101,6 @@ public class ChooseAnimalController : MonoBehaviour {
         var card = GameState.AnimalsDeck.Cards[index];
         GameState.AnimalsDeck.Cards.RemoveAt(index);
         GameState.CurrentPlayer.Animals.Add(card);
-        GameState.SaveGameState();
     }
 
     private void DrawPlayerAnimals(Player player, Vector2 startingPosition) {

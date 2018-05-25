@@ -12,7 +12,7 @@ public static class UtilsDataParse {
         return "" + (int)c.Class + CardSeparator
                   + (int)c.Dice + CardSeparator
                   + c.Number + CardSeparator
-                  + c.TripleId + CardSeparator;
+                  + c.TripleId;
     }
 
     public static Card ParseToCard(this string card) {
@@ -50,15 +50,21 @@ public static class UtilsDataParse {
     }
 
     public static string Stringify(this ProjectCard c) {
-        return "" + (int)c.Card.Class + CardSeparator + (int)c.Card.Dice + CardSeparator + (int)c.TakeProjectDice;
+        return "" + (int)c.TakeProjectDice + CardSeparator +
+                          (int)c.Card.Class + CardSeparator +
+                          (int)c.Card.Dice + CardSeparator +
+                          c.Card.Number + CardSeparator +
+                          c.Card.TripleId;
     }
 
     public static ProjectCard ParseToProjectCard(this string card) {
-        CardClass cardClass = (CardClass)int.Parse(card.Split(CardSeparator)[0]);
-        CardDice cardDice = (CardDice)int.Parse(card.Split(CardSeparator)[1]);
-        CardDice projectCardDice = (CardDice)int.Parse(card.Split(CardSeparator)[2]);
+        CardDice projectCardDice = (CardDice)int.Parse(card.Split(CardSeparator)[0]);
+        CardClass cardClass = (CardClass)int.Parse(card.Split(CardSeparator)[1]);
+        CardDice cardDice = (CardDice)int.Parse(card.Split(CardSeparator)[2]);
+        int cardNumber = int.Parse(card.Split(CardSeparator)[3]);
+        int tripleId = int.Parse(card.Split(CardSeparator)[4]);
 
-        return new ProjectCard(new Card(cardClass, cardDice), projectCardDice);
+        return new ProjectCard(new Card(cardClass, cardDice, cardNumber, tripleId), projectCardDice);
     }
 
     public static string Stringify(this List<Card> cards) {

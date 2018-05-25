@@ -132,8 +132,9 @@ public class GameController : MonoBehaviour {
                 }
                 break;
             case ClickAction.ExitGame:
-                //SceneLoader.LoadChooseBonusScene();
-                PopupsController.ShowChooseAnimalPopup(2);
+                GameEngine.GameState.CurrentPlayer.Cards.Add(GameEngine.GameState.MainDeck.DrawCard());
+                UpdateGameState(GameEngine.GameState);
+                RedrawUI();
                 print("todo exit game ...");
                 break;
             case ClickAction.ShowProjects:
@@ -173,6 +174,23 @@ public class GameController : MonoBehaviour {
             CheckTheTurn();
         }
     }
+
+    public void HandleOtherGameEvent(OtherGameEvent gameEvent, object data) {
+        switch (gameEvent) {
+            case OtherGameEvent.ChooseAnimals:
+                PopupsController.ShowChooseAnimalPopup((int)data, () => {
+                    UpdateGameState(GameEngine.GameState);
+                    RedrawUI();
+                });
+                break;
+            case OtherGameEvent.ChooseGoods:
+                break;
+            case OtherGameEvent.PlaceCompletedProject:
+                break;
+
+        }
+    }
+
 
     public void HandleCardHoverAction(GameObject playerCardObject, GameObject targetCardObject) {
         Card targetCard = targetCardObject.GetDragDropController().Card;

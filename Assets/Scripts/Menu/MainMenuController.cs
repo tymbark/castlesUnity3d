@@ -19,8 +19,6 @@ public class MainMenuController : MonoBehaviour {
                   .AddComponent<ClickActionScript>()
                   .ClickMethod = OptionsClicked;
 
-        PopupsController.ShowChooseAnimalPopup(2);
-
     }
 
     private void NewGameClicked(object param) {

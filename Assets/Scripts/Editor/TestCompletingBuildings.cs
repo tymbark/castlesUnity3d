@@ -272,8 +272,6 @@ public class TestCompletingBuildings {
 
         var result = completedProjects.FindAvailableSpots(new Card(CardClass.ActionBank));
 
-        result.print_(result.Count + "");
-
         Assert.IsTrue(result.Count == 1);
         Assert.IsTrue(result[0][0].TripleId == 2);
     }

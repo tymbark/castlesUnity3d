@@ -72,7 +72,7 @@ public class PopupsController : MonoBehaviour {
                          };
     }
 
-    public static void ShowChooseAnimalPopup(int howMany) {
+    public static void ShowChooseAnimalPopup(int howMany, System.Action callback) {
         Object prefab = Resources.Load("Prefabs/ChooseAnimalPopup");
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
         messageGameObject.transform.position = new Vector3(0, 0, -11);
@@ -81,6 +81,7 @@ public class PopupsController : MonoBehaviour {
         messageGameObject.transform.SetParent(canvas.transform);
         ChooseAnimalController chooseAnimalController = messageGameObject.GetComponent<ChooseAnimalController>();
         chooseAnimalController.UpdateView(howMany);
+        chooseAnimalController.DoneCallback = callback;
     }
 
     public void RemovePopups() {

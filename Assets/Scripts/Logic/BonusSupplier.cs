@@ -26,7 +26,9 @@ public static class BonusSupplier {
                 player.Goods.Add(goodsDeck.DrawCard());
                 break;
             case CardClass.ActionPasture:
-                player.Animals.Add(animalsDeck.DrawCard());
+                GameObject.Find("GameObjectController")
+                          .GetComponent<GameController>()
+                          .HandleOtherGameEvent(InputActions.OtherGameEvent.ChooseAnimals, 1);
                 break;
             case CardClass.ActionCarpenter:
                 player.BonusActionCards.Add(new Card(CardClass.BonusCarperter, CardDice.All));

@@ -7,7 +7,12 @@ using NetworkModels;
 public static class UtilsEquality {
 
     public static bool IsEqualTo(this Card card1, Card card2) {
-        return card1.Class == card2.Class && card1.Dice == card2.Dice && card1.Number == card2.Number;
+        bool isEqual = card1.Class == card2.Class
+            && card1.Dice == card2.Dice
+            && card1.Number == card2.Number
+            && card1.TripleId == card2.TripleId;
+
+        return isEqual;
     }
 
     public static bool IsEqualTo(this ProjectCard card1, ProjectCard card2) {

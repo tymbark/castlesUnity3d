@@ -30,4 +30,10 @@ namespace InputActions {
         ShipGoods
     }
 
+    public enum OtherGameEvent {
+        ChooseAnimals,
+        ChooseGoods,
+        PlaceCompletedProject
+    }
+
 }

@@ -357,8 +357,8 @@ public static class Utils {
 
     public static bool HasTakeThisProjectAction(this List<Action> actions, Card targetCard, Card actionCard) {
         return actions.FindAll((Action obj) => obj.Type == ActionType.TakeProject
-            && obj.TargetCard.IsEqualTo(targetCard)
-            && obj.ActionCard.IsEqualTo(actionCard)).Count == 1;
+               && obj.TargetCard.IsEqualTo(targetCard)
+               && obj.ActionCard.IsEqualTo(actionCard)).Count == 1;
     }
 
     public static Action GetBuySilverAction(this List<Action> actions, Card actionCard) {

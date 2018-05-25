@@ -64,11 +64,14 @@ public static class ActionHandler {
     }
 
     public static void RemoveCardFromProjects(this List<ProjectCard> availableProjectCards, Card card) {
-        UnityEngine.Debug.Log(" action handler 2 " + availableProjectCards.Describe());
-        var projectToRemove = availableProjectCards.Find((ProjectCard obj) => obj.Card.IsEqualTo(card));
-        UnityEngine.Debug.Log("removing " + projectToRemove.Stringify());
+        var cards = availableProjectCards.FindAll((ProjectCard obj) => obj.Card.IsEqualTo(card));
+        if (cards.Count > 1) {
+            throw new System.Exception("There cannot be two different targets for action. " +
+                                       "Found " + cards.Count + " : " + cards[0].Stringify() +
+                                       " " + cards[1].Stringify());
+        }
+        var projectToRemove = cards[0];
         availableProjectCards.Remove(projectToRemove);
-        UnityEngine.Debug.Log(" action handler 3 " + availableProjectCards.Describe());
     }
 
     public static List<Action> GetAvailableActions(this GameState gameState) {
