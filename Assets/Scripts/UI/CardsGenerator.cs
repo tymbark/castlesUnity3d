@@ -313,7 +313,7 @@ public static class CardsGenerator {
         dot.transform.SetParent(canvas.transform);
     }
 
-    public static Sprite GetSpriteForCard(Card card, bool fullPath = true) {
+    public static Sprite GetSpriteForCard(Card card) {
 
         var fileUri = "Cards/";
 
@@ -653,6 +653,348 @@ public static class CardsGenerator {
         }
 
         return Resources.Load<Sprite>(fileUri);
+    }
+
+    public static string GetResIdForCard(this Card card) {
+
+        var fileUri = "";
+
+        switch (card.Class) {
+            case CardClass.Worker:
+                fileUri += "workerGS";
+                break;
+            case CardClass.Silver:
+                fileUri += "silver";
+                break;
+            case CardClass.AllProjects:
+                fileUri += "project";
+                break;
+            case CardClass.Exit:
+                fileUri += "exit";
+                break;
+            case CardClass.EndTurn:
+                fileUri += "finish";
+                break;
+            case CardClass.Barrel:
+                fileUri += "barrel1";
+                break;
+            case CardClass.Dice:
+                switch (card.Dice) {
+                    case CardDice.I:
+                        fileUri += "dice1";
+                        break;
+                    case CardDice.II:
+                        fileUri += "dice2";
+                        break;
+                    case CardDice.III:
+                        fileUri += "dice3";
+                        break;
+                    case CardDice.IV:
+                        fileUri += "dice4";
+                        break;
+                    case CardDice.V:
+                        fileUri += "dice5";
+                        break;
+                    case CardDice.VI:
+                        fileUri += "dice6";
+                        break;
+                }
+                break;
+            case CardClass.Chicken:
+                fileUri += "hen";
+                break;
+            case CardClass.Cow:
+                fileUri += "cow";
+                break;
+            case CardClass.Sheep:
+                fileUri += "lamb";
+                break;
+            case CardClass.Pig:
+                fileUri += "pig";
+                break;
+            case CardClass.Goods:
+
+                switch (card.Dice) {
+                    case CardDice.I_II:
+                        fileUri += "goods1-2";
+                        break;
+                    case CardDice.III_IV:
+                        fileUri += "goods3-4";
+                        break;
+                    case CardDice.V_VI:
+                        fileUri += "goods5-6";
+                        break;
+                    default:
+                        fileUri += "generic_goods";
+                        break;
+                }
+                break;
+            case CardClass.ActionCastle:
+                switch (card.Dice) {
+                    case CardDice.I:
+                        fileUri += "c1";
+                        break;
+                    case CardDice.II:
+                        fileUri += "c2";
+                        break;
+                    case CardDice.III:
+                        fileUri += "c3";
+                        break;
+                    case CardDice.IV:
+                        fileUri += "c4";
+                        break;
+                    case CardDice.V:
+                        fileUri += "c5";
+                        break;
+                    case CardDice.VI:
+                        fileUri += "c6";
+                        break;
+                }
+                break;
+            case CardClass.ActionMine:
+                switch (card.Dice) {
+                    case CardDice.I:
+                        fileUri += "m1";
+                        break;
+                    case CardDice.II:
+                        fileUri += "m2";
+                        break;
+                    case CardDice.III:
+                        fileUri += "m3";
+                        break;
+                    case CardDice.IV:
+                        fileUri += "m4";
+                        break;
+                    case CardDice.V:
+                        fileUri += "m5";
+                        break;
+                    case CardDice.VI:
+                        fileUri += "m6";
+                        break;
+                }
+                break;
+            case CardClass.ActionCloister:
+                switch (card.Dice) {
+                    case CardDice.I:
+                        fileUri += "cl1";
+                        break;
+                    case CardDice.II:
+                        fileUri += "cl2";
+                        break;
+                    case CardDice.III:
+                        fileUri += "cl3";
+                        break;
+                    case CardDice.IV:
+                        fileUri += "cl4";
+                        break;
+                    case CardDice.V:
+                        fileUri += "cl5";
+                        break;
+                    case CardDice.VI:
+                        fileUri += "cl6";
+                        break;
+                }
+                break;
+            case CardClass.ActionKnowledge:
+                switch (card.Dice) {
+                    case CardDice.I:
+                        fileUri += "k1";
+                        break;
+                    case CardDice.II:
+                        fileUri += "k2";
+                        break;
+                    case CardDice.III:
+                        fileUri += "k3";
+                        break;
+                    case CardDice.IV:
+                        fileUri += "k4";
+                        break;
+                    case CardDice.V:
+                        fileUri += "k5";
+                        break;
+                    case CardDice.VI:
+                        fileUri += "k6";
+                        break;
+                }
+                break;
+            case CardClass.ActionShip:
+                switch (card.Dice) {
+                    case CardDice.I:
+                        fileUri += "s1";
+                        break;
+                    case CardDice.II:
+                        fileUri += "s2";
+                        break;
+                    case CardDice.III:
+                        fileUri += "s3";
+                        break;
+                    case CardDice.IV:
+                        fileUri += "s4";
+                        break;
+                    case CardDice.V:
+                        fileUri += "s5";
+                        break;
+                    case CardDice.VI:
+                        fileUri += "s6";
+                        break;
+                }
+                break;
+            case CardClass.ActionPasture:
+                switch (card.Dice) {
+                    case CardDice.I:
+                        fileUri += "p1";
+                        break;
+                    case CardDice.II:
+                        fileUri += "p2";
+                        break;
+                    case CardDice.III:
+                        fileUri += "p3";
+                        break;
+                    case CardDice.IV:
+                        fileUri += "p4";
+                        break;
+                    case CardDice.V:
+                        fileUri += "p5";
+                        break;
+                    case CardDice.VI:
+                        fileUri += "p6";
+                        break;
+                }
+                break;
+            case CardClass.ActionCarpenter:
+                switch (card.Dice) {
+                    case CardDice.I:
+                        fileUri += "car1";
+                        break;
+                    case CardDice.II:
+                        fileUri += "car2";
+                        break;
+                    case CardDice.III:
+                        fileUri += "car3";
+                        break;
+                }
+                break;
+            case CardClass.ActionChurch:
+                switch (card.Dice) {
+                    case CardDice.I:
+                        fileUri += "ch1";
+                        break;
+                    case CardDice.II:
+                        fileUri += "ch2";
+                        break;
+                    case CardDice.III:
+                        fileUri += "ch3";
+                        break;
+                }
+                break;
+            case CardClass.ActionMarket:
+                switch (card.Dice) {
+                    case CardDice.I:
+                        fileUri += "mar1";
+                        break;
+                    case CardDice.II:
+                        fileUri += "mar2";
+                        break;
+                    case CardDice.III:
+                        fileUri += "mar3";
+                        break;
+                }
+                break;
+            case CardClass.ActionWatchtower:
+                switch (card.Dice) {
+                    case CardDice.I:
+                        fileUri += "wtw1";
+                        break;
+                    case CardDice.II:
+                        fileUri += "wtw2";
+                        break;
+                    case CardDice.III:
+                        fileUri += "wtw3";
+                        break;
+                }
+                break;
+            case CardClass.ActionBank:
+                switch (card.Dice) {
+                    case CardDice.IV:
+                        fileUri += "bank4";
+                        break;
+                    case CardDice.V:
+                        fileUri += "bank5";
+                        break;
+                    case CardDice.VI:
+                        fileUri += "bank6";
+                        break;
+                }
+                break;
+            case CardClass.ActionBoardinghouse:
+                switch (card.Dice) {
+                    case CardDice.IV:
+                        fileUri += "bh4";
+                        break;
+                    case CardDice.V:
+                        fileUri += "bh5";
+                        break;
+                    case CardDice.VI:
+                        fileUri += "bh6";
+                        break;
+                }
+                break;
+            case CardClass.ActionWarehouse:
+                switch (card.Dice) {
+                    case CardDice.IV:
+                        fileUri += "wa4";
+                        break;
+                    case CardDice.V:
+                        fileUri += "wa5";
+                        break;
+                    case CardDice.VI:
+                        fileUri += "wa6";
+                        break;
+                }
+                break;
+            case CardClass.ActionCityHall:
+                switch (card.Dice) {
+                    case CardDice.IV:
+                        fileUri += "cityh4";
+                        break;
+                    case CardDice.V:
+                        fileUri += "cityh5";
+                        break;
+                    case CardDice.VI:
+                        fileUri += "cityh6";
+                        break;
+                }
+                break;
+            case CardClass.SellSilverAndWorkers:
+                fileUri += "sell_silver";
+                break;
+            case CardClass.ShipGoods:
+                fileUri += "ship_goods";
+                break;
+            case CardClass.BonusCastle:
+                fileUri += "bonus_castle";
+                break;
+            case CardClass.BonusCarperter:
+                fileUri += "bonus_car";
+                break;
+            case CardClass.BonusChurch:
+                fileUri += "bonus_ch";
+                break;
+            case CardClass.BonusMarket:
+                fileUri += "bonus_mar";
+                break;
+            case CardClass.BonusCityHall:
+                fileUri += "bonus_cityh";
+                break;
+            case CardClass.BonusBoardinghouse:
+                fileUri += "bonus_bh";
+                break;
+            case CardClass.BonusWarehouse:
+                fileUri += "bonus_wa";
+                break;
+        }
+
+        return fileUri;
     }
 
     public static Sprite GetSpriteForCurrentRoundBonus(Round round) {

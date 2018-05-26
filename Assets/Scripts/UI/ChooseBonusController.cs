@@ -31,6 +31,8 @@ public class ChooseBonusController : MonoBehaviour {
     private Vector2 posCard52;
     private Vector2 posCard53;
 
+    public System.Action DoneCallback;
+
     private void Awake() {
         GameState = new GameEngine().GameState;
     }
@@ -266,8 +268,8 @@ public class ChooseBonusController : MonoBehaviour {
         }
 
         if (bonusAquired) {
-            GameState.SaveGameState();
-            SceneLoader.LoadMainGameScene();
+            DoneCallback();
+            //GameState.SaveGameState();
         }
     }
 

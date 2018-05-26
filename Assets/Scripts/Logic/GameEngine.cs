@@ -32,11 +32,11 @@ public class GameEngine {
     private void AddDebugOptions(GameState gameState) {
 
 
-        gameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCastle, CardDice.II));
-        gameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCastle, CardDice.II));
-        gameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionShip, CardDice.II));
-        gameState.Players[0].CompleteProject(new Card(CardClass.ActionCastle, CardDice.II), GameState);
-        gameState.Players[0].CompleteProject(new Card(CardClass.ActionCastle, CardDice.II), GameState);
+        //gameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCastle, CardDice.II));
+        //gameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCastle, CardDice.II));
+        //gameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionShip, CardDice.II));
+        //gameState.Players[0].CompleteProject(new Card(CardClass.ActionCastle, CardDice.II), GameState);
+        //gameState.Players[0].CompleteProject(new Card(CardClass.ActionCastle, CardDice.II), GameState);
 
 
         gameState.Players[0].BonusActionCards.Add(new Card(CardClass.BonusCastle, CardDice.All));

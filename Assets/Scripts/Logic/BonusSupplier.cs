@@ -6,7 +6,10 @@ using Models;
 
 public static class BonusSupplier {
 
-    public static void ApplyCompletingSingleBuildingBonus(this Player player, Card card, GameState gameState) {
+    public static void ApplyCompletingSingleBuildingBonus(this Player player,
+                                                          Card card,
+                                                          GameState gameState,
+                                                          System.Action doneCallback) {
         Deck goodsDeck = gameState.GoodsDeck;
         Deck animalsDeck = gameState.AnimalsDeck;
 
@@ -23,14 +26,18 @@ public static class BonusSupplier {
                 player.WorkersCount += 2;
                 break;
             case CardClass.ActionShip:
-                GameObject.Find("GameObjectController")
-                          .GetComponent<GameController>()
-                          .HandleOtherGameEvent(InputActions.OtherGameEvent.ChooseGoods, 1);
+                PopupsController.ShowChooseGoodsPopup(1, () => {
+                    gameState.SaveGameState();
+                    GameController.UpdateView();
+                    doneCallback();
+                });
                 break;
             case CardClass.ActionPasture:
-                GameObject.Find("GameObjectController")
-                          .GetComponent<GameController>()
-                          .HandleOtherGameEvent(InputActions.OtherGameEvent.ChooseAnimals, 1);
+                PopupsController.ShowChooseAnimalPopup(1, () => {
+                    gameState.SaveGameState();
+                    GameController.UpdateView();
+                    doneCallback();
+                });
                 break;
             case CardClass.ActionCarpenter:
                 player.BonusActionCards.Add(new Card(CardClass.BonusCarperter, CardDice.All));
@@ -55,6 +62,25 @@ public static class BonusSupplier {
                 break;
             case CardClass.ActionCityHall:
                 player.BonusActionCards.Add(new Card(CardClass.BonusCityHall, CardDice.All));
+                break;
+        }
+
+        switch (card.Class) {
+            case CardClass.ActionCastle:
+            case CardClass.ActionMine:
+            case CardClass.ActionCloister:
+            case CardClass.ActionCarpenter:
+            case CardClass.ActionChurch:
+            case CardClass.ActionMarket:
+            case CardClass.ActionWatchtower:
+            case CardClass.ActionBank:
+            case CardClass.ActionBoardinghouse:
+            case CardClass.ActionWarehouse:
+            case CardClass.ActionCityHall:
+                doneCallback();
+                break;
+            case CardClass.ActionShip:
+            case CardClass.ActionPasture:
                 break;
         }
     }

@@ -4,64 +4,67 @@ using System.Collections.Generic;
 
 public static class ActionHandler {
 
-    public static void ProcessAction(this GameEngine gameEngine, Action action, System.Action chooseBonusCallback = null) {
+    //public static void ProcessAction(this GameEngine gameEngine, 
+    //                                 Action action, 
+    //                                 System.Action chooseBonusCallback = null,
+    //                                 System.Action chooseTripleCallback = null) {
 
-        var gameState = gameEngine.GameState;
-        var availableProjectCards = gameState.AvailableProjectCards;
-        var currentPlayer = gameState.CurrentPlayer;
+    //    var gameState = gameEngine.GameState;
+    //    var availableProjectCards = gameState.AvailableProjectCards;
+    //    var currentPlayer = gameState.CurrentPlayer;
 
-        if (!gameState.GetAvailableActions().Has(action)) {
-            throw new System.InvalidProgramException("Cannot use and action that is not in the available actions!");
-        }
+    //    if (!gameState.GetAvailableActions().Has(action)) {
+    //        throw new System.InvalidProgramException("Cannot use and action that is not in the available actions!");
+    //    }
 
-        UnityEngine.Debug.Log(currentPlayer.NickName + " used " + action.Describe());
+    //    UnityEngine.Debug.Log(currentPlayer.NickName + " used " + action.Describe());
 
-        switch (action.Type) {
-            case ActionType.TakeProject:
-                currentPlayer.ExecuteTakeProjectAction(action);
-                availableProjectCards.RemoveCardFromProjects(action.TargetCard);
-                break;
+    //    switch (action.Type) {
+    //        case ActionType.TakeProject:
+    //            currentPlayer.ExecuteTakeProjectAction(action);
+    //            availableProjectCards.RemoveCardFromProjects(action.TargetCard);
+    //            break;
 
-            case ActionType.BuildProject:
-                bool didFinishedTriple = currentPlayer.ExecuteBuildProjectAction(action, gameState);
-                if (didFinishedTriple && chooseBonusCallback != null) {
-                    chooseBonusCallback();
-                }
-                break;
+    //        case ActionType.BuildProject:
+    //            bool didFinishedTriple = currentPlayer.ExecuteBuildProjectAction(action, gameState);
+    //            if (didFinishedTriple && chooseBonusCallback != null) {
+    //                chooseBonusCallback();
+    //            }
+    //            break;
 
-            case ActionType.ShipGoods:
-                currentPlayer.ExecuteShipGoodsAction(action, gameState);
-                break;
+    //        case ActionType.ShipGoods:
+    //            currentPlayer.ExecuteShipGoodsAction(action, gameState);
+    //            break;
 
-            case ActionType.BuyWorkers:
-                currentPlayer.ExecuteBuyWorkersAction(action);
-                break;
+    //        case ActionType.BuyWorkers:
+    //            currentPlayer.ExecuteBuyWorkersAction(action);
+    //            break;
 
-            case ActionType.BuySilver:
-                currentPlayer.ExecuteBuySilverAction(action);
-                break;
+    //        case ActionType.BuySilver:
+    //            currentPlayer.ExecuteBuySilverAction(action);
+    //            break;
 
-            case ActionType.SellSilverAndWorkers:
-                currentPlayer.ExecuteSellSilverAndWorkersAction(action);
-                break;
+    //        case ActionType.SellSilverAndWorkers:
+    //            currentPlayer.ExecuteSellSilverAndWorkersAction(action);
+    //            break;
 
-            case ActionType.UseSilver:
-                currentPlayer.ExecuteUseSilverAction(action, gameState.MainDeck);
-                break;
+    //        case ActionType.UseSilver:
+    //            currentPlayer.ExecuteUseSilverAction(action, gameState.MainDeck);
+    //            break;
 
-            case ActionType.TakeSilverProject:
-                currentPlayer.ExecuteTakeSilverProjectAction(action);
-                break;
+    //        case ActionType.TakeSilverProject:
+    //            currentPlayer.ExecuteTakeSilverProjectAction(action);
+    //            break;
 
-            case ActionType.EndTurn:
-                currentPlayer.ExecuteEndTurnAction();
-                gameEngine.ExecuteEndTurnAction();
-                break;
+    //        case ActionType.EndTurn:
+    //            currentPlayer.ExecuteEndTurnAction();
+    //            gameEngine.ExecuteEndTurnAction();
+    //            break;
 
-            default:
-                throw new System.InvalidProgramException("Unknown action type: " + action.Describe());
-        }
-    }
+    //        default:
+    //            throw new System.InvalidProgramException("Unknown action type: " + action.Describe());
+    //    }
+    //}
 
     public static void RemoveCardFromProjects(this List<ProjectCard> availableProjectCards, Card card) {
         var cards = availableProjectCards.FindAll((ProjectCard obj) => obj.Card.IsEqualTo(card));

@@ -68,25 +68,16 @@ public class EstatesController : MonoBehaviour {
 
     private static void DrawPlayerCards(Player player, float axisY) {
         float margin = ED.CardsSpaceStart;
-        int currentTripleId = 0;
 
-        for (int i = 0; i < player.CompletedProjects.Count; i++) {
-            Card c = player.CompletedProjects[i];
+        var triples = player.GetAllTriples();
 
-            if (currentTripleId == 0) {
-                currentTripleId = c.TripleId;
+        foreach (List<Card> cards in triples) {
+            foreach (Card card in cards) {
+                DrawCard(new Vector2(margin, axisY), card);
+                margin += GD.CardWidth * 0.6f;
             }
-
-            if (i > 0 && currentTripleId != c.TripleId) {
-                currentTripleId = c.TripleId;
-                margin += GD.CardWidth * 0.4f + GD.MarginSmall * 2;
-            }
-
-            Vector2 position = new Vector2(margin, axisY);
-            DrawCard(position, c);
-            margin += GD.CardWidth * 0.6f;
+            margin += GD.CardWidth + GD.MarginSmall;
         }
-
 
     }
 

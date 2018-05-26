@@ -10,71 +10,6 @@ using Models;
 public class TestCompletingBuildings {
 
     [Test]
-    public void TestBuildingsHaveCorrectSize0() {
-        List<Card> completedProjects = new List<Card>();
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 1));
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 1));
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 1));
-
-        List<List<Card>> result = completedProjects.CreateTripleLists();
-
-        Assert.IsTrue(result.Count == 1);
-    }
-
-    [Test]
-    public void TestBuildingsHaveCorrectSize1() {
-        List<Card> completedProjects = new List<Card>();
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 1));
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 1));
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 1));
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 2));
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 2));
-
-        List<List<Card>> result = completedProjects.CreateTripleLists();
-
-        Assert.IsTrue(result.Count == 2);
-    }
-
-    [Test]
-    public void TestBuildingsHaveCorrectSize2() {
-        List<Card> completedProjects = new List<Card>();
-
-        List<List<Card>> result = completedProjects.CreateTripleLists();
-
-        Assert.IsTrue(result.Count == 0);
-    }
-
-    [Test]
-    public void TestBuildingsHaveCorrectSize3() {
-        List<Card> completedProjects = new List<Card>();
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 1));
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 1));
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 2));
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 2));
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 3));
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 3));
-
-        List<List<Card>> result = completedProjects.CreateTripleLists();
-
-        Assert.IsTrue(result.Count == 3);
-    }
-
-    [Test]
-    public void TestBuildingsHaveCorrectSize4() {
-        List<Card> completedProjects = new List<Card>();
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 1));
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 3));
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 5));
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 7));
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 8));
-        completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 8));
-
-        List<List<Card>> result = completedProjects.CreateTripleLists();
-
-        Assert.IsTrue(result.Count == 5);
-    }
-
-    [Test]
     public void TestListMatches1() {
         List<Card> cards = new List<Card>();
         cards.Add(new Card(CardClass.ActionCastle));
@@ -261,8 +196,10 @@ public class TestCompletingBuildings {
     }
 
     [Test]
-    public void TestFindAvailableSpots1() {
-        List<Card> completedProjects = new List<Card>();
+    public void TestGetNotCompletedTriplesForCard1() {
+        Player player = RandomModels.RandomPlayer(12, 20, 30);
+        var completedProjects = player.CompletedProjects;
+        completedProjects.Clear();
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 1));
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 1));
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 1));
@@ -270,15 +207,17 @@ public class TestCompletingBuildings {
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 2));
 
 
-        var result = completedProjects.FindAvailableSpots(new Card(CardClass.ActionBank));
+        var result = player.GetNotCompletedTriplesForCard(new Card(CardClass.ActionBank));
 
         Assert.IsTrue(result.Count == 1);
         Assert.IsTrue(result[0][0].TripleId == 2);
     }
 
     [Test]
-    public void TestFindAvailableSpots2() {
-        List<Card> completedProjects = new List<Card>();
+    public void TestGetNotCompletedTriplesForCard2() {
+        Player player = RandomModels.RandomPlayer(12, 20, 30);
+        var completedProjects = player.CompletedProjects;
+        completedProjects.Clear();
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 1));
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 1));
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 1));
@@ -286,65 +225,73 @@ public class TestCompletingBuildings {
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 2));
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 2));
 
-        var result = completedProjects.FindAvailableSpots(new Card(CardClass.ActionBank));
+        var result = player.GetNotCompletedTriplesForCard(new Card(CardClass.ActionBank));
 
         Assert.IsTrue(result.Count == 0);
     }
 
     [Test]
-    public void TestFindAvailableSpots3() {
-        List<Card> completedProjects = new List<Card>();
+    public void TestGetNotCompletedTriplesForCard3() {
+        Player player = RandomModels.RandomPlayer(12, 20, 30);
+        var completedProjects = player.CompletedProjects;
+        completedProjects.Clear();
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 1));
         completedProjects.Add(new Card(CardClass.ActionCloister, CardDice.O, 0, 1));
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 2));
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 2));
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 2));
 
-        var result = completedProjects.FindAvailableSpots(new Card(CardClass.ActionBank));
+        var result = player.GetNotCompletedTriplesForCard(new Card(CardClass.ActionBank));
 
         Assert.IsTrue(result.Count == 1);
         Assert.IsTrue(result[0][0].TripleId == 1);
     }
 
     [Test]
-    public void TestFindAvailableSpots4() {
-        List<Card> completedProjects = new List<Card>();
+    public void TestGetNotCompletedTriplesForCard4() {
+        Player player = RandomModels.RandomPlayer(12, 20, 30);
+        var completedProjects = player.CompletedProjects;
+        completedProjects.Clear();
         completedProjects.Add(new Card(CardClass.ActionCloister, CardDice.O, 0, 1));
         completedProjects.Add(new Card(CardClass.ActionCloister, CardDice.O, 0, 1));
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 2));
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 2));
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 2));
 
-        var result = completedProjects.FindAvailableSpots(new Card(CardClass.ActionBank));
+        var result = player.GetNotCompletedTriplesForCard(new Card(CardClass.ActionBank));
 
         Assert.IsTrue(result.Count == 1);
         Assert.IsTrue(result[0][0].TripleId == 1);
     }
 
     [Test]
-    public void TestFindAvailableSpots5() {
-        List<Card> completedProjects = new List<Card>();
+    public void TestGetNotCompletedTriplesForCard5() {
+        Player player = RandomModels.RandomPlayer(12, 20, 30);
+        var completedProjects = player.CompletedProjects;
+        completedProjects.Clear();
         completedProjects.Add(new Card(CardClass.ActionMine, CardDice.O, 0, 3));
         completedProjects.Add(new Card(CardClass.ActionMine, CardDice.O, 0, 3));
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 5));
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 5));
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 5));
 
-        var result = completedProjects.FindAvailableSpots(new Card(CardClass.ActionCloister));
+        var result = player.GetNotCompletedTriplesForCard(new Card(CardClass.ActionCloister));
 
         Assert.IsTrue(result.Count == 1);
         Assert.IsTrue(result[0][0].TripleId == 3);
     }
 
     [Test]
-    public void TestFindAvailableSpots6() {
-        List<Card> completedProjects = new List<Card>();
+    public void TestGetNotCompletedTriplesForCard6() {
+        Player player = RandomModels.RandomPlayer(12, 20, 30);
+        var completedProjects = player.CompletedProjects;
+        completedProjects.Clear();
         completedProjects.Add(new Card(CardClass.ActionBoardinghouse, CardDice.O, 0, 3));
         completedProjects.Add(new Card(CardClass.ActionCityHall, CardDice.O, 0, 3));
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 5));
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 5));
 
-        var result = completedProjects.FindAvailableSpots(new Card(CardClass.ActionCloister));
+        var result = player.GetNotCompletedTriplesForCard(new Card(CardClass.ActionCloister));
 
         Assert.IsTrue(result.Count == 2);
         Assert.IsTrue(result[0][0].TripleId == 3);
@@ -352,14 +299,16 @@ public class TestCompletingBuildings {
     }
 
     [Test]
-    public void TestFindAvailableSpots7() {
-        List<Card> completedProjects = new List<Card>();
+    public void TestGetNotCompletedTriplesForCard7() {
+        Player player = RandomModels.RandomPlayer(12, 20, 30);
+        var completedProjects = player.CompletedProjects;
+        completedProjects.Clear();
         completedProjects.Add(new Card(CardClass.ActionBoardinghouse, CardDice.O, 0, 3));
         completedProjects.Add(new Card(CardClass.ActionCityHall, CardDice.O, 0, 3));
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 5));
         completedProjects.Add(new Card(CardClass.ActionBank, CardDice.O, 0, 5));
 
-        var result = completedProjects.FindAvailableSpots(new Card(CardClass.ActionBank));
+        var result = player.GetNotCompletedTriplesForCard(new Card(CardClass.ActionBank));
 
         Assert.IsTrue(result.Count == 2);
         Assert.IsTrue(result[0][0].TripleId == 3);
@@ -367,8 +316,10 @@ public class TestCompletingBuildings {
     }
 
     [Test]
-    public void TestFindAvailableSpots8() {
-        List<Card> completedProjects = new List<Card>();
+    public void TestGetNotCompletedTriplesForCard8() {
+        Player player = RandomModels.RandomPlayer(12, 20, 30);
+        var completedProjects = player.CompletedProjects;
+        completedProjects.Clear();
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 1));
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 1));
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 1));
@@ -381,15 +332,17 @@ public class TestCompletingBuildings {
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 4));
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 4));
 
-        var result = completedProjects.FindAvailableSpots(new Card(CardClass.ActionCastle));
+        var result = player.GetNotCompletedTriplesForCard(new Card(CardClass.ActionCastle));
 
         Assert.IsTrue(result.Count == 1);
         Assert.IsTrue(result[0][0].TripleId == 4);
     }
 
     [Test]
-    public void TestFindAvailableSpots9() {
-        List<Card> completedProjects = new List<Card>();
+    public void TestGetNotCompletedTriplesForCard9() {
+        Player player = RandomModels.RandomPlayer(12, 20, 30);
+        var completedProjects = player.CompletedProjects;
+        completedProjects.Clear();
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 1));
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 1));
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 1));
@@ -400,23 +353,27 @@ public class TestCompletingBuildings {
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 3));
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 3));
 
-        var result = completedProjects.FindAvailableSpots(new Card(CardClass.ActionCastle));
+        var result = player.GetNotCompletedTriplesForCard(new Card(CardClass.ActionCastle));
 
         Assert.IsTrue(result.Count == 0);
     }
 
     [Test]
-    public void TestFindAvailableSpots10() {
-        List<Card> completedProjects = new List<Card>();
+    public void TestGetNotCompletedTriplesForCard10() {
+        Player player = RandomModels.RandomPlayer(12, 20, 30);
+        var completedProjects = player.CompletedProjects;
+        completedProjects.Clear();
 
-        var result = completedProjects.FindAvailableSpots(new Card(CardClass.ActionCastle));
+        var result = player.GetNotCompletedTriplesForCard(new Card(CardClass.ActionCastle));
 
         Assert.IsTrue(result.Count == 0);
     }
 
     [Test]
-    public void TestFindAvailableSpots11() {
-        List<Card> completedProjects = new List<Card>();
+    public void TestGetNotCompletedTriplesForCard11() {
+        Player player = RandomModels.RandomPlayer(12, 20, 30);
+        var completedProjects = player.CompletedProjects;
+        completedProjects.Clear();
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 1));
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 1));
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 2));
@@ -426,14 +383,16 @@ public class TestCompletingBuildings {
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 4));
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 4));
 
-        var result = completedProjects.FindAvailableSpots(new Card(CardClass.ActionCastle));
+        var result = player.GetNotCompletedTriplesForCard(new Card(CardClass.ActionCastle));
 
         Assert.IsTrue(result.Count == 4);
     }
 
     [Test]
-    public void TestFindAvailableSpots12() {
-        List<Card> completedProjects = new List<Card>();
+    public void TestGetNotCompletedTriplesForCard12() {
+        Player player = RandomModels.RandomPlayer(12, 20, 30);
+        var completedProjects = player.CompletedProjects;
+        completedProjects.Clear();
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 1));
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 1));
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 2));
@@ -443,14 +402,16 @@ public class TestCompletingBuildings {
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 4));
         completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 4));
 
-        var result = completedProjects.FindAvailableSpots(new Card(CardClass.ActionCloister));
+        var result = player.GetNotCompletedTriplesForCard(new Card(CardClass.ActionCloister));
 
         Assert.IsTrue(result.Count == 4);
     }
 
     [Test]
-    public void TestFindAvailableSpots13() {
-        List<Card> completedProjects = new List<Card>();
+    public void TestGetNotCompletedTriplesForCard13() {
+        Player player = RandomModels.RandomPlayer(12, 20, 30);
+        var completedProjects = player.CompletedProjects;
+        completedProjects.Clear();
         completedProjects.Add(new Card(CardClass.ActionCloister, CardDice.O, 0, 1));
         completedProjects.Add(new Card(CardClass.ActionCloister, CardDice.O, 0, 1));
         completedProjects.Add(new Card(CardClass.ActionCloister, CardDice.O, 0, 2));
@@ -460,8 +421,44 @@ public class TestCompletingBuildings {
         completedProjects.Add(new Card(CardClass.ActionCloister, CardDice.O, 0, 4));
         completedProjects.Add(new Card(CardClass.ActionCloister, CardDice.O, 0, 4));
 
-        var result = completedProjects.FindAvailableSpots(new Card(CardClass.ActionCastle));
+        var result = player.GetNotCompletedTriplesForCard(new Card(CardClass.ActionCastle));
 
         Assert.IsTrue(result.Count == 4);
     }
+
+    [Test]
+    public void TestGetNotCompletedTriplesForCard14() {
+        Player player = RandomModels.RandomPlayer(12, 20, 30);
+        var completedProjects = player.CompletedProjects;
+        completedProjects.Clear();
+        completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 1));
+        completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 1));
+        completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 2));
+        completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 2));
+        completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 3));
+        completedProjects.Add(new Card(CardClass.ActionCastle, CardDice.O, 0, 3));
+
+        var result = player.GetNotCompletedTriplesForCard(new Card(CardClass.ActionMine));
+
+        Assert.AreEqual(0, result.Count);
+    }
+
+    [Test]
+    public void TestMatchesCard1() {
+        List<Card> cards = new List<Card>();
+        cards.Add(new Card(CardClass.ActionCastle));
+        cards.Add(new Card(CardClass.ActionCastle));
+
+        Assert.IsFalse(cards.MatchesCard(new Card(CardClass.ActionMine)));
+    }
+
+    [Test]
+    public void TestMatchesCard2() {
+        List<Card> cards = new List<Card>();
+        cards.Add(new Card(CardClass.ActionCastle));
+        cards.Add(new Card(CardClass.ActionCastle));
+
+        Assert.IsTrue(cards.MatchesCard(new Card(CardClass.ActionCastle)));
+    }
+
 }

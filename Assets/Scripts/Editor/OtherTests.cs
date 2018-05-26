@@ -22,11 +22,11 @@ public class OtherTests {
     public void TestSortingList() {
 
         List<Item> l1 = new List<Item>();
-        l1.Add(new Item(42));
+        l1.Add(new Item(5));
         l1.Add(new Item(3));
-        l1.Add(new Item(9));
-        l1.Add(new Item(23));
-        l1.Add(new Item(11));
+        l1.Add(new Item(2));
+        l1.Add(new Item(1));
+        l1.Add(new Item(4));
 
         List<Item> l2 = new List<Item>();
         l2.AddRange(l1);
@@ -37,13 +37,17 @@ public class OtherTests {
             }
         );
 
-        foreach(Item i in l1) {
-            UnityEngine.Debug.Log(i.Value);
-        }
+        Assert.AreEqual(0, l2.ConvertAll((input) => input.Value).IndexOf(1));
+        Assert.AreEqual(1, l2.ConvertAll((input) => input.Value).IndexOf(2));
+        Assert.AreEqual(2, l2.ConvertAll((input) => input.Value).IndexOf(3));
+        Assert.AreEqual(3, l2.ConvertAll((input) => input.Value).IndexOf(4));
+        Assert.AreEqual(4, l2.ConvertAll((input) => input.Value).IndexOf(5));
 
-        foreach(Item i in l2) {
-            UnityEngine.Debug.Log(i.Value);
-        }
+        Assert.AreEqual(0, l1.ConvertAll((input) => input.Value).IndexOf(5));
+        Assert.AreEqual(1, l1.ConvertAll((input) => input.Value).IndexOf(3));
+        Assert.AreEqual(2, l1.ConvertAll((input) => input.Value).IndexOf(2));
+        Assert.AreEqual(3, l1.ConvertAll((input) => input.Value).IndexOf(1));
+        Assert.AreEqual(4, l1.ConvertAll((input) => input.Value).IndexOf(4));
 
     }
 

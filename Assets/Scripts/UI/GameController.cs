@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour {
             }
         }
 
-        RedrawUI();
+        UpdateView();
         CheckTheTurn();
     }
 
@@ -62,7 +62,7 @@ public class GameController : MonoBehaviour {
 
             if (!GameEngine.GameState.IsEqualTo(newGameState)) {
                 UpdateGameState(newGameState);
-                RedrawUI();
+                UpdateView();
                 print("game state has changed... how refreshing");
             } else {
                 print("game state hasn't changed");
@@ -76,7 +76,7 @@ public class GameController : MonoBehaviour {
     }
 
     private void RedrawUI() {
-        print("redraw UI");
+        print("redraw UI view");
         foreach (GameObject gmo in GarbageCollector) {
             Destroy(gmo);
         }
@@ -114,9 +114,9 @@ public class GameController : MonoBehaviour {
         switch (action) {
             case ClickAction.UseSilver:
                 PopupsController.ShowAreYouSurePopup(() => {
-                    GameEngine.ProcessAction(actions.GetUseSilverAction(), SceneLoader.LoadChooseBonusScene);
+                    GameEngine.ProcessAction(actions.GetUseSilverAction());
                     UpdateGameState(GameEngine.GameState);
-                    RedrawUI();
+                    UpdateView();
                 });
                 break;
             case ClickAction.EndTurn:
@@ -124,7 +124,7 @@ public class GameController : MonoBehaviour {
                     GameEngine.ProcessAction(actions.GetEndTurnAction());
 
                     UpdateGameState(GameEngine.GameState);
-                    RedrawUI();
+                    UpdateView();
                     PostGameStateRequest();
 
                 } else {
@@ -134,7 +134,10 @@ public class GameController : MonoBehaviour {
             case ClickAction.ExitGame:
                 GameEngine.GameState.CurrentPlayer.Cards.Add(GameEngine.GameState.MainDeck.DrawCard());
                 UpdateGameState(GameEngine.GameState);
-                RedrawUI();
+                UpdateView();
+
+                //PopupsController.ShowChooseAnimalPopup(2, () => { });
+
                 print("todo exit game ...");
                 break;
             case ClickAction.ShowProjects:
@@ -142,15 +145,19 @@ public class GameController : MonoBehaviour {
             case ClickAction.ShowSilver:
                 SceneLoader.LoadProjectsScene();
                 break;
+
             case ClickAction.ShowEstates:
                 SceneLoader.LoadEstatesScene();
                 break;
+
             case ClickAction.ShowAnimals:
                 SceneLoader.LoadAnimalsScene();
                 break;
+
             case ClickAction.ShowBonuses:
                 SceneLoader.LoadBonusesTakenScene();
                 break;
+
             case ClickAction.ShowStorage:
                 SceneLoader.LoadGoodsScene();
                 break;
@@ -168,33 +175,13 @@ public class GameController : MonoBehaviour {
         if (actions.IsMoveAvailable(targetCard, actionCard)) {
             Action actionForExecute = actions.GetAvailableMove(targetCard, actionCard);
 
-            GameEngine.ProcessAction(actionForExecute);
-            UpdateGameState(GameEngine.GameState);
-            RedrawUI();
-            CheckTheTurn();
+            GameEngine.ProcessAction(actionForExecute, () => {
+                UpdateGameState(GameEngine.GameState);
+                UpdateView();
+                CheckTheTurn();
+            });
         }
     }
-
-    public void HandleOtherGameEvent(OtherGameEvent gameEvent, object data) {
-        switch (gameEvent) {
-            case OtherGameEvent.ChooseAnimals:
-                PopupsController.ShowChooseAnimalPopup((int)data, () => {
-                    UpdateGameState(GameEngine.GameState);
-                    RedrawUI();
-                });
-                break;
-            case OtherGameEvent.ChooseGoods:
-                PopupsController.ShowChooseGoodsPopup((int)data, () => {
-                    UpdateGameState(GameEngine.GameState);
-                    RedrawUI();
-                });
-                break;
-            case OtherGameEvent.PlaceCompletedProject:
-                break;
-
-        }
-    }
-
 
     public void HandleCardHoverAction(GameObject playerCardObject, GameObject targetCardObject) {
         Card targetCard = targetCardObject.GetDragDropController().Card;
@@ -213,5 +200,9 @@ public class GameController : MonoBehaviour {
     public void HandleCardLeaveAction(GameObject playerCardObject, GameObject targetCardObject) {
         targetCardObject.ResetColor();
         DropCardController controller = targetCardObject.GetDragDropController();
+    }
+
+    public static void UpdateView() {
+        GameObject.Find("GameObjectController").GetComponent<GameController>().RedrawUI();
     }
 }

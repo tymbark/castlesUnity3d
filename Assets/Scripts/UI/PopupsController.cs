@@ -73,7 +73,7 @@ public class PopupsController : MonoBehaviour {
     }
 
     public static void ShowChooseAnimalPopup(int howMany, System.Action callback) {
-        Object prefab = Resources.Load("Prefabs/ChooseAnimalPopup");
+        Object prefab = Resources.Load("Prefabs/ChooseCardPopup");
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
         messageGameObject.transform.position = new Vector3(0, 0, -11);
 
@@ -85,7 +85,7 @@ public class PopupsController : MonoBehaviour {
     }
 
     public static void ShowChooseGoodsPopup(int howMany, System.Action callback) {
-        Object prefab = Resources.Load("Prefabs/ChooseAnimalPopup");
+        Object prefab = Resources.Load("Prefabs/ChooseCardPopup");
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
         messageGameObject.transform.position = new Vector3(0, 0, -11);
 
@@ -93,6 +93,30 @@ public class PopupsController : MonoBehaviour {
         messageGameObject.transform.SetParent(canvas.transform);
         ChooseGoodsController controller = messageGameObject.AddComponent<ChooseGoodsController>();
         controller.UpdateView(howMany);
+        controller.DoneCallback = callback;
+    }
+
+    public static void ShowChooseTripleStackPopup(Card card, System.Action<int> callback) {
+        Object prefab = Resources.Load("Prefabs/ChooseCardPopup");
+        GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+        messageGameObject.transform.position = new Vector3(0, 0, -11);
+
+        GameObject canvas = GameObject.Find("Canvas");
+        messageGameObject.transform.SetParent(canvas.transform);
+        ChooseTripleController controller = messageGameObject.AddComponent<ChooseTripleController>();
+        controller.UpdateView(card);
+        controller.DoneCallback = callback;
+    }
+
+    public static void ShowChooseTripleBonusPopup(System.Action callback) {
+        UnityEngine.Debug.Log("show triple popup");
+        Object prefab = Resources.Load("Prefabs/ChooseBonusPopup");
+        GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+        messageGameObject.transform.position = new Vector3(0, 0, -11);
+
+        GameObject canvas = GameObject.Find("Canvas");
+        messageGameObject.transform.SetParent(canvas.transform);
+        ChooseBonusController controller = messageGameObject.AddComponent<ChooseBonusController>();
         controller.DoneCallback = callback;
     }
 
