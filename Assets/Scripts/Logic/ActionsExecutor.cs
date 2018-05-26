@@ -2,62 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Models;
+using GSP = GameStateProvider;
 
 public static class ActionsExecutor {
-
-    //public static void ExecuteTakeProjectAction(this Player p, Action action) {
-    //    p.WithdrawUsedCard(action.ActionCard);
-    //    p.UseWorkers(action.WorkersNeeded);
-    //    p.ProjectArea.Add(action.TargetCard);
-    //}
-
-    //public static bool ExecuteBuildProjectAction(this Player p, Action action, GameState gameState) {
-    //    p.WithdrawUsedCard(action.ActionCard);
-    //    p.UseWorkers(action.WorkersNeeded);
-    //    p.ApplyCompletingSingleBuildingBonus(action.TargetCard, gameState);
-
-    //    bool didFinishTriple = gameState.CompleteProject(action.TargetCard);
-
-    //    return didFinishTriple;
-    //}
-
-    //public static void ExecuteShipGoodsAction(this Player p, Action action, GameState gameState) {
-    //    p.WithdrawUsedCard(action.ActionCard);
-    //    p.UseWorkers(action.WorkersNeeded);
-    //    p.ShipGoods(action.TargetCard);
-    //    p.MoveFirstPlayerBonusCard(gameState);
-    //}
-
-    //public static void ExecuteBuySilverAction(this Player p, Action action) {
-    //    p.WithdrawUsedCard(action.ActionCard);
-    //    p.SilverCount += 1;
-    //}
-
-    //public static void ExecuteBuyWorkersAction(this Player p, Action action) {
-    //    p.WithdrawUsedCard(action.ActionCard);
-    //    p.WorkersCount = 2;
-    //}
-
-    //public static void ExecuteSellSilverAndWorkersAction(this Player p, Action action) {
-    //    p.WithdrawUsedCard(action.ActionCard);
-    //    p.SilverCount -= action.SilverSell;
-    //    p.WorkersCount -= action.WorkersSell;
-    //    p.Score += (action.WorkersSell + action.SilverSell) / 3;
-    //}
-
-    //public static void ExecuteUseSilverAction(this Player p, Action action, Deck actionsDeck) {
-    //    p.SilverCount = p.SilverCount - 3;
-    //    Utils.Repeat(3, () => { p.BonusActionCards.Add(actionsDeck.DrawCard()); });
-    //}
-
-    //public static void ExecuteTakeSilverProjectAction(this Player p, Action action) {
-    //    p.BonusActionUsed(action.ActionCard);
-    //    p.ProjectArea.Add(action.TargetCard);
-    //}
-
-    //public static void ExecuteEndTurnAction(this Player p) {
-    //    p.SilverActionDoneThisTurn = false;
-    //}
 
     public static void WithdrawUsedCard(this Player p, Card card) {
         if (p.BonusActionCards.Contains(card)) {
@@ -138,11 +85,11 @@ public static class ActionsExecutor {
         }
     }
 
-    public static void MoveFirstPlayerBonusCard(this Player p, GameState gameState) {
+    public static void MoveFirstPlayerBonusCard(this Player p) {
         if (p.HasBonusFirstPlayerCard()) {
             return;
         } else {
-            Player previousOwner = gameState.Players.Find((Player obj) => obj.HasBonusFirstPlayerCard());
+            Player previousOwner = GSP.GameState.Players.Find((Player obj) => obj.HasBonusFirstPlayerCard());
             if (previousOwner.ReceivedBonuses.Contains(BonusCard.FirstPlayer)) {
                 previousOwner.ReceivedBonuses.Remove(BonusCard.FirstPlayer);
             }

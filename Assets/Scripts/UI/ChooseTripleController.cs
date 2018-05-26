@@ -3,21 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Models;
 using GD = GameDimensions;
+using GSP = GameStateProvider;
 
 public class ChooseTripleController : MonoBehaviour {
 
     private bool clickable = true;
-    private GameState GameState;
     private Vector2 posAvailableCards;
     private Vector2 posYourCards;
     private GameObject dragCardText;
     private Card Card;
     public System.Action<int> DoneCallback;
     private readonly List<GameObject> GarbageCollector = new List<GameObject>();
-
-    private void Awake() {
-        GameState = new GameEngine().GameState;
-    }
 
     public void UpdateView(Card newCard) {
         foreach (GameObject obj in GarbageCollector) {
@@ -54,7 +50,7 @@ public class ChooseTripleController : MonoBehaviour {
     private void DrawAvailableTriples() {
         float margin = posYourCards.x;
 
-        var triples = GameState.CurrentPlayer.GetNotCompletedTriplesForCard(Card);
+        var triples = GSP.GameState.CurrentPlayer.GetNotCompletedTriplesForCard(Card);
 
         foreach (List<Card> cards in triples) {
 
@@ -68,8 +64,6 @@ public class ChooseTripleController : MonoBehaviour {
                     if (!clickable) return;
                     clickable = false;
 
-                    GameState.SaveGameState();
-
                     DoneCallback(c.TripleId);
                     Destroy(gameObject);
 
@@ -78,7 +72,7 @@ public class ChooseTripleController : MonoBehaviour {
                 margin = margin + GD.CardWidth * 0.6f;
             }
 
-            margin = margin + GD.MarginBig;
+            margin = margin + GD.CardWidth + GD.MarginSmall;
 
         }
 

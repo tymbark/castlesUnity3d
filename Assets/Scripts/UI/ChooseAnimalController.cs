@@ -3,21 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Models;
 using GD = GameDimensions;
+using GSP = GameStateProvider;
 
 public class ChooseAnimalController : MonoBehaviour {
 
     private bool clickable = true;
-    private GameState GameState;
     private Vector2 posAvailableCards;
     private Vector2 posYourCards;
     private GameObject dragCardText;
     public int HowManyCards;
     public System.Action DoneCallback;
     private List<GameObject> GarbageCollector = new List<GameObject>();
-
-    private void Awake() {
-        GameState = new GameEngine().GameState;
-    }
 
     public void UpdateView(int howManycards) {
         foreach (GameObject obj in GarbageCollector) {
@@ -42,26 +38,26 @@ public class ChooseAnimalController : MonoBehaviour {
                   .GetComponent<TMPro.TextMeshProUGUI>()
                   .text = text;
 
-        DrawPlayerAnimals(GameState.CurrentPlayer, posYourCards);
+        DrawPlayerAnimals(GSP.GameState.CurrentPlayer, posYourCards);
         DrawAvailableAnimals();
     }
 
     private void DrawAvailableAnimals() {
         float margin = posAvailableCards.x;
 
-        if (GameState.AnimalsDeck.Cards.Count > 0) {
+        if (GSP.GameState.AnimalsDeck.Cards.Count > 0) {
             DrawCard(margin, 0);
             margin += GD.CardWidth + GD.MarginBig;
         }
 
-        if (GameState.AnimalsDeck.Cards.Count > 1) {
+        if (GSP.GameState.AnimalsDeck.Cards.Count > 1) {
             DrawCard(margin, 1);
         }
 
     }
 
     private void DrawCard(float margin, int index) {
-        var animal = GameState.AnimalsDeck.Cards[index];
+        var animal = GSP.GameState.AnimalsDeck.Cards[index];
 
         string resId = "";
         switch (animal.Class) {
@@ -98,10 +94,9 @@ public class ChooseAnimalController : MonoBehaviour {
     }
 
     private void GiveThisCardToPlayer(int index) {
-        var card = GameState.AnimalsDeck.Cards[index];
-        GameState.AnimalsDeck.Cards.RemoveAt(index);
-        GameState.CurrentPlayer.Animals.Add(card);
-        GameState.SaveGameState();
+        var card = GSP.GameState.AnimalsDeck.Cards[index];
+        GSP.GameState.AnimalsDeck.Cards.RemoveAt(index);
+        GSP.GameState.CurrentPlayer.Animals.Add(card);
     }
 
     private void DrawPlayerAnimals(Player player, Vector2 startingPosition) {

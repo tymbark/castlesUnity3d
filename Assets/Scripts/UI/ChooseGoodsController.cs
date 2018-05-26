@@ -3,21 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Models;
 using GD = GameDimensions;
+using GSP = GameStateProvider;
 
 public class ChooseGoodsController : MonoBehaviour {
 
     private bool clickable = true;
-    private GameState GameState;
     private Vector2 posAvailableCards;
     private Vector2 posYourCards;
     private GameObject dragCardText;
     public int HowManyCards;
     public System.Action DoneCallback;
     private List<GameObject> GarbageCollector = new List<GameObject>();
-
-    private void Awake() {
-        GameState = new GameEngine().GameState;
-    }
 
     public void UpdateView(int howManycards) {
         foreach (GameObject obj in GarbageCollector) {
@@ -42,26 +38,26 @@ public class ChooseGoodsController : MonoBehaviour {
                   .GetComponent<TMPro.TextMeshProUGUI>()
                   .text = text;
 
-        DrawPlayerGoods(GameState.CurrentPlayer, posYourCards);
+        DrawPlayerGoods(GSP.GameState.CurrentPlayer, posYourCards);
         DrawAvailableGoods();
     }
 
     private void DrawAvailableGoods() {
         float margin = posAvailableCards.x;
 
-        if (GameState.GoodsDeck.Cards.Count > 0) {
+        if (GSP.GameState.GoodsDeck.Cards.Count > 0) {
             DrawCard(margin, 0);
             margin += GD.CardWidth + GD.MarginBig;
         }
 
-        if (GameState.GoodsDeck.Cards.Count > 1) {
+        if (GSP.GameState.GoodsDeck.Cards.Count > 1) {
             DrawCard(margin, 1);
         }
 
     }
 
     private void DrawCard(float margin, int index) {
-        var goods = GameState.GoodsDeck.Cards[index];
+        var goods = GSP.GameState.GoodsDeck.Cards[index];
 
         string resId = "";
         switch (goods.Dice) {
@@ -95,10 +91,9 @@ public class ChooseGoodsController : MonoBehaviour {
     }
 
     private void GiveThisCardToPlayer(int index) {
-        var card = GameState.GoodsDeck.Cards[index];
-        GameState.GoodsDeck.Cards.RemoveAt(index);
-        GameState.CurrentPlayer.Goods.Add(card);
-        GameState.SaveGameState();
+        var card = GSP.GameState.GoodsDeck.Cards[index];
+        GSP.GameState.GoodsDeck.Cards.RemoveAt(index);
+        GSP.GameState.CurrentPlayer.Goods.Add(card);
     }
 
     private void DrawPlayerGoods(Player player, Vector2 startingPosition) {

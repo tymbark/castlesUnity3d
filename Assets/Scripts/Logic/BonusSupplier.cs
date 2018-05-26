@@ -1,15 +1,15 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Models;
+using GSP = GameStateProvider;
 
 public static class BonusSupplier {
 
     public static void ApplyCompletingSingleBuildingBonus(this Player player,
                                                           Card card,
-                                                          GameState gameState,
                                                           System.Action doneCallback) {
+        GameState gameState = GSP.GameState;
         Deck goodsDeck = gameState.GoodsDeck;
         Deck animalsDeck = gameState.AnimalsDeck;
 
@@ -27,14 +27,12 @@ public static class BonusSupplier {
                 break;
             case CardClass.ActionShip:
                 PopupsController.ShowChooseGoodsPopup(1, () => {
-                    gameState.SaveGameState();
                     GameController.UpdateView();
                     doneCallback();
                 });
                 break;
             case CardClass.ActionPasture:
                 PopupsController.ShowChooseAnimalPopup(1, () => {
-                    gameState.SaveGameState();
                     GameController.UpdateView();
                     doneCallback();
                 });

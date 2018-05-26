@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Models;
+using GSP = GameStateProvider;
 
 public static class Utils {
 
@@ -174,15 +175,15 @@ public static class Utils {
         }
     }
 
-    public static string GameStatusString(GameEngine gameEngine) {
+    public static string GameStatusString() {
         var statusText = "refresh game status:\n\n";
 
-        statusText += "Actions Cards in Deck: \n" + gameEngine.GameState.MainDeck.Cards.Describe() + "\n\n";
+        statusText += "Actions Cards in Deck: \n" + GSP.GameState.MainDeck.Cards.Describe() + "\n\n";
 
-        statusText += "Current player: " + gameEngine.GameState.CurrentPlayer.NickName + "\n\n";
+        statusText += "Current player: " + GSP.GameState.CurrentPlayer.NickName + "\n\n";
 
-        for (int i = 0; i < gameEngine.GameState.Players.Count; i++) {
-            Player p = gameEngine.GameState.Players[i];
+        for (int i = 0; i < GSP.GameState.Players.Count; i++) {
+            Player p = GSP.GameState.Players[i];
 
             statusText += p.NickName + "\n    ";
             statusText += "Cards: " + p.Cards.Describe();
@@ -213,11 +214,11 @@ public static class Utils {
         }
 
         statusText += "Available Projects\n    ";
-        statusText += gameEngine.GameState.AvailableProjectCards.Describe();
+        statusText += GSP.GameState.AvailableProjectCards.Describe();
 
         statusText += "\n\n";
         statusText += "Available Actions:\n";
-        statusText += gameEngine.GameState.GetAvailableActions().Describe();
+        statusText += GSP.GameState.GetAvailableActions().Describe();
 
         statusText += "\n";
         return statusText;

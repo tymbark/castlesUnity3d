@@ -5,11 +5,12 @@ using Models;
 using NetworkModels;
 using InputActions;
 using UnityEngine.UI;
+using GSP = GameStateProvider;
 
 public class GameController : MonoBehaviour {
 
     public bool ClicksEnabled = true;
-    public GameEngine GameEngine { get; private set; }
+    private GameEngine GameEngine;
     private List<GameObject> GarbageCollector = new List<GameObject>();
     private GameBoardGenerator GameBoardGenerator = new GameBoardGenerator();
     private PopupsController PopupsController;
@@ -26,8 +27,8 @@ public class GameController : MonoBehaviour {
         CurrentGameId = DataPersistance.GetCurrentGameId();
         PopupsController = GetComponent<PopupsController>();
 
-        if (GameEngine.GameState.ItsMyTurn()) {
-            if (GameEngine.GameState.HasNotStarted()) {
+        if (GSP.GameState.ItsMyTurn()) {
+            if (GSP.GameState.HasNotStarted()) {
                 GameEngine.StartGame();
             }
         }
@@ -41,7 +42,7 @@ public class GameController : MonoBehaviour {
     }
 
     private void PostGameStateRequest() {
-        StartCoroutine(NetworkController.PostGameState(GameEngine.GameState, (bool success) => {
+        StartCoroutine(NetworkController.PostGameState(GSP.GameState, (bool success) => {
             if (success) {
                 CheckTheTurn();
             }
@@ -49,7 +50,7 @@ public class GameController : MonoBehaviour {
     }
 
     private void CheckTheTurn() {
-        if (!GameEngine.GameState.ItsMyTurn()) {
+        if (!GSP.GameState.ItsMyTurn()) {
             Invoke("GetGameStateRequest", 4);
         } else {
             // PLAY
@@ -60,8 +61,8 @@ public class GameController : MonoBehaviour {
         if (responseOrError.IsSuccess) {
             var newGameState = responseOrError.Response;
 
-            if (!GameEngine.GameState.IsEqualTo(newGameState)) {
-                UpdateGameState(newGameState);
+            if (!GSP.GameState.IsEqualTo(newGameState)) {
+                newGameState.SaveGameState();
                 UpdateView();
                 print("game state has changed... how refreshing");
             } else {
@@ -81,9 +82,9 @@ public class GameController : MonoBehaviour {
             Destroy(gmo);
         }
         GarbageCollector.Clear();
-        GarbageCollector = GameBoardGenerator.DrawGameBoard(GameEngine.GameState);
+        GarbageCollector = GameBoardGenerator.DrawGameBoard(GSP.GameState);
 
-        if (GameEngine.GameState.IsFinished) {
+        if (GSP.GameState.IsFinished) {
             SceneLoader.LoadGameFinishedScene();
         } else {
             ShowOrHideScreenBlockerWaitForTurn();
@@ -91,15 +92,10 @@ public class GameController : MonoBehaviour {
 
     }
 
-    private void UpdateGameState(GameState gameState) {
-        gameState.SaveGameState();
-        GameEngine.UpdateGameState();
-    }
-
     private void ShowOrHideScreenBlockerWaitForTurn() {
-        if (!GameEngine.GameState.ItsMyTurn()) {
+        if (!GSP.GameState.ItsMyTurn()) {
             print("its not my turn -> show UI blocker");
-            GarbageCollector.Add(PopupsController.ShowMessageWaitForYourTurn(GameEngine.GameState.CurrentPlayerNickName));
+            GarbageCollector.Add(PopupsController.ShowMessageWaitForYourTurn(GSP.GameState.CurrentPlayerNickName));
             ClicksEnabled = false;
         } else {
             print("its my turn...");
@@ -109,21 +105,19 @@ public class GameController : MonoBehaviour {
 
     public void HandleClickAction(ClickAction action) {
         print("handle click action " + action);
-        List<Action> actions = GameEngine.GameState.GetAvailableActions();
+        List<Action> actions = GSP.GameState.GetAvailableActions();
 
         switch (action) {
             case ClickAction.UseSilver:
                 PopupsController.ShowAreYouSurePopup(() => {
-                    GameEngine.ProcessAction(actions.GetUseSilverAction());
-                    UpdateGameState(GameEngine.GameState);
+                    actions.GetUseSilverAction().ProcessAction();
                     UpdateView();
                 });
                 break;
             case ClickAction.EndTurn:
                 if (actions.HasEndTurnAction()) {
-                    GameEngine.ProcessAction(actions.GetEndTurnAction());
+                    actions.GetEndTurnAction().ProcessAction();
 
-                    UpdateGameState(GameEngine.GameState);
                     UpdateView();
                     PostGameStateRequest();
 
@@ -132,11 +126,13 @@ public class GameController : MonoBehaviour {
                 }
                 break;
             case ClickAction.ExitGame:
-                GameEngine.GameState.CurrentPlayer.Cards.Add(GameEngine.GameState.MainDeck.DrawCard());
-                UpdateGameState(GameEngine.GameState);
-                UpdateView();
 
-                //PopupsController.ShowChooseAnimalPopup(2, () => { });
+                if (GSP.GameState.CurrentPlayer.Cards.Count < 2) {
+                    GSP.GameState.CurrentPlayer.Cards.Add(GSP.GameState.MainDeck.DrawCard());
+                } else {
+                    GSP.GameState.AvailableProjectCards.Add(new ProjectCard(GSP.GameState.MainDeck.DrawCard(), CardDice.I));
+                }
+                UpdateView();
 
                 print("todo exit game ...");
                 break;
@@ -170,13 +166,12 @@ public class GameController : MonoBehaviour {
         Card targetCard = targetCardObject.GetDragDropController().Card;
         Card actionCard = playerCardObject.GetCardController().Card;
 
-        List<Action> actions = GameEngine.GameState.GetAvailableActions();
+        List<Action> actions = GSP.GameState.GetAvailableActions();
 
         if (actions.IsMoveAvailable(targetCard, actionCard)) {
             Action actionForExecute = actions.GetAvailableMove(targetCard, actionCard);
 
-            GameEngine.ProcessAction(actionForExecute, () => {
-                UpdateGameState(GameEngine.GameState);
+            actionForExecute.ProcessAction(() => {
                 UpdateView();
                 CheckTheTurn();
             });
@@ -187,7 +182,7 @@ public class GameController : MonoBehaviour {
         Card targetCard = targetCardObject.GetDragDropController().Card;
         Card actionCard = playerCardObject.GetCardController().Card;
 
-        List<Action> actions = GameEngine.GameState.GetAvailableActions();
+        List<Action> actions = GSP.GameState.GetAvailableActions();
 
         if (actions.IsMoveAvailable(targetCard, actionCard)) {
             targetCardObject.SetBlueColor();

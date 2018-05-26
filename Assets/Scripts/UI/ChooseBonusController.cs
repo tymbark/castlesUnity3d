@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using Models;
 using GD = GameDimensions;
+using GSP = GameStateProvider;
 
 public class ChooseBonusController : MonoBehaviour {
 
-    private GameState GameState;
     private GameObject bonus1;
     private GameObject bonus2;
     private GameObject bonus3;
@@ -32,10 +32,6 @@ public class ChooseBonusController : MonoBehaviour {
     private Vector2 posCard53;
 
     public System.Action DoneCallback;
-
-    private void Awake() {
-        GameState = new GameEngine().GameState;
-    }
 
     void Start() {
         bonus1 = GameObject.Find("bonus1");
@@ -84,23 +80,23 @@ public class ChooseBonusController : MonoBehaviour {
 
     private void DrawBonusCards() {
 
-        DrawCard(posCardCurrentRound, GameState.CurrentRound);
+        DrawCard(posCardCurrentRound, GSP.GameState.CurrentRound);
 
-        switch (GameState.CurrentRound) {
+        switch (GSP.GameState.CurrentRound) {
             case Round.A:
                 DrawCard(posCard11, new Card(CardClass.Barrel), bonus1);
                 DrawCard(posCard12, new Card(CardClass.Barrel), bonus1);
                 DrawCard(posCard13, new Card(CardClass.Barrel), bonus1);
 
-                if (GameState.AnimalsDeck.Cards.Count > 0)
-                    DrawCard(posCard21, GameState.AnimalsDeck.Cards[0], bonus2);
-                if (GameState.AnimalsDeck.Cards.Count > 1)
-                    DrawCard(posCard22, GameState.AnimalsDeck.Cards[1], bonus2);
+                if (GSP.GameState.AnimalsDeck.Cards.Count > 0)
+                    DrawCard(posCard21, GSP.GameState.AnimalsDeck.Cards[0], bonus2);
+                if (GSP.GameState.AnimalsDeck.Cards.Count > 1)
+                    DrawCard(posCard22, GSP.GameState.AnimalsDeck.Cards[1], bonus2);
 
-                if (GameState.GoodsDeck.Cards.Count > 0)
-                    DrawCard(posCard31, GameState.GoodsDeck.Cards[0], bonus3);
-                if (GameState.GoodsDeck.Cards.Count > 1)
-                    DrawCard(posCard32, GameState.GoodsDeck.Cards[1], bonus3);
+                if (GSP.GameState.GoodsDeck.Cards.Count > 0)
+                    DrawCard(posCard31, GSP.GameState.GoodsDeck.Cards[0], bonus3);
+                if (GSP.GameState.GoodsDeck.Cards.Count > 1)
+                    DrawCard(posCard32, GSP.GameState.GoodsDeck.Cards[1], bonus3);
 
                 DrawCard(posCard41, new Card(CardClass.Worker), bonus4);
                 DrawCard(posCard42, new Card(CardClass.Worker), bonus4);
@@ -111,15 +107,15 @@ public class ChooseBonusController : MonoBehaviour {
                 DrawCard(posCard53, new Card(CardClass.Silver), bonus5);
                 break;
             case Round.B:
-                if (GameState.AnimalsDeck.Cards.Count > 0)
-                    DrawCard(posCard11, GameState.AnimalsDeck.Cards[0], bonus2);
-                if (GameState.AnimalsDeck.Cards.Count > 1)
-                    DrawCard(posCard12, GameState.AnimalsDeck.Cards[1], bonus2);
+                if (GSP.GameState.AnimalsDeck.Cards.Count > 0)
+                    DrawCard(posCard11, GSP.GameState.AnimalsDeck.Cards[0], bonus2);
+                if (GSP.GameState.AnimalsDeck.Cards.Count > 1)
+                    DrawCard(posCard12, GSP.GameState.AnimalsDeck.Cards[1], bonus2);
 
-                if (GameState.GoodsDeck.Cards.Count > 0)
-                    DrawCard(posCard21, GameState.GoodsDeck.Cards[0], bonus3);
-                if (GameState.GoodsDeck.Cards.Count > 1)
-                    DrawCard(posCard22, GameState.GoodsDeck.Cards[1], bonus3);
+                if (GSP.GameState.GoodsDeck.Cards.Count > 0)
+                    DrawCard(posCard21, GSP.GameState.GoodsDeck.Cards[0], bonus3);
+                if (GSP.GameState.GoodsDeck.Cards.Count > 1)
+                    DrawCard(posCard22, GSP.GameState.GoodsDeck.Cards[1], bonus3);
 
                 DrawCard(posCard41, new Card(CardClass.Worker), bonus4);
                 DrawCard(posCard42, new Card(CardClass.Worker), bonus4);
@@ -130,11 +126,11 @@ public class ChooseBonusController : MonoBehaviour {
                 DrawCard(posCard53, new Card(CardClass.Silver), bonus5);
                 break;
             case Round.C:
-                if (GameState.AnimalsDeck.Cards.Count > 0)
-                    DrawCard(posCard12, GameState.AnimalsDeck.Cards[0], bonus2);
+                if (GSP.GameState.AnimalsDeck.Cards.Count > 0)
+                    DrawCard(posCard12, GSP.GameState.AnimalsDeck.Cards[0], bonus2);
 
-                if (GameState.GoodsDeck.Cards.Count > 0)
-                    DrawCard(posCard22, GameState.GoodsDeck.Cards[0], bonus3);
+                if (GSP.GameState.GoodsDeck.Cards.Count > 0)
+                    DrawCard(posCard22, GSP.GameState.GoodsDeck.Cards[0], bonus3);
 
                 DrawCard(posCard31, new Card(CardClass.Worker), bonus4);
                 DrawCard(posCard32, new Card(CardClass.Worker), bonus4);
@@ -166,25 +162,25 @@ public class ChooseBonusController : MonoBehaviour {
     private void ChooseBonus(int number) {
         bool bonusAquired = true;
 
-        switch (GameState.CurrentRound) {
+        switch (GSP.GameState.CurrentRound) {
             case Round.A:
                 switch (number) {
                     case 1:
-                        GameState.CurrentPlayer.Score = GameState.CurrentPlayer.Score + 3;
+                        GSP.GameState.CurrentPlayer.Score = GSP.GameState.CurrentPlayer.Score + 3;
                         break;
                     case 2:
-                        GameState.CurrentPlayer.Animals.Add(GameState.AnimalsDeck.DrawCard());
-                        GameState.CurrentPlayer.Animals.Add(GameState.AnimalsDeck.DrawCard());
+                        GSP.GameState.CurrentPlayer.Animals.Add(GSP.GameState.AnimalsDeck.DrawCard());
+                        GSP.GameState.CurrentPlayer.Animals.Add(GSP.GameState.AnimalsDeck.DrawCard());
                         break;
                     case 3:
-                        GameState.CurrentPlayer.Goods.Add(GameState.GoodsDeck.DrawCard());
-                        GameState.CurrentPlayer.Goods.Add(GameState.GoodsDeck.DrawCard());
+                        GSP.GameState.CurrentPlayer.Goods.Add(GSP.GameState.GoodsDeck.DrawCard());
+                        GSP.GameState.CurrentPlayer.Goods.Add(GSP.GameState.GoodsDeck.DrawCard());
                         break;
                     case 4:
-                        GameState.CurrentPlayer.WorkersCount = GameState.CurrentPlayer.WorkersCount + 3;
+                        GSP.GameState.CurrentPlayer.WorkersCount = GSP.GameState.CurrentPlayer.WorkersCount + 3;
                         break;
                     case 5:
-                        GameState.CurrentPlayer.SilverCount = GameState.CurrentPlayer.SilverCount + 3;
+                        GSP.GameState.CurrentPlayer.SilverCount = GSP.GameState.CurrentPlayer.SilverCount + 3;
                         break;
                     default:
                         bonusAquired = false;
@@ -194,18 +190,18 @@ public class ChooseBonusController : MonoBehaviour {
             case Round.B:
                 switch (number) {
                     case 1:
-                        GameState.CurrentPlayer.Animals.Add(GameState.AnimalsDeck.DrawCard());
-                        GameState.CurrentPlayer.Animals.Add(GameState.AnimalsDeck.DrawCard());
+                        GSP.GameState.CurrentPlayer.Animals.Add(GSP.GameState.AnimalsDeck.DrawCard());
+                        GSP.GameState.CurrentPlayer.Animals.Add(GSP.GameState.AnimalsDeck.DrawCard());
                         break;
                     case 2:
-                        GameState.CurrentPlayer.Goods.Add(GameState.GoodsDeck.DrawCard());
-                        GameState.CurrentPlayer.Goods.Add(GameState.GoodsDeck.DrawCard());
+                        GSP.GameState.CurrentPlayer.Goods.Add(GSP.GameState.GoodsDeck.DrawCard());
+                        GSP.GameState.CurrentPlayer.Goods.Add(GSP.GameState.GoodsDeck.DrawCard());
                         break;
                     case 4:
-                        GameState.CurrentPlayer.WorkersCount = GameState.CurrentPlayer.WorkersCount + 3;
+                        GSP.GameState.CurrentPlayer.WorkersCount = GSP.GameState.CurrentPlayer.WorkersCount + 3;
                         break;
                     case 5:
-                        GameState.CurrentPlayer.SilverCount = GameState.CurrentPlayer.SilverCount + 3;
+                        GSP.GameState.CurrentPlayer.SilverCount = GSP.GameState.CurrentPlayer.SilverCount + 3;
                         break;
                     default:
                         bonusAquired = false;
@@ -215,20 +211,20 @@ public class ChooseBonusController : MonoBehaviour {
             case Round.C:
                 switch (number) {
                     case 1:
-                        GameState.CurrentPlayer.Animals.Add(GameState.AnimalsDeck.DrawCard());
+                        GSP.GameState.CurrentPlayer.Animals.Add(GSP.GameState.AnimalsDeck.DrawCard());
                         break;
                     case 2:
-                        GameState.CurrentPlayer.Goods.Add(GameState.GoodsDeck.DrawCard());
+                        GSP.GameState.CurrentPlayer.Goods.Add(GSP.GameState.GoodsDeck.DrawCard());
                         break;
                     case 3:
-                        GameState.CurrentPlayer.WorkersCount = GameState.CurrentPlayer.WorkersCount + 2;
+                        GSP.GameState.CurrentPlayer.WorkersCount = GSP.GameState.CurrentPlayer.WorkersCount + 2;
                         break;
                     case 4:
-                        GameState.CurrentPlayer.SilverCount = GameState.CurrentPlayer.SilverCount + 2;
+                        GSP.GameState.CurrentPlayer.SilverCount = GSP.GameState.CurrentPlayer.SilverCount + 2;
                         break;
                     case 5:
-                        GameState.CurrentPlayer.WorkersCount = GameState.CurrentPlayer.WorkersCount + 1;
-                        GameState.CurrentPlayer.SilverCount = GameState.CurrentPlayer.SilverCount + 1;
+                        GSP.GameState.CurrentPlayer.WorkersCount = GSP.GameState.CurrentPlayer.WorkersCount + 1;
+                        GSP.GameState.CurrentPlayer.SilverCount = GSP.GameState.CurrentPlayer.SilverCount + 1;
                         break;
                     default:
                         bonusAquired = false;
@@ -238,14 +234,14 @@ public class ChooseBonusController : MonoBehaviour {
             case Round.D:
                 switch (number) {
                     case 1:
-                        GameState.CurrentPlayer.WorkersCount = GameState.CurrentPlayer.WorkersCount + 2;
+                        GSP.GameState.CurrentPlayer.WorkersCount = GSP.GameState.CurrentPlayer.WorkersCount + 2;
                         break;
                     case 2:
-                        GameState.CurrentPlayer.SilverCount = GameState.CurrentPlayer.SilverCount + 2;
+                        GSP.GameState.CurrentPlayer.SilverCount = GSP.GameState.CurrentPlayer.SilverCount + 2;
                         break;
                     case 4:
-                        GameState.CurrentPlayer.WorkersCount = GameState.CurrentPlayer.WorkersCount + 1;
-                        GameState.CurrentPlayer.SilverCount = GameState.CurrentPlayer.SilverCount + 1;
+                        GSP.GameState.CurrentPlayer.WorkersCount = GSP.GameState.CurrentPlayer.WorkersCount + 1;
+                        GSP.GameState.CurrentPlayer.SilverCount = GSP.GameState.CurrentPlayer.SilverCount + 1;
                         break;
                     default:
                         bonusAquired = false;
@@ -255,10 +251,10 @@ public class ChooseBonusController : MonoBehaviour {
             case Round.E:
                 switch (number) {
                     case 1:
-                        GameState.CurrentPlayer.WorkersCount = GameState.CurrentPlayer.WorkersCount + 1;
+                        GSP.GameState.CurrentPlayer.WorkersCount = GSP.GameState.CurrentPlayer.WorkersCount + 1;
                         break;
                     case 2:
-                        GameState.CurrentPlayer.SilverCount = GameState.CurrentPlayer.SilverCount + 1;
+                        GSP.GameState.CurrentPlayer.SilverCount = GSP.GameState.CurrentPlayer.SilverCount + 1;
                         break;
                     default:
                         bonusAquired = false;
@@ -269,7 +265,7 @@ public class ChooseBonusController : MonoBehaviour {
 
         if (bonusAquired) {
             DoneCallback();
-            //GameState.SaveGameState();
+            //GSP.GameState.SaveGameState();
         }
     }
 

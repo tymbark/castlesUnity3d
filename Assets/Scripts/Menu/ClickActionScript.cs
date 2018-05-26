@@ -7,7 +7,7 @@ public class ClickActionScript : MonoBehaviour, IPointerClickHandler {
 
     public System.Action<object> ClickMethod;
     public object ClickParameter;
-    private int time = 0;
+    private int time = -1;
 
     public void OnPointerClick(PointerEventData eventData) {
         int clickTime = (int)Time.time;

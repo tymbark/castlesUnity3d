@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Models;
+using GSP = GameStateProvider;
 
 public static class ActionsProcessor {
 
-    public static void ProcessAction(this GameEngine gameEngine,
-                                     Action action,
+    public static void ProcessAction(this Action action,
                                      System.Action doneCallback = null) {
 
-        var gameState = gameEngine.GameState;
-        var cp = gameState.CurrentPlayer;
-        var availableProjectCards = gameState.AvailableProjectCards;
+        var cp = GSP.GameState.CurrentPlayer;
+        var availableProjectCards = GSP.GameState.AvailableProjectCards;
 
-        if (!gameState.GetAvailableActions().Has(action)) {
+        if (!GSP.GameState.GetAvailableActions().Has(action)) {
             throw new System.InvalidProgramException("Cannot use and action that is not in the available actions!");
         }
 
@@ -42,7 +41,7 @@ public static class ActionsProcessor {
                     UnityEngine.Debug.Log("there are no not completed triples for this card");
 
                     int newTripleId = cp.CompletedProjects.Count + 1;
-                    bool didFinishTriple = gameState.CompleteProject(action.TargetCard, newTripleId);
+                    bool didFinishTriple = GSP.GameState.CompleteProject(action.TargetCard, newTripleId);
 
                     if (didFinishTriple) {
                         UnityEngine.Debug.Log("triple finished");
@@ -51,7 +50,7 @@ public static class ActionsProcessor {
 
                             UnityEngine.Debug.Log("triple bonus done");
 
-                            cp.ApplyCompletingSingleBuildingBonus(action.TargetCard, gameState, () => {
+                            cp.ApplyCompletingSingleBuildingBonus(action.TargetCard, () => {
 
                                 UnityEngine.Debug.Log("single bonus done");
                                 doneCallback();
@@ -61,7 +60,7 @@ public static class ActionsProcessor {
 
                     } else {
                         UnityEngine.Debug.Log("triple not yet finished");
-                        cp.ApplyCompletingSingleBuildingBonus(action.TargetCard, gameState, () => {
+                        cp.ApplyCompletingSingleBuildingBonus(action.TargetCard, () => {
 
                             UnityEngine.Debug.Log("single bonus done");
                             doneCallback();
@@ -74,7 +73,7 @@ public static class ActionsProcessor {
                     PopupsController.ShowChooseTripleStackPopup(action.TargetCard, (tripleId) => {
 
                         UnityEngine.Debug.Log("choose triple stack done");
-                        bool didFinishTriple = gameState.CompleteProject(action.TargetCard, tripleId);
+                        bool didFinishTriple = GSP.GameState.CompleteProject(action.TargetCard, tripleId);
 
                         if (didFinishTriple) {
                             UnityEngine.Debug.Log("triple finished");
@@ -83,7 +82,7 @@ public static class ActionsProcessor {
 
                                 UnityEngine.Debug.Log("triple bonus done");
 
-                                cp.ApplyCompletingSingleBuildingBonus(action.TargetCard, gameState, () => {
+                                cp.ApplyCompletingSingleBuildingBonus(action.TargetCard, () => {
 
                                     UnityEngine.Debug.Log("single bonus done");
                                     doneCallback();
@@ -93,7 +92,7 @@ public static class ActionsProcessor {
 
                         } else {
                             UnityEngine.Debug.Log("triple not yet finished");
-                            cp.ApplyCompletingSingleBuildingBonus(action.TargetCard, gameState, () => {
+                            cp.ApplyCompletingSingleBuildingBonus(action.TargetCard, () => {
 
                                 UnityEngine.Debug.Log("single bonus done");
                                 doneCallback();
@@ -111,7 +110,7 @@ public static class ActionsProcessor {
                 cp.WithdrawUsedCard(action.ActionCard);
                 cp.UseWorkers(action.WorkersNeeded);
                 cp.ShipGoods(action.TargetCard);
-                cp.MoveFirstPlayerBonusCard(gameState);
+                cp.MoveFirstPlayerBonusCard();
                 doneCallback();
                 break;
 
@@ -137,7 +136,7 @@ public static class ActionsProcessor {
 
             case ActionType.UseSilver:
                 cp.SilverCount = cp.SilverCount - 3;
-                Utils.Repeat(3, () => { cp.BonusActionCards.Add(gameState.MainDeck.DrawCard()); });
+                Utils.Repeat(3, () => { cp.BonusActionCards.Add(GSP.GameState.MainDeck.DrawCard()); });
                 doneCallback();
                 break;
 
@@ -149,7 +148,7 @@ public static class ActionsProcessor {
 
             case ActionType.EndTurn:
                 cp.SilverActionDoneThisTurn = false;
-                gameEngine.ExecuteEndTurnAction();
+                //gameEngine.ExecuteEndTurnAction(); todo
                 doneCallback();
                 break;
 

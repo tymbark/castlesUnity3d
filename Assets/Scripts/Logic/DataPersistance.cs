@@ -9,7 +9,7 @@ public static class DataPersistance {
     private static string CURRENT_GAME_ID_KEY = "game_key_id";
     private static string PLAYER_NICKNAME_KEY = "player_nickname";
 
-    public static void SaveGameState(this GameState gameState) {
+    public static void SaveGameState(GameState gameState) {
         string gameStateString = gameState.Stringify();
         PlayerPrefs.SetString(GAME_STATE_KEY, gameStateString);
     }

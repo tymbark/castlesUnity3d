@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using Models;
 using GD = GameDimensions;
 using ED = EstatesDimensions;
+using GSP = GameStateProvider;
 
 public class BonusesTakenController : MonoBehaviour {
 
@@ -14,8 +15,8 @@ public class BonusesTakenController : MonoBehaviour {
     }
 
     void Start() {
-        for (int i = 0; i < GameEngine.GameState.Players.Count; i++) {
-            Player p = GameEngine.GameState.Players[i];
+        for (int i = 0; i < GSP.GameState.Players.Count; i++) {
+            Player p = GSP.GameState.Players[i];
             DrawPlayerBonuses(p, i);
         }
     }

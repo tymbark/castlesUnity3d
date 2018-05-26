@@ -2,21 +2,18 @@ using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using Models;
+using GSP = GameStateProvider;
 
 public class GameEngine {
 
-    public GameState GameState { get; private set; }
-
     public GameEngine() {
 
-        if (DataPersistance.GameStateExists()) {
-            GameState = DataPersistance.LoadGameState();
-        } else {
+        if (!DataPersistance.GameStateExists()) {
             //only for debug - starting game scene
             List<string> nicknames = new List<string>();
             nicknames.Add("ewa");
             nicknames.Add("katarzyna");
-            GameState = GameStateGenerator.GenerateGameState("DEBUG_ID", 2, nicknames, "ewa");
+            var GameState = GameStateGenerator.GenerateGameState("DEBUG_ID", 2, nicknames, "ewa");
             AddDebugOptions(GameState);
             StartGame();
             DataPersistance.SavePlayerNickName("ewa");
@@ -25,78 +22,74 @@ public class GameEngine {
 
     }
 
-    public void UpdateGameState() {
-        GameState = DataPersistance.LoadGameState();
-    }
-
     private void AddDebugOptions(GameState gameState) {
 
 
-        //gameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCastle, CardDice.II));
-        //gameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCastle, CardDice.II));
-        //gameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionShip, CardDice.II));
-        //gameState.Players[0].CompleteProject(new Card(CardClass.ActionCastle, CardDice.II), GameState);
-        //gameState.Players[0].CompleteProject(new Card(CardClass.ActionCastle, CardDice.II), GameState);
+        //GSP.GameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCastle, CardDice.II));
+        //GSP.GameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCastle, CardDice.II));
+        //GSP.GameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionShip, CardDice.II));
+        //GSP.GameState.Players[0].CompleteProject(new Card(CardClass.ActionCastle, CardDice.II), GameState);
+        //GSP.GameState.Players[0].CompleteProject(new Card(CardClass.ActionCastle, CardDice.II), GameState);
 
 
-        gameState.Players[0].BonusActionCards.Add(new Card(CardClass.BonusCastle, CardDice.All));
+        GSP.GameState.Players[0].BonusActionCards.Add(new Card(CardClass.BonusCastle, CardDice.All));
     }
 
     public void StartGame() {
-        //GameState.CurrentPlayer.ReceivedBonuses.Add(BonusCard.FirstPlayer);
-        GameState.Players[1].ReceivedBonuses.Add(BonusCard.FirstPlayer);
-        GameState.CurrentTurn = 1;
+        //GSP.GameState.CurrentPlayer.ReceivedBonuses.Add(BonusCard.FirstPlayer);
+        GSP.GameState.Players[1].ReceivedBonuses.Add(BonusCard.FirstPlayer);
+        GSP.GameState.CurrentTurn = 1;
         DrawFutureCards();
         DrawHandCards();
     }
 
     public void ExecuteEndTurnAction() {
-        List<string> nicks = GameState.Players.ConvertAll(p => p.NickName);
-        int indexOfCurrentNick = nicks.IndexOf(GameState.CurrentPlayerNickName);
+        List<string> nicks = GSP.GameState.Players.ConvertAll(p => p.NickName);
+        int indexOfCurrentNick = nicks.IndexOf(GSP.GameState.CurrentPlayerNickName);
 
-        if (indexOfCurrentNick + 1 < GameState.Players.Count) {
-            GameState.CurrentPlayerNickName = nicks[indexOfCurrentNick + 1];
+        if (indexOfCurrentNick + 1 < GSP.GameState.Players.Count) {
+            GSP.GameState.CurrentPlayerNickName = nicks[indexOfCurrentNick + 1];
         } else {
-            GameState.CurrentPlayerNickName = nicks[0];
+            GSP.GameState.CurrentPlayerNickName = nicks[0];
             NextTurn();
         }
 
-        UnityEngine.Debug.Log("Current player: " + GameState.CurrentPlayer.NickName);
-        UnityEngine.Debug.Log("Current round: " + GameState.CurrentRound);
-        UnityEngine.Debug.Log("Current turn: " + GameState.CurrentTurn);
+        UnityEngine.Debug.Log("Current player: " + GSP.GameState.CurrentPlayer.NickName);
+        UnityEngine.Debug.Log("Current round: " + GSP.GameState.CurrentRound);
+        UnityEngine.Debug.Log("Current turn: " + GSP.GameState.CurrentTurn);
     }
 
     private void NextTurn() {
-        if (GameState.CurrentTurn >= 1 && GameState.CurrentTurn <= 6) {
-            GameState.CurrentTurn = GameState.CurrentTurn + 1;
+        if (GSP.GameState.CurrentTurn >= 1 && GSP.GameState.CurrentTurn <= 6) {
+            GSP.GameState.CurrentTurn = GSP.GameState.CurrentTurn + 1;
             DrawHandCards();
-        } else if (GameState.CurrentTurn == 7) {
+        } else if (GSP.GameState.CurrentTurn == 7) {
             NextRound();
-            GameState.CurrentTurn = 1;
+            GSP.GameState.CurrentTurn = 1;
         } else {
-            throw new System.InvalidProgramException("Illegal turn :" + GameState.CurrentTurn);
+            throw new System.InvalidProgramException("Illegal turn :" + GSP.GameState.CurrentTurn);
         }
     }
 
     private void NextRound() {
-        switch (GameState.CurrentRound) {
+        switch (GSP.GameState.CurrentRound) {
             case Round.A:
-                GameState.CurrentRound = Round.B;
+                GSP.GameState.CurrentRound = Round.B;
                 DrawFutureCards();
                 DrawHandCards();
                 break;
             case Round.B:
-                GameState.CurrentRound = Round.C;
+                GSP.GameState.CurrentRound = Round.C;
                 DrawFutureCards();
                 DrawHandCards();
                 break;
             case Round.C:
-                GameState.CurrentRound = Round.D;
+                GSP.GameState.CurrentRound = Round.D;
                 DrawFutureCards();
                 DrawHandCards();
                 break;
             case Round.D:
-                GameState.CurrentRound = Round.E;
+                GSP.GameState.CurrentRound = Round.E;
                 DrawFutureCards();
                 DrawHandCards();
                 break;
@@ -107,13 +100,13 @@ public class GameEngine {
     }
 
     private void FinishGame() {
-        GameState.IsFinished = true;
+        GSP.GameState.IsFinished = true;
     }
 
     private void DrawFutureCards() {
-        foreach (Player p in GameState.Players) {
+        foreach (Player p in GSP.GameState.Players) {
             if (p.FutureCards.Count == 0) {
-                Utils.Repeat(6, () => { p.FutureCards.Add(GameState.MainDeck.DrawCard()); });
+                Utils.Repeat(6, () => { p.FutureCards.Add(GSP.GameState.MainDeck.DrawCard()); });
             } else {
                 throw new System.InvalidProgramException("Future cards can be redrawn only if empty");
             }
@@ -121,7 +114,7 @@ public class GameEngine {
     }
 
     private void DrawHandCards() {
-        foreach (Player p in GameState.Players) {
+        foreach (Player p in GSP.GameState.Players) {
             switch (p.Cards.Count) {
                 case 0:
                     if (p.FutureCards.Count < 2) {

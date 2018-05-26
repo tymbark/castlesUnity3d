@@ -4,6 +4,7 @@ using UnityEngine;
 using Models;
 using GD = GameDimensions;
 using ED = EstatesDimensions;
+using GSP = GameStateProvider;
 
 public class GameFinishedController : MonoBehaviour {
 
@@ -16,7 +17,7 @@ public class GameFinishedController : MonoBehaviour {
     void Start() {
 
         List<Player> sortedPlayers = new List<Player>();
-        sortedPlayers.AddRange(GameEngine.GameState.Players);
+        sortedPlayers.AddRange(GSP.GameState.Players);
         sortedPlayers.Sort(
             delegate (Player p1, Player p2) {
                 return p1.Score.CompareTo(p2.Score);

@@ -4,18 +4,13 @@ using UnityEngine.UI;
 using Models;
 using GD = GameDimensions;
 using ED = EstatesDimensions;
+using GSP = GameStateProvider;
 
 public class BonusesAvailableController : MonoBehaviour {
 
-    private GameEngine GameEngine;
-
-    private void Awake() {
-        GameEngine = new GameEngine();
-    }
-
     void Start() {
         float margin = GD.ScreenTopLeft.x + GD.MarginBig + GD.CardHeight;
-        List<BonusCard> cards = GameEngine.GameState.AvailableBonusCards;
+        List<BonusCard> cards = GSP.GameState.AvailableBonusCards;
         for (int i = 0; i < cards.Count; i++) {
             BonusCard bc = cards[i];
             DrawCard(new Vector2(margin, ED.Player1Name.y), bc);

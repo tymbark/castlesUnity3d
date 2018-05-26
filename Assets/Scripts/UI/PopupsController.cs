@@ -110,7 +110,7 @@ public class PopupsController : MonoBehaviour {
 
     public static void ShowChooseTripleBonusPopup(System.Action callback) {
         UnityEngine.Debug.Log("show triple popup");
-        Object prefab = Resources.Load("Prefabs/ChooseBonusPopup");
+        Object prefab = Resources.Load("Prefabs/ChooseTripleBonusPopup");
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
         messageGameObject.transform.position = new Vector3(0, 0, -11);
 
