@@ -997,6 +997,30 @@ public static class CardsGenerator {
         return fileUri;
     }
 
+    public static string GetResIdForCurrentRoundBonus(this Round round) {
+        var fileUri = "";
+
+        switch (round) {
+            case Round.A:
+                fileUri += "bonusA";
+                break;
+            case Round.B:
+                fileUri += "bonusB";
+                break;
+            case Round.C:
+                fileUri += "bonusC";
+                break;
+            case Round.D:
+                fileUri += "bonusD";
+                break;
+            case Round.E:
+                fileUri += "bonusE";
+                break;
+        }
+
+        return fileUri;
+    }
+
     public static Sprite GetSpriteForCurrentRoundBonus(Round round) {
         var fileUri = "Cards/";
 

@@ -43,30 +43,25 @@ public static class ActionsProcessor {
                     int newTripleId = cp.CompletedProjects.Count + 1;
                     bool didFinishTriple = GSP.GameState.CompleteProject(action.TargetCard, newTripleId);
 
-                    if (didFinishTriple) {
-                        UnityEngine.Debug.Log("triple finished");
+                    cp.ApplyCompletingSingleBuildingBonus(action.TargetCard, () => {
 
-                        PopupsController.ShowChooseTripleBonusPopup(() => {
+                        UnityEngine.Debug.Log("single bonus done");
 
-                            UnityEngine.Debug.Log("triple bonus done");
+                        if (didFinishTriple) {
+                            UnityEngine.Debug.Log("triple finished");
 
-                            cp.ApplyCompletingSingleBuildingBonus(action.TargetCard, () => {
-
-                                UnityEngine.Debug.Log("single bonus done");
+                            PopupsController.ShowChooseTripleBonusPopup(() => {
+                                UnityEngine.Debug.Log("triple bonus done");
                                 doneCallback();
-
                             });
-                        });
 
-                    } else {
-                        UnityEngine.Debug.Log("triple not yet finished");
-                        cp.ApplyCompletingSingleBuildingBonus(action.TargetCard, () => {
-
-                            UnityEngine.Debug.Log("single bonus done");
+                        } else {
+                            UnityEngine.Debug.Log("triple not yet finished");
                             doneCallback();
+                        }
 
-                        });
-                    }
+                    });
+
 
                 } else {
                     UnityEngine.Debug.Log("there are some not completed triples. Show popup");
@@ -75,30 +70,24 @@ public static class ActionsProcessor {
                         UnityEngine.Debug.Log("choose triple stack done");
                         bool didFinishTriple = GSP.GameState.CompleteProject(action.TargetCard, tripleId);
 
-                        if (didFinishTriple) {
-                            UnityEngine.Debug.Log("triple finished");
+                        cp.ApplyCompletingSingleBuildingBonus(action.TargetCard, () => {
 
-                            PopupsController.ShowChooseTripleBonusPopup(() => {
+                            UnityEngine.Debug.Log("single bonus done");
 
-                                UnityEngine.Debug.Log("triple bonus done");
+                            if (didFinishTriple) {
+                                UnityEngine.Debug.Log("triple finished");
 
-                                cp.ApplyCompletingSingleBuildingBonus(action.TargetCard, () => {
-
-                                    UnityEngine.Debug.Log("single bonus done");
+                                PopupsController.ShowChooseTripleBonusPopup(() => {
+                                    UnityEngine.Debug.Log("triple bonus done");
                                     doneCallback();
-
                                 });
-                            });
 
-                        } else {
-                            UnityEngine.Debug.Log("triple not yet finished");
-                            cp.ApplyCompletingSingleBuildingBonus(action.TargetCard, () => {
-
-                                UnityEngine.Debug.Log("single bonus done");
+                            } else {
+                                UnityEngine.Debug.Log("triple not yet finished");
                                 doneCallback();
+                            }
 
-                            });
-                        }
+                        });
 
                     });
                 }

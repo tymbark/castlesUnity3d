@@ -8,12 +8,6 @@ using GSP = GameStateProvider;
 
 public class GameFinishedController : MonoBehaviour {
 
-    private GameEngine GameEngine;
-
-    private void Awake() {
-        GameEngine = new GameEngine();
-    }
-
     void Start() {
 
         List<Player> sortedPlayers = new List<Player>();

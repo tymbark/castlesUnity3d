@@ -14,7 +14,7 @@ public class GameEngine {
             nicknames.Add("ewa");
             nicknames.Add("katarzyna");
             var GameState = GameStateGenerator.GenerateGameState("DEBUG_ID", 2, nicknames, "ewa");
-            AddDebugOptions(GameState);
+            AddDebugOptions();
             StartGame();
             DataPersistance.SavePlayerNickName("ewa");
             GameState.SaveGameState();
@@ -22,22 +22,17 @@ public class GameEngine {
 
     }
 
-    private void AddDebugOptions(GameState gameState) {
+    private void AddDebugOptions() {
+        
+        GSP.GameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCloister, CardDice.II));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionKnowledge, CardDice.I, 4, 1));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionKnowledge, CardDice.I, 5, 1));
 
-
-        //GSP.GameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCastle, CardDice.II));
-        //GSP.GameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCastle, CardDice.II));
-        //GSP.GameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionShip, CardDice.II));
-        //GSP.GameState.Players[0].CompleteProject(new Card(CardClass.ActionCastle, CardDice.II), GameState);
-        //GSP.GameState.Players[0].CompleteProject(new Card(CardClass.ActionCastle, CardDice.II), GameState);
-
-
-        GSP.GameState.Players[0].BonusActionCards.Add(new Card(CardClass.BonusCastle, CardDice.All));
     }
 
     public void StartGame() {
-        //GSP.GameState.CurrentPlayer.ReceivedBonuses.Add(BonusCard.FirstPlayer);
-        GSP.GameState.Players[1].ReceivedBonuses.Add(BonusCard.FirstPlayer);
+        //AddDebugOptions();
+        GSP.GameState.CurrentPlayer.ReceivedBonuses.Add(BonusCard.FirstPlayer);
         GSP.GameState.CurrentTurn = 1;
         DrawFutureCards();
         DrawHandCards();

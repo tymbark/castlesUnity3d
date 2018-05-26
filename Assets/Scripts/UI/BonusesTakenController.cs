@@ -8,12 +8,6 @@ using GSP = GameStateProvider;
 
 public class BonusesTakenController : MonoBehaviour {
 
-    private GameEngine GameEngine;
-
-    private void Awake() {
-        GameEngine = new GameEngine();
-    }
-
     void Start() {
         for (int i = 0; i < GSP.GameState.Players.Count; i++) {
             Player p = GSP.GameState.Players[i];

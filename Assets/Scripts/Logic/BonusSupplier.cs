@@ -18,12 +18,12 @@ public static class BonusSupplier {
                 player.BonusActionCards.Add(new Card(CardClass.BonusCastle, CardDice.All));
                 break;
             case CardClass.ActionMine:
-                player.SilverCount += 2;
+                player.SilverCount = player.SilverCount + 2;
                 break;
             case CardClass.ActionCloister:
                 break;
             case CardClass.ActionKnowledge:
-                player.WorkersCount += 2;
+                player.WorkersCount = player.WorkersCount + 2;
                 break;
             case CardClass.ActionShip:
                 PopupsController.ShowChooseGoodsPopup(1, () => {
@@ -47,10 +47,10 @@ public static class BonusSupplier {
                 player.BonusActionCards.Add(new Card(CardClass.BonusMarket, CardDice.All));
                 break;
             case CardClass.ActionWatchtower:
-                player.Score++;
+                player.Score = player.Score + 1;
                 break;
             case CardClass.ActionBank:
-                player.SilverCount += 3;
+                player.SilverCount = player.SilverCount + 3;
                 break;
             case CardClass.ActionBoardinghouse:
                 player.BonusActionCards.Add(new Card(CardClass.BonusBoardinghouse, CardDice.All));
@@ -75,6 +75,7 @@ public static class BonusSupplier {
             case CardClass.ActionBoardinghouse:
             case CardClass.ActionWarehouse:
             case CardClass.ActionCityHall:
+            case CardClass.ActionKnowledge:
                 doneCallback();
                 break;
             case CardClass.ActionShip:
