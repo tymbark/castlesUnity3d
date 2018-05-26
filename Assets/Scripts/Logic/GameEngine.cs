@@ -31,7 +31,7 @@ public class GameEngine {
     }
 
     public void StartGame() {
-        //AddDebugOptions();
+        AddDebugOptions();
         GSP.GameState.CurrentPlayer.ReceivedBonuses.Add(BonusCard.FirstPlayer);
         GSP.GameState.CurrentTurn = 1;
         DrawFutureCards();

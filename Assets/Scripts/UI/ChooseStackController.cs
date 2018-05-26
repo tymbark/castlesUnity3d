@@ -5,7 +5,7 @@ using Models;
 using GD = GameDimensions;
 using GSP = GameStateProvider;
 
-public class ChooseTripleController : MonoBehaviour {
+public class ChooseStackController : MonoBehaviour {
 
     private bool clickable = true;
     private Vector2 posAvailableCards;
@@ -27,21 +27,12 @@ public class ChooseTripleController : MonoBehaviour {
 
         dragCardText = GameObject.Find("drag_card_text");
 
-        GameObject.Find("popup_title")
-                  .GetComponent<TMPro.TextMeshProUGUI>()
-                  .text = "choose stack";
-
-        GameObject.Find("how_many_text")
-                  .GetComponent<TMPro.TextMeshProUGUI>()
-                  .text = "pick triple stack";
-
-        GameObject.Find("available_cards_text")
-                  .GetComponent<TMPro.TextMeshProUGUI>()
-                  .text = "just completed card";
-
-        GameObject.Find("your_cards_text")
-                  .GetComponent<TMPro.TextMeshProUGUI>()
-                  .text = "available triple stacks";
+        GameObject.Find("create_new_stack")
+                  .AddComponent<ClickActionScript>()
+                  .ClickMethod = (x) => {
+                      DoneCallback(GSP.GameState.CurrentPlayer.CompletedProjects.Count + 1);
+                      Destroy(gameObject, 0.5f);
+                  };
 
         DrawAvailableTriples();
         DrawNewCard();

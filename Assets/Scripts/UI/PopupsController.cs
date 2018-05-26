@@ -97,13 +97,13 @@ public class PopupsController : MonoBehaviour {
     }
 
     public static void ShowChooseTripleStackPopup(Card card, System.Action<int> callback) {
-        Object prefab = Resources.Load("Prefabs/ChooseCardPopup");
+        Object prefab = Resources.Load("Prefabs/ChooseStackPopup");
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
         messageGameObject.transform.position = new Vector3(0, 0, -11);
 
         GameObject canvas = GameObject.Find("Canvas");
         messageGameObject.transform.SetParent(canvas.transform);
-        ChooseTripleController controller = messageGameObject.AddComponent<ChooseTripleController>();
+        ChooseStackController controller = messageGameObject.AddComponent<ChooseStackController>();
         controller.UpdateView(card);
         controller.DoneCallback = callback;
     }

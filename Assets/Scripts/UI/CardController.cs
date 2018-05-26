@@ -42,6 +42,7 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
         dragging = true;
         StartingPosition = transform.position;
         canvas.sortingOrder = 1;
+        //transform.position += new Vector3(0, 0, -150);
     }
 
     public void OnDrag(PointerEventData eventData) {
