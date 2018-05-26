@@ -38,6 +38,7 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
     }
 
     Vector3 dPosition;
+    Vector2 offset;
 
     public void OnBeginDrag(PointerEventData eventData) {
         if (!GameController.ClicksEnabled) return;
@@ -45,25 +46,22 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
         StartingPosition = transform.position;
         canvas.sortingOrder = 1;
 
-        dPosition = eventData.position - GameDimensions.ScreenResolution / 2;
-        print("drag position " + dPosition);
-        print("start position " + StartingPosition);
-        print("start - drag " + (StartingPosition - dPosition));
-        print("drag - start " + (dPosition - StartingPosition));
+
+        var distance = Vector3.Distance(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), Camera.main.transform.position);
+        Ray ray = Camera.main.ScreenPointToRay(eventData.position);
+        Vector3 rayPoint = ray.GetPoint(distance);
+
+        dPosition = rayPoint;
+        offset = (StartingPosition - dPosition);
     }
 
     public void OnDrag(PointerEventData eventData) {
-        //transform.position += (Vector3)eventData.delta;
-        print("drag position1 " + eventData.position);
-        print("drag position2 " + (eventData.position - GameDimensions.ScreenResolution / 2));
-        var newPosition = (eventData.position - GameDimensions.ScreenResolution / 2) + offset;
-        print("drag position3 " + newPosition);
+        var newPosition = eventData.position + offset;
 
         var distance = Vector3.Distance(new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z), Camera.main.transform.position);
-        Vector2 offset = (StartingPosition - dPosition);
         Ray ray = Camera.main.ScreenPointToRay(eventData.position);
         Vector3 rayPoint = ray.GetPoint(distance);
-        transform.localPosition = new Vector3(rayPoint.x, rayPoint.y, -20);
+        transform.localPosition = new Vector3(rayPoint.x + offset.x, rayPoint.y + offset.y, 0);
 
     }
 
