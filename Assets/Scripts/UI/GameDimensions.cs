@@ -71,7 +71,7 @@ public static class GameDimensions {
     public static readonly Vector2 PositionPointsButton = PositionEndTurnButton + new Vector2(0, MarginBig + CardWidth);
     public static readonly Vector2 PositionExitButton = PositionPointsButton + new Vector2(0, MarginBig + CardWidth);
 
-    public static readonly Vector2 PositionCardProjectsBigCard = new Vector2((PositionPointsButton.x + PositionWorkerCard.x) / 2, ScreenBottomCenter.y + MarginBig + CardWidth * 0.9f);
+    public static readonly Vector2 PositionCardProjectsBigCard = new Vector2((PositionPointsButton.x + PositionWorkerCard.x) / 2, PositionWorkerCard.y);
 
     public static readonly Vector2 PositionProjectCard1 = PositionCardProjectsBigCard + new Vector2(-PositionCardProjectsBigCard.x * 1.8f / 6, 0);
     public static readonly Vector2 PositionProjectCard2 = PositionCardProjectsBigCard;

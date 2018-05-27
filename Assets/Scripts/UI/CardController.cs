@@ -16,7 +16,6 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
     private bool dragging = false;
     public readonly bool executable = false;
     public readonly bool clickable = false;
-    public bool draggable = true;
     public Card Card;
     public int InitialLayerOrder = -1;
 
@@ -63,9 +62,6 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
 
         previousX = newPositionX;
         previousY = newPositionY;
-
-        print("pitch:" + pitch);
-        print("yaw:" + yaw);
     }
 
     public void OnBeginDrag(PointerEventData eventData) {

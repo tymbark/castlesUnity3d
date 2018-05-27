@@ -45,7 +45,7 @@ public class GameBoardGenerator {
 
     private void DrawPlayerHand(Player player) {
 
-        float axisY = D.PositionCardProjectsBigCard.y + D.CardHeight * 1.2f;
+        float axisY = D.ScreenBottomCenter.y;
         float startAxisX = D.PositionCardProjectsBigCard.x - D.CardHeight;
 
         var cards = player.Cards;
