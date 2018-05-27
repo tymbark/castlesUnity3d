@@ -20,6 +20,13 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
     public Card Card;
     public int InitialLayerOrder = -1;
 
+    float previousX;
+    float previousY;
+    float pitch; //y
+    float yaw; //x
+    float roll;
+    Vector3 dPosition;
+    Vector2 offset;
 
     private void Start() {
         canvas = GetComponent<Canvas>();
@@ -27,18 +34,39 @@ public class CardController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeg
 
         GameObject gameObj = GameObject.Find("GameObjectController");
         GameController = gameObj.GetComponent<GameController>();
+        previousX = transform.position.x;
     }
 
     private void OnDestroy() {
         Colliders.Clear();
     }
 
-    void Update() {
+    private void FixedUpdate() {
+        float newPositionX = transform.position.x;
+        float newPositionY = transform.position.y;
 
+        if (dragging) {
+            pitch += newPositionY - previousY;
+            yaw += previousX - newPositionX;
+            pitch *= 0.9f;
+            yaw *= 0.9f;
+        } else {
+            pitch *= 0.5f;
+            yaw *= 0.5f;
+        }
+
+
+        yaw = Mathf.Clamp(yaw, -30, 30);
+        pitch = Mathf.Clamp(pitch, -30, 30);
+
+        transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
+
+        previousX = newPositionX;
+        previousY = newPositionY;
+
+        print("pitch:" + pitch);
+        print("yaw:" + yaw);
     }
-
-    Vector3 dPosition;
-    Vector2 offset;
 
     public void OnBeginDrag(PointerEventData eventData) {
         if (!GameController.ClicksEnabled) return;
