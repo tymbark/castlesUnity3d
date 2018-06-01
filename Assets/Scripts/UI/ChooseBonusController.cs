@@ -130,13 +130,13 @@ public class ChooseBonusController : MonoBehaviour {
                 break;
             case Round.C:
                 if (GSP.GameState.AnimalsDeck.Cards.Count > 0)
-                    DrawCard(posCard12, GSP.GameState.AnimalsDeck.Cards[0], bonus2);
+                    DrawCard(posCard12, GSP.GameState.AnimalsDeck.Cards[0], bonus1);
 
                 if (GSP.GameState.GoodsDeck.Cards.Count > 0)
-                    DrawCard(posCard22, GSP.GameState.GoodsDeck.Cards[0], bonus3);
+                    DrawCard(posCard22, GSP.GameState.GoodsDeck.Cards[0], bonus2);
 
-                DrawCard(posCard31, new Card(CardClass.Worker), bonus4);
-                DrawCard(posCard32, new Card(CardClass.Worker), bonus4);
+                DrawCard(posCard31, new Card(CardClass.Worker), bonus3);
+                DrawCard(posCard32, new Card(CardClass.Worker), bonus3);
 
                 DrawCard(posCard41, new Card(CardClass.Silver), bonus4);
                 DrawCard(posCard42, new Card(CardClass.Silver), bonus4);
@@ -145,8 +145,8 @@ public class ChooseBonusController : MonoBehaviour {
                 DrawCard(posCard52, new Card(CardClass.Silver), bonus5);
                 break;
             case Round.D:
-                DrawCard(posCard11, new Card(CardClass.Worker), bonus4);
-                DrawCard(posCard12, new Card(CardClass.Worker), bonus4);
+                DrawCard(posCard11, new Card(CardClass.Worker), bonus3);
+                DrawCard(posCard12, new Card(CardClass.Worker), bonus3);
 
                 DrawCard(posCard21, new Card(CardClass.Silver), bonus4);
                 DrawCard(posCard22, new Card(CardClass.Silver), bonus4);

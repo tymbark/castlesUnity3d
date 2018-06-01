@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Models;
+using GSP = GameStateProvider;
 
 public static class ActionsValidator {
 
@@ -49,7 +50,7 @@ public static class ActionsValidator {
 
     public static bool NormalActionAvailable(this Player p) {
         bool hasTwoCards = p.Cards.Count == 2;
-        bool hasLastCard = p.Cards.Count == 1 && p.FutureCards.Count == 0;
+        bool hasLastCard = p.Cards.Count == 1 && p.FutureCards.Count == 0 && GSP.GameState.CurrentTurn == 6;
         return hasTwoCards || hasLastCard;
     }
 

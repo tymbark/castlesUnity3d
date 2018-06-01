@@ -45,6 +45,7 @@ public class GameEngine {
         if (indexOfCurrentNick + 1 < GSP.GameState.Players.Count) {
             GSP.GameState.CurrentPlayerNickName = nicks[indexOfCurrentNick + 1];
         } else {
+            // only last player does this:
             GSP.GameState.CurrentPlayerNickName = nicks[0];
             NextTurn();
         }
@@ -57,14 +58,14 @@ public class GameEngine {
     private static void NextTurn() {
         int currentTurn = GSP.GameState.CurrentTurn;
 
-        if (currentTurn >= 1 && currentTurn <= 6) {
-            currentTurn = currentTurn + 1;
+        if (currentTurn >= 1 && currentTurn <= 5) {
+            GSP.GameState.CurrentTurn = currentTurn + 1;
             DrawHandCards();
-        } else if (currentTurn == 7) {
+        } else if (currentTurn == 6) {
             NextRound();
-            currentTurn = 1;
+            GSP.GameState.CurrentTurn = 1;
         } else {
-            throw new System.InvalidProgramException("Illegal turn :" + currentTurn);
+            throw new System.InvalidProgramException("Illegal turn :" + GSP.GameState.CurrentTurn);
         }
     }
 
@@ -72,21 +73,25 @@ public class GameEngine {
         switch (GSP.GameState.CurrentRound) {
             case Round.A:
                 GSP.GameState.CurrentRound = Round.B;
+                DrawProjectCards();
                 DrawFutureCards();
                 DrawHandCards();
                 break;
             case Round.B:
                 GSP.GameState.CurrentRound = Round.C;
+                DrawProjectCards();
                 DrawFutureCards();
                 DrawHandCards();
                 break;
             case Round.C:
                 GSP.GameState.CurrentRound = Round.D;
+                DrawProjectCards();
                 DrawFutureCards();
                 DrawHandCards();
                 break;
             case Round.D:
                 GSP.GameState.CurrentRound = Round.E;
+                DrawProjectCards();
                 DrawFutureCards();
                 DrawHandCards();
                 break;
@@ -134,6 +139,56 @@ public class GameEngine {
                     }
                     break;
             }
+        }
+    }
+
+    private static void DrawProjectCards() {
+
+        int howManyProjectCardsPerTurn = 0;
+
+        switch (GSP.GameState.HowManyPlayers) {
+            case 2:
+                howManyProjectCardsPerTurn = 7;
+                break;
+            case 3:
+                howManyProjectCardsPerTurn = 10;
+                break;
+            case 4:
+                howManyProjectCardsPerTurn = 13;
+                break;
+        }
+
+        for (int i = 0; i < howManyProjectCardsPerTurn; i++) {
+
+            Card topCardFromDeck = GSP.GameState.MainDeck.DrawCard();
+            CardDice cardDice;
+
+            switch (i) {
+                case 0:
+                    cardDice = CardDice.I;
+                    break;
+                case 1:
+                    cardDice = CardDice.II;
+                    break;
+                case 2:
+                    cardDice = CardDice.III;
+                    break;
+                case 3:
+                    cardDice = CardDice.IV;
+                    break;
+                case 4:
+                    cardDice = CardDice.V;
+                    break;
+                case 5:
+                    cardDice = CardDice.VI;
+                    break;
+                default:
+                    cardDice = topCardFromDeck.Dice;
+                    break;
+            }
+
+
+            GSP.GameState.AvailableProjectCards.Add(new ProjectCard(topCardFromDeck, cardDice));
         }
     }
 
