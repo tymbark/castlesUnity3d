@@ -161,7 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &14526292
 MonoBehaviour:
@@ -248,7 +247,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &104674505
 MonoBehaviour:
@@ -330,7 +328,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &104782484
 MonoBehaviour:
@@ -401,7 +398,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 479, y: -368}
+  m_AnchoredPosition: {x: 479, y: -182}
   m_SizeDelta: {x: 300, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &105983670
@@ -415,7 +412,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &105983671
 MonoBehaviour:
@@ -497,7 +493,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &127436762
 MonoBehaviour:
@@ -579,7 +574,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &130313614
 MonoBehaviour:
@@ -702,7 +696,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &158309490
 MonoBehaviour:
@@ -784,7 +777,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &204344408
 MonoBehaviour:
@@ -866,7 +858,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &243305275
 MonoBehaviour:
@@ -1013,7 +1004,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &282874896
 MonoBehaviour:
@@ -1095,7 +1085,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &299216791
 MonoBehaviour:
@@ -1177,7 +1166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &313058876
 MonoBehaviour:
@@ -1559,7 +1547,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!23 &474328633
 MeshRenderer:
@@ -1662,7 +1649,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &486329156
 MonoBehaviour:
@@ -1744,7 +1730,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &492649993
 MonoBehaviour:
@@ -1826,7 +1811,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &499037277
 MonoBehaviour:
@@ -1908,7 +1892,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &524690709
 MonoBehaviour:
@@ -1990,7 +1973,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &537546844
 MonoBehaviour:
@@ -2062,7 +2044,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 273.2, y: -160.6}
+  m_AnchoredPosition: {x: 210.29999, y: -580.6}
   m_SizeDelta: {x: 150, y: 225}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &572457070
@@ -2076,7 +2058,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &572457071
 MonoBehaviour:
@@ -2239,7 +2220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &573495490
 MonoBehaviour:
@@ -2446,7 +2426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &625358181
 MonoBehaviour:
@@ -2533,7 +2512,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &675213007
 MonoBehaviour:
@@ -2615,7 +2593,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &677907440
 MonoBehaviour:
@@ -2777,7 +2754,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &710298696
 MonoBehaviour:
@@ -2859,7 +2835,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &757618991
 MonoBehaviour:
@@ -2941,7 +2916,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &759967042
 MonoBehaviour:
@@ -3023,7 +2997,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &796412642
 MonoBehaviour:
@@ -3105,7 +3078,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &862058024
 MonoBehaviour:
@@ -3187,7 +3159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &877925584
 MonoBehaviour:
@@ -3269,7 +3240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &879653701
 MonoBehaviour:
@@ -3351,7 +3321,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &903903418
 MonoBehaviour:
@@ -3438,7 +3407,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &965670008
 MonoBehaviour:
@@ -3520,7 +3488,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &974558615
 MonoBehaviour:
@@ -3684,7 +3651,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 351, y: -161}
+  m_AnchoredPosition: {x: 288.09998, y: -581}
   m_SizeDelta: {x: 150, y: 225}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1054549522
@@ -3698,7 +3665,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!61 &1054549523
 BoxCollider2D:
@@ -3905,7 +3871,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1084681332
 MonoBehaviour:
@@ -4097,7 +4062,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1122556122
 MonoBehaviour:
@@ -4294,7 +4258,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1172480567
 MonoBehaviour:
@@ -4376,7 +4339,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1177292062
 MonoBehaviour:
@@ -4595,7 +4557,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1282219896
 MonoBehaviour:
@@ -4677,7 +4638,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1286887331
 MonoBehaviour:
@@ -4799,7 +4759,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1381247629
 MonoBehaviour:
@@ -4881,7 +4840,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1387557948
 MonoBehaviour:
@@ -5031,7 +4989,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 529.9, y: -142}
+  m_AnchoredPosition: {x: 467, y: -562}
   m_SizeDelta: {x: 150, y: 225}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &1397228090
@@ -5090,7 +5048,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1397228093
 MonoBehaviour:
@@ -5177,7 +5134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1405820634
 MonoBehaviour:
@@ -5353,7 +5309,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1456488389
 MonoBehaviour:
@@ -5435,7 +5390,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1472473962
 MonoBehaviour:
@@ -5742,7 +5696,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1566950428
 MonoBehaviour:
@@ -5824,7 +5777,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1577028370
 MonoBehaviour:
@@ -5906,7 +5858,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1583036028
 MonoBehaviour:
@@ -5988,7 +5939,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1599022134
 MonoBehaviour:
@@ -6085,7 +6035,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1627821525
 MonoBehaviour:
@@ -6167,7 +6116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1636716319
 MonoBehaviour:
@@ -6538,7 +6486,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!23 &1739743648
 MeshRenderer:
@@ -6743,7 +6690,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1805992166
 MonoBehaviour:
@@ -6919,7 +6865,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1826238210
 MonoBehaviour:
@@ -7001,7 +6946,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1853350572
 MonoBehaviour:
@@ -7071,7 +7015,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 622.1, y: -142}
+  m_AnchoredPosition: {x: 559.19995, y: -562}
   m_SizeDelta: {x: 150, y: 225}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &1861439171
@@ -7130,7 +7074,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1861439174
 MonoBehaviour:
@@ -7327,7 +7270,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1882367193
 MonoBehaviour:
@@ -7409,7 +7351,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1918105901
 MonoBehaviour:
@@ -7479,7 +7420,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 711.8, y: -141.6}
+  m_AnchoredPosition: {x: 648.89996, y: -561.6}
   m_SizeDelta: {x: 150, y: 225}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &1927902463
@@ -7538,7 +7479,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1927902466
 MonoBehaviour:
@@ -7620,7 +7560,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &1949667274
 MonoBehaviour:
@@ -7896,7 +7835,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 277712d778314440faf678b6577d2b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  draggable: 1
   InitialLayerOrder: -1
 --- !u!114 &2049424196
 MonoBehaviour:

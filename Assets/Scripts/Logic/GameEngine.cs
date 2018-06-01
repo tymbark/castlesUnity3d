@@ -14,7 +14,7 @@ public class GameEngine {
             nicknames.Add("ewa");
             nicknames.Add("katarzyna");
             var GameState = GameStateGenerator.GenerateGameState("DEBUG_ID", 2, nicknames, "ewa");
-            AddDebugOptions();
+            //AddDebugOptions();
             StartGame();
             DataPersistance.SavePlayerNickName("ewa");
             GameState.SaveGameState();
@@ -23,22 +23,22 @@ public class GameEngine {
     }
 
     private void AddDebugOptions() {
-        
+
         GSP.GameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCloister, CardDice.II));
         GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionKnowledge, CardDice.I, 4, 1));
         GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionKnowledge, CardDice.I, 5, 1));
 
     }
 
-    public void StartGame() {
-        AddDebugOptions();
+    public static void StartGame() {
+        //AddDebugOptions();
         GSP.GameState.CurrentPlayer.ReceivedBonuses.Add(BonusCard.FirstPlayer);
         GSP.GameState.CurrentTurn = 1;
         DrawFutureCards();
         DrawHandCards();
     }
 
-    public void ExecuteEndTurnAction() {
+    public static void ExecuteEndTurnAction() {
         List<string> nicks = GSP.GameState.Players.ConvertAll(p => p.NickName);
         int indexOfCurrentNick = nicks.IndexOf(GSP.GameState.CurrentPlayerNickName);
 
@@ -54,19 +54,21 @@ public class GameEngine {
         UnityEngine.Debug.Log("Current turn: " + GSP.GameState.CurrentTurn);
     }
 
-    private void NextTurn() {
-        if (GSP.GameState.CurrentTurn >= 1 && GSP.GameState.CurrentTurn <= 6) {
-            GSP.GameState.CurrentTurn = GSP.GameState.CurrentTurn + 1;
+    private static void NextTurn() {
+        int currentTurn = GSP.GameState.CurrentTurn;
+
+        if (currentTurn >= 1 && currentTurn <= 6) {
+            currentTurn = currentTurn + 1;
             DrawHandCards();
-        } else if (GSP.GameState.CurrentTurn == 7) {
+        } else if (currentTurn == 7) {
             NextRound();
-            GSP.GameState.CurrentTurn = 1;
+            currentTurn = 1;
         } else {
-            throw new System.InvalidProgramException("Illegal turn :" + GSP.GameState.CurrentTurn);
+            throw new System.InvalidProgramException("Illegal turn :" + currentTurn);
         }
     }
 
-    private void NextRound() {
+    private static void NextRound() {
         switch (GSP.GameState.CurrentRound) {
             case Round.A:
                 GSP.GameState.CurrentRound = Round.B;
@@ -94,11 +96,11 @@ public class GameEngine {
         }
     }
 
-    private void FinishGame() {
+    private static void FinishGame() {
         GSP.GameState.IsFinished = true;
     }
 
-    private void DrawFutureCards() {
+    private static void DrawFutureCards() {
         foreach (Player p in GSP.GameState.Players) {
             if (p.FutureCards.Count == 0) {
                 Utils.Repeat(6, () => { p.FutureCards.Add(GSP.GameState.MainDeck.DrawCard()); });
@@ -108,7 +110,7 @@ public class GameEngine {
         }
     }
 
-    private void DrawHandCards() {
+    private static void DrawHandCards() {
         foreach (Player p in GSP.GameState.Players) {
             switch (p.Cards.Count) {
                 case 0:
@@ -126,9 +128,9 @@ public class GameEngine {
                     if (p.FutureCards.Count == 0) {
                         // last turn!
                     } else {
-                        Card c = p.FutureCards[p.FutureCards.Count - 1];
-                        p.FutureCards.Remove(c);
-                        p.Cards.Add(c);
+                        Card newCard = p.FutureCards[p.FutureCards.Count - 1];
+                        p.FutureCards.Remove(newCard);
+                        p.Cards.Add(newCard);
                     }
                     break;
             }

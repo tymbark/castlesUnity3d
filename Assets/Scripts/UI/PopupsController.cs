@@ -119,6 +119,16 @@ public class PopupsController : MonoBehaviour {
         controller.DoneCallback = callback;
     }
 
+    public static void ShowYourTurnPopup() {
+        Object prefab = Resources.Load("Prefabs/YourTurnPopup");
+        GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+        messageGameObject.transform.position = new Vector3(0, 0, -11);
+
+        GameObject canvas = GameObject.Find("Canvas");
+        messageGameObject.transform.SetParent(canvas.transform);
+        YourTurnController controller = messageGameObject.AddComponent<YourTurnController>();
+    }
+
     public void RemovePopups() {
         foreach (GameObject obj in Trash) {
             Destroy(obj);

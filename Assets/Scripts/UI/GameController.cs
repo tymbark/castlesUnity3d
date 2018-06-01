@@ -10,6 +10,7 @@ using GSP = GameStateProvider;
 public class GameController : MonoBehaviour {
 
     public bool ClicksEnabled = true;
+    private bool YourTurnPopupShowed = true;
     private GameEngine GameEngine;
     private List<GameObject> GarbageCollector = new List<GameObject>();
     private GameBoardGenerator GameBoardGenerator = new GameBoardGenerator();
@@ -51,9 +52,13 @@ public class GameController : MonoBehaviour {
 
     private void CheckTheTurn() {
         if (!GSP.GameState.ItsMyTurn()) {
+            YourTurnPopupShowed = false;
             Invoke("GetGameStateRequest", 4);
         } else {
-            // PLAY
+            if (!YourTurnPopupShowed) {
+                PopupsController.ShowYourTurnPopup();
+            }
+            YourTurnPopupShowed = true;
         }
     }
 

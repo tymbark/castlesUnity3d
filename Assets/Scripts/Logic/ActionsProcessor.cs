@@ -137,7 +137,7 @@ public static class ActionsProcessor {
 
             case ActionType.EndTurn:
                 cp.SilverActionDoneThisTurn = false;
-                //gameEngine.ExecuteEndTurnAction(); todo
+                GameEngine.ExecuteEndTurnAction();
                 doneCallback();
                 break;
 
