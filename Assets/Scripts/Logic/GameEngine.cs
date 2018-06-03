@@ -24,8 +24,8 @@ public class GameEngine {
 
     private static void AddDebugOptions() {
 
-        GSP.GameState.Players[0].WorkersCount = 40;
-        GSP.GameState.Players[0].SilverCount = 40;
+        GSP.GameState.Players[0].WorkersCount = 0;
+        GSP.GameState.Players[0].SilverCount = 3;
         GSP.GameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionBoardinghouse, CardDice.V));
 
         //GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionBank, CardDice.V, 0, 1));

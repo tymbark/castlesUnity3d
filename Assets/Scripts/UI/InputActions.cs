@@ -27,7 +27,8 @@ namespace InputActions {
         SellSilverAndWorkers,
         TakeProject,
         BuildProject,
-        ShipGoods
+        ShipGoods,
+        AddSilverProject
     }
 
     public enum OtherGameEvent {

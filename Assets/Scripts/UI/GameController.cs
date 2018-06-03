@@ -177,7 +177,6 @@ public class GameController : MonoBehaviour {
             Action actionForExecute = actions.GetAvailableMove(targetCard, actionCard);
 
             actionForExecute.ProcessAction(() => {
-                0.print_("here game controller");
                 UpdateView();
                 CheckTheTurn();
             });
@@ -193,7 +192,9 @@ public class GameController : MonoBehaviour {
         if (actions.IsMoveAvailable(targetCard, actionCard)) {
             targetCardObject.SetBlueColor();
         } else {
-            targetCardObject.SetRedColor();
+            if (targetCardObject.GetDragDropController().DragDropAction != DragDropAction.AddSilverProject) {
+                targetCardObject.SetRedColor();
+            }
         }
 
     }
@@ -205,5 +206,9 @@ public class GameController : MonoBehaviour {
 
     public static void UpdateView() {
         GameObject.Find("GameObjectController").GetComponent<GameController>().RedrawUI();
+    }
+
+    private static void HandleSilverCardHooverOverProjectCard() {
+
     }
 }

@@ -76,7 +76,7 @@ public static class ActionsFinder {
 
         foreach (Card card in p.BonusActionCards.OnlySilverBonuses()) {
 
-            var action = new Action(ActionType.TakeSilverProject, StaticCards.Dummy, card);
+            var action = new Action(ActionType.TakeSilverProject, card, new Card(CardClass.AddSilverProject));
             silverFreeProjects.Add(action);
 
         }

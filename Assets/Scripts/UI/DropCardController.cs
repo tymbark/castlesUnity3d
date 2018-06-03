@@ -25,6 +25,8 @@ public class DropCardController : MonoBehaviour {
                 return _Card;
             case DragDropAction.BuildProject:
                 return _Card;
+            case DragDropAction.AddSilverProject:
+                return new Card(CardClass.AddSilverProject);
         }
 
         throw new System.InvalidProgramException("There is no card for this action");

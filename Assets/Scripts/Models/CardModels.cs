@@ -15,10 +15,9 @@ namespace Models {
         Dice, Worker, Silver, EndTurn, Exit,
         AllProjects,
         SellSilverAndWorkers, ShipGoods, Barrel,
+        AddSilverProject,
 
         BonusCastle,
-        BonusBoardinghouse,
-        BonusWarehouse,
 
         // Standard Actions 12x - (2x6)
         ActionCastle, ActionMine, ActionCloister,

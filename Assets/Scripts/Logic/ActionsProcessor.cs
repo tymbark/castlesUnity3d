@@ -123,12 +123,13 @@ public static class ActionsProcessor {
             case ActionType.UseSilver:
                 cp.SilverCount = cp.SilverCount - 3;
                 Utils.Repeat(3, () => { cp.BonusActionCards.Add(GSP.GameState.MainDeck.DrawCard()); });
+                cp.SilverActionDoneThisTurn = true;
                 doneCallback();
                 break;
 
             case ActionType.TakeSilverProject:
+                cp.ProjectArea.Add(action.ActionCard);
                 cp.BonusActionUsed(action.ActionCard);
-                cp.ProjectArea.Add(action.TargetCard);
                 doneCallback();
                 break;
 

@@ -37,7 +37,13 @@ public static class CardsGenerator {
     }
 
     public static GameObject DrawBigBackgroundCard(Card c, Vector2 coords) {
-        return DrawCard(c, coords.x, coords.y, D.CardWidth * 1.8f, D.CardHeight * 2, true);
+        var card = DrawCard(c, coords.x, coords.y, D.CardWidth * 1.8f, D.CardHeight * 2, true);
+
+        if (GameStateProvider.GameState.CurrentPlayer.BonusActionCards.Count >= 3) {
+            card.AddComponent<DropCardController>().DragDropAction = DragDropAction.AddSilverProject;
+        }
+
+        return card;
     }
 
     public static GameObject DrawPointsElement(int points) {
@@ -618,12 +624,10 @@ public static class CardsGenerator {
             case CardClass.BonusCastle:
                 fileUri += "bonus_castle";
                 break;
-            case CardClass.BonusBoardinghouse:
-                fileUri += "bonus_bh";
-                break;
-            case CardClass.BonusWarehouse:
-                fileUri += "bonus_wa";
-                break;
+        }
+
+        if (fileUri.Length == 0) {
+            throw new System.Exception("Cannot find sprite resource for this card: " + card.Describe());
         }
 
         return fileUri;

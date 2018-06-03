@@ -297,6 +297,9 @@ public static class Utils {
             case CardClass.Goods:
                 return actions.HasTakeGoodsAction(actionCard);
 
+            case CardClass.AddSilverProject:
+                return actions.HasAddSilverProjectAction(targetCard, actionCard);
+
             default:
 
                 if (actions.HasBuildThisProjectAction(targetCard, actionCard)) {
@@ -324,6 +327,9 @@ public static class Utils {
 
             case CardClass.ShipGoods:
                 return actions.GetShipGoodsAction(actionCard);
+
+            case CardClass.AddSilverProject:
+                return actions.GetAddSilverProjectAction(targetCard, actionCard);
 
             default:
                 if (actions.HasBuildThisProjectAction(targetCard, actionCard)) {
@@ -423,15 +429,26 @@ public static class Utils {
             && obj.ActionCard.IsEqualTo(actionCard))[0];
     }
 
+    public static Action GetAddSilverProjectAction(this List<Action> actions, Card targetCard, Card actionCard) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.TakeSilverProject
+            && obj.ActionCard.IsEqualTo(actionCard)
+            && obj.TargetCard.IsEqualTo(targetCard))[0];
+    }
+
     public static bool HasShipGoodsAction(this List<Action> actions, Card actionCard) {
         return actions.FindAll((Action obj) => obj.Type == ActionType.ShipGoods
             && obj.ActionCard.IsEqualTo(actionCard)).Count == 1;
     }
 
-    //todo random goods
     public static bool HasTakeGoodsAction(this List<Action> actions, Card actionCard) {
         return actions.FindAll((Action obj) => obj.Type == ActionType.TakeGoods
             && obj.ActionCard.IsEqualTo(actionCard)).Count == 1;
+    }
+
+    public static bool HasAddSilverProjectAction(this List<Action> actions, Card targetCard, Card actionCard) {
+        return actions.FindAll((Action obj) => obj.Type == ActionType.TakeSilverProject
+            && obj.ActionCard.IsEqualTo(actionCard)
+            && obj.TargetCard.IsEqualTo(targetCard)).Count == 1;
     }
 
     public static Action GetUseSilverAction(this List<Action> actions) {
@@ -480,7 +497,7 @@ public static class Utils {
     }
 
     public static List<Card> OnlyShippableBonuses(this List<Card> cards) {
-        return cards.FindAll((Card c) => c.IsActionType() || c.Class == CardClass.BonusCastle || c.Class == CardClass.BonusWarehouse);
+        return cards.FindAll((Card c) => c.IsActionType() || c.Class == CardClass.BonusCastle);
     }
 
     public static List<Card> OnlyBuildAnyPojectBonuses(this List<Card> cards) {

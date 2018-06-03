@@ -94,7 +94,7 @@ public static class BonusSupplier {
 
                 break;
             case CardClass.ActionWarehouse:
-                player.BonusActionCards.Add(new Card(CardClass.BonusWarehouse, CardDice.All));
+                PopupsController.ShowChooseGoodsPopup(1, doneCallback);
                 break;
             case CardClass.ActionCityHall:
                 var cityHallAvilableBonuses = GSP.GameState.AvailableProjectCards
@@ -114,10 +114,10 @@ public static class BonusSupplier {
             case CardClass.ActionCloister:
             case CardClass.ActionWatchtower:
             case CardClass.ActionBank:
-            case CardClass.ActionWarehouse:
             case CardClass.ActionKnowledge:
                 doneCallback();
                 break;
+            case CardClass.ActionWarehouse:
             case CardClass.ActionBoardinghouse:
             case CardClass.ActionCarpenter:
             case CardClass.ActionChurch:
