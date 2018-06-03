@@ -25,6 +25,7 @@ public class WaitingRoomController : MonoBehaviour {
         if (responseOrError.IsSuccess) {
             GameInfo response = responseOrError.Response;
             UpdateView(response);
+
             if (response.PlayersNow == response.PlayersMax) {
                 print("all players are present, ready to start");
 

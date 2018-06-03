@@ -473,7 +473,7 @@ public static class Utils {
     }
 
     public static List<Card> OnlyBuildAnyPojectBonuses(this List<Card> cards) {
-        return cards.FindAll((Card c) => c.IsActionType() || c.Class == CardClass.BonusCastle || c.Class == CardClass.BonusCityHall);
+        return cards.FindAll((Card c) => c.IsActionType() || c.Class == CardClass.BonusCastle);
     }
 
     public static List<Card> OnlySilverAndCastleBonuses(this List<Card> cards) {

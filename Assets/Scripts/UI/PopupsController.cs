@@ -84,6 +84,19 @@ public class PopupsController : MonoBehaviour {
         controller.DoneCallback = callback;
     }
 
+    public static void ShowTakeBuildingRewardCard(System.Action callback, CardClass bonusCardClass) {
+        Object prefab = Resources.Load("Prefabs/ChooseBuildingRewardCard");
+        GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+        messageGameObject.transform.position = new Vector3(0, 0, -11);
+
+        GameObject canvas = GameObject.Find("Canvas");
+        messageGameObject.transform.SetParent(canvas.transform);
+        ChooseBuildingRewardController controller = messageGameObject.AddComponent<ChooseBuildingRewardController>();
+        controller.BonusCardClass = bonusCardClass;
+        controller.DoneCallback = callback;
+        controller.UpdateView();
+    }
+
     public static void ShowChooseGoodsPopup(int howMany, System.Action callback) {
         Object prefab = Resources.Load("Prefabs/ChooseCardPopup");
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;

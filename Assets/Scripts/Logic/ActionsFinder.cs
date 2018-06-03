@@ -43,38 +43,6 @@ public static class ActionsFinder {
 
                 }
             }
-            switch (project.Card.Class) {
-                case CardClass.ActionCastle:
-                case CardClass.ActionMine:
-                case CardClass.ActionCloister:
-                    foreach (Card c in p.BonusActionCards.FindAll((Card c) => c.Class == CardClass.BonusChurch)) {
-                        var action = new Action(ActionType.TakeProject, c, project.Card, 0);
-                        actionProjectsCanTake.Add(action);
-                    }
-                    break;
-                case CardClass.ActionShip:
-                case CardClass.ActionPasture:
-                    foreach (Card c in p.BonusActionCards.FindAll((Card c) => c.Class == CardClass.BonusMarket)) {
-                        var action = new Action(ActionType.TakeProject, c, project.Card, 0);
-                        actionProjectsCanTake.Add(action);
-                    }
-                    break;
-                case CardClass.ActionKnowledge:
-                case CardClass.ActionCarpenter:
-                case CardClass.ActionChurch:
-                case CardClass.ActionMarket:
-                case CardClass.ActionWatchtower:
-                case CardClass.ActionBank:
-                case CardClass.ActionBoardinghouse:
-                case CardClass.ActionWarehouse:
-                case CardClass.ActionCityHall:
-                    foreach (Card c in p.BonusActionCards.FindAll((Card c) => c.Class == CardClass.BonusCarperter)) {
-                        var action = new Action(ActionType.TakeProject, c, project.Card, 0);
-                        actionProjectsCanTake.Add(action);
-                    }
-                    break;
-
-            }
         }
 
         return actionProjectsCanTake;

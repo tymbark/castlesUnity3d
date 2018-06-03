@@ -17,10 +17,6 @@ namespace Models {
         SellSilverAndWorkers, ShipGoods, Barrel,
 
         BonusCastle,
-        BonusCarperter,
-        BonusChurch,
-        BonusMarket,
-        BonusCityHall,
         BonusBoardinghouse,
         BonusWarehouse,
 

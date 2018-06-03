@@ -22,16 +22,18 @@ public class GameEngine {
 
     }
 
-    private void AddDebugOptions() {
+    private static void AddDebugOptions() {
 
-        GSP.GameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCloister, CardDice.II));
-        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionKnowledge, CardDice.I, 4, 1));
-        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionKnowledge, CardDice.I, 5, 1));
+        GSP.GameState.Players[0].WorkersCount = 40;
+        GSP.GameState.Players[0].SilverCount = 40;
+        GSP.GameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionMarket, CardDice.II));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionBank, CardDice.I, 0, 1));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionBank, CardDice.II, 0, 1));
 
     }
 
     public static void StartGame() {
-        //AddDebugOptions();
+        AddDebugOptions();
         GSP.GameState.CurrentPlayer.ReceivedBonuses.Add(BonusCard.FirstPlayer);
         GSP.GameState.CurrentTurn = 1;
         DrawFutureCards();

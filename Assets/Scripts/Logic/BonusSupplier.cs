@@ -17,35 +17,71 @@ public static class BonusSupplier {
             case CardClass.ActionCastle:
                 player.BonusActionCards.Add(new Card(CardClass.BonusCastle, CardDice.All));
                 break;
+
             case CardClass.ActionMine:
                 player.SilverCount = player.SilverCount + 2;
                 break;
+
             case CardClass.ActionCloister:
                 break;
+
             case CardClass.ActionKnowledge:
                 player.WorkersCount = player.WorkersCount + 2;
                 break;
+
             case CardClass.ActionShip:
                 PopupsController.ShowChooseGoodsPopup(1, () => {
                     GameController.UpdateView();
                     doneCallback();
                 });
                 break;
+
             case CardClass.ActionPasture:
                 PopupsController.ShowChooseAnimalPopup(1, () => {
                     GameController.UpdateView();
                     doneCallback();
                 });
                 break;
+
             case CardClass.ActionCarpenter:
-                player.BonusActionCards.Add(new Card(CardClass.BonusCarperter, CardDice.All));
+                var carpenterAvilableBonuses = GSP.GameState.AvailableProjectCards
+                    .FindAll((obj) => obj.Card.IsBuildingType() || obj.Card.Class == CardClass.ActionKnowledge)
+                    .ConvertAll((ProjectCard input) => input.Card);
+
+                if (carpenterAvilableBonuses.IsNotEmpty()) {
+                    PopupsController.ShowTakeBuildingRewardCard(doneCallback, CardClass.ActionCarpenter);
+                } else {
+                    doneCallback();
+                }
                 break;
+
             case CardClass.ActionChurch:
-                player.BonusActionCards.Add(new Card(CardClass.BonusChurch, CardDice.All));
+                var churchAvilableBonuses = GSP.GameState.AvailableProjectCards
+                    .ConvertAll((ProjectCard input) => input.Card)
+                    .FindAll((obj) => obj.Class == CardClass.ActionCloister
+                                   || obj.Class == CardClass.ActionCastle
+                                   || obj.Class == CardClass.ActionMine);
+
+                if (churchAvilableBonuses.IsNotEmpty()) {
+                    PopupsController.ShowTakeBuildingRewardCard(doneCallback, CardClass.ActionChurch);
+                } else {
+                    doneCallback();
+                }
                 break;
+
             case CardClass.ActionMarket:
-                player.BonusActionCards.Add(new Card(CardClass.BonusMarket, CardDice.All));
+                var marketAvilableBonuses = GSP.GameState.AvailableProjectCards
+                    .ConvertAll((ProjectCard input) => input.Card)
+                    .FindAll((obj) => obj.Class == CardClass.ActionPasture
+                                   || obj.Class == CardClass.ActionShip);
+
+                if (marketAvilableBonuses.IsNotEmpty()) {
+                    PopupsController.ShowTakeBuildingRewardCard(doneCallback, CardClass.ActionMarket);
+                } else {
+                    doneCallback();
+                }
                 break;
+
             case CardClass.ActionWatchtower:
                 player.Score = player.Score + 1;
                 break;
@@ -59,7 +95,14 @@ public static class BonusSupplier {
                 player.BonusActionCards.Add(new Card(CardClass.BonusWarehouse, CardDice.All));
                 break;
             case CardClass.ActionCityHall:
-                player.BonusActionCards.Add(new Card(CardClass.BonusCityHall, CardDice.All));
+                var cityHallAvilableBonuses = GSP.GameState.AvailableProjectCards
+                    .ConvertAll((ProjectCard input) => input.Card);
+
+                if (cityHallAvilableBonuses.IsNotEmpty()) {
+                    PopupsController.ShowTakeBuildingRewardCard(doneCallback, CardClass.ActionCityHall);
+                } else {
+                    doneCallback();
+                }
                 break;
         }
 
@@ -67,17 +110,17 @@ public static class BonusSupplier {
             case CardClass.ActionCastle:
             case CardClass.ActionMine:
             case CardClass.ActionCloister:
-            case CardClass.ActionCarpenter:
-            case CardClass.ActionChurch:
-            case CardClass.ActionMarket:
             case CardClass.ActionWatchtower:
             case CardClass.ActionBank:
-            case CardClass.ActionBoardinghouse:
+            case CardClass.ActionBoardinghouse: //todo
             case CardClass.ActionWarehouse:
-            case CardClass.ActionCityHall:
             case CardClass.ActionKnowledge:
                 doneCallback();
                 break;
+            case CardClass.ActionCarpenter:
+            case CardClass.ActionChurch:
+            case CardClass.ActionMarket:
+            case CardClass.ActionCityHall:
             case CardClass.ActionShip:
             case CardClass.ActionPasture:
                 break;

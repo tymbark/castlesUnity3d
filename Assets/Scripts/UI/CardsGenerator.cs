@@ -618,18 +618,6 @@ public static class CardsGenerator {
             case CardClass.BonusCastle:
                 fileUri += "bonus_castle";
                 break;
-            case CardClass.BonusCarperter:
-                fileUri += "bonus_car";
-                break;
-            case CardClass.BonusChurch:
-                fileUri += "bonus_ch";
-                break;
-            case CardClass.BonusMarket:
-                fileUri += "bonus_mar";
-                break;
-            case CardClass.BonusCityHall:
-                fileUri += "bonus_cityh";
-                break;
             case CardClass.BonusBoardinghouse:
                 fileUri += "bonus_bh";
                 break;
