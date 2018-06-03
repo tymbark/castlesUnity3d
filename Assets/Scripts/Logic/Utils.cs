@@ -468,6 +468,17 @@ public static class Utils {
         }
     }
 
+    public static bool IsAnimalType(this Card c) {
+        switch (c.Class) {
+            case CardClass.Chicken:
+            case CardClass.Cow:
+            case CardClass.Sheep:
+            case CardClass.Pig:
+                return true;
+        }
+        return false;
+    }
+
     public static List<Card> OnlyShippableBonuses(this List<Card> cards) {
         return cards.FindAll((Card c) => c.IsActionType() || c.Class == CardClass.BonusCastle || c.Class == CardClass.BonusWarehouse);
     }

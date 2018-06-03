@@ -56,16 +56,18 @@ public static class ActionsExecutor {
                      .CompletedProjects
                      .Add(newCard.WithTripleId(newTripleId));
 
-            var recentlyTriple = gameState.CurrentPlayer
+            var recentlyIncreasedTriples = gameState.CurrentPlayer
                                           .GetAllTriples()
                                           .FindAll((obj) => obj[0].TripleId == newTripleId);
 
-            if (recentlyTriple.Count != 1) {
+            if (recentlyIncreasedTriples.Count != 1) {
                 throw new System.Exception("There are more than one triple list with id "
-                                           + newTripleId + ". Found " + recentlyTriple.Count);
+                                           + newTripleId + ". Found " + recentlyIncreasedTriples.Count);
             }
 
-            var applyBonus = recentlyTriple[0].Count == 3;
+            gameState.CurrentPlayer.ApplyAllKindsSevenBonusIfPossible();
+
+            var applyBonus = recentlyIncreasedTriples[0].Count == 3;
 
             return applyBonus;
         } else {

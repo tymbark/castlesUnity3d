@@ -172,12 +172,12 @@ public class ChooseBonusController : MonoBehaviour {
                         currentPlayer.Score = currentPlayer.Score + 3;
                         break;
                     case 2:
-                        currentPlayer.Animals.Add(GSP.GameState.AnimalsDeck.DrawCard());
-                        currentPlayer.Animals.Add(GSP.GameState.AnimalsDeck.DrawCard());
+                        PopupsController.ShowChooseAnimalPopup(2, DoneCallback);
+                        Destroy(gameObject);
                         break;
                     case 3:
-                        currentPlayer.Goods.Add(GSP.GameState.GoodsDeck.DrawCard());
-                        currentPlayer.Goods.Add(GSP.GameState.GoodsDeck.DrawCard());
+                        PopupsController.ShowChooseGoodsPopup(2, DoneCallback);
+                        Destroy(gameObject);
                         break;
                     case 4:
                         currentPlayer.WorkersCount = currentPlayer.WorkersCount + 3;
@@ -193,12 +193,12 @@ public class ChooseBonusController : MonoBehaviour {
             case Round.B:
                 switch (number) {
                     case 1:
-                        currentPlayer.Animals.Add(GSP.GameState.AnimalsDeck.DrawCard());
-                        currentPlayer.Animals.Add(GSP.GameState.AnimalsDeck.DrawCard());
+                        PopupsController.ShowChooseAnimalPopup(2, DoneCallback);
+                        Destroy(gameObject);
                         break;
                     case 2:
-                        currentPlayer.Goods.Add(GSP.GameState.GoodsDeck.DrawCard());
-                        currentPlayer.Goods.Add(GSP.GameState.GoodsDeck.DrawCard());
+                        PopupsController.ShowChooseGoodsPopup(2, DoneCallback);
+                        Destroy(gameObject);
                         break;
                     case 4:
                         currentPlayer.WorkersCount = currentPlayer.WorkersCount + 3;
@@ -214,10 +214,12 @@ public class ChooseBonusController : MonoBehaviour {
             case Round.C:
                 switch (number) {
                     case 1:
-                        currentPlayer.Animals.Add(GSP.GameState.AnimalsDeck.DrawCard());
+                        PopupsController.ShowChooseAnimalPopup(1, DoneCallback);
+                        Destroy(gameObject);
                         break;
                     case 2:
-                        currentPlayer.Goods.Add(GSP.GameState.GoodsDeck.DrawCard());
+                        PopupsController.ShowChooseGoodsPopup(1, DoneCallback);
+                        Destroy(gameObject);
                         break;
                     case 3:
                         currentPlayer.WorkersCount = currentPlayer.WorkersCount + 2;
@@ -267,8 +269,8 @@ public class ChooseBonusController : MonoBehaviour {
         }
 
         if (bonusAquired) {
+            Destroy(gameObject);
             DoneCallback();
-            Destroy(gameObject, 0.5f);
         }
     }
 

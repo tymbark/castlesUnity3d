@@ -10,7 +10,6 @@ public class ChooseAnimalController : MonoBehaviour {
     private bool clickable = true;
     private Vector2 posAvailableCards;
     private Vector2 posYourCards;
-    private GameObject dragCardText;
     public int HowManyCards;
     public System.Action DoneCallback;
     private List<GameObject> GarbageCollector = new List<GameObject>();
@@ -25,15 +24,19 @@ public class ChooseAnimalController : MonoBehaviour {
         posYourCards = new Vector2(-200, -350);
         posAvailableCards = new Vector2(-200, 200);
 
-        dragCardText = GameObject.Find("drag_card_text");
-
         string text;
-        if (howManycards == 1) {
-            text = "take " + howManycards + " card";
-        } else {
-            text = "take " + howManycards + " cards";
-
+        switch (howManycards) {
+            case 0:
+                text = "";
+                break;
+            case 1:
+                text = "take " + howManycards + " card";
+                break;
+            default:
+                text = "take " + howManycards + " cards";
+                break;
         }
+
         GameObject.Find("how_many_text")
                   .GetComponent<TMPro.TextMeshProUGUI>()
                   .text = text;
@@ -78,19 +81,25 @@ public class ChooseAnimalController : MonoBehaviour {
         GarbageCollector.Add(card);
         var clickComponent = card.AddComponent<ClickActionScript>();
         clickComponent.ClickMethod = (x) => {
+            print("click");
             if (!clickable) return;
+            print("click");
 
             GiveThisCardToPlayer(index);
             HowManyCards = HowManyCards - 1;
             if (HowManyCards == 0) {
                 UpdateView(HowManyCards);
-                Destroy(gameObject, 1f);
                 clickable = false;
-                DoneCallback();
+                Invoke("Done", 1f);
             } else {
                 UpdateView(HowManyCards);
             }
         };
+    }
+
+    private void Done() {
+        Destroy(gameObject);
+        DoneCallback();
     }
 
     private void GiveThisCardToPlayer(int index) {

@@ -26,9 +26,10 @@ public class GameEngine {
 
         GSP.GameState.Players[0].WorkersCount = 40;
         GSP.GameState.Players[0].SilverCount = 40;
-        GSP.GameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionMarket, CardDice.II));
-        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionBank, CardDice.I, 0, 1));
-        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionBank, CardDice.II, 0, 1));
+        GSP.GameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionBoardinghouse, CardDice.V));
+
+        //GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionBank, CardDice.V, 0, 1));
+        //GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionBank, CardDice.V, 1, 1));
 
     }
 

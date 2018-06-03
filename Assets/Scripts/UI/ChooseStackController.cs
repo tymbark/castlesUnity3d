@@ -8,8 +8,8 @@ using GSP = GameStateProvider;
 public class ChooseStackController : MonoBehaviour {
 
     private bool clickable = true;
-    private Vector2 posAvailableCards;
-    private Vector2 posYourCards;
+    private GameObject AvailableCardsObj;
+    private GameObject CompletedProjectObj;
     private GameObject dragCardText;
     private Card Card;
     public System.Action<int> DoneCallback;
@@ -22,16 +22,17 @@ public class ChooseStackController : MonoBehaviour {
         GarbageCollector.Clear();
 
         Card = newCard;
-        posYourCards = new Vector2(-200, -350);
-        posAvailableCards = new Vector2(-200, 200);
+        CompletedProjectObj = GameObject.Find("completed_project_position");
+        AvailableCardsObj = GameObject.Find("available_stacks_position");
 
         dragCardText = GameObject.Find("drag_card_text");
 
         GameObject.Find("create_new_stack")
                   .AddComponent<ClickActionScript>()
                   .ClickMethod = (x) => {
+                      //generate new triple ID for new stack 
                       DoneCallback(GSP.GameState.CurrentPlayer.CompletedProjects.Count + 1);
-                      Destroy(gameObject, 0.5f);
+                      Destroy(gameObject);
                   };
 
         DrawAvailableTriples();
@@ -39,7 +40,7 @@ public class ChooseStackController : MonoBehaviour {
     }
 
     private void DrawAvailableTriples() {
-        float margin = posYourCards.x;
+        float margin = 0;
 
         var triples = GSP.GameState.CurrentPlayer.GetNotCompletedTriplesForCard(Card);
 
@@ -47,7 +48,7 @@ public class ChooseStackController : MonoBehaviour {
 
             foreach (Card c in cards) {
 
-                var card = CardsGenerator.CreateCardGameObject(c.GetResIdForCard(), new Vector2(margin, posYourCards.y), parent: gameObject);
+                var card = CardsGenerator.CreateCardGameObject(c.GetResIdForCard(), new Vector2(margin, 0), parent: AvailableCardsObj);
                 GarbageCollector.Add(card);
 
                 var clickComponent = card.AddComponent<ClickActionScript>();
@@ -71,7 +72,7 @@ public class ChooseStackController : MonoBehaviour {
 
 
     private void DrawNewCard() {
-        var card = CardsGenerator.CreateCardGameObject(Card.GetResIdForCard(), posAvailableCards, parent: gameObject);
+        var card = CardsGenerator.CreateCardGameObject(Card.GetResIdForCard(), Vector2.zero, parent: CompletedProjectObj);
         GarbageCollector.Add(card);
     }
 

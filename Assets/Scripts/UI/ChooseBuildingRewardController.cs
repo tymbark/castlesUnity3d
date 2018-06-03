@@ -76,17 +76,21 @@ public class ChooseBuildingRewardController : MonoBehaviour {
 
                        clickable = false;
                        GiveThisCardToPlayer(card);
-                       Destroy(gameObject, 0.2f);
+                       Invoke("Destroy", 0.5f);
                    };
 
             margin = margin + GD.CardWidth + GD.MarginSmall;
         }
     }
 
+    private void Destroy() {
+        Destroy(gameObject);
+        DoneCallback();
+    }
+
     private void GiveThisCardToPlayer(Card card) {
         GSP.GameState.AvailableProjectCards.RemoveCardFromProjects(card);
         GSP.GameState.CurrentPlayer.ProjectArea.Add(card);
-        DoneCallback();
     }
 
 

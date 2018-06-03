@@ -177,6 +177,7 @@ public class GameController : MonoBehaviour {
             Action actionForExecute = actions.GetAvailableMove(targetCard, actionCard);
 
             actionForExecute.ProcessAction(() => {
+                0.print_("here game controller");
                 UpdateView();
                 CheckTheTurn();
             });

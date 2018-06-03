@@ -30,17 +30,11 @@ public static class BonusSupplier {
                 break;
 
             case CardClass.ActionShip:
-                PopupsController.ShowChooseGoodsPopup(1, () => {
-                    GameController.UpdateView();
-                    doneCallback();
-                });
+                PopupsController.ShowChooseGoodsPopup(1, doneCallback);
                 break;
 
             case CardClass.ActionPasture:
-                PopupsController.ShowChooseAnimalPopup(1, () => {
-                    GameController.UpdateView();
-                    doneCallback();
-                });
+                PopupsController.ShowChooseAnimalPopup(1, doneCallback);
                 break;
 
             case CardClass.ActionCarpenter:
@@ -89,7 +83,15 @@ public static class BonusSupplier {
                 player.SilverCount = player.SilverCount + 3;
                 break;
             case CardClass.ActionBoardinghouse:
-                player.BonusActionCards.Add(new Card(CardClass.BonusBoardinghouse, CardDice.All));
+                var animalsOrGoodsExists = GSP.GameState.AnimalsDeck.Cards.IsNotEmpty()
+                    || GSP.GameState.GoodsDeck.Cards.IsNotEmpty();
+
+                if (animalsOrGoodsExists) {
+                    PopupsController.ShowTakeGoodsOrAnimal(doneCallback);
+                } else {
+                    doneCallback();
+                }
+
                 break;
             case CardClass.ActionWarehouse:
                 player.BonusActionCards.Add(new Card(CardClass.BonusWarehouse, CardDice.All));
@@ -112,11 +114,11 @@ public static class BonusSupplier {
             case CardClass.ActionCloister:
             case CardClass.ActionWatchtower:
             case CardClass.ActionBank:
-            case CardClass.ActionBoardinghouse: //todo
             case CardClass.ActionWarehouse:
             case CardClass.ActionKnowledge:
                 doneCallback();
                 break;
+            case CardClass.ActionBoardinghouse:
             case CardClass.ActionCarpenter:
             case CardClass.ActionChurch:
             case CardClass.ActionMarket:
@@ -127,22 +129,27 @@ public static class BonusSupplier {
         }
     }
 
-    public static void ApplyCompletingTripleBonus(this Player player, List<Card> triple, GameState gameState) {
+    public static void ApplyCompletingTripleBonusPoints(this Player player, int tripleId) {
+        List<Card> triple = player.GetAllTriples().FindAll((obj) => obj[0].TripleId == tripleId)[0];
+
         if (triple.Count != 3) throw new System.InvalidProgramException("Triple must have 3 items!");
 
 
+        Card tripleCardRepresentative = null;
+
         if (triple[0].Class == triple[1].Class && triple[1].Class == triple[2].Class && triple[1].Class == CardClass.ActionCloister) {
-            player.Score = player.Score + 6;
+            tripleCardRepresentative = triple[0]; // its a cloister triple!
+        } else {
+            tripleCardRepresentative = triple.FindAll((Card obj) => obj.Class != CardClass.ActionCloister)[0];
         }
 
-        Card tripleCardRepresentative = triple.FindAll((Card obj) => obj.Class != CardClass.ActionCloister)[0];
 
-        IncreaseScore(player, tripleCardRepresentative);
-        ApplyFirstTripleOfAKindBonus(player, tripleCardRepresentative, gameState);
+        player.IncreaseScore(tripleCardRepresentative);
+        player.ApplyFirstTripleOfAKindBonusIfPossible(tripleCardRepresentative);
 
     }
 
-    private static void IncreaseScore(Player player, Card tripleCardRepresentative) {
+    private static void IncreaseScore(this Player player, Card tripleCardRepresentative) {
         if (tripleCardRepresentative.IsBuildingType()) {
             player.Score = player.Score + 3;
         } else {
@@ -156,11 +163,16 @@ public static class BonusSupplier {
                 case CardClass.ActionPasture:
                     player.Score = player.Score + 4;
                     break;
+                case CardClass.ActionCloister:
+                    player.Score = player.Score + 6;
+                    break;
             }
         }
     }
 
-    private static void ApplyFirstTripleOfAKindBonus(Player player, Card tripleCardRepresentative, GameState gameState) {
+    private static void ApplyFirstTripleOfAKindBonusIfPossible(this Player player, Card tripleCardRepresentative) {
+        var gameState = GSP.GameState;
+
         if (tripleCardRepresentative.IsBuildingType()) {
             if (gameState.AvailableBonusCards.Contains(BonusCard.Building)) {
                 gameState.AvailableBonusCards.Remove(BonusCard.Building);
@@ -212,7 +224,8 @@ public static class BonusSupplier {
         }
     }
 
-    public static void ApplyAllKindsSevenBonus(this Player player, GameState gameState) {
+    public static void ApplyAllKindsSevenBonusIfPossible(this Player player) {
+        var gameState = GSP.GameState;
         bool hasCloister = player.CompletedProjects.FindAll((Card obj) => obj.Class == CardClass.ActionCloister).IsNotEmpty();
         bool hasCastle = player.CompletedProjects.FindAll((Card obj) => obj.Class == CardClass.ActionCastle).IsNotEmpty();
         bool hasMine = player.CompletedProjects.FindAll((Card obj) => obj.Class == CardClass.ActionMine).IsNotEmpty();

@@ -85,6 +85,7 @@ public class EstatesController : MonoBehaviour {
 
         Image image = prefab.GetComponent<Image>();
         image.overrideSprite = CardsGenerator.GetSpriteForCard(card);
+        print(CardsGenerator.GetSpriteForCard(card));
 
         prefab.transform.position = new Vector3(position.x, position.y, 0);
     }

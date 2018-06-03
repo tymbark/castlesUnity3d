@@ -28,12 +28,18 @@ public class ChooseGoodsController : MonoBehaviour {
         dragCardText = GameObject.Find("drag_card_text");
 
         string text;
-        if (howManycards == 1) {
-            text = "take " + howManycards + " card";
-        } else {
-            text = "take " + howManycards + " cards";
-
+        switch (howManycards) {
+            case 0:
+                text = "";
+                break;
+            case 1:
+                text = "take " + howManycards + " card";
+                break;
+            default:
+                text = "take " + howManycards + " cards";
+                break;
         }
+
         GameObject.Find("how_many_text")
                   .GetComponent<TMPro.TextMeshProUGUI>()
                   .text = text;
@@ -81,13 +87,17 @@ public class ChooseGoodsController : MonoBehaviour {
             HowManyCards = HowManyCards - 1;
             if (HowManyCards == 0) {
                 UpdateView(HowManyCards);
-                Destroy(gameObject, 1f);
                 clickable = false;
-                DoneCallback();
+                Invoke("Done", 1f);
             } else {
                 UpdateView(HowManyCards);
             }
         };
+    }
+
+    private void Done() {
+        Destroy(gameObject);
+        DoneCallback();
     }
 
     private void GiveThisCardToPlayer(int index) {

@@ -29,7 +29,7 @@ public class PopupsController : MonoBehaviour {
         TMPro.TextMeshProUGUI text = messageGameObject.GetComponentInChildren<TMPro.TextMeshProUGUI>();
         text.text = message;
 
-        GameObject canvas = GameObject.Find("Canvas");
+        GameObject canvas = GameObject.Find("PopupsCanvas");
         messageGameObject.transform.SetParent(canvas.transform);
         Trash.Add(messageGameObject);
         Invoke("RemovePopups", 2.5f);
@@ -43,7 +43,7 @@ public class PopupsController : MonoBehaviour {
         TMPro.TextMeshProUGUI text = messageGameObject.GetComponentInChildren<TMPro.TextMeshProUGUI>();
         text.text = "current turn: " + name;
 
-        GameObject canvas = GameObject.Find("Canvas");
+        GameObject canvas = GameObject.Find("PopupsCanvas");
         messageGameObject.transform.SetParent(canvas.transform);
         return messageGameObject;
     }
@@ -53,7 +53,7 @@ public class PopupsController : MonoBehaviour {
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
         messageGameObject.transform.position = Vector3.one;
 
-        GameObject canvas = GameObject.Find("Canvas");
+        GameObject canvas = GameObject.Find("PopupsCanvas");
         messageGameObject.transform.SetParent(canvas.transform);
 
         messageGameObject.transform
@@ -77,11 +77,23 @@ public class PopupsController : MonoBehaviour {
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
         messageGameObject.transform.position = new Vector3(0, 0, -11);
 
-        GameObject canvas = GameObject.Find("Canvas");
+        GameObject canvas = GameObject.Find("PopupsCanvas");
         messageGameObject.transform.SetParent(canvas.transform);
         ChooseAnimalController controller = messageGameObject.AddComponent<ChooseAnimalController>();
         controller.UpdateView(howMany);
         controller.DoneCallback = callback;
+    }
+
+    public static void ShowTakeGoodsOrAnimal(System.Action callback) {
+        Object prefab = Resources.Load("Prefabs/ChooseCardPopup");
+        GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+        messageGameObject.transform.position = new Vector3(0, 0, -11);
+
+        GameObject canvas = GameObject.Find("PopupsCanvas");
+        messageGameObject.transform.SetParent(canvas.transform);
+        ChooseBothController controller = messageGameObject.AddComponent<ChooseBothController>();
+        controller.DoneCallback = callback;
+        controller.UpdateView();
     }
 
     public static void ShowTakeBuildingRewardCard(System.Action callback, CardClass bonusCardClass) {
@@ -89,7 +101,7 @@ public class PopupsController : MonoBehaviour {
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
         messageGameObject.transform.position = new Vector3(0, 0, -11);
 
-        GameObject canvas = GameObject.Find("Canvas");
+        GameObject canvas = GameObject.Find("PopupsCanvas");
         messageGameObject.transform.SetParent(canvas.transform);
         ChooseBuildingRewardController controller = messageGameObject.AddComponent<ChooseBuildingRewardController>();
         controller.BonusCardClass = bonusCardClass;
@@ -102,7 +114,7 @@ public class PopupsController : MonoBehaviour {
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
         messageGameObject.transform.position = new Vector3(0, 0, -11);
 
-        GameObject canvas = GameObject.Find("Canvas");
+        GameObject canvas = GameObject.Find("PopupsCanvas");
         messageGameObject.transform.SetParent(canvas.transform);
         ChooseGoodsController controller = messageGameObject.AddComponent<ChooseGoodsController>();
         controller.UpdateView(howMany);
@@ -114,7 +126,7 @@ public class PopupsController : MonoBehaviour {
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
         messageGameObject.transform.position = new Vector3(0, 0, -11);
 
-        GameObject canvas = GameObject.Find("Canvas");
+        GameObject canvas = GameObject.Find("PopupsCanvas");
         messageGameObject.transform.SetParent(canvas.transform);
         ChooseStackController controller = messageGameObject.AddComponent<ChooseStackController>();
         controller.UpdateView(card);
@@ -126,7 +138,7 @@ public class PopupsController : MonoBehaviour {
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
         messageGameObject.transform.position = new Vector3(0, 0, -11);
 
-        GameObject canvas = GameObject.Find("Canvas");
+        GameObject canvas = GameObject.Find("PopupsCanvas");
         messageGameObject.transform.SetParent(canvas.transform);
         ChooseBonusController controller = messageGameObject.AddComponent<ChooseBonusController>();
         controller.DoneCallback = callback;
@@ -137,7 +149,7 @@ public class PopupsController : MonoBehaviour {
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
         messageGameObject.transform.position = new Vector3(0, 0, -11);
 
-        GameObject canvas = GameObject.Find("Canvas");
+        GameObject canvas = GameObject.Find("PopupsCanvas");
         messageGameObject.transform.SetParent(canvas.transform);
         YourTurnController controller = messageGameObject.AddComponent<YourTurnController>();
     }
