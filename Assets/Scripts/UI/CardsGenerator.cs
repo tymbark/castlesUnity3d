@@ -195,16 +195,22 @@ public static class CardsGenerator {
     }
 
     public static GameObject DrawHandCard(Card card, Vector2 position, int order) {
-        var cardObject = DrawObjectFromPrefab(position, "card_physical");
 
-        var controller = cardObject.GetComponent<CardController>();
+        Object obj = Resources.Load("Prefabs/card_physical");
+        GameObject prefab = Object.Instantiate(obj) as GameObject;
+
+        GameObject canvas = GameObject.Find("PlayersHandCanvas");
+        prefab.transform.SetParent(canvas.transform);
+        prefab.transform.position = new Vector3(position.x, position.y, 0);
+
+        var controller = prefab.GetComponent<CardController>();
         controller.Card = card;
         controller.InitialLayerOrder = order;
 
-        Image image = cardObject.GetComponent<Image>();
+        Image image = prefab.GetComponent<Image>();
         image.overrideSprite = GetSpriteForCard(card);
 
-        return cardObject;
+        return prefab;
     }
 
     private static GameObject DrawCard(Card card, float x, float y, float width, float height, bool horizontal) {

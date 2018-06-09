@@ -34,7 +34,7 @@ public class GameController : MonoBehaviour {
             }
         }
 
-        UpdateView();
+        UpdateUI();
         CheckTheTurn();
     }
 
@@ -68,7 +68,7 @@ public class GameController : MonoBehaviour {
 
             if (!GSP.GameState.IsEqualTo(newGameState)) {
                 newGameState.SaveGameState();
-                UpdateView();
+                UpdateUI();
                 print("game state has changed... how refreshing");
             } else {
                 print("game state hasn't changed");
@@ -81,8 +81,11 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    private void RedrawUI() {
+    private void UpdateUI() {
         print("redraw UI view");
+        GameObject.Find("Canvas").transform.position = new Vector3(0, 0, 0);
+        GameObject.Find("Canvas").transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+
         foreach (GameObject gmo in GarbageCollector) {
             Destroy(gmo);
         }
@@ -94,6 +97,9 @@ public class GameController : MonoBehaviour {
         } else {
             ShowOrHideScreenBlockerWaitForTurn();
         }
+
+        GameObject.Find("Canvas").transform.position = new Vector3(0, 0, 20);
+        GameObject.Find("Canvas").transform.rotation = Quaternion.Euler(new Vector3(5, 0, 0));
 
     }
 
@@ -116,14 +122,14 @@ public class GameController : MonoBehaviour {
             case ClickAction.UseSilver:
                 PopupsController.ShowAreYouSurePopup(() => {
                     actions.GetUseSilverAction().ProcessAction();
-                    UpdateView();
+                    UpdateUI();
                 });
                 break;
             case ClickAction.EndTurn:
                 if (actions.HasEndTurnAction()) {
                     actions.GetEndTurnAction().ProcessAction();
 
-                    UpdateView();
+                    UpdateUI();
                     PostGameStateRequest();
 
                 } else {
@@ -137,7 +143,7 @@ public class GameController : MonoBehaviour {
                 } else {
                     GSP.GameState.AvailableProjectCards.Add(new ProjectCard(GSP.GameState.MainDeck.DrawCard(), CardDice.I));
                 }
-                UpdateView();
+                UpdateUI();
 
                 print("todo exit game ...");
                 break;
@@ -177,7 +183,7 @@ public class GameController : MonoBehaviour {
             Action actionForExecute = actions.GetAvailableMove(targetCard, actionCard);
 
             actionForExecute.ProcessAction(() => {
-                UpdateView();
+                UpdateUI();
                 CheckTheTurn();
             });
         }
@@ -202,10 +208,6 @@ public class GameController : MonoBehaviour {
     public void HandleCardLeaveAction(GameObject playerCardObject, GameObject targetCardObject) {
         targetCardObject.ResetColor();
         DropCardController controller = targetCardObject.GetDragDropController();
-    }
-
-    public static void UpdateView() {
-        GameObject.Find("GameObjectController").GetComponent<GameController>().RedrawUI();
     }
 
     private static void HandleSilverCardHooverOverProjectCard() {

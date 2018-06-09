@@ -75,7 +75,7 @@ public class PopupsController : MonoBehaviour {
     public static void ShowChooseAnimalPopup(int howMany, System.Action callback) {
         Object prefab = Resources.Load("Prefabs/ChooseCardPopup");
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
-        messageGameObject.transform.position = new Vector3(0, 0, -11);
+        messageGameObject.transform.position = new Vector3(0, 0, -36);
 
         GameObject canvas = GameObject.Find("PopupsCanvas");
         messageGameObject.transform.SetParent(canvas.transform);
@@ -87,7 +87,7 @@ public class PopupsController : MonoBehaviour {
     public static void ShowTakeGoodsOrAnimal(System.Action callback) {
         Object prefab = Resources.Load("Prefabs/ChooseCardPopup");
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
-        messageGameObject.transform.position = new Vector3(0, 0, -11);
+        messageGameObject.transform.position = new Vector3(0, 0, -36);
 
         GameObject canvas = GameObject.Find("PopupsCanvas");
         messageGameObject.transform.SetParent(canvas.transform);
@@ -99,7 +99,7 @@ public class PopupsController : MonoBehaviour {
     public static void ShowTakeBuildingRewardCard(System.Action callback, CardClass bonusCardClass) {
         Object prefab = Resources.Load("Prefabs/ChooseBuildingRewardCard");
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
-        messageGameObject.transform.position = new Vector3(0, 0, -11);
+        messageGameObject.transform.position = new Vector3(0, 0, -36);
 
         GameObject canvas = GameObject.Find("PopupsCanvas");
         messageGameObject.transform.SetParent(canvas.transform);
@@ -112,7 +112,7 @@ public class PopupsController : MonoBehaviour {
     public static void ShowChooseGoodsPopup(int howMany, System.Action callback) {
         Object prefab = Resources.Load("Prefabs/ChooseCardPopup");
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
-        messageGameObject.transform.position = new Vector3(0, 0, -11);
+        messageGameObject.transform.position = new Vector3(0, 0, -36);
 
         GameObject canvas = GameObject.Find("PopupsCanvas");
         messageGameObject.transform.SetParent(canvas.transform);
@@ -124,7 +124,7 @@ public class PopupsController : MonoBehaviour {
     public static void ShowChooseTripleStackPopup(Card card, System.Action<int> callback) {
         Object prefab = Resources.Load("Prefabs/ChooseStackPopup");
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
-        messageGameObject.transform.position = new Vector3(0, 0, -11);
+        messageGameObject.transform.position = new Vector3(0, 0, -36);
 
         GameObject canvas = GameObject.Find("PopupsCanvas");
         messageGameObject.transform.SetParent(canvas.transform);
@@ -136,7 +136,7 @@ public class PopupsController : MonoBehaviour {
     public static void ShowChooseTripleBonusPopup(System.Action callback) {
         Object prefab = Resources.Load("Prefabs/ChooseTripleBonusPopup");
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
-        messageGameObject.transform.position = new Vector3(0, 0, -11);
+        messageGameObject.transform.position = new Vector3(0, 0, -36);
 
         GameObject canvas = GameObject.Find("PopupsCanvas");
         messageGameObject.transform.SetParent(canvas.transform);
@@ -147,7 +147,7 @@ public class PopupsController : MonoBehaviour {
     public static void ShowYourTurnPopup() {
         Object prefab = Resources.Load("Prefabs/YourTurnPopup");
         GameObject messageGameObject = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
-        messageGameObject.transform.position = new Vector3(0, 0, -11);
+        messageGameObject.transform.position = new Vector3(0, 0, -36);
 
         GameObject canvas = GameObject.Find("PopupsCanvas");
         messageGameObject.transform.SetParent(canvas.transform);

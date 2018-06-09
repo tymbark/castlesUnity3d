@@ -37,6 +37,14 @@ public class ChooseAnimalController : MonoBehaviour {
                 break;
         }
 
+        print(GameObject.Find("how_many_text"));
+        print(GameObject.Find("how_many_text")
+              .GetComponent<TMPro.TextMeshProUGUI>());
+        print(GameObject.Find("how_many_text")
+              .GetComponent<RectTransform>());
+        print(GameObject.Find("how_many_text")
+              .GetComponent<TMPro.TextMeshProUGUI>().text);
+        print(text);
         GameObject.Find("how_many_text")
                   .GetComponent<TMPro.TextMeshProUGUI>()
                   .text = text;
