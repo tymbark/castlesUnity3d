@@ -264,4 +264,58 @@ public static class BonusSupplier {
         }
     }
 
+    public static void ApplyBonusPointsForAnimals() {
+        var players = GSP.GameState.Players;
+
+        foreach (Player player in players) {
+            int numberOfCows = player.Animals.FindAll((Card obj) => obj.Class == CardClass.Cow).Count;
+            int numberOfChickens = player.Animals.FindAll((Card obj) => obj.Class == CardClass.Chicken).Count;
+            int numberOfPigs = player.Animals.FindAll((Card obj) => obj.Class == CardClass.Pig).Count;
+            int numberOfSheep = player.Animals.FindAll((Card obj) => obj.Class == CardClass.Sheep).Count;
+
+            while (true) {
+                int uniqueAnimals = 0;
+
+                if (numberOfCows > 0) {
+                    uniqueAnimals++;
+                    numberOfCows--;
+                }
+
+                if (numberOfChickens > 0) {
+                    uniqueAnimals++;
+                    numberOfChickens--;
+                }
+
+                if (numberOfPigs > 0) {
+                    uniqueAnimals++;
+                    numberOfPigs--;
+                }
+
+                if (numberOfSheep > 0) {
+                    uniqueAnimals++;
+                    numberOfSheep--;
+                }
+
+                switch (uniqueAnimals) {
+
+                    case 4:
+                        player.Score = player.Score + 4;
+                        break;
+                    case 3:
+                        player.Score = player.Score + 2;
+                        break;
+                    case 2:
+                        player.Score = player.Score + 1;
+                        break;
+                    default:
+                        return;
+
+                }
+
+            }
+
+        }
+
+    }
+
 }

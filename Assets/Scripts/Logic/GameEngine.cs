@@ -105,6 +105,7 @@ public class GameEngine {
     }
 
     private static void FinishGame() {
+        BonusSupplier.ApplyBonusPointsForAnimals();
         GSP.GameState.IsFinished = true;
     }
 
@@ -146,7 +147,7 @@ public class GameEngine {
     }
 
     private static void DrawProjectCards() {
-
+        GSP.GameState.AvailableProjectCards.Clear();
         int howManyProjectCardsPerTurn = 0;
 
         switch (GSP.GameState.HowManyPlayers) {
@@ -160,6 +161,7 @@ public class GameEngine {
                 howManyProjectCardsPerTurn = 13;
                 break;
         }
+
 
         for (int i = 0; i < howManyProjectCardsPerTurn; i++) {
 
