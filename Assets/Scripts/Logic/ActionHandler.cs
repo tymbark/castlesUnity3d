@@ -39,18 +39,22 @@ public static class ActionHandler {
         }
 
         if (currentPlayer.BuySilverActionAvailable()) {
+            UnityEngine.Debug.Log("BuySilverActionAvailable");
             availableActions.AddRange(currentPlayer.ReadyToBuySilverActions());
         }
 
         if (currentPlayer.SellWorkersAndSilverActionAvailable()) {
+            UnityEngine.Debug.Log("SellWorkersAndSilverActionAvailable");
             availableActions.AddRange(currentPlayer.ReadyToSellSilverAndWorkersActions());
         }
 
         if (currentPlayer.UseSilverActionAvailable()) {
+            UnityEngine.Debug.Log("UseSilverActionAvailable");
             availableActions.AddRange(currentPlayer.ReadyToUseSilverActions());
         }
 
         if (currentPlayer.TakeFreeSilverProjectActionsAvailable()) {
+            UnityEngine.Debug.Log("TakeFreeSilverProjectActionsAvailable");
             availableActions.AddRange(currentPlayer.ReadyToTakeFreeSilverProjectActions());
         }
 

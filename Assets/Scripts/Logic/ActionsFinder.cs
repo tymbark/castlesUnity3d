@@ -118,6 +118,7 @@ public static class ActionsFinder {
         List<Card> bonusCards = p.BonusActionCards.OnlySilverAndCastleBonuses();
         List<Card> availableCards = p.NormalActionAvailable() ? p.Cards.JoinWith(bonusCards) : bonusCards;
 
+        UnityEngine.Debug.Log("availableCards " + availableCards.Count);
         foreach (Card card in availableCards) {
             actionsSellSilverAndWorkers.AddRange(LogicHelper.SellStuffAllCombinations(card, p.SilverCount, p.WorkersCount));
         }

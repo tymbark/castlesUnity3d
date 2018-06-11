@@ -86,6 +86,7 @@ public static class LogicHelper {
             }
         }
 
+        UnityEngine.Debug.Log("actions size" + actions.Count);
         return actions;
     }
 

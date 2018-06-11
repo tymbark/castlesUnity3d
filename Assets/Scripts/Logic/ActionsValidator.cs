@@ -40,7 +40,7 @@ public static class ActionsValidator {
 
     public static bool SellWorkersAndSilverActionAvailable(this Player p) {
         return p.AnyActionAvailable()
-            && p.WorkersCount + p.SilverCount > 3;
+            && p.WorkersCount + p.SilverCount >= 3;
     }
 
     public static bool EndTurnActionAvailable(this Player p) {
