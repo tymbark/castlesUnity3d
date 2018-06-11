@@ -102,7 +102,9 @@ public static class ActionsProcessor {
 
             case ActionType.BuyWorkers:
                 cp.WithdrawUsedCard(action.ActionCard);
-                cp.WorkersCount = 2;
+                if (cp.WorkersCount < 2) {
+                    cp.WorkersCount = 2;
+                }
                 doneCallback();
                 break;
 

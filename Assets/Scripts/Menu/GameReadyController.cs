@@ -26,7 +26,7 @@ public class GameReadyController : MonoBehaviour {
             Invoke("OpenMainGameBoard", 1);
         } else {
             print("cannot get game state, retry in 3 sec");
-            Invoke("GetGameState", 3);
+            Invoke("GetGameState", 2);
         }
     }
 

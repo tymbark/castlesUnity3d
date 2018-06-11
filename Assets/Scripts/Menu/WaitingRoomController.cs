@@ -36,10 +36,10 @@ public class WaitingRoomController : MonoBehaviour {
                 }
 
             } else {
-                Invoke("GetGameInfo", 3);
+                Invoke("GetGameInfo", 2);
             }
         } else {
-            Invoke("GetGameInfo", 3);
+            Invoke("GetGameInfo", 2);
         }
     }
 

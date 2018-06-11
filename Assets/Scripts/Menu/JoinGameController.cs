@@ -51,7 +51,7 @@ public class JoinGameController : MonoBehaviour {
             }
         }
 
-        Invoke("GetAvailableGames", 3);
+        Invoke("GetAvailableGames", 2);
     }
 
     private void CleanGarbageCollector() {
