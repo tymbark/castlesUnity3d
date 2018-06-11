@@ -210,7 +210,4 @@ public class GameController : MonoBehaviour {
         DropCardController controller = targetCardObject.GetDragDropController();
     }
 
-    private static void HandleSilverCardHooverOverProjectCard() {
-
-    }
 }
