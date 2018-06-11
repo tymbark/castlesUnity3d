@@ -2,18 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using Models;
 using GD = GameDimensions;
 using ED = EstatesDimensions;
 using GSP = GameStateProvider;
 
-public class EstatesController : MonoBehaviour {
+public class EstatesController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler {
+
+    float currentDragPosition = 0;
+    float maxDragPosition = 0;
+    bool draggingAllowed = true;
+
+    private List<GameObject> GarbageCollector = new List<GameObject>();
 
     void Start() {
+        UpdateUI();
+    }
+
+    private void UpdateUI() {
         for (int i = 0; i < GSP.GameState.Players.Count; i++) {
             Player p = GSP.GameState.Players[i];
             DrawPlayerEstate(p, i);
         }
+
     }
 
     private void DrawPlayerEstate(Player player, int index) {
@@ -41,7 +53,7 @@ public class EstatesController : MonoBehaviour {
         }
     }
 
-    private static void DrawPlayerName(Vector2 position, string text) {
+    private void DrawPlayerName(Vector2 position, string text) {
         Object obj = Resources.Load("Prefabs/TextPlayerName");
         GameObject prefab = Instantiate(obj) as GameObject;
 
@@ -52,31 +64,41 @@ public class EstatesController : MonoBehaviour {
 
         TMPro.TextMeshProUGUI textObj = prefab.GetComponent<TMPro.TextMeshProUGUI>();
         textObj.text = "" + text;
+
+        GarbageCollector.Add(prefab);
     }
 
-    private static GameObject DrawPoints(Vector2 position, int points) {
+    private void DrawPoints(Vector2 position, int points) {
         GameObject pointsCard = CardsGenerator.CreateCardGameObject("small_card_empty", position, false, true);
         pointsCard.AddSmallText(points + "", false, true);
 
-        return pointsCard;
+        GarbageCollector.Add(pointsCard);
     }
 
-    private static void DrawPlayerCards(Player player, float axisY) {
-        float margin = ED.CardsSpaceStart;
+    private void DrawPlayerCards(Player player, float axisY) {
+        float margin = ED.CardsSpaceStart + currentDragPosition;
 
         var triples = player.GetAllTriples();
 
         foreach (List<Card> cards in triples) {
             foreach (Card card in cards) {
+
+                if (margin + GD.CardWidth >= 960) {
+                    draggingAllowed = true;
+                } else {
+                    draggingAllowed = false;
+                }
+
                 DrawCard(new Vector2(margin, axisY), card);
                 margin += GD.CardWidth * 0.6f;
             }
-            margin += GD.CardWidth + GD.MarginSmall;
+            margin += GD.CardWidth * 0.4f + GD.MarginBig;
+
         }
 
     }
 
-    private static void DrawCard(Vector2 position, Card card) {
+    private void DrawCard(Vector2 position, Card card) {
         Object obj = Resources.Load("Prefabs/Card");
         GameObject prefab = Instantiate(obj) as GameObject;
 
@@ -85,9 +107,50 @@ public class EstatesController : MonoBehaviour {
 
         Image image = prefab.GetComponent<Image>();
         image.overrideSprite = CardsGenerator.GetSpriteForCard(card);
-        print(CardsGenerator.GetSpriteForCard(card));
+        //print(CardsGenerator.GetSpriteForCard(card));
 
         prefab.transform.position = new Vector3(position.x, position.y, 0);
+        GarbageCollector.Add(prefab);
     }
+
+    public void OnBeginDrag(PointerEventData eventData) {
+        print("OnBeginDrag");
+    }
+
+    public void OnDrag(PointerEventData eventData) {
+        print("OnDrag");
+        GarbageCollector.ForEach((GameObject obj) => Destroy(obj));
+        GarbageCollector.Clear();
+        UpdateUI();
+
+        print(eventData.delta.x);
+        print(currentDragPosition);
+
+        if (draggingAllowed) {
+            if (eventData.delta.x < 0 || currentDragPosition < 0) {
+                currentDragPosition += eventData.delta.x;
+            }
+        } else {
+            if (eventData.delta.x > 0 && currentDragPosition < 0) {
+                currentDragPosition += eventData.delta.x;
+            }
+        }
+
+
+
+        //if (Mathf.Abs(currentDragPosition) < maxDragPosition) {
+        //    currentDragPosition += eventData.delta.x;
+        //}
+
+        //if (currentDragPosition > 0) {
+        //    currentDragPosition = 0;
+        //}
+
+    }
+
+    public void OnEndDrag(PointerEventData eventData) {
+        print("OnEndDrag");
+    }
+
 
 }

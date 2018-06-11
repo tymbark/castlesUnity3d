@@ -29,12 +29,22 @@ public class GameEngine {
         GSP.GameState.Players[0].SilverCount = 0;
         GSP.GameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionShip, CardDice.II));
 
-        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionBank, CardDice.V, 0, 1));
-        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionCastle, CardDice.V, 1, 1));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionBank, CardDice.V, 0, 2));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionCastle, CardDice.V, 1, 3));
         GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionMine, CardDice.V, 1, 1));
         GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionKnowledge, CardDice.V, 1, 1));
         GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionPasture, CardDice.V, 1, 1));
         GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionCloister, CardDice.V, 1, 1));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionCloister, CardDice.V, 1, 1));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionCloister, CardDice.V, 1, 4));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionCloister, CardDice.V, 1, 4));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionCloister, CardDice.V, 1, 4));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionCloister, CardDice.V, 1, 5));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionCloister, CardDice.V, 1, 6));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionCloister, CardDice.V, 1, 6));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionCloister, CardDice.V, 1, 7));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionCloister, CardDice.V, 1, 8));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionCloister, CardDice.V, 1, 8));
 
     }
 

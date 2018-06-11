@@ -54,16 +54,8 @@ public class BonusesTakenController : MonoBehaviour {
     }
 
     private static void DrawPoints(Vector2 position, string points) {
-        Object obj = Resources.Load("Prefabs/TextPoints");
-        GameObject prefab = Instantiate(obj) as GameObject;
-
-        GameObject canvas = GameObject.Find("Canvas");
-        prefab.transform.SetParent(canvas.transform);
-
-        prefab.transform.position = new Vector3(position.x, position.y, 0);
-
-        TMPro.TextMeshProUGUI textObj = prefab.GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        textObj.text = "" + points;
+        GameObject pointsCard = CardsGenerator.CreateCardGameObject("small_card_empty", position, false, true);
+        pointsCard.AddSmallText(points, false, true);
     }
 
     private static void DrawPlayerBonuses(Player player, float axisY) {
