@@ -10,6 +10,7 @@ using GSP = GameStateProvider;
 public class GameController : MonoBehaviour {
 
     public bool ClicksEnabled = true;
+    public bool EndTurnParticleSystemVisible = false;
     private bool YourTurnPopupShowed = true;
     private GameEngine GameEngine;
     private List<GameObject> GarbageCollector = new List<GameObject>();
@@ -19,6 +20,15 @@ public class GameController : MonoBehaviour {
 
     private void Awake() {
         GameEngine = new GameEngine();
+    }
+
+    private void Update() {
+        var ps = GameObject.Find("Canvas").GetComponentInChildren<ParticleSystem>();
+        if (EndTurnParticleSystemVisible) {
+            ps.Play();
+        } else {
+            ps.Stop();
+        }
     }
 
     void Start() {
@@ -36,6 +46,12 @@ public class GameController : MonoBehaviour {
 
         UpdateUI();
         CheckTheTurn();
+
+        if (GSP.GameState.GetAvailableActions().FindAll((Action obj) => obj.Type == ActionType.EndTurn).Count == 1) {
+            EndTurnParticleSystemVisible = true;
+        } else {
+            EndTurnParticleSystemVisible = false;
+        }
     }
 
     private void GetGameStateRequest() {
@@ -187,6 +203,13 @@ public class GameController : MonoBehaviour {
                 CheckTheTurn();
             });
         }
+
+        if (GSP.GameState.GetAvailableActions().FindAll((Action obj) => obj.Type == ActionType.EndTurn).Count == 1) {
+            EndTurnParticleSystemVisible = true;
+        } else {
+            EndTurnParticleSystemVisible = false;
+        }
+
     }
 
     public void HandleCardHoverAction(GameObject playerCardObject, GameObject targetCardObject) {
