@@ -7,6 +7,7 @@ using GSP = GameStateProvider;
 public class GameEngine {
 
     public GameEngine() {
+        
 
         if (!DataPersistance.GameStateExists()) {
             //only for debug - starting game scene
@@ -24,12 +25,16 @@ public class GameEngine {
 
     private static void AddDebugOptions() {
 
-        GSP.GameState.Players[0].WorkersCount = 0;
-        GSP.GameState.Players[0].SilverCount = 3;
-        GSP.GameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionBoardinghouse, CardDice.V));
+        GSP.GameState.Players[0].WorkersCount = 3;
+        GSP.GameState.Players[0].SilverCount = 0;
+        GSP.GameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionShip, CardDice.II));
 
-        //GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionBank, CardDice.V, 0, 1));
-        //GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionBank, CardDice.V, 1, 1));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionBank, CardDice.V, 0, 1));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionCastle, CardDice.V, 1, 1));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionMine, CardDice.V, 1, 1));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionKnowledge, CardDice.V, 1, 1));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionPasture, CardDice.V, 1, 1));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionCloister, CardDice.V, 1, 1));
 
     }
 

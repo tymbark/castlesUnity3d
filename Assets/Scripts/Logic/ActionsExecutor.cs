@@ -65,8 +65,6 @@ public static class ActionsExecutor {
                                            + newTripleId + ". Found " + recentlyIncreasedTriples.Count);
             }
 
-            gameState.CurrentPlayer.ApplyAllKindsSevenBonusIfPossible();
-
             var applyBonus = recentlyIncreasedTriples[0].Count == 3;
 
             return applyBonus;

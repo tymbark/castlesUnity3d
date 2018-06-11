@@ -236,31 +236,35 @@ public static class BonusSupplier {
 
         bool hasAllSeven = hasCloister && hasCastle && hasMine && hasShip && hasKnowledge && hasPasture && hasBuilding;
 
-        if (hasAllSeven) {
-            foreach (BonusCard bc in gameState.AvailableBonusCards) {
-                switch (bc) {
-                    case BonusCard.AllSeven4:
-                        gameState.AvailableBonusCards.Remove(bc);
-                        player.ReceivedBonuses.Add(bc);
-                        player.Score = player.Score + 4;
-                        return;
-                    case BonusCard.AllSeven3:
-                        gameState.AvailableBonusCards.Remove(bc);
-                        player.ReceivedBonuses.Add(bc);
-                        player.Score = player.Score + 3;
-                        break;
-                    case BonusCard.AllSeven2:
-                        gameState.AvailableBonusCards.Remove(bc);
-                        player.ReceivedBonuses.Add(bc);
-                        player.Score = player.Score + 2;
-                        break;
-                    case BonusCard.AllSeven1:
-                        gameState.AvailableBonusCards.Remove(bc);
-                        player.ReceivedBonuses.Add(bc);
-                        player.Score = player.Score + 1;
-                        break;
-                }
+        if (hasAllSeven && gameState.AvailableBonusCards.IsNotEmpty()) {
+
+            List<BonusCard> availableBonusCards = gameState.AvailableBonusCards;
+
+            if (availableBonusCards.FindAll((BonusCard obj) => obj == BonusCard.AllSeven4).Count == 1) {
+                var bonusCard = availableBonusCards.FindAll((BonusCard obj) => obj == BonusCard.AllSeven4)[0];
+                gameState.AvailableBonusCards.Remove(bonusCard);
+                player.ReceivedBonuses.Add(bonusCard);
+                player.Score += 4;
+
+            } else if (availableBonusCards.FindAll((BonusCard obj) => obj == BonusCard.AllSeven3).Count == 1) {
+                var bonusCard = availableBonusCards.FindAll((BonusCard obj) => obj == BonusCard.AllSeven3)[0];
+                gameState.AvailableBonusCards.Remove(bonusCard);
+                player.ReceivedBonuses.Add(bonusCard);
+                player.Score += 3;
+
+            } else if (availableBonusCards.FindAll((BonusCard obj) => obj == BonusCard.AllSeven2).Count == 1) {
+                var bonusCard = availableBonusCards.FindAll((BonusCard obj) => obj == BonusCard.AllSeven2)[0];
+                gameState.AvailableBonusCards.Remove(bonusCard);
+                player.ReceivedBonuses.Add(bonusCard);
+                player.Score += 2;
+
+            } else if (availableBonusCards.FindAll((BonusCard obj) => obj == BonusCard.AllSeven1).Count == 1) {
+                var bonusCard = availableBonusCards.FindAll((BonusCard obj) => obj == BonusCard.AllSeven1)[0];
+                gameState.AvailableBonusCards.Remove(bonusCard);
+                player.ReceivedBonuses.Add(bonusCard);
+                player.Score += 1;
             }
+
         }
     }
 

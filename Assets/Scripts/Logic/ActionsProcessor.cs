@@ -48,6 +48,7 @@ public static class ActionsProcessor {
 
                         int newTripleId = cp.CompletedProjects.Count + 1;
                         bool didFinishTriple = GSP.GameState.CompleteProject(action.TargetCard, newTripleId);
+                        GSP.GameState.CurrentPlayer.ApplyAllKindsSevenBonusIfPossible();
 
                         if (didFinishTriple) {
                             UnityEngine.Debug.Log("triple finished");
@@ -69,6 +70,8 @@ public static class ActionsProcessor {
 
                             UnityEngine.Debug.Log("choose triple stack done");
                             bool didFinishTriple = GSP.GameState.CompleteProject(action.TargetCard, tripleId);
+
+                            GSP.GameState.CurrentPlayer.ApplyAllKindsSevenBonusIfPossible();
 
                             if (didFinishTriple) {
                                 UnityEngine.Debug.Log("triple finished");

@@ -421,7 +421,7 @@ public static class Utils {
 
     public static bool HasSellSilverOrWorkersAction(this List<Action> actions, Card actionCard) {
         return actions.FindAll((Action obj) => obj.Type == ActionType.SellSilverAndWorkers
-            && obj.ActionCard.IsEqualTo(actionCard)).Count == 1;
+            && obj.ActionCard.IsEqualTo(actionCard)).Count > 0;
     }
 
     public static Action GetShipGoodsAction(this List<Action> actions, Card actionCard) {
@@ -437,7 +437,7 @@ public static class Utils {
 
     public static bool HasShipGoodsAction(this List<Action> actions, Card actionCard) {
         return actions.FindAll((Action obj) => obj.Type == ActionType.ShipGoods
-            && obj.ActionCard.IsEqualTo(actionCard)).Count == 1;
+            && obj.ActionCard.IsEqualTo(actionCard)).Count > 1;
     }
 
     public static bool HasTakeGoodsAction(this List<Action> actions, Card actionCard) {
