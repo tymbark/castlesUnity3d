@@ -14,7 +14,7 @@ public class GameFinishedController : MonoBehaviour {
         sortedPlayers.AddRange(GSP.GameState.Players);
         sortedPlayers.Sort(
             delegate (Player p1, Player p2) {
-                return p1.Score.CompareTo(p2.Score);
+                return p2.Score.CompareTo(p1.Score);
             }
         );
 
@@ -51,11 +51,15 @@ public class GameFinishedController : MonoBehaviour {
               .GetComponentInChildren<TMPro.TextMeshProUGUI>()
               .text = player.NickName;
 
-        prefab.transform
-              .GetChild(2)
-              .GetChild(0)
-              .GetComponentInChildren<TMPro.TextMeshProUGUI>()
-              .text = player.Score + "";
+
+        var pointsPosition = prefab.transform
+                                   .GetChild(2)
+                                   .GetChild(0)
+                                   .transform
+                                   .position;
+
+        GameObject pointsCard = CardsGenerator.CreateCardGameObject("small_card_empty", pointsPosition, false, true);
+        pointsCard.AddSmallText(player.Score + "", false, true);
 
         TMPro.TextMeshProUGUI textObj = prefab.GetComponentInChildren<TMPro.TextMeshProUGUI>();
         textObj.text = GetPlaceString(place);
