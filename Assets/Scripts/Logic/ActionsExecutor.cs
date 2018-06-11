@@ -78,11 +78,9 @@ public static class ActionsExecutor {
     public static void ShipGoods(this Player p, Card card) {
         var goodsToShip = p.Goods.FindAll((Card obj) => obj.Dice == card.Dice);
 
-        foreach (Card good in goodsToShip) {
-            p.Goods.Remove(card);
-            p.SilverCount++;
-            p.Score++;
-        }
+        var howManyRemoved = p.Goods.RemoveAll((Card obj) => obj.Dice == card.Dice);
+        p.Score = p.Score + howManyRemoved;
+        p.SilverCount = p.SilverCount + howManyRemoved;
     }
 
     public static void MoveFirstPlayerBonusCard(this Player p) {

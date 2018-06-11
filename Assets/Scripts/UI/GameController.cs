@@ -185,6 +185,12 @@ public class GameController : MonoBehaviour {
                 SceneLoader.LoadGoodsScene();
                 break;
         }
+
+        if (GSP.GameState.GetAvailableActions().FindAll((Action obj) => obj.Type == ActionType.EndTurn).Count == 1) {
+            EndTurnParticleSystemVisible = true;
+        } else {
+            EndTurnParticleSystemVisible = false;
+        }
     }
 
     public void HandleCardDroppedAction(GameObject playerCardObject, GameObject targetCardObject) {

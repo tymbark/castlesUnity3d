@@ -398,6 +398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ClicksEnabled: 1
+  EndTurnParticleSystemVisible: 0
 --- !u!114 &622663490
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -25,12 +25,15 @@ public class GameEngine {
 
     private static void AddDebugOptions() {
 
+        GSP.GameState.CurrentRound = Round.D;
+        //GSP.GameState.Players[0].Goods.Add(new Card(CardClass.Goods, CardDice.I_II));
+        //GSP.GameState.Players[0].Goods.Add(new Card(CardClass.Goods, CardDice.I_II));
         //GSP.GameState.Players[0].WorkersCount = 3;
         //GSP.GameState.Players[0].SilverCount = 0;
-        //GSP.GameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionShip, CardDice.II));
+        GSP.GameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCastle, CardDice.II));
 
-        //GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionBank, CardDice.V, 0, 2));
-        //GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionCastle, CardDice.V, 1, 3));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionCastle, CardDice.V, 0, 1));
+        GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionCastle, CardDice.V, 1, 1));
         //GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionMine, CardDice.V, 1, 1));
 
 

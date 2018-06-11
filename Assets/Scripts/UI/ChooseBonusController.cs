@@ -238,13 +238,13 @@ public class ChooseBonusController : MonoBehaviour {
                 break;
             case Round.D:
                 switch (number) {
-                    case 1:
+                    case 3:
                         currentPlayer.WorkersCount = currentPlayer.WorkersCount + 2;
                         break;
-                    case 2:
+                    case 4:
                         currentPlayer.SilverCount = currentPlayer.SilverCount + 2;
                         break;
-                    case 4:
+                    case 5:
                         currentPlayer.WorkersCount = currentPlayer.WorkersCount + 1;
                         currentPlayer.SilverCount = currentPlayer.SilverCount + 1;
                         break;
