@@ -78,14 +78,13 @@ public class EstatesController : MonoBehaviour, IDragHandler, IEndDragHandler, I
         float margin = ED.CardsSpaceStart + currentDragPosition;
 
         var triples = player.GetAllTriples();
+        draggingAllowed = false;
 
         foreach (List<Card> cards in triples) {
             foreach (Card card in cards) {
 
                 if (margin + GD.CardWidth >= 960) {
                     draggingAllowed = true;
-                } else {
-                    draggingAllowed = false;
                 }
 
                 DrawCard(new Vector2(margin, axisY), card);

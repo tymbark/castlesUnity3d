@@ -155,9 +155,9 @@ public class ChooseBonusController : MonoBehaviour {
                 DrawCard(posCard42, new Card(CardClass.Silver), bonus5);
                 break;
             case Round.E:
-                DrawCard(posCard12, new Card(CardClass.Worker), bonus4);
+                DrawCard(posCard12, new Card(CardClass.Worker), bonus1);
 
-                DrawCard(posCard22, new Card(CardClass.Silver), bonus4);
+                DrawCard(posCard22, new Card(CardClass.Silver), bonus2);
                 break;
         }
     }
