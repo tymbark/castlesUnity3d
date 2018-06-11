@@ -10,8 +10,7 @@ using GSP = GameStateProvider;
 
 public class EstatesController : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler {
 
-    float currentDragPosition = 0;
-    float maxDragPosition = 0;
+    float currentDragPosition;
     bool draggingAllowed = true;
 
     private List<GameObject> GarbageCollector = new List<GameObject>();
@@ -107,18 +106,14 @@ public class EstatesController : MonoBehaviour, IDragHandler, IEndDragHandler, I
 
         Image image = prefab.GetComponent<Image>();
         image.overrideSprite = CardsGenerator.GetSpriteForCard(card);
-        //print(CardsGenerator.GetSpriteForCard(card));
 
         prefab.transform.position = new Vector3(position.x, position.y, 0);
         GarbageCollector.Add(prefab);
     }
 
-    public void OnBeginDrag(PointerEventData eventData) {
-        print("OnBeginDrag");
-    }
+    public void OnBeginDrag(PointerEventData eventData) { }
 
     public void OnDrag(PointerEventData eventData) {
-        print("OnDrag");
         GarbageCollector.ForEach((GameObject obj) => Destroy(obj));
         GarbageCollector.Clear();
         UpdateUI();
@@ -137,20 +132,9 @@ public class EstatesController : MonoBehaviour, IDragHandler, IEndDragHandler, I
         }
 
 
-
-        //if (Mathf.Abs(currentDragPosition) < maxDragPosition) {
-        //    currentDragPosition += eventData.delta.x;
-        //}
-
-        //if (currentDragPosition > 0) {
-        //    currentDragPosition = 0;
-        //}
-
     }
 
-    public void OnEndDrag(PointerEventData eventData) {
-        print("OnEndDrag");
-    }
+    public void OnEndDrag(PointerEventData eventData) { }
 
 
 }
