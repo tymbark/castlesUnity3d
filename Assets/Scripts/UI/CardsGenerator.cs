@@ -21,6 +21,12 @@ public static class CardsGenerator {
         DropCardController dcc = gameObject.AddComponent<DropCardController>();
         dcc.Card = c;
         dcc.DragDropAction = DragDropAction.TakeProject;
+
+        gameObject.AddComponent<ClickActionScript>()
+                  .ClickMethod = (item) => {
+                      PopupsController.ShowCardZoomPopup(c);
+                  };
+
         return gameObject;
     }
 
@@ -29,6 +35,12 @@ public static class CardsGenerator {
         DropCardController dcc = gameObject.AddComponent<DropCardController>();
         dcc.Card = c;
         dcc.DragDropAction = DragDropAction.BuildProject;
+
+        gameObject.AddComponent<ClickActionScript>()
+                  .ClickMethod = (item) => {
+                      PopupsController.ShowCardZoomPopup(c);
+                  };
+
         return gameObject;
     }
 

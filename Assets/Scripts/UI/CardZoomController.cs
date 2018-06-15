@@ -13,7 +13,6 @@ public class CardZoomController : MonoBehaviour {
     private Card card;
 
     public void UpdateView(Card card) {
-        print("UpdateView");
         cardObject = GameObject.Find("card_object");
         cardName = GameObject.Find("card_name");
         cardDescription = GameObject.Find("description_test");
@@ -27,6 +26,7 @@ public class CardZoomController : MonoBehaviour {
 
         doneButton.AddComponent<ClickActionScript>()
                   .ClickMethod = (item) => {
+                      print("done clicked");
                       Destroy(gameObject, 0.5f);
                   };
     }
