@@ -11,6 +11,13 @@ public class DropCardController : MonoBehaviour {
     public Card Card { get { return GetCard(); } set { _Card = value; } }
     public DragDropAction DragDropAction;
 
+    private void Start() {
+        gameObject.AddComponent<ClickActionScript>()
+                  .ClickMethod = (item) => {
+                      PopupsController.ShowCardZoomPopup(_Card);
+                  };
+    }
+
     private Card GetCard() {
         switch (DragDropAction) {
             case DragDropAction.BuyWorkers:

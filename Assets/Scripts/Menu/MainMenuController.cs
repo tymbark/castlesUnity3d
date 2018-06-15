@@ -23,7 +23,6 @@ public class MainMenuController : MonoBehaviour {
                   .AddComponent<ClickActionScript>()
                   .ClickMethod = OptionsClicked;
 
-
     }
 
     private void NewGameClicked(object param) {

@@ -303,12 +303,15 @@ public static class BonusSupplier {
                 switch (uniqueAnimals) {
 
                     case 4:
+                        UnityEngine.Debug.Log("add 4 points");
                         player.Score = player.Score + 4;
                         break;
                     case 3:
+                        UnityEngine.Debug.Log("add 2 points");
                         player.Score = player.Score + 2;
                         break;
                     case 2:
+                        UnityEngine.Debug.Log("add 1 points");
                         player.Score = player.Score + 1;
                         break;
                     default:

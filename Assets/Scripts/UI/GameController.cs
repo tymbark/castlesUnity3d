@@ -52,6 +52,7 @@ public class GameController : MonoBehaviour {
         } else {
             EndTurnParticleSystemVisible = false;
         }
+
     }
 
     private void GetGameStateRequest() {
@@ -153,6 +154,7 @@ public class GameController : MonoBehaviour {
                 }
                 break;
             case ClickAction.ExitGame:
+                
 
                 if (GSP.GameState.CurrentPlayer.Cards.Count < 2) {
                     GSP.GameState.CurrentPlayer.Cards.Add(GSP.GameState.MainDeck.DrawCard());

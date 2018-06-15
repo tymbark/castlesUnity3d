@@ -21,15 +21,23 @@ public class GameEngine {
             GameState.SaveGameState();
         }
 
+        AddDebugOptions();
+
     }
 
     private static void AddDebugOptions() {
 
-        GSP.GameState.CurrentRound = Round.D;
+        GSP.GameState.CurrentRound = Round.E;
+        GSP.GameState.CurrentTurn = 6;
         //GSP.GameState.Players[0].Goods.Add(new Card(CardClass.Goods, CardDice.I_II));
         //GSP.GameState.Players[0].Goods.Add(new Card(CardClass.Goods, CardDice.I_II));
         //GSP.GameState.Players[0].WorkersCount = 3;
         //GSP.GameState.Players[0].SilverCount = 0;
+        GSP.GameState.Players[0].Animals.Clear();
+        GSP.GameState.Players[0].Animals.Add(new Card(CardClass.Cow));
+        GSP.GameState.Players[0].Animals.Add(new Card(CardClass.Pig));
+        GSP.GameState.Players[0].Animals.Add(new Card(CardClass.Sheep));
+        GSP.GameState.Players[0].Animals.Add(new Card(CardClass.Chicken));
         GSP.GameState.Players[0].ProjectArea.Add(new Card(CardClass.ActionCastle, CardDice.II));
 
         GSP.GameState.Players[0].CompletedProjects.Add(new Card(CardClass.ActionCastle, CardDice.V, 0, 1));

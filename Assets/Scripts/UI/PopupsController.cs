@@ -154,6 +154,17 @@ public class PopupsController : MonoBehaviour {
         YourTurnController controller = messageGameObject.AddComponent<YourTurnController>();
     }
 
+    public static void ShowCardZoomPopup(Card card) {
+        Object prefab = Resources.Load("Prefabs/CardZoom");
+        GameObject obj = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+        obj.transform.position = new Vector3(0, 0, -36);
+
+        GameObject canvas = GameObject.Find("PopupsCanvas");
+        obj.transform.SetParent(canvas.transform);
+        CardZoomController controller = obj.AddComponent<CardZoomController>();
+        controller.UpdateView(card);
+    }
+
     public void RemovePopups() {
         foreach (GameObject obj in Trash) {
             Destroy(obj);
