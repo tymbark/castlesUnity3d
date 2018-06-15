@@ -93,7 +93,7 @@ public class CardZoomController : MonoBehaviour {
                 description += "After completing this card you will receive two additional units of silver"; ;
                 break;
             case CardClass.ActionCloister:
-                description += "This card has no additional bonus, but it can be used as a wildcard to complete any triple card"; ;
+                description += "This card has no additional bonus, but it can be used as a wildcard to complete any triple cards stack"; ;
                 break;
             case CardClass.ActionKnowledge:
                 description += "After completing this card you will receive two additional workers"; ;
